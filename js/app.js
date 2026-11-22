@@ -107,7 +107,7 @@
       html += tab(`#/p/${d.slug}`, d.label, d.slug);
     }
     html += '</div><div class="tabs-row secondary">';
-    html += '<a class="chip active" href="/videos/">Videos</a><a class="chip" href="/courses/">Courses</a><a class="chip" href="/programs/">Programs</a><span style="width:10px;flex:0 0 auto"></span>';
+    html += '<a class="chip active" href="/videos/">Videos</a><a class="chip" href="/courses/">Courses</a><a class="chip" href="/programs/">Programs</a><a class="chip" href="/research/">Research</a><a class="chip" href="/people/">People</a><span style="width:10px;flex:0 0 auto"></span>';
     for (const d of DATA.directions) if (SPECIAL.has(d.slug)) html += tab(`#/p/${d.slug}`, d.label, d.slug);
     html += tab('#/builders', BUILDERS.nav, 'leaders') + tab('#/hn', 'HN favorites', 'hn') + tab('#/history', 'History', 'history') + tab('/about/', 'About', 'about');
     html += '</div>';

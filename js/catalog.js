@@ -1,19 +1,25 @@
-/* Courses and Programs pages: one dense, sortable table per page, section chosen by
-   <body data-section>. Data: data/programs.js (window.FC_PROGRAMS).
+/* Courses, Programs, People and Research pages: one dense, sortable table per page, section
+   chosen by <body data-section>. Data: data/programs.js (window.FC_PROGRAMS) for the first two,
+   data/library.js (window.FC_LIBRARY) for the other two.
    State lives in the hash: #f=ai&fmt=MOOC&cost=free&q=rl&sort=provider&dir=asc&view=ranked */
 (function () {
   'use strict';
-  const D = window.FC_PROGRAMS || { fields: [], formats: { courses: [], programs: [], short: {} }, courses: [], programs: [], ranked: [], rankedCategories: [] };
-  const SECTION = document.body.dataset.section === 'courses' ? 'courses' : 'programs';
-  const ITEMS = D[SECTION];
+  const SECTION = ['courses', 'programs', 'people', 'research'].includes(document.body.dataset.section) ? document.body.dataset.section : 'programs';
+  const LIB = SECTION === 'people' || SECTION === 'research';
+  const D = (LIB ? window.FC_LIBRARY : window.FC_PROGRAMS) || { fields: [], formats: { courses: [], programs: [], short: {} }, kinds: {}, courses: [], programs: [], people: [], research: [], ranked: [], rankedCategories: [] };
+  const ITEMS = D[SECTION] || [];
+  const KINDS = LIB ? (D.kinds[SECTION] || []) : D.formats[SECTION];
+  const FILTER_LABEL = { courses: 'Format', programs: 'Format', people: 'Kind', research: 'Type' }[SECTION];
   const $ = (s, el = document) => el.querySelector(s);
   const main = $('#main');
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const store = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
-  const TITLE = { courses: 'Courses', programs: 'Programs' };
+  const TITLE = { courses: 'Courses', programs: 'Programs', people: 'People', research: 'Research' };
   const BLURB = {
     courses: 'Things you take to learn a field: open online courses, self-study texts, bootcamps, cohort courses, workshops and certifications.',
     programs: 'Things you join to enter a field: fellowships, degrees, research training, internships, accelerators, labs and residencies.',
+    people: 'Who to follow and learn from: the researchers, builders, educators and writers whose work is the primary source. Fifty to start, in editorial order within each field.',
+    research: 'What each field is built on: the papers, textbooks, lecture notes and essays to read before the summaries of them. Fifty to start, in editorial order within each field.',
   };
   const field = (slug) => D.fields.find((f) => f.slug === slug);
   const fieldLabel = (slug) => (field(slug) || {}).label || slug;
@@ -58,7 +64,8 @@
     let html = '<div class="tabs-row">' + tab(link({ f: 'all', n: 0 }), 'All', s.f === 'all');
     for (const f of D.fields) html += tab(link({ f: f.slug }), f.label, s.f === f.slug);
     html += '</div><div class="tabs-row secondary">';
-    html += `<a class="chip" href="/videos/">Videos</a><a class="chip ${SECTION === 'courses' ? 'active' : ''}" href="/courses/">Courses</a><a class="chip ${SECTION === 'programs' ? 'active' : ''}" href="/programs/">Programs</a><a class="chip" href="/videos/#/about">About</a>`;
+    for (const [key, label] of [['videos', 'Videos'], ['courses', 'Courses'], ['programs', 'Programs'], ['research', 'Research'], ['people', 'People']]) html += `<a class="chip ${SECTION === key ? 'active' : ''}" href="/${key}/">${label}</a>`;
+    html += '<a class="chip" href="/about/">About</a>';
     html += '</div>';
     $('#tabs').innerHTML = html;
   }
@@ -109,6 +116,68 @@
       ${items.length > s.n ? `<div class="more"><a class="pill-btn" href="${link({ n: s.n + 100 })}">Show more</a></div>` : ''}`;
   }
 
+  // ----------------------------------------------------- people + research
+  function libraryTable(s) {
+    let items = ITEMS.slice();
+    if (s.f !== 'all') items = items.filter((i) => i.fields.includes(s.f));
+    if (s.fmt) items = items.filter((i) => i.kinds.includes(s.fmt));
+    if (s.q) { const terms = s.q.toLowerCase().split(/\s+/); items = items.filter((i) => { const hay = [i.name, i.role, i.org, i.authors, i.year, i.kind, i.note, i.domain, fieldLabel(i.field)].join(' ').toLowerCase(); return terms.every((t) => hay.includes(t)); }); }
+    const byRank = (a, b) => fieldOrder(a.field) - fieldOrder(b.field) || a.rank - b.rank;
+    const cmp = {
+      name: (a, b) => a.name.localeCompare(b.name),
+      kind: (a, b) => a.kind.localeCompare(b.kind) || byRank(a, b),
+      field: byRank,
+      org: (a, b) => (a.org || 'zz').localeCompare(b.org || 'zz') || byRank(a, b),
+      year: (a, b) => (a.year || 0) - (b.year || 0) || byRank(a, b),
+      authors: (a, b) => (a.authors || '').localeCompare(b.authors || '') || byRank(a, b),
+    }[s.sort] || byRank;
+    items.sort(cmp);
+    if (s.dir === 'desc') items.reverse();
+    const base = ITEMS.filter((i) => s.f === 'all' || i.fields.includes(s.f));
+    const kindCount = {}; for (const i of base) for (const x of i.kinds) kindCount[x] = (kindCount[x] || 0) + 1;
+    const filtered = !!(s.fmt || s.q || s.f !== 'all');
+    const fieldTags = (i) => i.fields.map((x) => tag(fieldLabel(x), link({ f: x, n: 0 }))).join('');
+    const kindTags = (i) => i.kinds.map((x) => tag(x, link({ fmt: s.fmt === x ? '' : x, n: 0 }))).join('');
+    let head, rows;
+    if (SECTION === 'people') {
+      const follow = (i) => [i.site ? ext(i.site, i.domain) : '', i.x ? ext('https://x.com/' + i.x, '@' + i.x) : '', i.youtube ? ext(i.youtube, 'YouTube') : ''].filter(Boolean).join(' · ');
+      head = `${th('Person', 'name', s, 'name')}${th('Role', 'org', s)}${th('Kind', 'kind', s)}${th('Field', 'field', s)}<th>Why</th><th>Follow</th>`;
+      rows = items.slice(0, s.n).map((i) => `<tr>
+        <td class="name">${logo(i, i.name)}${ext(i.url, i.name)}</td>
+        <td class="note" title="${esc(i.role)}${i.org ? ' · ' + esc(i.org) : ''}">${esc(i.role)}${i.org ? ` <span class="muted">· ${esc(i.org)}</span>` : ''}</td>
+        <td>${kindTags(i)}</td>
+        <td>${fieldTags(i)}</td>
+        <td class="note wide" title="${esc(i.note)}">${esc(i.note)}</td>
+        <td class="mono-cell">${follow(i)}</td>
+      </tr>`).join('');
+    } else {
+      head = `${th('Title', 'name', s, 'name')}${th('Authors', 'authors', s)}${th('Year', 'year', s, 'num')}${th('Type', 'kind', s)}${th('Field', 'field', s)}<th>Why it matters</th><th>Link</th>`;
+      rows = items.slice(0, s.n).map((i) => `<tr>
+        <td class="name">${ext(i.url, i.name)}</td>
+        <td class="mono-cell">${esc(i.authors)}</td>
+        <td class="mono-cell num">${i.year}</td>
+        <td>${kindTags(i)}</td>
+        <td>${fieldTags(i)}</td>
+        <td class="note wide" title="${esc(i.note)}">${esc(i.note)}</td>
+        <td class="mono-cell">${ext(i.url, i.domain)}</td>
+      </tr>`).join('');
+    }
+    const cols = SECTION === 'people' ? 6 : 7;
+    return `
+      <div class="filters">
+        <div class="filter-row"><span class="filter-label">${FILTER_LABEL}</span>${KINDS.filter((x) => kindCount[x]).map((x) => chip(x, link({ fmt: s.fmt === x ? '' : x, n: 0 }), s.fmt === x, kindCount[x])).join('')}</div>
+        <div class="filter-row">
+          <span class="filter-meta">${filtered ? `<a href="${link({ f: 'all', fmt: '', q: '', n: 0 })}">Clear all</a> · ` : ''}${s.sort ? `<a href="${link({ sort: '', dir: '', n: 0 })}">Reset sort</a> · ` : ''}${Math.min(items.length, s.n)} of ${items.length} shown</span>
+        </div>
+      </div>
+      <div class="table-wrap"><table class="table">
+        <thead><tr>${head}</tr></thead>
+        <tbody>${rows || `<tr><td colspan="${cols}" class="empty-row">Nothing matches. Clear a filter or try another word.</td></tr>`}</tbody>
+      </table></div>
+      ${items.length > s.n ? `<div class="more"><a class="pill-btn" href="${link({ n: s.n + 100 })}">Show more</a></div>` : ''}`;
+  }
+  const fieldOrder = (slug) => { const i = D.fields.findIndex((f) => f.slug === slug); return i < 0 ? 99 : i; };
+
   // ------------------------------------------------------------ ranked table
   function rankedTable(s) {
     let rs = D.ranked.slice();
@@ -155,7 +224,7 @@
       <p class="blurb">${BLURB[SECTION]}${f ? ` · <a href="/learn/${f.slug}/">How to learn ${esc(f.label.toLowerCase())} →</a>` : ' · <a href="/learn/">How to learn each field →</a>'}</p>
       ${SECTION === 'programs' ? `<div class="subtabs"><a class="chip small ${!ranked ? 'active' : ''}" href="${link({ view: '', cat: '', n: 0 })}">All programs <span>${D.programs.length}</span></a><a class="chip small ${ranked ? 'active' : ''}" href="${link({ view: 'ranked', fmt: '', cost: '', n: 0 })}">Ranked by founder outcomes <span>${D.ranked.length}</span></a></div>` : ''}
     </header>`;
-    html += ranked ? rankedTable(s) : mainTable(s);
+    html += ranked ? rankedTable(s) : LIB ? libraryTable(s) : mainTable(s);
     main.innerHTML = html;
     document.title = `${TITLE[SECTION]}${f ? ' · ' + f.name : ''}${ranked ? ' · Ranked' : ''} · Frontier Concepts`;
     $('#search-input').value = s.q;

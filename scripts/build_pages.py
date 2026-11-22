@@ -179,7 +179,7 @@ def main():
     dirs = data["directions"]
     videos = data["videos"]
     today = dt.date.today().isoformat()
-    urls = [(BASE + "/", "weekly", "1.0"), (BASE + "/videos/", "daily", "0.9"), (BASE + "/courses/", "weekly", "0.9"), (BASE + "/programs/", "weekly", "0.9")]
+    urls = [(BASE + "/", "weekly", "1.0"), (BASE + "/videos/", "daily", "0.9"), (BASE + "/courses/", "weekly", "0.9"), (BASE + "/programs/", "weekly", "0.9"), (BASE + "/research/", "weekly", "0.9"), (BASE + "/people/", "weekly", "0.9")]
 
     for d in dirs:
         vids = sorted([v for v in videos if d["slug"] in v["directions"]], key=lambda v: -v["views"])
@@ -188,6 +188,12 @@ def main():
         out.write_text(playlist_page(d, vids, dirs))
         urls.append((f"{BASE}/p/{d['slug']}/", "weekly", "0.8"))
 
+    # People and Research counts for llms.txt (data/library.json, from scripts/build_library.py).
+    try:
+        lib = json.loads((DATA / "library.json").read_text())
+        lib_n = {"people": len(lib["people"]), "research": len(lib["research"])}
+    except Exception:  # noqa: BLE001
+        lib_n = {"people": 0, "research": 0}
     # Small data file for the home page map: counts per field and section.
     try:
         progs = json.loads((DATA / "programs.json").read_text())
@@ -197,7 +203,7 @@ def main():
                         "courses": sum(1 for c in progs["courses"] if d["slug"] in c.get("fields", [c["field"]])),
                         "programs": sum(1 for c in progs["programs"] if d["slug"] in c.get("fields", [c["field"]]))}
                        for d in dirs if d["slug"] not in ("startup", "theory")],
-            "totals": {"videos": len(videos), "courses": len(progs["courses"]), "programs": len(progs["programs"]), "ranked": len(progs["ranked"]),
+            "totals": {"videos": len(videos), "courses": len(progs["courses"]), "programs": len(progs["programs"]), "ranked": len(progs["ranked"]), **lib_n,
                        "hn": sum(1 for v in videos if v.get("hn")), "builders": sum(1 for v in videos if v.get("leader")),
                        "startup": sum(1 for v in videos if "startup" in v["directions"]), "theory": sum(1 for v in videos if "theory" in v["directions"])},
         }
@@ -237,8 +243,7 @@ def main():
     for d in dirs:
         n = sum(1 for v in videos if d["slug"] in v["directions"])
         lines.append(f"- [{d['name']}]({BASE}/p/{d['slug']}/): {PLAYLIST_BLURB.get(d['slug'], '')} ({n} videos)")
-    lines += ["", "## Start here: how to learn each field", ""] + guide_lines + ["", "## Sections", "", f"- [Videos]({BASE}/videos/): the open section, {len(videos)} videos", f"- [Courses]({BASE}/courses/): open online courses, self-study texts, bootcamps, cohort courses, workshops and certifications per field", f"- [Programs]({BASE}/programs/): fellowships, degrees, research training, internships, accelerators, labs and residencies, plus programs ranked by founder outcomes", "- Research, People: planned sections, not yet open
-- Join: a learning assistant that turns the catalogue into a personal path (where to start, what to skip, what comes next); in the works, waitlist open", "", "## Features", "",
+    lines += ["", "## Start here: how to learn each field", ""] + guide_lines + ["", "## Sections", "", f"- [Videos]({BASE}/videos/): the open section, {len(videos)} videos", f"- [Courses]({BASE}/courses/): open online courses, self-study texts, bootcamps, cohort courses, workshops and certifications per field", f"- [Programs]({BASE}/programs/): fellowships, degrees, research training, internships, accelerators, labs and residencies, plus programs ranked by founder outcomes", f"- [Research]({BASE}/research/): {lib_n['research']} papers, textbooks, lecture notes and essays each field is built on, each with why it matters", f"- [People]({BASE}/people/): {lib_n['people']} researchers, builders, educators and writers to follow, with where to find their work", "- Join: a learning assistant that turns the catalogue into a personal path (where to start, what to skip, what comes next); in the works, waitlist open", "", "## Features", "",
               f"- [TV mode]({BASE}/videos/#/tv): lean-back playback of any playlist with keyboard controls",
               f"- [Builders]({BASE}/videos/#/builders): explainers from the companies building each field",
               f"- [Hacker News favorites]({BASE}/videos/#/hn): videos linked repeatedly on Hacker News",

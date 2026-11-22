@@ -133,7 +133,7 @@ def shell(title, description, canonical, body, jsonld, crumbs):
 
 def brand_nav(active=""):
     from build_pages import brand
-    links = [("Videos", "/videos/"), ("Courses", "/courses/"), ("Programs", "/programs/"), ("About", "/about/")]
+    links = [("Videos", "/videos/"), ("Courses", "/courses/"), ("Programs", "/programs/"), ("Research", "/research/"), ("People", "/people/"), ("About", "/about/")]
     return brand() + '<nav class="chips" style="position:static">' + "".join(
         f'<a class="chip small {"active" if l == active else ""}" href="{u}">{l}</a>' for l, u in links) + "</nav>"
 

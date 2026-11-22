@@ -98,7 +98,7 @@
     return `
       <div class="filters">
         <div class="filter-row"><span class="filter-label">Format</span>${D.formats[SECTION].filter((x) => fmtCount[x]).map((x) => chip(x, link({ fmt: s.fmt === x ? '' : x, n: 0 }), s.fmt === x, fmtCount[x])).join('')}</div>
-        <div class="filter-row"><span class="filter-label">Cost</span>${['free', 'funded', 'paid'].filter((c) => costCount[c]).map((c) => chip(c, link({ cost: s.cost === c ? '' : c, n: 0 }), s.cost === c, costCount[c])).join('')}
+        <div class="filter-row">
           <span class="filter-meta">${filtered ? `<a href="${link({ f: 'all', fmt: '', cost: '', q: '', n: 0 })}">Clear all</a> · ` : ''}${s.sort ? `<a href="${link({ sort: '', dir: '', n: 0 })}">Reset sort</a> · ` : ''}${Math.min(items.length, s.n)} of ${items.length} shown</span>
         </div>
       </div>

@@ -388,7 +388,6 @@
       <p>Pick a playlist and let it play. Controls fade while you watch: <span class="kbd">→</span> next, <span class="kbd">←</span> previous, <span class="kbd">Space</span> pause, <span class="kbd">S</span> shuffle, <span class="kbd">F</span> full screen, <span class="kbd">Esc</span> exit.</p>
       <h2>Organizations by direction</h2>
       ${provDetails}
-      <p style="color:var(--ink-3)">Created by <a href="https://x.com/andrewsor_" target="_blank" rel="noopener">@andrewsor_</a>. Videos belong to their creators and are streamed from YouTube.</p>
     </article>`;
   }
 

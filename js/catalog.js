@@ -67,7 +67,7 @@
   function mainTable(s) {
     let items = ITEMS.slice();
     if (s.f !== 'all') items = items.filter((i) => i.field === s.f);
-    if (s.fmt) items = items.filter((i) => i.format === s.fmt);
+    if (s.fmt) items = items.filter((i) => i.fmt === s.fmt);
     if (s.cost) items = items.filter((i) => i.cost === s.cost);
     if (s.q) { const terms = s.q.toLowerCase().split(/\s+/); items = items.filter((i) => { const hay = (i.name + ' ' + i.provider + ' ' + i.note + ' ' + i.fmt + ' ' + fieldLabel(i.field)).toLowerCase(); return terms.every((t) => hay.includes(t)); }); }
     const cmp = {
@@ -83,31 +83,28 @@
     if (s.dir === 'desc') items.reverse();
 
     const base = ITEMS.filter((i) => s.f === 'all' || i.field === s.f);
-    const fmtCount = {}; for (const i of base) fmtCount[i.format] = (fmtCount[i.format] || 0) + 1;
+    const fmtCount = {}; for (const i of base) fmtCount[i.fmt] = (fmtCount[i.fmt] || 0) + 1;
     const costCount = {}; for (const i of base) if (i.cost) costCount[i.cost] = (costCount[i.cost] || 0) + 1;
     const filtered = !!(s.fmt || s.cost || s.q || s.f !== 'all');
 
     const rows = items.slice(0, s.n).map((i) => `<tr>
-        <td class="name">${logo(i, i.provider || i.name)}${i.url ? ext(i.url, i.name) : esc(i.name)}</td>
-        <td class="mono-cell">${esc(i.provider)}</td>
-        <td>${tag(i.fmt, link({ fmt: i.format, n: 0 }))}</td>
+        <td class="name" title="${esc(i.provider)}">${logo(i, i.provider || i.name)}${i.url ? ext(i.url, i.name) : esc(i.name)}</td>
+        <td>${tag(i.fmt, link({ fmt: i.fmt, n: 0 }))}</td>
         <td>${tag(fieldLabel(i.field), link({ f: i.field, n: 0 }))}</td>
-        <td class="mono-cell">${esc(i.cost)}</td>
-        <td class="mono-cell">${esc(i.level || i.access || i.selectivity)}</td>
-        <td class="note" title="${esc(i.note)}">${esc(i.note)}</td>
+        <td class="note wide" title="${esc(i.note)}">${esc(i.note)}</td>
         <td class="mono-cell">${i.url ? ext(i.url, i.domain || 'link') : ''}</td>
       </tr>`).join('');
 
     return `
       <div class="filters">
-        <div class="filter-row"><span class="filter-label">Format</span>${D.formats[SECTION].filter((x) => fmtCount[x]).map((x) => chip(D.formats.short[x] || x, link({ fmt: s.fmt === x ? '' : x, n: 0 }), s.fmt === x, fmtCount[x])).join('')}</div>
+        <div class="filter-row"><span class="filter-label">Format</span>${D.formats[SECTION].filter((x) => fmtCount[x]).map((x) => chip(x, link({ fmt: s.fmt === x ? '' : x, n: 0 }), s.fmt === x, fmtCount[x])).join('')}</div>
         <div class="filter-row"><span class="filter-label">Cost</span>${['free', 'funded', 'paid'].filter((c) => costCount[c]).map((c) => chip(c, link({ cost: s.cost === c ? '' : c, n: 0 }), s.cost === c, costCount[c])).join('')}
           <span class="filter-meta">${filtered ? `<a href="${link({ f: 'all', fmt: '', cost: '', q: '', n: 0 })}">Clear all</a> · ` : ''}${s.sort ? `<a href="${link({ sort: '', dir: '', n: 0 })}">Reset sort</a> · ` : ''}${Math.min(items.length, s.n)} of ${items.length} shown</span>
         </div>
       </div>
       <div class="table-wrap"><table class="table">
-        <thead><tr>${th(SECTION === 'courses' ? 'Course' : 'Program', 'name', s, 'name')}${th('Provider', 'provider', s)}${th('Format', 'format', s)}${th('Field', 'field', s)}${th('Cost', 'cost', s)}${th('Level / access', 'level', s)}<th>Note</th><th>Link</th></tr></thead>
-        <tbody>${rows || '<tr><td colspan="8" class="empty-row">Nothing matches. Clear a filter or try another word.</td></tr>'}</tbody>
+        <thead><tr>${th(SECTION === 'courses' ? 'Course' : 'Program', 'name', s, 'name')}${th('Format', 'format', s)}${th('Field', 'field', s)}<th>Why it's here</th><th>Link</th></tr></thead>
+        <tbody>${rows || '<tr><td colspan="5" class="empty-row">Nothing matches. Clear a filter or try another word.</td></tr>'}</tbody>
       </table></div>
       ${items.length > s.n ? `<div class="more"><a class="pill-btn" href="${link({ n: s.n + 100 })}">Show more</a></div>` : ''}`;
   }

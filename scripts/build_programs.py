@@ -51,17 +51,24 @@ PROGRAM_FORMATS = [
     "Community of practice", "Competition / challenge", "Learning retreat / immersion",
     "Professional development program", "Field school / expedition",
 ]
+# Display names: shorter, plainer, and a few near-duplicates merged
+# (guided study -> self-study, tutoring -> coaching, cohort course -> live course).
 FORMAT_SHORT = {
-    "Open online course / MOOC": "MOOC", "Self-study": "Self-study", "Live course": "Live course",
-    "Cohort-based course": "Cohort course", "Bootcamp": "Bootcamp", "Guided independent study": "Guided study",
+    "Open online course / MOOC": "Online course", "Self-study": "Self-study", "Live course": "Live course",
+    "Cohort-based course": "Live course", "Bootcamp": "Bootcamp", "Guided independent study": "Self-study",
     "Workshop / masterclass": "Workshop", "Professional certification program": "Certification",
-    "Corporate training program": "Corporate training", "Studio / project-based program": "Project studio",
-    "1:1 tutoring / coaching": "Tutoring", "Fellowship": "Fellowship", "Academic degree program": "Degree",
+    "Corporate training program": "Corporate", "Studio / project-based program": "Project-based",
+    "1:1 tutoring / coaching": "Coaching", "Fellowship": "Fellowship", "Academic degree program": "Degree",
     "Research training program": "Research training", "Internship / work placement": "Internship",
-    "Accelerator / incubator": "Accelerator", "Laboratory program": "Lab program", "Residency": "Residency",
+    "Accelerator / incubator": "Accelerator", "Laboratory program": "Lab", "Residency": "Residency",
     "Apprenticeship": "Apprenticeship", "Mentorship program": "Mentorship", "Community of practice": "Community",
     "Competition / challenge": "Competition", "Learning retreat / immersion": "Retreat",
     "Professional development program": "Professional development", "Field school / expedition": "Field school",
+}
+# Order of the format chips on each page (display names, deduplicated after merging).
+FORMAT_ORDER = {
+    "courses": ["Online course", "Self-study", "Live course", "Bootcamp", "Workshop", "Certification", "Project-based", "Corporate", "Coaching"],
+    "programs": ["Fellowship", "Degree", "Research training", "Internship", "Accelerator", "Lab", "Residency", "Apprenticeship", "Mentorship", "Community", "Competition", "Retreat", "Professional development", "Field school"],
 }
 
 
@@ -266,7 +273,7 @@ def main():
     programs = [i for i in items if i["section"] == "programs"]
     out = {
         "fields": [{"slug": s, "name": n, "label": l} for n, s, l in FIELDS],
-        "formats": {"courses": COURSE_FORMATS, "programs": PROGRAM_FORMATS, "short": FORMAT_SHORT},
+        "formats": {"courses": FORMAT_ORDER["courses"], "programs": FORMAT_ORDER["programs"], "short": FORMAT_SHORT},
         "courses": courses,
         "programs": programs,
         "ranked": ranked,

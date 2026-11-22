@@ -29,7 +29,7 @@
   // --------------------------------------------------------------- index
   function renderIndex() {
     const el = $('#index');
-    el.innerHTML = SECTIONS.map((s) => `
+    el.insertAdjacentHTML('beforeend', SECTIONS.map((s) => `
       <div class="row ${s.open ? '' : 'locked'}" data-key="${s.key}">
         <button class="row-head" ${s.open ? '' : 'disabled'} aria-expanded="false">
           <span class="row-sym">${sym(s.key)}</span>
@@ -37,7 +37,7 @@
           <span class="row-plus" aria-hidden="true">${s.open ? '+' : '<svg viewBox="0 0 24 24" width="14" height="14"><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>'}</span>
         </button>
         ${s.open ? `<div class="row-body"><p>${esc(s.line)}<a href="${s.href}">Open →</a></p></div>` : ''}
-      </div>`).join('');
+      </div>`).join(''));
     el.addEventListener('click', (e) => {
       const head = e.target.closest('.row-head');
       if (!head || head.disabled) return;

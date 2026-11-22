@@ -130,14 +130,14 @@ def playlist_page(d: dict, videos: list[dict], all_dirs: list[dict]) -> str:
     for v in videos:
         who = v.get("channel", "")
         items.append(
-            f'<li><a href="/#/w/{v["id"]}?p={slug}"><img loading="lazy" src="https://i.ytimg.com/vi/{v["id"]}/mqdefault.jpg" alt=""></a>'
-            f'<div><h2><a href="/#/w/{v["id"]}?p={slug}">{esc(v["title"])}</a></h2>'
+            f'<li><a href="/videos/#/w/{v["id"]}?p={slug}"><img loading="lazy" src="https://i.ytimg.com/vi/{v["id"]}/mqdefault.jpg" alt=""></a>'
+            f'<div><h2><a href="/videos/#/w/{v["id"]}?p={slug}">{esc(v["title"])}</a></h2>'
             f'<div class="meta">{esc(who)} · {fmt_views(v["views"])} · {v.get("published", "")[:4]}</div>'
             + (f'<p>{esc(v["description"][:180])}…</p>' if v.get("description") else "") + "</div></li>")
     body = (brand() + nav + f"<h1>{esc(name)}</h1><p class=\"lede\">{esc(blurb)} {len(videos)} videos, ordered by views. "
-            f'<a href="/#/p/{slug}">Open the playlist in {NAME}</a> or <a href="/#/tv?p={slug}">watch it in TV mode</a>.</p>'
+            f'<a href="/videos/#/p/{slug}">Open the playlist in {NAME}</a> or <a href="/videos/#/tv?p={slug}">watch it in TV mode</a>.</p>'
             + '<ul class="vlist">' + "".join(items) + "</ul>"
-            + f'<p class="lede"><a href="/">{NAME} home</a> · <a href="/#/about">About</a></p>')
+            + f'<p class="lede"><a href="/">{NAME} home</a> · <a href="/videos/#/about">About</a></p>')
     jsonld = {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
@@ -161,7 +161,7 @@ def playlist_page(d: dict, videos: list[dict], all_dirs: list[dict]) -> str:
                         "uploadDate": v.get("published") or None,
                         "duration": iso_duration(int(v.get("duration", 0))),
                         "embedUrl": f"https://www.youtube-nocookie.com/embed/{v['id']}",
-                        "url": f"{BASE}/#/w/{v['id']}?p={slug}",
+                        "url": f"{BASE}/videos/#/w/{v['id']}?p={slug}",
                         "author": {"@type": "Organization", "name": v.get("channel", "")},
                         "interactionStatistic": {"@type": "InteractionCounter", "interactionType": "https://schema.org/WatchAction", "userInteractionCount": v.get("views", 0)},
                     },
@@ -178,7 +178,7 @@ def main():
     dirs = data["directions"]
     videos = data["videos"]
     today = dt.date.today().isoformat()
-    urls = [(BASE + "/", "daily", "1.0")]
+    urls = [(BASE + "/", "weekly", "1.0"), (BASE + "/videos/", "daily", "0.9")]
 
     for d in dirs:
         vids = sorted([v for v in videos if d["slug"] in v["directions"]], key=lambda v: -v["views"])
@@ -208,11 +208,11 @@ def main():
     for d in dirs:
         n = sum(1 for v in videos if d["slug"] in v["directions"])
         lines.append(f"- [{d['name']}]({BASE}/p/{d['slug']}/): {PLAYLIST_BLURB.get(d['slug'], '')} ({n} videos)")
-    lines += ["", "## Features", "",
-              f"- [TV mode]({BASE}/#/tv): lean-back playback of any playlist with keyboard controls",
-              f"- [Builders]({BASE}/#/builders): explainers from the companies building each field",
-              f"- [Hacker News favorites]({BASE}/#/hn): videos linked repeatedly on Hacker News",
-              f"- [About]({BASE}/#/about): how videos are chosen",
+    lines += ["", "## Sections", "", f"- [Videos]({BASE}/videos/): the open section, {len(videos)} videos", "- Courses, Programs, Research, People, Companies: planned sections, not yet open", "", "## Features", "",
+              f"- [TV mode]({BASE}/videos/#/tv): lean-back playback of any playlist with keyboard controls",
+              f"- [Builders]({BASE}/videos/#/builders): explainers from the companies building each field",
+              f"- [Hacker News favorites]({BASE}/videos/#/hn): videos linked repeatedly on Hacker News",
+              f"- [About]({BASE}/videos/#/about): how videos are chosen",
               "", "## Optional", "", f"- [Full catalogue]({BASE}/llms-full.txt): every video by playlist, with channel and YouTube id", ""]
     (SITE / "llms.txt").write_text("\n".join(lines))
 
@@ -222,13 +222,13 @@ def main():
         full.append(f"### {d['name']} ({len(vids)})")
         full.append("")
         for v in vids:
-            full.append(f"- {v['title']} — {v.get('channel', '')} — https://www.youtube.com/watch?v={v['id']} — on {NAME}: {BASE}/#/w/{v['id']}?p={d['slug']}")
+            full.append(f"- {v['title']} — {v.get('channel', '')} — https://www.youtube.com/watch?v={v['id']} — on {NAME}: {BASE}/videos/#/w/{v['id']}?p={d['slug']}")
         full.append("")
     (SITE / "llms-full.txt").write_text("\n".join(full))
 
     (SITE / "404.html").write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>{NAME}</title>
 <meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=/">
-<script>location.replace('/' + (location.hash || ''));</script></head>
+<script>location.replace(location.hash ? '/videos/' + location.hash : '/');</script></head>
 <body style="font-family:sans-serif;background:#0f0f0f;color:#f1f1f1;padding:40px">Taking you to <a href="/" style="color:#fff">{NAME}</a>…</body></html>
 """)
     print(f"wrote {len(dirs)} playlist pages, sitemap.xml, robots.txt, llms.txt, llms-full.txt, 404.html")

@@ -18,12 +18,17 @@ Frontier Concepts (https://frontierconcepts.org) is a restricted view of YouTube
 - [Start a Company](https://frontierconcepts.org/p/startup/): Founder stories, podcasts and interviews where company building meets the frontier. (100 videos)
 - [Advanced Theory](https://frontierconcepts.org/p/theory/): The hard stuff: curated lectures and explainers of the deep theory behind each field. (68 videos)
 
+## Sections
+
+- [Videos](https://frontierconcepts.org/videos/): the open section, 1960 videos
+- Courses, Programs, Research, People, Companies: planned sections, not yet open
+
 ## Features
 
-- [TV mode](https://frontierconcepts.org/#/tv): lean-back playback of any playlist with keyboard controls
-- [Builders](https://frontierconcepts.org/#/builders): explainers from the companies building each field
-- [Hacker News favorites](https://frontierconcepts.org/#/hn): videos linked repeatedly on Hacker News
-- [About](https://frontierconcepts.org/#/about): how videos are chosen
+- [TV mode](https://frontierconcepts.org/videos/#/tv): lean-back playback of any playlist with keyboard controls
+- [Builders](https://frontierconcepts.org/videos/#/builders): explainers from the companies building each field
+- [Hacker News favorites](https://frontierconcepts.org/videos/#/hn): videos linked repeatedly on Hacker News
+- [About](https://frontierconcepts.org/videos/#/about): how videos are chosen
 
 ## Optional
 

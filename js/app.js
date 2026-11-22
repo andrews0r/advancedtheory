@@ -451,7 +451,7 @@
       <div class="tv-player"><div id="tv-player"></div></div>
       <div class="tv-overlay">
         <div class="tv-top">
-          <a class="tv-brand" href="#/" title="Back to the home page"><svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28" /><path d="M10 2v28" /><path d="M14 2v28" /><path d="M18 2v28" /><path d="M22 2v28" /><path d="M26 2v28" /><path d="M2 6h28" /><path d="M2 10h28" /><path d="M2 14h28" /><path d="M2 18h28" /><path d="M2 22h28" /><path d="M2 26h28" /></g><g stroke="#ffffff" stroke-width="1.1" fill="none" stroke-linecap="round"><circle cx="16" cy="16" r="11"/></g></svg> frontier <span class="brand-tv">concepts.</span></a>
+          <a class="tv-brand" href="/" title="Back to the home page"><svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28" /><path d="M10 2v28" /><path d="M14 2v28" /><path d="M18 2v28" /><path d="M22 2v28" /><path d="M26 2v28" /><path d="M2 6h28" /><path d="M2 10h28" /><path d="M2 14h28" /><path d="M2 18h28" /><path d="M2 22h28" /><path d="M2 26h28" /></g><g stroke="#ffffff" stroke-width="1.1" fill="none" stroke-linecap="round"><circle cx="16" cy="16" r="11"/></g></svg> frontier <span class="brand-tv">concepts.</span></a>
           <div class="tv-pl">${chip('all', 'Everything', DATA.videos.length)}${DATA.directions.map((d) => chip(d.slug, d.label, d.count)).join('')}</div>
           <button class="tv-btn" data-tv="exit" title="Exit TV mode (Esc)">${svg('M19 6.4L17.6 5 12 10.6 6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6z', 20)}</button>
         </div>
@@ -635,11 +635,7 @@
     }
   }
 
-  $('.brand').addEventListener('click', (e) => {
-    e.preventDefault();
-    if (location.hash === '#/' || location.hash === '' || location.hash === '#') { window.scrollTo(0, 0); route(); }
-    else go('#/');
-  });
+  // The wordmark links to the site home page (/); the All tab is the videos home.
   main.addEventListener('click', (e) => {
     const vt = e.target.closest('.vt');
     if (vt) { store.set('fa-view', vt.dataset.view); route(); return; }

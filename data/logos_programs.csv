@@ -1,0 +1,766 @@
+Direction,Program format,Rank,Program,Provider,Why it ranks,logo_filename,source_domain
+Artificial Intelligence,Self-study,1,"Deep Learning (Goodfellow, Bengio, Courville)",MIT Press (free online),Canonical deep learning textbook; Turing Award co-author,MIT Press (free online).png,mitpress.mit.edu
+Artificial Intelligence,Self-study,2,Neural Networks: Zero to Hero,Andrej Karpathy (YouTube),"Build GPT from scratch; ex-OpenAI founding member, ex-Tesla AI lead",Andrej Karpathy (YouTube).jpg,youtube.com/@AndrejKarpathy
+Artificial Intelligence,Self-study,3,Dive into Deep Learning (d2l.ai),"Zhang, Lipton, Li, Smola",Interactive book adopted by 500+ universities,"Zhang, Lipton, Li, Smola.png",d2l.ai
+Artificial Intelligence,Self-study,4,Practical Deep Learning for Coders,fast.ai (Jeremy Howard),"Free, top-down practitioner curriculum with huge alumni base",fast.ai (Jeremy Howard).png,fast.ai
+Artificial Intelligence,Self-study,5,Reinforcement Learning: An Introduction,Sutton & Barto,Definitive RL text; 2024 Turing Award authors,Sutton & Barto.png,mitpress.mit.edu
+Artificial Intelligence,Self-study,6,Understanding Deep Learning,"Simon Prince (MIT Press, free PDF)",Rigorous modern text covering transformers and diffusion,"Simon Prince (MIT Press, free PDF).png",mitpress.mit.edu
+Artificial Intelligence,Self-study,7,Hugging Face LLM Course,Hugging Face,Industry-standard open-source model stack,Hugging Face.svg,huggingface.co
+Artificial Intelligence,Self-study,8,Spinning Up in Deep RL,OpenAI,Canonical hands-on RL primer,OpenAI.png,openai.com
+Artificial Intelligence,Self-study,9,Pattern Recognition and Machine Learning,Christopher Bishop (Microsoft Research),Classic probabilistic ML reference,Christopher Bishop (Microsoft Research).png,microsoft.com
+Artificial Intelligence,Self-study,10,Neural Networks series + The Illustrated Transformer,3Blue1Brown / Jay Alammar,Best visual intuition for neural nets and transformers,3Blue1Brown - Jay Alammar.svg,3blue1brown.com
+Artificial Intelligence,Open online course / MOOC,1,Machine Learning Specialization,Stanford & DeepLearning.AI (Coursera),Andrew Ng; most-enrolled ML course ever,Stanford & DeepLearning.AI (Coursera).png,stanford.edu
+Artificial Intelligence,Open online course / MOOC,2,Deep Learning Specialization,DeepLearning.AI (Coursera),Andrew Ng; standard DL on-ramp,DeepLearning.AI (Coursera).png,deeplearning.ai
+Artificial Intelligence,Open online course / MOOC,3,CS231n Deep Learning for Computer Vision,Stanford (YouTube / course site),Fei-Fei Li & Karpathy legacy course,Stanford (YouTube - course site).png,stanford.edu
+Artificial Intelligence,Open online course / MOOC,4,CS224n NLP with Deep Learning,Stanford (YouTube),Christopher Manning; the reference NLP course,Stanford (YouTube).png,stanford.edu
+Artificial Intelligence,Open online course / MOOC,5,CS229 Machine Learning,Stanford Online (YouTube),Stanford's flagship ML course,Stanford Online (YouTube).png,online.stanford.edu
+Artificial Intelligence,Open online course / MOOC,6,MIT 6.S191 Introduction to Deep Learning,MIT (YouTube),Refreshed yearly; MIT faculty,MIT (YouTube).svg,mit.edu
+Artificial Intelligence,Open online course / MOOC,7,CS285 Deep Reinforcement Learning,"UC Berkeley (Sergey Levine, YouTube)",Top deep RL course from BAIR,"UC Berkeley (Sergey Levine, YouTube).svg",berkeley.edu
+Artificial Intelligence,Open online course / MOOC,8,CS50's Introduction to AI with Python,Harvard (edX),"Harvard CS50 production quality, free",Harvard (edX).png,harvard.edu
+Artificial Intelligence,Open online course / MOOC,9,5-Day Gen AI Intensive,Google & Kaggle,Google-authored; 100K+ participants per run,Google & Kaggle.png,kaggle.com
+Artificial Intelligence,Open online course / MOOC,10,Elements of AI,University of Helsinki & MinnaLearn,1M+ learners; best non-technical AI literacy course,University of Helsinki & MinnaLearn.ico,helsinki.fi
+Artificial Intelligence,Live course,1,AI Evals for Engineers & PMs,Maven (Hamel Husain & Shreya Shankar),Top-rated Maven AI course; evals for production LLMs,Maven (Hamel Husain & Shreya Shankar).png,maven.com
+Artificial Intelligence,Live course,2,NVIDIA DLI instructor-led workshops,NVIDIA Deep Learning Institute,GPU-backed labs with NVIDIA certificate,NVIDIA Deep Learning Institute.svg,nvidia.com
+Artificial Intelligence,Live course,3,Stanford AI Professional Program (XCS courses),Stanford Online,Stanford graduate content with live course facilitators,Stanford Online.png,online.stanford.edu
+Artificial Intelligence,Live course,4,Applied AI & Data Science,MIT Professional Education,"MIT faculty, live online sessions",MIT Professional Education.png,professional.mit.edu
+Artificial Intelligence,Live course,5,LLM application engineering courses,Maven (various top practitioners),Leading live-course marketplace for applied AI,Maven (various top practitioners).png,maven.com
+Artificial Intelligence,Cohort-based course,1,AI Safety Fundamentals (Alignment & Governance),BlueDot Impact,Free; feeder for AI safety labs and policy roles,BlueDot Impact.png,bluedot.org
+Artificial Intelligence,Cohort-based course,2,Professional Certificate in Machine Learning & AI,MIT xPRO,MIT-branded cohort with graded projects,MIT xPRO.ico,xpro.mit.edu
+Artificial Intelligence,Cohort-based course,3,AI Graduate Certificate cohorts,Stanford Online (SCPD),For-credit Stanford graduate courses,Stanford Online (SCPD).png,online.stanford.edu
+Artificial Intelligence,Cohort-based course,4,AI: Business Strategies and Applications,Berkeley Executive Education,"Berkeley faculty, cohort format",Berkeley Executive Education.svg,executive.berkeley.edu
+Artificial Intelligence,Cohort-based course,5,Generative AI courses,Uplimit,Cohort courses taught by industry practitioners,Uplimit.svg,uplimit.com
+Artificial Intelligence,Academic degree program,1,PhD in Computer Science (AI),Stanford University (SAIL),Top-ranked AI research program,Stanford University (SAIL).png,ai.stanford.edu
+Artificial Intelligence,Academic degree program,2,PhD in EECS (AI),MIT (CSAIL),Top-ranked; largest AI lab in academia,MIT (CSAIL).svg,csail.mit.edu
+Artificial Intelligence,Academic degree program,3,PhD in EECS (BAIR),UC Berkeley,Top-ranked; Berkeley AI Research,UC Berkeley.svg,berkeley.edu
+Artificial Intelligence,Academic degree program,4,PhD / MS in Machine Learning,Carnegie Mellon University,First dedicated ML department in the world,Carnegie Mellon University.svg,cmu.edu
+Artificial Intelligence,Academic degree program,5,MPhil in Machine Learning and Machine Intelligence,University of Cambridge,Elite one-year research master's,University of Cambridge.svg,cam.ac.uk
+Artificial Intelligence,Academic degree program,6,AIMS CDT (Autonomous Intelligent Machines & Systems),University of Oxford,Funded doctoral training centre,University of Oxford.png,ox.ac.uk
+Artificial Intelligence,Academic degree program,7,PhD / MSc in Computer Science,ETH Zurich (ETH AI Center),Europe's top technical university,ETH Zurich (ETH AI Center).svg,ai.ethz.ch
+Artificial Intelligence,Academic degree program,8,PhD in Machine Learning,Mila / Université de Montréal,Yoshua Bengio's institute,Mila - Université de Montréal.svg,mila.quebec
+Artificial Intelligence,Academic degree program,9,PhD in Computer Science,University of Toronto / Vector Institute,Birthplace of the deep learning revolution (Hinton),University of Toronto - Vector Institute.ico,utoronto.ca
+Artificial Intelligence,Academic degree program,10,Online MS in Computer Science (ML specialization),Georgia Tech OMSCS,Top-10 CS school at under $8K total,Georgia Tech OMSCS.ico,omscs.gatech.edu
+Artificial Intelligence,Professional certification program,1,Professional Machine Learning Engineer,Google Cloud,Most respected cloud ML certification,Google Cloud.svg,cloud.google.com
+Artificial Intelligence,Professional certification program,2,Machine Learning Engineer – Associate,AWS,AWS's ML certification track,AWS.png,aws.amazon.com
+Artificial Intelligence,Professional certification program,3,Azure AI Engineer Associate,Microsoft,Microsoft's AI engineering credential,Microsoft.png,microsoft.com
+Artificial Intelligence,Professional certification program,4,Stanford Graduate Certificate in Artificial Intelligence,Stanford Center for Professional Development,For-credit graduate certificate,Stanford Center for Professional Development.png,online.stanford.edu
+Artificial Intelligence,Professional certification program,5,Professional Certificate Program in ML & AI,MIT Professional Education,MIT-issued certificate,MIT Professional Education.png,professional.mit.edu
+Artificial Intelligence,Professional certification program,6,AI Governance Professional (AIGP),IAPP,Leading AI governance credential,IAPP.ico,iapp.org
+Artificial Intelligence,Professional certification program,7,Generative AI LLMs Associate,NVIDIA,Vendor certification for LLM skills,NVIDIA.svg,nvidia.com
+Artificial Intelligence,Professional certification program,8,Machine Learning Professional,Databricks,Applied ML on the lakehouse stack,Databricks.svg,databricks.com
+Artificial Intelligence,Professional certification program,9,ISO/IEC 42001 Lead Implementer,PECB,AI management-system standard,PECB.svg,pecb.com
+Artificial Intelligence,Workshop / masterclass,1,NeurIPS tutorials & workshops,NeurIPS Foundation,Premier ML venue,NeurIPS Foundation.svg,neurips.cc
+Artificial Intelligence,Workshop / masterclass,2,ICML / ICLR tutorials & workshops,ICML / ICLR,Top-tier ML venues,ICML - ICLR.ico,icml.cc
+Artificial Intelligence,Workshop / masterclass,3,Simons Institute boot camps,UC Berkeley Simons Institute,Elite theory-of-ML programs,UC Berkeley Simons Institute.svg,simons.berkeley.edu
+Artificial Intelligence,Workshop / masterclass,4,AI Engineer World's Fair workshops,AI Engineer,Practitioner masterclasses from frontier labs,AI Engineer.png,ai.engineer
+Artificial Intelligence,Workshop / masterclass,5,NVIDIA GTC training labs,NVIDIA,Hands-on workshops at GTC,NVIDIA.svg,nvidia.com
+Artificial Intelligence,Workshop / masterclass,6,CVPR tutorials,CVF / IEEE,Premier computer vision venue,CVF - IEEE.jpg,thecvf.com
+Artificial Intelligence,Bootcamp,1,ARENA (Alignment Research Engineer Accelerator),"ARENA, London","Intensive; alumni join Anthropic, DeepMind and UK AISI","ARENA, London.webp",arena.education
+Artificial Intelligence,Bootcamp,2,Full Stack LLM Bootcamp,Full Stack Deep Learning,Practitioner-founded; LLM product engineering,Full Stack Deep Learning.png,fullstackdeeplearning.com
+Artificial Intelligence,Bootcamp,3,Data Science & AI Bootcamp,Le Wagon,Top-rated global bootcamp,Le Wagon.svg,lewagon.com
+Artificial Intelligence,Bootcamp,4,Data Science Retreat,"Data Science Retreat, Berlin",Long-running portfolio-driven program,"Data Science Retreat, Berlin.png",datascienceretreat.com
+Artificial Intelligence,Bootcamp,5,Data Science for All,Correlation One,Free; employer-sponsored,Correlation One.png,correlation-one.com
+Artificial Intelligence,Fellowship,1,MATS (ML Alignment & Theory Scholars),MATS,Most selective AI safety research program,MATS.svg,matsprogram.org
+Artificial Intelligence,Fellowship,2,Anthropic Fellows Program,Anthropic,Funded safety research with Anthropic mentors,Anthropic.svg,anthropic.com
+Artificial Intelligence,Fellowship,3,Google PhD Fellowship,Google,Highly competitive PhD funding,Google.png,google.com
+Artificial Intelligence,Fellowship,4,Apple Scholars in AI/ML,Apple,Selective PhD fellowship,Apple.ico,apple.com
+Artificial Intelligence,Fellowship,5,NVIDIA Graduate Fellowship,NVIDIA,Selective PhD fellowship,NVIDIA.svg,nvidia.com
+Artificial Intelligence,Fellowship,6,Meta Research PhD Fellowship,Meta,Selective PhD fellowship,Meta.jpg,about.meta.com
+Artificial Intelligence,Fellowship,7,Schmidt AI in Science Postdoctoral Fellowship,Schmidt Sciences,"AI applied to science, top universities",Schmidt Sciences.svg,schmidtsciences.org
+Artificial Intelligence,Fellowship,8,Hertz Fellowship,Fannie & John Hertz Foundation,Most prestigious US STEM PhD fellowship,Fannie & John Hertz Foundation.png,hertzfoundation.org
+Artificial Intelligence,Fellowship,9,Cohere Labs Scholars Program,Cohere Labs,Open research training with Cohere,Cohere Labs.svg,cohere.com
+Artificial Intelligence,Fellowship,10,Emergent Ventures (AI grants),Mercatus Center (Tyler Cowen),Fast grants for exceptional young talent,Mercatus Center (Tyler Cowen).png,mercatus.org
+Artificial Intelligence,Residency,1,OpenAI Residency,OpenAI,Brings researchers from other fields into frontier AI,OpenAI.png,openai.com
+Artificial Intelligence,Residency,2,AIML Residency Program,Apple,One-year embedded ML research,Apple.ico,apple.com
+Artificial Intelligence,Residency,3,Predoctoral Young Investigator,Allen Institute for AI (Ai2),Strong PhD admissions pipeline,Allen Institute for AI (Ai2).png,allenai.org
+Artificial Intelligence,Residency,4,Student Researcher Program,Google Research / Google DeepMind,Embedded research roles at Google,Google Research - Google DeepMind.png,research.google
+Artificial Intelligence,Apprenticeship,1,Level 7 AI Data Specialist apprenticeship,Cambridge Spark (UK),Government-funded master's-level apprenticeship,Cambridge Spark (UK).webp,cambridgespark.com
+Artificial Intelligence,Apprenticeship,2,AI & Data apprenticeships,Multiverse (UK/US),Largest tech apprenticeship provider,Multiverse (UK-US).png,multiverse.io
+Artificial Intelligence,Apprenticeship,3,Apprenticeships (data/AI tracks),IBM,Registered apprenticeship program,IBM.png,ibm.com
+Artificial Intelligence,Apprenticeship,4,Google Apprenticeships,Google,Paid apprenticeships in data and engineering,Google.png,google.com
+Artificial Intelligence,Apprenticeship,5,LEAP Engineering Acceleration,Microsoft,Apprenticeship for non-traditional engineers,Microsoft.png,microsoft.com
+Artificial Intelligence,Internship / work placement,1,Research Scientist / Engineer internships,Google DeepMind,Frontier lab,Google DeepMind.svg,deepmind.google
+Artificial Intelligence,Internship / work placement,2,FAIR Research Internship,Meta,Leading open-science AI lab,Meta.jpg,about.meta.com
+Artificial Intelligence,Internship / work placement,3,PhD Research Internship,Microsoft Research,Elite industrial research lab,Microsoft Research.png,microsoft.com
+Artificial Intelligence,Internship / work placement,4,Research internships,NVIDIA Research,Top AI and graphics research,NVIDIA Research.svg,nvidia.com
+Artificial Intelligence,Internship / work placement,5,AIML internships,Apple,Production ML at scale,Apple.ico,apple.com
+Artificial Intelligence,Internship / work placement,6,Research internships,Allen Institute for AI (Ai2),Open-science nonprofit lab,Allen Institute for AI (Ai2).png,allenai.org
+Artificial Intelligence,Internship / work placement,7,Student Researcher,Google Research,Embedded research placements,Google Research.png,research.google
+Artificial Intelligence,Accelerator / incubator,1,Y Combinator,Y Combinator,Most successful accelerator; majority of recent batches are AI,Y Combinator.ico,ycombinator.com
+Artificial Intelligence,Accelerator / incubator,2,AI Grant,Nat Friedman & Daniel Gross,Elite AI-native accelerator,,aigrant.com
+Artificial Intelligence,Accelerator / incubator,3,Founder Fellowship,South Park Commons,Pre-idea founder community,South Park Commons.png,southparkcommons.com
+Artificial Intelligence,Accelerator / incubator,4,Entrepreneur First,Entrepreneur First,Talent-first co-founder matching,Entrepreneur First.png,joinef.com
+Artificial Intelligence,Accelerator / incubator,5,Speedrun,Andreessen Horowitz,a16z-backed accelerator,Andreessen Horowitz.png,a16z.com
+Artificial Intelligence,Accelerator / incubator,6,Neo,Neo (Ali Partovi),Selective accelerator for exceptional engineers,Neo (Ali Partovi).png,neo.com
+Artificial Intelligence,Accelerator / incubator,7,Embed,Conviction (Sarah Guo),AI-focused pre-seed program,Conviction (Sarah Guo).png,conviction.com
+Artificial Intelligence,Accelerator / incubator,8,Google for Startups Accelerator: AI First,Google,Equity-free; Google mentors,Google.png,google.com
+Artificial Intelligence,Accelerator / incubator,9,Inception,NVIDIA,Large AI startup program with GPU credits,NVIDIA.svg,nvidia.com
+Artificial Intelligence,Accelerator / incubator,10,Arc,Sequoia Capital,Sequoia-run founder program,Sequoia Capital.png,sequoiacap.com
+Artificial Intelligence,Mentorship program,1,SPAR (Supervised Program for Alignment Research),SPAR,Part-time mentored safety research,SPAR.svg,sparai.org
+Artificial Intelligence,Mentorship program,2,ML Collective,ML Collective,Open research mentorship (Rosanne Liu),ML Collective.png,mlcollective.org
+Artificial Intelligence,Mentorship program,3,Mentorship program,Women in Machine Learning (WiML),Community mentoring at NeurIPS/ICML,Women in Machine Learning (WiML).png,wimlworkshop.org
+Artificial Intelligence,Mentorship program,4,Mentorship program,Black in AI,Grad-application and research mentorship,Black in AI.png,blackinai.org
+Artificial Intelligence,Mentorship program,5,Mentoring program,LatinX in AI,Research mentoring,LatinX in AI.webp,latinxinai.org
+Artificial Intelligence,Mentorship program,6,New in ML,NeurIPS,Mentoring for first-time authors,NeurIPS.svg,neurips.cc
+Artificial Intelligence,Mentorship program,7,AI/ML mentors,ADPList,Large free mentor marketplace,ADPList.svg,adplist.org
+Artificial Intelligence,1:1 tutoring / coaching,1,ML expert mentors,MentorCruise,Paid 1:1 with FAANG/lab practitioners,MentorCruise.png,mentorcruise.com
+Artificial Intelligence,1:1 tutoring / coaching,2,ML interview coaching,Exponent,Top ML interview prep,Exponent.png,tryexponent.com
+Artificial Intelligence,1:1 tutoring / coaching,3,ML engineering coaching,Interview Kickstart,Coaching from FAANG engineers,Interview Kickstart.png,interviewkickstart.com
+Artificial Intelligence,1:1 tutoring / coaching,4,AI tutors (Study Mode / Learning Mode / Guided Learning),OpenAI / Anthropic / Google,Socratic AI tutoring at zero marginal cost,OpenAI - Anthropic - Google.png,openai.com
+Artificial Intelligence,1:1 tutoring / coaching,5,AI-native teaching assistant (LLM101n),Eureka Labs (Karpathy),AI-native school in development,Eureka Labs (Karpathy).png,eurekalabs.ai
+Artificial Intelligence,Research training program,1,SuperUROP,MIT,Year-long undergraduate research program,MIT.svg,mit.edu
+Artificial Intelligence,Research training program,2,CURIS,Stanford CS,Summer undergraduate research,Stanford CS.png,cs.stanford.edu
+Artificial Intelligence,Research training program,3,ELLIS PhD & Postdoc Program,ELLIS,Europe's elite cross-lab AI program,ELLIS.webp,ellis.eu
+Artificial Intelligence,Research training program,4,REU sites in AI,NSF,Funded undergraduate research,NSF.png,nsf.gov
+Artificial Intelligence,Research training program,5,SURF,Caltech,Classic summer research fellowship,Caltech.png,caltech.edu
+Artificial Intelligence,Research training program,6,AI Safety Camp,AI Safety Camp,Project-based safety research,AI Safety Camp.png,aisafety.camp
+Artificial Intelligence,Research training program,7,Research Fellowship,Simons Institute (Berkeley),Elite theory program,Simons Institute (Berkeley).svg,simons.berkeley.edu
+Artificial Intelligence,Studio / project-based program,1,Media Lab master's & PhD,MIT Media Lab,Iconic interdisciplinary studio,MIT Media Lab.png,media.mit.edu
+Artificial Intelligence,Studio / project-based program,2,ITP / IMA,NYU Tisch,Creative AI and interaction studio,NYU Tisch.ico,tisch.nyu.edu
+Artificial Intelligence,Studio / project-based program,3,"School of Machines, Making & Make-Believe",Berlin,Creative AI studio programs,Berlin.webp,schoolofma.org
+Artificial Intelligence,Studio / project-based program,4,MHCI capstone,Carnegie Mellon HCII,Industry-sponsored project studio,Carnegie Mellon HCII.ico,hcii.cmu.edu
+Artificial Intelligence,Studio / project-based program,5,Creative code programs,Gray Area (San Francisco),Creative tech studio,Gray Area (San Francisco).jpg,grayarea.org
+Artificial Intelligence,Laboratory program,1,DLI hands-on labs,NVIDIA,GPU-backed cloud labs,NVIDIA.svg,nvidia.com
+Artificial Intelligence,Laboratory program,2,Cloud Skills Boost labs,Google Cloud,Sandbox AI labs,Google Cloud.svg,cloud.google.com
+Artificial Intelligence,Laboratory program,3,Skill Builder labs,AWS,Sandbox ML labs,AWS.png,aws.amazon.com
+Artificial Intelligence,Laboratory program,4,Learn notebooks,Kaggle,Free GPU/TPU practice,Kaggle.png,kaggle.com
+Artificial Intelligence,Competition / challenge,1,Kaggle Competitions (Grandmaster tier),Kaggle (Google),Global ML proving ground,Kaggle (Google).png,kaggle.com
+Artificial Intelligence,Competition / challenge,2,ARC Prize,ARC Prize Foundation,Frontier reasoning benchmark with $1M+ prize,ARC Prize Foundation.png,arcprize.org
+Artificial Intelligence,Competition / challenge,3,AI Mathematical Olympiad (AIMO) Prize,XTX Markets,$10M fund for AI math reasoning,XTX Markets.png,xtxmarkets.com
+Artificial Intelligence,Competition / challenge,4,International Olympiad in Artificial Intelligence (IOAI),IOAI,Top pre-university AI olympiad,IOAI.png,ioai-official.org
+Artificial Intelligence,Competition / challenge,5,NeurIPS Competition Track,NeurIPS,Research-grade challenges,NeurIPS.svg,neurips.cc
+Artificial Intelligence,Competition / challenge,6,Battlecode,MIT,Long-running AI programming competition,MIT.svg,mit.edu
+Artificial Intelligence,Competition / challenge,7,AIcrowd challenges,AIcrowd,Research and industry challenges,AIcrowd.png,aicrowd.com
+Artificial Intelligence,Competition / challenge,8,DrivenData challenges,DrivenData,Social-impact ML competitions,DrivenData.svg,drivendata.org
+Artificial Intelligence,Competition / challenge,9,Gray Swan Arena,Gray Swan AI,AI red-teaming competitions,Gray Swan AI.svg,grayswan.ai
+Artificial Intelligence,Field school / expedition,1,Data Science for Social Good Fellowship,Carnegie Mellon University,Applied projects with real partner organizations,Carnegie Mellon University.svg,cmu.edu
+Artificial Intelligence,Field school / expedition,2,AI challenges,Omdena,Global collaborative real-world AI projects,Omdena.png,omdena.com
+Artificial Intelligence,Field school / expedition,3,Conservation tech community,WILDLABS,AI deployed in field conservation,WILDLABS.ico,wildlabs.net
+Artificial Intelligence,Community of practice,1,EleutherAI,EleutherAI,"Open research collective (GPT-NeoX, Pythia)",EleutherAI.svg,eleuther.ai
+Artificial Intelligence,Community of practice,2,Hugging Face community,Hugging Face,Hub of open-source AI,Hugging Face.svg,huggingface.co
+Artificial Intelligence,Community of practice,3,Cohere Labs Open Science Community,Cohere Labs,Global open research community,Cohere Labs.svg,cohere.com
+Artificial Intelligence,Community of practice,4,Alignment Forum / LessWrong,Lightcone Infrastructure,Core AI safety research forum,Lightcone Infrastructure.ico,lesswrong.com
+Artificial Intelligence,Community of practice,5,Latent Space,swyx & Alessio,Leading AI engineering community,swyx & Alessio.png,latent.space
+Artificial Intelligence,Community of practice,6,MLOps Community,MLOps Community,Largest MLOps practitioner network,MLOps Community.svg,mlops.community
+Artificial Intelligence,Community of practice,7,ML Collective,ML Collective,Open research collaboration,ML Collective.png,mlcollective.org
+Artificial Intelligence,Community of practice,8,LAION,LAION,Open datasets and models community,LAION.png,laion.ai
+Artificial Intelligence,Learning retreat / immersion,1,Machine Learning Summer School (MLSS),Various hosts,Most prestigious ML summer school series,,
+Artificial Intelligence,Learning retreat / immersion,2,Oxford Machine Learning Summer School (OxML),AI for Global Goals / Oxford,"Large, faculty-led",AI for Global Goals - Oxford.png,oxfordml.school
+Artificial Intelligence,Learning retreat / immersion,3,Deep Learning Indaba,Deep Learning Indaba,Pan-African flagship,Deep Learning Indaba.png,deeplearningindaba.com
+Artificial Intelligence,Learning retreat / immersion,4,Eastern European ML Summer School (EEML),EEML,DeepMind-linked faculty,EEML.png,eeml.eu
+Artificial Intelligence,Learning retreat / immersion,5,Lisbon ML Summer School (LxMLS),LxMLS,"Selective, NLP-heavy",LxMLS.png,lxmls.it.pt
+Artificial Intelligence,Learning retreat / immersion,6,Mediterranean ML Summer School (M2L),M2L,Selective European school,M2L.png,m2lschool.org
+Artificial Intelligence,Learning retreat / immersion,7,Khipu,Khipu,Latin American AI meeting,Khipu.png,khipu.ai
+Artificial Intelligence,Learning retreat / immersion,8,Recurse Center,Recurse Center (NYC),12-week self-directed programming retreat,Recurse Center (NYC).ico,recurse.com
+Artificial Intelligence,Corporate training program,1,Enterprise training,NVIDIA Deep Learning Institute,Industry standard for GPU/AI teams,NVIDIA Deep Learning Institute.svg,nvidia.com
+Artificial Intelligence,Corporate training program,2,Machine Learning University,Amazon,"Amazon's internal ML curriculum, made public",Amazon.svg,amazon.science
+Artificial Intelligence,Corporate training program,3,AI Skills Initiative,Microsoft,Large-scale enterprise AI upskilling,Microsoft.png,microsoft.com
+Artificial Intelligence,Corporate training program,4,AI for teams,DeepLearning.AI / Coursera for Business,Ng curriculum for enterprises,DeepLearning.AI - Coursera for Business.png,deeplearning.ai
+Artificial Intelligence,Corporate training program,5,AI training,Section,AI upskilling for business teams,Section.svg,sectionai.com
+Artificial Intelligence,Corporate training program,6,AI Academy,General Assembly,Corporate AI training,General Assembly.png,generalassemb.ly
+Artificial Intelligence,Professional development program,1,Artificial Intelligence: Implications for Business Strategy,MIT Sloan & MIT CSAIL,Flagship executive AI program,MIT Sloan & MIT CSAIL.png,mitsloan.mit.edu
+Artificial Intelligence,Professional development program,2,Oxford Artificial Intelligence Programme,Oxford Saïd Business School,Oxford-branded executive program,Oxford Saïd Business School.png,sbs.ox.ac.uk
+Artificial Intelligence,Professional development program,3,AI Professional Certificate,Stanford Online,Stanford graduate-level content,Stanford Online.png,online.stanford.edu
+Artificial Intelligence,Professional development program,4,AI for Business,Wharton Online,Wharton executive education,Wharton Online.png,online.wharton.upenn.edu
+Artificial Intelligence,Professional development program,5,AI Applications for Growth,Kellogg Executive Education,Kellogg executive education,Kellogg Executive Education.svg,kellogg.northwestern.edu
+Artificial Intelligence,Guided independent study,1,Undergraduate Research Opportunities (UROP / 6.UAR),MIT,Faculty-supervised independent work,MIT.svg,mit.edu
+Artificial Intelligence,Guided independent study,2,Independent Project (CS 399),Stanford CS,Faculty-supervised independent study,Stanford CS.png,cs.stanford.edu
+Artificial Intelligence,Guided independent study,3,Tutorial-based DPhil,University of Oxford,Supervision-led research degree,University of Oxford.png,ox.ac.uk
+Artificial Intelligence,Guided independent study,4,MATS extension phase,MATS,Independent research with mentor check-ins,MATS.svg,matsprogram.org
+Robotics,Self-study,1,Modern Robotics (Lynch & Park) + video series,Northwestern / Cambridge University Press (free),Standard robotics textbook,Northwestern - Cambridge University Press (free).png,northwestern.edu
+Robotics,Self-study,2,Probabilistic Robotics,"Thrun, Burgard, Fox",Classic text on robot perception and SLAM,"Thrun, Burgard, Fox.png",mitpress.mit.edu
+Robotics,Self-study,3,Underactuated Robotics (online text),"Russ Tedrake, MIT",Living textbook from a leading MIT professor,"Russ Tedrake, MIT.svg",mit.edu
+Robotics,Self-study,4,Robotic Manipulation (online text),"Russ Tedrake, MIT",Living textbook with code,"Russ Tedrake, MIT.svg",mit.edu
+Robotics,Self-study,5,ROS 2 documentation & tutorials,Open Robotics,De facto robot software stack,Open Robotics.webp,openrobotics.org
+Robotics,Self-study,6,LeRobot tutorials,Hugging Face,Open-source robot learning stack,Hugging Face.svg,huggingface.co
+Robotics,Self-study,7,Robot Academy,Peter Corke (QUT),Free video lessons from a robotics pioneer,Peter Corke (QUT).png,robotacademy.net.au
+Robotics,Self-study,8,Introduction to Autonomous Mobile Robots,"Siegwart, Nourbakhsh, Scaramuzza",ETH classic,"Siegwart, Nourbakhsh, Scaramuzza.png",mitpress.mit.edu
+Robotics,Open online course / MOOC,1,Modern Robotics Specialization,Northwestern University (Coursera),Kevin Lynch,Northwestern University (Coursera).png,northwestern.edu
+Robotics,Open online course / MOOC,2,Robotics Specialization,University of Pennsylvania (Coursera),GRASP Lab faculty,University of Pennsylvania (Coursera).png,upenn.edu
+Robotics,Open online course / MOOC,3,Self-Driving Cars Specialization,University of Toronto (Coursera),Most complete autonomy MOOC,University of Toronto (Coursera).ico,utoronto.ca
+Robotics,Open online course / MOOC,4,Robotic Manipulation (6.4210),MIT (YouTube),Russ Tedrake,MIT (YouTube).svg,mit.edu
+Robotics,Open online course / MOOC,5,Underactuated Robotics (6.832),MIT (YouTube),Russ Tedrake,MIT (YouTube).svg,mit.edu
+Robotics,Open online course / MOOC,6,Introduction to Robotics (CS223A),Stanford (YouTube),Oussama Khatib,Stanford (YouTube).png,stanford.edu
+Robotics,Open online course / MOOC,7,Autonomous Mobile Robots,ETH Zurich (edX),ETH Autonomous Systems Lab,ETH Zurich (edX).svg,ethz.ch
+Robotics,Open online course / MOOC,8,Self-Driving Cars with Duckietown,ETH Zurich (edX),Hands-on with real robots,ETH Zurich (edX).svg,ethz.ch
+Robotics,Open online course / MOOC,9,Advanced Robotics (CS287),UC Berkeley (YouTube),Pieter Abbeel,UC Berkeley (YouTube).svg,berkeley.edu
+Robotics,Live course,1,ROS Developers live classes,The Construct,Leading ROS training provider,The Construct.png,theconstruct.ai
+Robotics,Live course,2,Isaac Sim / robotics workshops,NVIDIA Deep Learning Institute,Instructor-led simulation training,NVIDIA Deep Learning Institute.svg,nvidia.com
+Robotics,Cohort-based course,1,Robotics Software Engineer Nanodegree,Udacity,Mentor-supported projects,Udacity.png,udacity.com
+Robotics,Cohort-based course,2,ROS masterclasses,The Construct,Structured cohort ROS training,The Construct.png,theconstruct.ai
+Robotics,Academic degree program,1,Robotics PhD / MS,Carnegie Mellon Robotics Institute,World's leading robotics institute,Carnegie Mellon Robotics Institute.svg,ri.cmu.edu
+Robotics,Academic degree program,2,PhD in EECS / MechE (robotics),MIT (CSAIL),Top-ranked,MIT (CSAIL).svg,csail.mit.edu
+Robotics,Academic degree program,3,PhD in CS / ME / AA (robotics),Stanford University,Top-ranked,Stanford University.png,stanford.edu
+Robotics,Academic degree program,4,PhD in EECS (robotics),UC Berkeley,BAIR robot learning,UC Berkeley.svg,berkeley.edu
+Robotics,Academic degree program,5,"MSc Robotics, Systems and Control",ETH Zurich,Europe's top robotics program,ETH Zurich.svg,ethz.ch
+Robotics,Academic degree program,6,Robotics PhD,Georgia Tech,Interdisciplinary robotics,Georgia Tech.png,gatech.edu
+Robotics,Academic degree program,7,MSE in Robotics,University of Pennsylvania (GRASP Lab),Pioneering robotics master's,University of Pennsylvania (GRASP Lab).svg,grasp.upenn.edu
+Robotics,Academic degree program,8,Robotics PhD / MS,University of Michigan,Dedicated robotics department,University of Michigan.ico,umich.edu
+Robotics,Academic degree program,9,"MSc Robotics, Cognition, Intelligence",Technical University of Munich,Top German program,Technical University of Munich.png,tum.de
+Robotics,Academic degree program,10,CDT in Robotics & Autonomous Systems,Edinburgh Centre for Robotics,Funded UK doctoral training,Edinburgh Centre for Robotics.jpg,edinburgh-robotics.org
+Robotics,Professional certification program,1,Graduate Certificate in Robotics & Autonomous Systems,Stanford Online,For-credit graduate courses,Stanford Online.png,online.stanford.edu
+Robotics,Professional certification program,2,Certified Robot Integrator,Association for Advancing Automation (A3),Industry-standard integrator credential,Association for Advancing Automation (A3).svg,automate.org
+Robotics,Professional certification program,3,FANUC certification,FANUC,Leading industrial robot OEM,FANUC.svg,fanucamerica.com
+Robotics,Professional certification program,4,Universal Robots Academy certification,Universal Robots,Cobot standard,Universal Robots.png,universal-robots.com
+Robotics,Professional certification program,5,ABB robotics training certification,ABB,Major OEM credential,ABB.png,abb.com
+Robotics,Workshop / masterclass,1,ICRA workshops & tutorials,IEEE Robotics & Automation Society,Largest robotics venue,IEEE Robotics & Automation Society.webp,ieee-ras.org
+Robotics,Workshop / masterclass,2,RSS workshops,Robotics: Science and Systems,Most selective robotics venue,Robotics- Science and Systems.svg,roboticsconference.org
+Robotics,Workshop / masterclass,3,CoRL tutorials,Conference on Robot Learning,Premier robot learning venue,Conference on Robot Learning.png,corl.org
+Robotics,Workshop / masterclass,4,IROS workshops,IEEE / RSJ,Major robotics venue,IEEE - RSJ.jpg,ieee.org
+Robotics,Bootcamp,1,ROS 2 bootcamps,The Construct,Intensive ROS skills,The Construct.png,theconstruct.ai
+Robotics,Fellowship,1,Hertz Fellowship,Fannie & John Hertz Foundation,Top STEM PhD fellowship,Fannie & John Hertz Foundation.png,hertzfoundation.org
+Robotics,Fellowship,2,RSS Pioneers,Robotics: Science and Systems,Highly selective early-career program,Robotics- Science and Systems.svg,roboticsconference.org
+Robotics,Fellowship,3,NSF Graduate Research Fellowship,NSF,Standard of US PhD excellence,NSF.png,nsf.gov
+Robotics,Fellowship,4,Google PhD Fellowship (robotics),Google,Selective,Google.png,google.com
+Robotics,Fellowship,5,NVIDIA Graduate Fellowship,NVIDIA,Selective,NVIDIA.svg,nvidia.com
+Robotics,Fellowship,6,Schmidt Science Fellows,Schmidt Sciences,Interdisciplinary postdoc,Schmidt Sciences.svg,schmidtsciences.org
+Robotics,Residency,1,Visiting Student Research Program (robotics),NASA JPL,Embedded in JPL robotics,NASA JPL.png,jpl.nasa.gov
+Robotics,Residency,2,IMPRS for Intelligent Systems,Max Planck Institute for Intelligent Systems,Embedded doctoral research,Max Planck Institute for Intelligent Systems.png,is.mpg.de
+Robotics,Apprenticeship,1,Mechatroniker/in dual apprenticeship,Siemens / Bosch / KUKA (Germany),Gold standard of dual training,Siemens - Bosch - KUKA (Germany).svg,siemens.com
+Robotics,Apprenticeship,2,Automatiker/in EFZ,ABB Switzerland,Swiss automation apprenticeship,ABB Switzerland.png,abb.com
+Robotics,Apprenticeship,3,Robotics technician registered apprenticeship,FANUC & Tooling U-SME (US),Industry-recognized,FANUC & Tooling U-SME (US).svg,fanucamerica.com
+Robotics,Apprenticeship,4,Level 3 Mechatronics Maintenance Technician,UK apprenticeship standard,Recognized UK route,,
+Robotics,Internship / work placement,1,Robotics internships,Boston Dynamics,Iconic robotics company,Boston Dynamics.svg,bostondynamics.com
+Robotics,Internship / work placement,2,Robotics research internships,Google DeepMind,Frontier robot learning,Google DeepMind.svg,deepmind.google
+Robotics,Internship / work placement,3,Robotics research internships,NVIDIA,Isaac / GR00T teams,NVIDIA.svg,nvidia.com
+Robotics,Internship / work placement,4,Robotics internships,Toyota Research Institute,Robot learning leaders,Toyota Research Institute.svg,tri.global
+Robotics,Internship / work placement,5,Optimus internships,Tesla,Humanoid at scale,Tesla.ico,tesla.com
+Robotics,Internship / work placement,6,Robotics internships,NASA JPL,Planetary robotics,NASA JPL.png,jpl.nasa.gov
+Robotics,Internship / work placement,7,Robotics internships,Amazon Robotics,Largest fleet of mobile robots,Amazon Robotics.svg,amazon.science
+Robotics,Internship / work placement,8,Internships,Figure AI,Humanoid leader,Figure AI.svg,figure.ai
+Robotics,Accelerator / incubator,1,Y Combinator,Y Combinator,Growing robotics share,Y Combinator.ico,ycombinator.com
+Robotics,Accelerator / incubator,2,MassRobotics Accelerator,MassRobotics,Largest robotics hub,MassRobotics.svg,massrobotics.org
+Robotics,Accelerator / incubator,3,HAX,SOSV,Leading hard-tech accelerator,SOSV.png,sosv.com
+Robotics,Accelerator / incubator,4,The Engine,MIT-affiliated,Tough-tech venture builder,MIT-affiliated.png,engine.xyz
+Robotics,Accelerator / incubator,5,AlphaLab Gear,Innovation Works (Pittsburgh),Robotics hardware accelerator,Innovation Works (Pittsburgh).png,innovationworks.org
+Robotics,Accelerator / incubator,6,Inception,NVIDIA,Robotics startup support,NVIDIA.svg,nvidia.com
+Robotics,Mentorship program,1,Mentorship,Women in Robotics,Global network,Women in Robotics.png,womeninrobotics.org
+Robotics,Mentorship program,2,Graduate Application Support Program,Carnegie Mellon Robotics Institute,Student-run PhD application mentoring,Carnegie Mellon Robotics Institute.svg,ri.cmu.edu
+Robotics,Mentorship program,3,Mentoring programs,IEEE Robotics & Automation Society,Professional society,IEEE Robotics & Automation Society.webp,ieee-ras.org
+Robotics,Mentorship program,4,FIRST mentors,FIRST,Large youth mentorship network,FIRST.svg,firstinspires.org
+Robotics,1:1 tutoring / coaching,1,Robotics expert mentors,MentorCruise,Paid 1:1,MentorCruise.png,mentorcruise.com
+Robotics,Research training program,1,Robotics Institute Summer Scholars (RISS),Carnegie Mellon,Premier undergrad robotics research,Carnegie Mellon.svg,cmu.edu
+Robotics,Research training program,2,REU sites in robotics,NSF,Funded undergraduate research,NSF.png,nsf.gov
+Robotics,Research training program,3,UROP (CSAIL),MIT,Undergraduate research,MIT.svg,mit.edu
+Robotics,Research training program,4,Student projects,ETH Zurich Robotic Systems Lab,ANYmal legged robotics,ETH Zurich Robotic Systems Lab.svg,rsl.ethz.ch
+Robotics,Studio / project-based program,1,2.007 Design and Manufacturing I,MIT,Legendary robot-building course,MIT.svg,mit.edu
+Robotics,Studio / project-based program,2,ME210 Mechatronics,Stanford,Classic project course,Stanford.png,stanford.edu
+Robotics,Studio / project-based program,3,Engineering curriculum,Olin College of Engineering,Project-based school,Olin College of Engineering.svg,olin.edu
+Robotics,Studio / project-based program,4,Robotics capstone,Carnegie Mellon,Project-driven,Carnegie Mellon.svg,cmu.edu
+Robotics,Laboratory program,1,Duckietown,Duckietown Foundation,Used by 250+ universities,Duckietown Foundation.png,duckietown.com
+Robotics,Laboratory program,2,Robotics: Science and Systems (6.4200),MIT,Lab-intensive course,MIT.svg,mit.edu
+Robotics,Laboratory program,3,Isaac Sim / Isaac Lab,NVIDIA,Leading robot simulation,NVIDIA.svg,nvidia.com
+Robotics,Laboratory program,4,MuJoCo,Google DeepMind,Physics simulation for robotics,Google DeepMind.svg,deepmind.google
+Robotics,Laboratory program,5,Gazebo,Open Robotics,Standard ROS simulator,Open Robotics.webp,openrobotics.org
+Robotics,Competition / challenge,1,FIRST Robotics Competition,FIRST,Largest youth robotics competition,FIRST.svg,firstinspires.org
+Robotics,Competition / challenge,2,RoboCup,RoboCup Federation,Iconic research competition,RoboCup Federation.png,robocup.org
+Robotics,Competition / challenge,3,VEX Robotics World Championship,REC Foundation,Guinness-record largest robotics competition,REC Foundation.png,roboticseducation.org
+Robotics,Competition / challenge,4,DARPA Triage Challenge,DARPA,Inheritor of DARPA's grand challenges,DARPA.ico,darpa.mil
+Robotics,Competition / challenge,5,Indy Autonomous Challenge,IAC,Autonomous racing at the Indy 500 track,IAC.webp,indyautonomouschallenge.com
+Robotics,Competition / challenge,6,Lunabotics,NASA,Lunar construction robotics,NASA.png,nasa.gov
+Robotics,Competition / challenge,7,University Rover Challenge,The Mars Society,Mars rover design,The Mars Society.jpg,marssociety.org
+Robotics,Competition / challenge,8,RoboMaster,DJI,Large university robotics league,DJI.png,dji.com
+Robotics,Competition / challenge,9,ABU Robocon,Asia-Pacific Broadcasting Union,Long-running Asian championship,Asia-Pacific Broadcasting Union.jpg,abu.org.my
+Robotics,Competition / challenge,10,Eurobot,Eurobot,European student robotics,Eurobot.png,eurobot.org
+Robotics,Field school / expedition,1,Summer Student Fellowship (marine robotics),Woods Hole Oceanographic Institution,Field ocean robotics,Woods Hole Oceanographic Institution.png,whoi.edu
+Robotics,Field school / expedition,2,Summer internships (marine robotics),MBARI,At-sea robotics,MBARI.png,mbari.org
+Robotics,Field school / expedition,3,Field Robotics Center projects,Carnegie Mellon,"Mining, planetary, agricultural fieldwork",Carnegie Mellon.svg,cmu.edu
+Robotics,Community of practice,1,ROS community / ROSCon,Open Robotics,Core robotics community,Open Robotics.webp,openrobotics.org
+Robotics,Community of practice,2,LeRobot community,Hugging Face,Open-source robot learning,Hugging Face.svg,huggingface.co
+Robotics,Community of practice,3,IEEE RAS,IEEE,Largest robotics society,IEEE.jpg,ieee.org
+Robotics,Community of practice,4,Robotics Stack Exchange,Stack Exchange,Practitioner Q&A,Stack Exchange.svg,stackexchange.com
+Robotics,Learning retreat / immersion,1,Robotics Summer School,ETH Zurich,Hands-on immersion,ETH Zurich.svg,ethz.ch
+Robotics,Learning retreat / immersion,2,Summer schools,IEEE RAS,Topical schools,IEEE RAS.webp,ieee-ras.org
+Robotics,Corporate training program,1,Training,FANUC,OEM training,FANUC.svg,fanucamerica.com
+Robotics,Corporate training program,2,Training,ABB Robotics,OEM training,ABB Robotics.png,abb.com
+Robotics,Corporate training program,3,KUKA College,KUKA,OEM training,KUKA.svg,kuka.com
+Robotics,Corporate training program,4,Universal Robots Academy,Universal Robots,Cobot training,Universal Robots.png,universal-robots.com
+Robotics,Corporate training program,5,SITRAIN,Siemens,Automation training,Siemens.svg,siemens.com
+Robotics,Professional development program,1,Graduate Certificate in Robotics & Autonomous Systems,Stanford Online,Stanford courses for professionals,Stanford Online.png,online.stanford.edu
+Robotics,Professional development program,2,Automate seminars,A3,Industry continuing education,A3.svg,automate.org
+Robotics,Professional development program,3,Robotics and automation courses,Tooling U-SME,Manufacturing workforce,Tooling U-SME.svg,toolingu.com
+Robotics,Guided independent study,1,UROP,MIT,Faculty-supervised,MIT.svg,mit.edu
+Robotics,Guided independent study,2,Independent study,Carnegie Mellon Robotics Institute,Faculty-supervised,Carnegie Mellon Robotics Institute.svg,ri.cmu.edu
+Quantum Computing,Self-study,1,Quantum Computation and Quantum Information,Nielsen & Chuang,The field's bible,Nielsen & Chuang.png,cambridge.org
+Quantum Computing,Self-study,2,IBM Quantum Learning,IBM Quantum,Free courses run on real hardware,IBM Quantum.png,ibm.com
+Quantum Computing,Self-study,3,Quantum Country,Andy Matuschak & Michael Nielsen,Spaced-repetition quantum essays,Andy Matuschak & Michael Nielsen.png,quantum.country
+Quantum Computing,Self-study,4,Ph219 lecture notes,"John Preskill, Caltech",Canonical lecture notes,"John Preskill, Caltech.png",caltech.edu
+Quantum Computing,Self-study,5,PennyLane Codebook,Xanadu,Interactive quantum programming,Xanadu.png,xanadu.ai
+Quantum Computing,Self-study,6,Quantum Katas,Microsoft,Hands-on programming exercises,Microsoft.png,microsoft.com
+Quantum Computing,Self-study,7,Quantum Computing Since Democritus,Scott Aaronson,Theory classic,Scott Aaronson.png,cambridge.org
+Quantum Computing,Self-study,8,The Theory of Quantum Information,John Watrous,Rigorous free text,John Watrous.png,cambridge.org
+Quantum Computing,Self-study,9,Cirq tutorials,Google Quantum AI,Google's framework,Google Quantum AI.svg,quantumai.google
+Quantum Computing,Open online course / MOOC,1,Quantum Information Science I–III (8.370x),MITx (edX),Isaac Chuang & Aram Harrow,MITx (edX).ico,openlearning.mit.edu
+Quantum Computing,Open online course / MOOC,2,Understanding Quantum Information and Computation,"IBM (John Watrous, YouTube)","Rigorous, free","IBM (John Watrous, YouTube).png",ibm.com
+Quantum Computing,Open online course / MOOC,3,Quantum Internet and Quantum Computers,TU Delft / QuTech (edX),Quantum networking leader,TU Delft - QuTech (edX).png,tudelft.nl
+Quantum Computing,Open online course / MOOC,4,Quantum Cryptography,Caltech & TU Delft (edX),Rigorous crypto course,Caltech & TU Delft (edX).png,caltech.edu
+Quantum Computing,Open online course / MOOC,5,Understanding Quantum Computers,Keio University (FutureLearn),Accessible conceptual course,Keio University (FutureLearn).svg,keio.ac.jp
+Quantum Computing,Open online course / MOOC,6,Introduction to Quantum Information,KAIST (Coursera),Strong intro,KAIST (Coursera).ico,kaist.ac.kr
+Quantum Computing,Open online course / MOOC,7,Qiskit Global Summer School recordings,IBM Quantum (YouTube),Expert-led lectures,IBM Quantum (YouTube).jpg,youtube.com/@qiskit
+Quantum Computing,Open online course / MOOC,8,Quantum Computing course,Brilliant (with Microsoft & Google Quantum AI),Interactive,Brilliant (with Microsoft & Google Quantum AI).png,brilliant.org
+Quantum Computing,Open online course / MOOC,9,The Theoretical Minimum: Quantum Mechanics,"Stanford (Leonard Susskind, YouTube)",Physics foundation,"Stanford (Leonard Susskind, YouTube).png",stanford.edu
+Quantum Computing,Live course,1,Qiskit Global Summer School,IBM Quantum,Annual live program,IBM Quantum.png,ibm.com
+Quantum Computing,Live course,2,Quantum+AI program,Womanium,Global live program with industry partners,Womanium.png,womanium.org
+Quantum Computing,Cohort-based course,1,Quantum Computing Fundamentals / Realities,MIT xPRO,MIT faculty cohort,MIT xPRO.ico,xpro.mit.edu
+Quantum Computing,Cohort-based course,2,Introduction to Quantum Computing,The Coding School (Qubit by Qubit),Year-long course with IBM,The Coding School (Qubit by Qubit).png,qubitbyqubit.org
+Quantum Computing,Cohort-based course,3,QBronze / QSilver workshops,QWorld,Global cohort workshops,QWorld.jpg,qworld.net
+Quantum Computing,Academic degree program,1,MSc / PhD Quantum Information,University of Waterloo (IQC),Largest quantum institute,University of Waterloo (IQC).png,uwaterloo.ca
+Quantum Computing,Academic degree program,2,PhD (IQIM),Caltech,Preskill's institute,Caltech.png,caltech.edu
+Quantum Computing,Academic degree program,3,PhD in Quantum Science & Engineering,Harvard University,First dedicated QSE PhD,Harvard University.png,harvard.edu
+Quantum Computing,Academic degree program,4,PhD (Center for Quantum Engineering),MIT,Top program,MIT.svg,mit.edu
+Quantum Computing,Academic degree program,5,PhD in Molecular Engineering (quantum),University of Chicago (PME),Chicago Quantum Exchange hub,University of Chicago (PME).png,pme.uchicago.edu
+Quantum Computing,Academic degree program,6,MSc / PhD (QuTech),TU Delft,European quantum leader,TU Delft.png,tudelft.nl
+Quantum Computing,Academic degree program,7,MSc Quantum Engineering,ETH Zurich,Dedicated quantum engineering master's,ETH Zurich.svg,ethz.ch
+Quantum Computing,Academic degree program,8,PhD (JQI / QuICS),University of Maryland,NIST-partnered institute,University of Maryland.svg,umd.edu
+Quantum Computing,Academic degree program,9,DPhil (quantum),University of Oxford,Oxford Quantum Institute,University of Oxford.png,ox.ac.uk
+Quantum Computing,Academic degree program,10,MS Quantum Engineering,University of Colorado Boulder (JILA),Nobel-heavy physics hub,University of Colorado Boulder (JILA).svg,jila.colorado.edu
+Quantum Computing,Professional certification program,1,Certified Associate Developer – Qiskit,IBM,Only major quantum developer certification,IBM.png,ibm.com
+Quantum Computing,Professional certification program,2,Professional Certificate in Quantum Computing,MIT xPRO,MIT-branded,MIT xPRO.ico,xpro.mit.edu
+Quantum Computing,Workshop / masterclass,1,QIP tutorials,QIP Conference,Premier quantum information conference,,
+Quantum Computing,Workshop / masterclass,2,IEEE Quantum Week tutorials,IEEE,Largest quantum engineering venue,IEEE.jpg,ieee.org
+Quantum Computing,Workshop / masterclass,3,Quantum boot camps,Simons Institute (Berkeley),Elite theory programs,Simons Institute (Berkeley).svg,simons.berkeley.edu
+Quantum Computing,Workshop / masterclass,4,APS March Meeting tutorials,American Physical Society,Major physics venue,American Physical Society.jpg,aps.org
+Quantum Computing,Bootcamp,1,USEQIP,University of Waterloo IQC,Intensive experimental quantum school,University of Waterloo IQC.png,uwaterloo.ca
+Quantum Computing,Bootcamp,2,QCSYS,University of Waterloo IQC,Selective program for high-school students,University of Waterloo IQC.png,uwaterloo.ca
+Quantum Computing,Fellowship,1,Hertz Fellowship,Fannie & John Hertz Foundation,Top STEM PhD fellowship,Fannie & John Hertz Foundation.png,hertzfoundation.org
+Quantum Computing,Fellowship,2,Google PhD Fellowship (quantum),Google,Selective,Google.png,google.com
+Quantum Computing,Fellowship,3,IQIM Postdoctoral Fellowship,Caltech,Elite postdoc,Caltech.png,caltech.edu
+Quantum Computing,Fellowship,4,Dicke Fellowship,Princeton University,Prestigious physics postdoc,Princeton University.ico,princeton.edu
+Quantum Computing,Residency,1,Visiting Graduate Fellows,Perimeter Institute,Embedded at top theory institute,Perimeter Institute.svg,perimeterinstitute.ca
+Quantum Computing,Apprenticeship,1,(No established apprenticeships yet),—,Field too young; technician tracks emerging,,
+Quantum Computing,Internship / work placement,1,Quantum internships,IBM Quantum,Hardware and software,IBM Quantum.png,ibm.com
+Quantum Computing,Internship / work placement,2,Quantum AI internships,Google,Willow chip team,Google.png,google.com
+Quantum Computing,Internship / work placement,3,Center for Quantum Computing internships,AWS,Caltech-based hardware team,AWS.png,aws.amazon.com
+Quantum Computing,Internship / work placement,4,Quantum internships,Microsoft,Topological approach,Microsoft.png,microsoft.com
+Quantum Computing,Internship / work placement,5,Internships,Quantinuum,Trapped-ion leader,Quantinuum.png,quantinuum.com
+Quantum Computing,Internship / work placement,6,Internships,IonQ,Public quantum company,IonQ.png,ionq.com
+Quantum Computing,Internship / work placement,7,Internships,PsiQuantum,Photonic quantum,PsiQuantum.webp,psiquantum.com
+Quantum Computing,Internship / work placement,8,Internships,Xanadu,Photonics + PennyLane,Xanadu.png,xanadu.ai
+Quantum Computing,Internship / work placement,9,Internships,Rigetti Computing,Superconducting,Rigetti Computing.svg,rigetti.com
+Quantum Computing,Internship / work placement,10,Summer research (JQI),NIST / University of Maryland,Atomic physics,NIST - University of Maryland.svg,jqi.umd.edu
+Quantum Computing,Accelerator / incubator,1,Quantum stream,Creative Destruction Lab,Largest quantum startup program,Creative Destruction Lab.png,creativedestructionlab.com
+Quantum Computing,Accelerator / incubator,2,Duality,University of Chicago Polsky / Chicago Quantum Exchange,First US quantum accelerator,University of Chicago Polsky - Chicago Quantum Exchange.svg,polsky.uchicago.edu
+Quantum Computing,Accelerator / incubator,3,Startup programme,Quantum Delta NL,Dutch national quantum program,,quantumdelta.nl
+Quantum Computing,Accelerator / incubator,4,Quantum Startup Foundry,University of Maryland,Mid-Atlantic quantum hub,University of Maryland.svg,umd.edu
+Quantum Computing,Mentorship program,1,Quantum Computing Mentorship Program,Quantum Open Source Foundation (QOSF),Well-known open mentorship,Quantum Open Source Foundation (QOSF).png,qosf.org
+Quantum Computing,Mentorship program,2,Mentorship,QWorld,Global community mentoring,QWorld.jpg,qworld.net
+Quantum Computing,Research training program,1,USEQIP,University of Waterloo IQC,Hands-on lab research,University of Waterloo IQC.png,uwaterloo.ca
+Quantum Computing,Research training program,2,SURF (NIST),NIST,Federal lab research,NIST.svg,nist.gov
+Quantum Computing,Research training program,3,SURF (IQIM),Caltech,Summer research,Caltech.png,caltech.edu
+Quantum Computing,Research training program,4,UROP (Center for Quantum Engineering),MIT,Undergrad research,MIT.svg,mit.edu
+Quantum Computing,Research training program,5,REU sites in quantum,NSF,Funded undergraduate research,NSF.png,nsf.gov
+Quantum Computing,Laboratory program,1,IBM Quantum Platform,IBM,Free access to real quantum hardware,IBM.png,ibm.com
+Quantum Computing,Laboratory program,2,Amazon Braket,AWS,Multi-vendor hardware access,AWS.png,aws.amazon.com
+Quantum Computing,Laboratory program,3,Azure Quantum,Microsoft,Multi-vendor hardware access,Microsoft.png,microsoft.com
+Quantum Computing,Laboratory program,4,Quantum Inspire,QuTech,European hardware access,QuTech.svg,qutech.nl
+Quantum Computing,Competition / challenge,1,XPRIZE Quantum Applications,XPRIZE & Google Quantum AI,$5M prize,XPRIZE & Google Quantum AI.svg,xprize.org
+Quantum Computing,Competition / challenge,2,IBM Quantum Challenge,IBM,Global annual challenge,IBM.png,ibm.com
+Quantum Computing,Competition / challenge,3,iQuHACK,MIT,Premier quantum hackathon,MIT.svg,mit.edu
+Quantum Computing,Competition / challenge,4,QHack,Xanadu,Large quantum ML hackathon,Xanadu.png,xanadu.ai
+Quantum Computing,Competition / challenge,5,Qiskit hackathons,IBM,Global events,IBM.png,ibm.com
+Quantum Computing,Community of practice,1,Qiskit community & Advocates,IBM,Largest quantum developer community,IBM.png,ibm.com
+Quantum Computing,Community of practice,2,Unitary Foundation,Unitary Foundation,Open-source quantum nonprofit,Unitary Foundation.png,unitary.foundation
+Quantum Computing,Community of practice,3,Quantum Open Source Foundation,QOSF,Open-source projects,QOSF.png,qosf.org
+Quantum Computing,Community of practice,4,QWorld,QWorld,Global education network,QWorld.jpg,qworld.net
+Quantum Computing,Community of practice,5,Quantum Computing Stack Exchange,Stack Exchange,Expert Q&A,Stack Exchange.svg,stackexchange.com
+Quantum Computing,Learning retreat / immersion,1,Les Houches Summer Schools,École de Physique des Houches,Legendary physics schools,École de Physique des Houches.svg,houches-school-physics.com
+Quantum Computing,Learning retreat / immersion,2,Boulder School for Condensed Matter,University of Colorado,Classic summer school,University of Colorado.png,colorado.edu
+Quantum Computing,Learning retreat / immersion,3,Quantum Computing Summer School,Los Alamos National Laboratory,"Selective, funded",Los Alamos National Laboratory.png,lanl.gov
+Quantum Computing,Learning retreat / immersion,4,Perimeter Scholars International,Perimeter Institute,Immersive master's-level program,Perimeter Institute.svg,perimeterinstitute.ca
+Quantum Computing,Corporate training program,1,Quantum Network training,IBM,Enterprise partners,IBM.png,ibm.com
+Quantum Computing,Corporate training program,2,Black Opal,Q-CTRL,Enterprise quantum literacy,Q-CTRL.png,q-ctrl.com
+Quantum Computing,Corporate training program,3,Workforce programs,QED-C,Industry consortium,QED-C.png,quantumconsortium.org
+Quantum Computing,Professional development program,1,Quantum Computing Fundamentals,MIT xPRO,Professional certificate,MIT xPRO.ico,xpro.mit.edu
+Space Exploration,Self-study,1,Orbital Mechanics for Engineering Students,Howard Curtis,Standard astrodynamics text,Howard Curtis.svg,elsevier.com
+Space Exploration,Self-study,2,Space Mission Engineering: The New SMAD,Microcosm Press,Mission design bible,Microcosm Press.jpg,microcosmpress.com
+Space Exploration,Self-study,3,Rocket Propulsion Elements,Sutton & Biblarz,Propulsion classic,Sutton & Biblarz.svg,wiley.com
+Space Exploration,Self-study,4,Scott Manley,YouTube,Respected spaceflight explainer,YouTube.png,youtube.com
+Space Exploration,Self-study,5,Everyday Astronaut,YouTube (Tim Dodd),Deep-dive launch technology,YouTube (Tim Dodd).jpg,youtube.com/@EverydayAstronaut
+Space Exploration,Self-study,6,Kerbal Space Program,Squad / Private Division,Orbital mechanics intuition via simulation,Squad - Private Division.ico,kerbalspaceprogram.com
+Space Exploration,Self-study,7,ESA Academy online resources,ESA,Agency-authored,ESA.png,esa.int
+Space Exploration,Open online course / MOOC,1,Introduction to Aerospace Engineering: Astronautics & Human Spaceflight (16.00x),MITx (edX),Astronaut Jeffrey Hoffman,MITx (edX).ico,openlearning.mit.edu
+Space Exploration,Open online course / MOOC,2,Spacecraft Dynamics and Control Specialization,CU Boulder (Coursera),Hanspeter Schaub,CU Boulder (Coursera).png,colorado.edu
+Space Exploration,Open online course / MOOC,3,Satellite Engineering (16.851),MIT OpenCourseWare,MIT course materials,MIT OpenCourseWare.ico,ocw.mit.edu
+Space Exploration,Open online course / MOOC,4,Astronomy: Exploring Time and Space,University of Arizona (Coursera),Popular astronomy course,University of Arizona (Coursera).ico,arizona.edu
+Space Exploration,Open online course / MOOC,5,The Evolving Universe,Caltech (Coursera),Caltech faculty,Caltech (Coursera).png,caltech.edu
+Space Exploration,Open online course / MOOC,6,Introduction to Astrophysics,EPFL (edX),EPFL faculty,EPFL (edX).svg,epfl.ch
+Space Exploration,Live course,1,Professional development courses,AIAA,Professional society,AIAA.ico,aiaa.org
+Space Exploration,Academic degree program,1,Aeronautics & Astronautics (MS/PhD),MIT,Top-ranked,MIT.svg,mit.edu
+Space Exploration,Academic degree program,2,Aerospace (GALCIT),Caltech,JPL-affiliated,Caltech.png,caltech.edu
+Space Exploration,Academic degree program,3,Aeronautics & Astronautics,Stanford University,Top-ranked,Stanford University.png,stanford.edu
+Space Exploration,Academic degree program,4,Aerospace Engineering Sciences,University of Colorado Boulder,Leading space program,University of Colorado Boulder.png,colorado.edu
+Space Exploration,Academic degree program,5,Aerospace Engineering,Georgia Tech,Top-ranked,Georgia Tech.png,gatech.edu
+Space Exploration,Academic degree program,6,Aeronautics & Astronautics,Purdue University,'Cradle of Astronauts',Purdue University.png,purdue.edu
+Space Exploration,Academic degree program,7,MSc Space Studies,International Space University,Interdisciplinary space degree,International Space University.png,isunet.edu
+Space Exploration,Academic degree program,8,Aerospace Engineering,TU Delft,European leader,TU Delft.png,tudelft.nl
+Space Exploration,Academic degree program,9,MSc Astronautics & Space Engineering,Cranfield University,Industry-linked,Cranfield University.png,cranfield.ac.uk
+Space Exploration,Academic degree program,10,Aerospace engineering,ISAE-SUPAERO,French grande école,ISAE-SUPAERO.png,isae-supaero.fr
+Space Exploration,Professional certification program,1,Certified Systems Engineering Professional (CSEP),INCOSE,Systems engineering standard,INCOSE.png,incose.org
+Space Exploration,Workshop / masterclass,1,Short courses,AIAA SciTech / ASCEND,Professional venue,AIAA SciTech - ASCEND.ico,aiaa.org
+Space Exploration,Workshop / masterclass,2,Training sessions,ESA Academy,Agency-led,ESA Academy.png,esa.int
+Space Exploration,Bootcamp,1,Advanced Space Academy,U.S. Space & Rocket Center (Space Camp),Iconic immersive program,U.S. Space & Rocket Center (Space Camp).png,spacecamp.com
+Space Exploration,Fellowship,1,Brooke Owens Fellowship,Brooke Owens Fellowship,Most prestigious undergrad space fellowship,Brooke Owens Fellowship.webp,brookeowensfellowship.org
+Space Exploration,Fellowship,2,Matthew Isakowitz Fellowship,Matthew Isakowitz Fellowship,Commercial spaceflight,Matthew Isakowitz Fellowship.webp,matthewisakowitzfellowship.org
+Space Exploration,Fellowship,3,Patti Grace Smith Fellowship,Patti Grace Smith Fellowship,Black students in aerospace,Patti Grace Smith Fellowship.webp,pgsfellowship.org
+Space Exploration,Fellowship,4,NASA Hubble Fellowship Program,NASA,Elite astrophysics postdoc,NASA.png,nasa.gov
+Space Exploration,Fellowship,5,NSTGRO,NASA,Space technology PhD funding,NASA.png,nasa.gov
+Space Exploration,Fellowship,6,Amelia Earhart Fellowship,Zonta International,Long-standing aerospace PhD fellowship,Zonta International.png,zonta.org
+Space Exploration,Residency,1,Young Graduate Trainee,ESA,One-year embedded traineeship,ESA.png,esa.int
+Space Exploration,Residency,2,NASA Postdoctoral Program,NASA / ORAU,Embedded research,NASA - ORAU.png,nasa.gov
+Space Exploration,Apprenticeship,1,Aerospace apprenticeships,Airbus,Major OEM,Airbus.png,airbus.com
+Space Exploration,Apprenticeship,2,Apprenticeships,Lockheed Martin,Major OEM,Lockheed Martin.svg,lockheedmartin.com
+Space Exploration,Internship / work placement,1,OSTEM internships,NASA,Agency internships,NASA.png,nasa.gov
+Space Exploration,Internship / work placement,2,Summer internships,NASA JPL,Planetary missions,NASA JPL.png,jpl.nasa.gov
+Space Exploration,Internship / work placement,3,Internships,SpaceX,Leading launch company,SpaceX.ico,spacex.com
+Space Exploration,Internship / work placement,4,Internships,Blue Origin,Launch & lunar,Blue Origin.png,blueorigin.com
+Space Exploration,Internship / work placement,5,Internships,Rocket Lab,Small launch,Rocket Lab.png,rocketlabcorp.com
+Space Exploration,Internship / work placement,6,Pathways Program,NASA,Route to NASA employment,NASA.png,nasa.gov
+Space Exploration,Accelerator / incubator,1,Business Incubation Centres,ESA,Largest space incubation network,ESA.png,esa.int
+Space Exploration,Accelerator / incubator,2,Space accelerator,Seraphim Space,Leading space VC,Seraphim Space.png,seraphim.vc
+Space Exploration,Accelerator / incubator,3,Accelerator,Starburst Aerospace,Global aerospace accelerator,Starburst Aerospace.svg,starburst.aero
+Space Exploration,Accelerator / incubator,4,Space stream,Creative Destruction Lab,Selective program,Creative Destruction Lab.png,creativedestructionlab.com
+Space Exploration,Accelerator / incubator,5,Y Combinator,Y Combinator,Growing space portfolio,Y Combinator.ico,ycombinator.com
+Space Exploration,Mentorship program,1,Mentorship,Space Generation Advisory Council,UN-linked youth network,Space Generation Advisory Council.png,spacegeneration.org
+Space Exploration,Mentorship program,2,Mentoring,Women in Aerospace,Professional network,Women in Aerospace.ico,womeninaerospace.org
+Space Exploration,Research training program,1,SURF at JPL,Caltech / NASA JPL,Summer research,Caltech - NASA JPL.png,caltech.edu
+Space Exploration,Research training program,2,Space Grant Consortium,NASA,Funded research in every US state,NASA.png,nasa.gov
+Space Exploration,Research training program,3,Fly / Drop / Spin Your Thesis,ESA Academy,Microgravity experiments for students,ESA Academy.png,esa.int
+Space Exploration,Studio / project-based program,1,Stanford Student Space Initiative,Stanford,Student spacecraft,Stanford.png,stanford.edu
+Space Exploration,Studio / project-based program,2,CubeSat programs,"University-run (e.g. Cal Poly, CU Boulder)",Build real satellites,,
+Space Exploration,Studio / project-based program,3,Rocket Team,MIT,Student rocketry,MIT.svg,mit.edu
+Space Exploration,Laboratory program,1,Parabolic flights,ESA Academy,Real microgravity,ESA Academy.png,esa.int
+Space Exploration,Laboratory program,2,STK,Ansys AGI,Industry mission simulation,Ansys AGI.svg,ansys.com
+Space Exploration,Competition / challenge,1,Space Apps Challenge,NASA,Largest space hackathon,NASA.png,nasa.gov
+Space Exploration,Competition / challenge,2,Spaceport America Cup,ESRA,Largest rocket engineering competition,ESRA.png,soundingrocket.org
+Space Exploration,Competition / challenge,3,Student Launch,NASA,Rocketry competition,NASA.png,nasa.gov
+Space Exploration,Competition / challenge,4,Lunabotics,NASA,Lunar robotics,NASA.png,nasa.gov
+Space Exploration,Competition / challenge,5,Human Lander Challenge,NASA,Lunar lander concepts,NASA.png,nasa.gov
+Space Exploration,Competition / challenge,6,University Rover Challenge,The Mars Society,Mars rover design,The Mars Society.jpg,marssociety.org
+Space Exploration,Competition / challenge,7,CanSat Competition,AAS / AIAA,Satellite design,AAS - AIAA.ico,aiaa.org
+Space Exploration,Competition / challenge,8,Kibo Robot Programming Challenge,JAXA,Programs robots on the ISS,JAXA.ico,global.jaxa.jp
+Space Exploration,Competition / challenge,9,American Rocketry Challenge,AIA / NAR,Largest youth rocketry contest,AIA - NAR.png,rocketcontest.org
+Space Exploration,Field school / expedition,1,Mars Desert Research Station,The Mars Society,Analog mission crew,The Mars Society.jpg,marssociety.org
+Space Exploration,Field school / expedition,2,HI-SEAS,HI-SEAS,Mars/Moon habitat analog,HI-SEAS.webp,hi-seas.org
+Space Exploration,Field school / expedition,3,Haughton-Mars Project,Mars Institute / NASA,Arctic analog research,Mars Institute - NASA.png,marsinstitute.no
+Space Exploration,Community of practice,1,Space Generation Advisory Council,SGAC,Global network,SGAC.png,spacegeneration.org
+Space Exploration,Community of practice,2,NASASpaceflight forum,NSF,Expert community,NSF.png,nsf.gov
+Space Exploration,Community of practice,3,Libre Space Foundation,LSF,Open-source space,LSF.svg,libre.space
+Space Exploration,Community of practice,4,AMSAT,AMSAT,Amateur satellites,AMSAT.png,amsat.org
+Space Exploration,Learning retreat / immersion,1,Space Studies Program,International Space University,Flagship 9-week immersion,International Space University.png,isunet.edu
+Space Exploration,Learning retreat / immersion,2,Alpbach Summer School,FFG / ESA,Mission design immersion,FFG - ESA.png,ffg.at
+Space Exploration,Learning retreat / immersion,3,Caltech Space Challenge,Caltech,Week-long mission design,Caltech.png,caltech.edu
+Space Exploration,Corporate training program,1,APPEL Knowledge Services,NASA,NASA's own training,NASA.png,nasa.gov
+Space Exploration,Corporate training program,2,ESA Academy training,ESA,Agency training,ESA.png,esa.int
+Space Exploration,Professional development program,1,Executive Space Course,International Space University,Industry executives,International Space University.png,isunet.edu
+Space Exploration,Professional development program,2,Short courses,Teaching Science & Technology (TSTI),Space systems engineering,Teaching Science & Technology (TSTI).jpg,tsti.net
+Space Exploration,Professional development program,3,Continuing education,AIAA,Professional society,AIAA.ico,aiaa.org
+Biotechnology,Self-study,1,Molecular Biology of the Cell,Alberts et al.,Canonical text,Alberts et al..png,wwnorton.com
+Biotechnology,Self-study,2,Bioinformatics Algorithms,Compeau & Pevzner,Interactive text,Compeau & Pevzner.jpg,bioinformaticsalgorithms.org
+Biotechnology,Self-study,3,Rosalind,Rosalind project,Bioinformatics problem platform,Rosalind project.png,rosalind.info
+Biotechnology,Self-study,4,iBiology,iBiology,Talks by top scientists,iBiology.png,ibiology.org
+Biotechnology,Self-study,5,Addgene protocols & blog,Addgene,Trusted lab resource,Addgene.svg,addgene.org
+Biotechnology,Self-study,6,Molecular Biology of the Gene,Watson et al.,Classic text,Watson et al..jpg,pearson.com
+Biotechnology,Open online course / MOOC,1,Introduction to Biology: The Secret of Life (7.00x),MITx (edX),Eric Lander,MITx (edX).ico,openlearning.mit.edu
+Biotechnology,Open online course / MOOC,2,Bioinformatics Specialization,UC San Diego (Coursera),Pevzner,UC San Diego (Coursera).png,ucsd.edu
+Biotechnology,Open online course / MOOC,3,Genomic Data Science Specialization,Johns Hopkins (Coursera),Leading genomics faculty,Johns Hopkins (Coursera).png,jhu.edu
+Biotechnology,Open online course / MOOC,4,Computational Biology (6.047),MIT (YouTube),Manolis Kellis,MIT (YouTube).svg,mit.edu
+Biotechnology,Open online course / MOOC,5,Principles of Biochemistry,HarvardX (edX),Harvard faculty,HarvardX (edX).png,harvard.edu
+Biotechnology,Open online course / MOOC,6,Drug Development,UC San Diego (Coursera),Industry pipeline,UC San Diego (Coursera).png,ucsd.edu
+Biotechnology,Open online course / MOOC,7,Lab Fundamentals in Biological Engineering (20.109),MIT OpenCourseWare,MIT lab course,MIT OpenCourseWare.ico,ocw.mit.edu
+Biotechnology,Live course,1,Industry training courses,Biotech Primer,Industry-favorite biotech literacy,Biotech Primer.png,biotechprimer.com
+Biotechnology,Academic degree program,1,Biological Engineering,MIT,Top-ranked,MIT.svg,mit.edu
+Biotechnology,Academic degree program,2,Bioengineering,Stanford University,Top-ranked,Stanford University.png,stanford.edu
+Biotechnology,Academic degree program,3,PhD Biological & Biomedical Sciences / Systems Biology,Harvard University,Elite,Harvard University.png,harvard.edu
+Biotechnology,Academic degree program,4,Tetrad PhD,UCSF,Elite cell/molecular program,UCSF.svg,ucsf.edu
+Biotechnology,Academic degree program,5,Biomedical Engineering,Johns Hopkins University,Top-ranked,Johns Hopkins University.png,jhu.edu
+Biotechnology,Academic degree program,6,PhD,Rockefeller University,Nobel-heavy institution,Rockefeller University.png,rockefeller.edu
+Biotechnology,Academic degree program,7,Bioengineering,UC Berkeley / UCSF,Top-ranked joint program,UC Berkeley - UCSF.svg,berkeley.edu
+Biotechnology,Academic degree program,8,PhD (MRC LMB / Biochemistry),University of Cambridge,Elite,University of Cambridge.svg,cam.ac.uk
+Biotechnology,Academic degree program,9,D-BSSE,ETH Zurich,Biosystems engineering,ETH Zurich.svg,ethz.ch
+Biotechnology,Academic degree program,10,DPhil,University of Oxford,Elite,University of Oxford.png,ox.ac.uk
+Biotechnology,Professional certification program,1,Regulatory Affairs Certification (RAC),RAPS,Regulatory standard,RAPS.webp,raps.org
+Biotechnology,Professional certification program,2,Certified Clinical Research Professional,SOCRA,Clinical research standard,SOCRA.png,socra.org
+Biotechnology,Professional certification program,3,Certified Pharmaceutical GMP Professional,ASQ,Quality standard,ASQ.ico,asq.org
+Biotechnology,Workshop / masterclass,1,Laboratory courses,Cold Spring Harbor Laboratory,Most prestigious short courses,Cold Spring Harbor Laboratory.png,cshl.edu
+Biotechnology,Workshop / masterclass,2,Practical courses,EMBO,European elite,EMBO.svg,embo.org
+Biotechnology,Workshop / masterclass,3,Gordon Research Conferences,GRC,Elite research meetings,GRC.ico,grc.org
+Biotechnology,Bootcamp,1,Biotech Crash Course,Genspace (NYC),Community lab intensive,Genspace (NYC).webp,genspace.org
+Biotechnology,Fellowship,1,Hertz Fellowship,Hertz Foundation,Top STEM PhD fellowship,Hertz Foundation.png,hertzfoundation.org
+Biotechnology,Fellowship,2,Schmidt Science Fellows,Schmidt Sciences,Interdisciplinary postdoc,Schmidt Sciences.svg,schmidtsciences.org
+Biotechnology,Fellowship,3,Helen Hay Whitney Fellowship,HHWF,Elite postdoc,HHWF.svg,hhwf.org
+Biotechnology,Fellowship,4,Jane Coffin Childs Fellowship,JCC Fund,Elite postdoc,JCC Fund.png,jccfund.org
+Biotechnology,Fellowship,5,Damon Runyon Fellowship,Damon Runyon Cancer Research Foundation,Elite cancer postdoc,Damon Runyon Cancer Research Foundation.svg,damonrunyon.org
+Biotechnology,Fellowship,6,Hanna H. Gray Fellows,HHMI,Elite early career,HHMI.png,hhmi.org
+Biotechnology,Fellowship,7,Life Sciences Research Foundation Fellowship,LSRF,Elite postdoc,LSRF.png,lsrf.org
+Biotechnology,Fellowship,8,Biodesign Innovation Fellowship,Stanford Byers Center for Biodesign,Medtech/biotech innovation,Stanford Byers Center for Biodesign.png,biodesign.stanford.edu
+Biotechnology,Fellowship,9,Junior Fellows,Harvard Society of Fellows,Elite,Harvard Society of Fellows.png,socfell.fas.harvard.edu
+Biotechnology,Residency,1,Whitehead Fellows,Whitehead Institute (MIT),Independent research post-PhD,Whitehead Institute (MIT).ico,wi.mit.edu
+Biotechnology,Residency,2,Postbac IRTA,NIH,Embedded research year,NIH.png,nih.gov
+Biotechnology,Apprenticeship,1,Laboratory Scientist Level 6,GSK / AstraZeneca (UK),Degree apprenticeship,GSK - AstraZeneca (UK).png,gsk.com
+Biotechnology,Apprenticeship,2,Biologielaborant/in,Bayer / BASF (Germany),Dual training,Bayer - BASF (Germany).png,bayer.com
+Biotechnology,Apprenticeship,3,Laborant/in EFZ,Roche / Novartis (Switzerland),Swiss apprenticeship,Roche - Novartis (Switzerland).svg,roche.com
+Biotechnology,Apprenticeship,4,Biomanufacturing apprenticeships,NIIMBL (US),Registered apprenticeship,NIIMBL (US).svg,niimbl.org
+Biotechnology,Internship / work placement,1,Amgen Scholars,Amgen Foundation,Premier undergrad biotech program,Amgen Foundation.svg,amgen.com
+Biotechnology,Internship / work placement,2,Internships,Genentech,Iconic biotech,Genentech.svg,gene.com
+Biotechnology,Internship / work placement,3,Internships,Regeneron,Top biotech,Regeneron.ico,regeneron.com
+Biotechnology,Internship / work placement,4,Internships,Moderna,mRNA leader,Moderna.svg,modernatx.com
+Biotechnology,Internship / work placement,5,Summer Research Program in Genomics,Broad Institute,Elite genomics,Broad Institute.png,broadinstitute.org
+Biotechnology,Internship / work placement,6,Summer Internship Program,NIH,Federal research,NIH.png,nih.gov
+Biotechnology,Internship / work placement,7,Internships,Ginkgo Bioworks,Synthetic biology,Ginkgo Bioworks.png,ginkgobioworks.com
+Biotechnology,Internship / work placement,8,Internships,Novartis,Global pharma,Novartis.svg,novartis.com
+Biotechnology,Accelerator / incubator,1,Y Combinator,Y Combinator,Strong biotech track,Y Combinator.ico,ycombinator.com
+Biotechnology,Accelerator / incubator,2,IndieBio,SOSV,Leading bio accelerator,SOSV.png,sosv.com
+Biotechnology,Accelerator / incubator,3,Nucleate Activator,Nucleate,Student-led biotech venture program,Nucleate.png,nucleate.org
+Biotechnology,Accelerator / incubator,4,JLABS,Johnson & Johnson,Large life science incubator,Johnson & Johnson.bmp,jnj.com
+Biotechnology,Accelerator / incubator,5,Petri,Pillar VC,Engineering-biology accelerator,Pillar VC.png,pillar.vc
+Biotechnology,Accelerator / incubator,6,Ignite,LabCentral,Boston lab incubator,LabCentral.svg,labcentral.org
+Biotechnology,Accelerator / incubator,7,Activate Fellowship,Activate.org,Hard-tech including bio,Activate.org.svg,activate.org
+Biotechnology,Mentorship program,1,Nucleate mentorship,Nucleate,Biotech founder mentoring,Nucleate.png,nucleate.org
+Biotechnology,Mentorship program,2,Mentoring,MassBio,Industry association,MassBio.png,massbio.org
+Biotechnology,Research training program,1,EXROP,HHMI,Selective undergrad research,HHMI.png,hhmi.org
+Biotechnology,Research training program,2,PREP,NIH,Post-bac research,NIH.png,nih.gov
+Biotechnology,Research training program,3,SURF,Rockefeller University,Elite summer research,Rockefeller University.png,rockefeller.edu
+Biotechnology,Research training program,4,MSRP-Bio,MIT,Summer research,MIT.svg,mit.edu
+Biotechnology,Research training program,5,Amgen Scholars research,Amgen Foundation,Undergrad research at top universities,Amgen Foundation.svg,amgen.com
+Biotechnology,Laboratory program,1,DNA Learning Center,Cold Spring Harbor Laboratory,Hands-on labs,Cold Spring Harbor Laboratory.png,cshl.edu
+Biotechnology,Laboratory program,2,Genspace,Genspace (NYC),Community biolab,Genspace (NYC).webp,genspace.org
+Biotechnology,Laboratory program,3,BioCurious,BioCurious (Bay Area),Community biolab,BioCurious (Bay Area).jpg,biocurious.org
+Biotechnology,Competition / challenge,1,iGEM,iGEM Foundation,Flagship synthetic biology competition,iGEM Foundation.svg,igem.org
+Biotechnology,Competition / challenge,2,CASP,Protein Structure Prediction Center,Birthplace of AlphaFold's breakthrough,Protein Structure Prediction Center.ico,predictioncenter.org
+Biotechnology,Competition / challenge,3,Protein design competitions,Adaptyv Bio,Real wet-lab validation,Adaptyv Bio.png,adaptyvbio.com
+Biotechnology,Competition / challenge,4,DREAM Challenges,Sage Bionetworks,Biomedical data challenges,Sage Bionetworks.svg,sagebionetworks.org
+Biotechnology,Competition / challenge,5,BIOMOD,BIOMOD,Biomolecular design,BIOMOD.png,biomod.net
+Biotechnology,Competition / challenge,6,International Biology Olympiad,IBO,Top pre-university biology olympiad,IBO.png,ibo-info.org
+Biotechnology,Community of practice,1,Nucleate,Nucleate,Biotech community,Nucleate.png,nucleate.org
+Biotechnology,Community of practice,2,SynBioBeta,SynBioBeta,Synthetic biology community,SynBioBeta.png,synbiobeta.com
+Biotechnology,Community of practice,3,DIYbio,DIYbio.org,Community biology,DIYbio.org.png,diybio.org
+Biotechnology,Learning retreat / immersion,1,Summer courses,MBL Woods Hole,Legendary immersion,MBL Woods Hole.svg,mbl.edu
+Biotechnology,Learning retreat / immersion,2,Summer courses,Cold Spring Harbor Laboratory,Immersive,Cold Spring Harbor Laboratory.png,cshl.edu
+Biotechnology,Corporate training program,1,Industry training,Biotech Primer,Corporate biotech literacy,Biotech Primer.png,biotechprimer.com
+Biotechnology,Corporate training program,2,Biomanufacturing training,NC State BTEC,GMP training,NC State BTEC.png,btec.ncsu.edu
+Biotechnology,Corporate training program,3,Workforce training,NIIMBL,Biomanufacturing,NIIMBL.svg,niimbl.org
+Biotechnology,Professional development program,1,Short courses,NC State BTEC,Continuing education,NC State BTEC.png,btec.ncsu.edu
+Neurotechnology,Self-study,1,Principles of Neural Science,Kandel et al.,Canonical neuroscience text,Kandel et al..svg,mheducation.com
+Neurotechnology,Self-study,2,Neuromatch Academy materials (open),Neuromatch,Free notebooks used worldwide,Neuromatch.png,neuromatch.io
+Neurotechnology,Self-study,3,Neuronal Dynamics (online book),"Wulfram Gerstner, EPFL",Free computational text,"Wulfram Gerstner, EPFL.svg",epfl.ch
+Neurotechnology,Self-study,4,Theoretical Neuroscience,Dayan & Abbott,Classic,Dayan & Abbott.png,mitpress.mit.edu
+Neurotechnology,Self-study,5,NeuroTechX EDU resources,NeuroTechX,Community-curated BCI learning,NeuroTechX.ico,neurotechx.com
+Neurotechnology,Self-study,6,OpenBCI documentation,OpenBCI,Open-source BCI hardware,OpenBCI.png,openbci.com
+Neurotechnology,Self-study,7,Experiments,Backyard Brains,DIY neuroscience,Backyard Brains.svg,backyardbrains.com
+Neurotechnology,Open online course / MOOC,1,The Human Brain (9.13),"MIT (Nancy Kanwisher, YouTube/OCW)",Top neuroscientist,"MIT (Nancy Kanwisher, YouTube-OCW).ico",ocw.mit.edu
+Neurotechnology,Open online course / MOOC,2,Computational Neuroscience,University of Washington (Coursera),Rajesh Rao,University of Washington (Coursera).ico,washington.edu
+Neurotechnology,Open online course / MOOC,3,Medical Neuroscience,Duke University (Coursera),Highly rated,Duke University (Coursera).png,duke.edu
+Neurotechnology,Open online course / MOOC,4,Fundamentals of Neuroscience,HarvardX (edX),Harvard production,HarvardX (edX).png,harvard.edu
+Neurotechnology,Open online course / MOOC,5,Neuronal Dynamics,EPFL (edX),Gerstner,EPFL (edX).svg,epfl.ch
+Neurotechnology,Open online course / MOOC,6,"Synapses, Neurons and Brains",Hebrew University (Coursera),Idan Segev,Hebrew University (Coursera).png,en.huji.ac.il
+Neurotechnology,Cohort-based course,1,Computational Neuroscience & NeuroAI,Neuromatch Academy,Global intensive cohort,Neuromatch Academy.png,neuromatch.io
+Neurotechnology,Cohort-based course,2,NeuroTechX student clubs,NeuroTechX,Cohort projects,NeuroTechX.ico,neurotechx.com
+Neurotechnology,Academic degree program,1,PhD Neurosciences,Stanford (Wu Tsai Neurosciences Institute),Top-ranked,Stanford (Wu Tsai Neurosciences Institute).svg,neuroscience.stanford.edu
+Neurotechnology,Academic degree program,2,Brain & Cognitive Sciences,MIT,Top-ranked,MIT.svg,mit.edu
+Neurotechnology,Academic degree program,3,PhD Neuroscience,Harvard University,Top-ranked,Harvard University.png,harvard.edu
+Neurotechnology,Academic degree program,4,PhD Computation & Neural Systems,Caltech,Pioneering,Caltech.png,caltech.edu
+Neurotechnology,Academic degree program,5,PhD Neurobiology & Behavior (Zuckerman),Columbia University,Top-ranked,Columbia University.png,columbia.edu
+Neurotechnology,Academic degree program,6,PhD (Gatsby / SWC),University College London,Elite theoretical neuroscience,University College London.ico,ucl.ac.uk
+Neurotechnology,Academic degree program,7,Biomedical Engineering (neuroengineering),Johns Hopkins University,Top BME,Johns Hopkins University.png,jhu.edu
+Neurotechnology,Academic degree program,8,PhD Neural Computation,Carnegie Mellon University,Neuro + CS,Carnegie Mellon University.svg,cmu.edu
+Neurotechnology,Academic degree program,9,Neural Systems & Computation,ETH Zurich / University of Zurich,Neuromorphic pioneers,ETH Zurich - University of Zurich.svg,ethz.ch
+Neurotechnology,Academic degree program,10,PhD (Carney Institute),Brown University,BrainGate pioneers,Brown University.png,brown.edu
+Neurotechnology,Professional certification program,1,Board Certification in Neurofeedback,BCIA,Clinical neurotech credential,BCIA.jpg,bcia.org
+Neurotechnology,Professional certification program,2,R. EEG T. certification,ABRET,EEG technologist credential,ABRET.png,abret.org
+Neurotechnology,Workshop / masterclass,1,Neurohackademy,University of Washington eScience,Selective neuroimaging data science,University of Washington eScience.png,escience.washington.edu
+Neurotechnology,Workshop / masterclass,2,Short courses,Society for Neuroscience,Largest neuroscience venue,Society for Neuroscience.png,sfn.org
+Neurotechnology,Workshop / masterclass,3,Neuroscience courses,Cold Spring Harbor Laboratory,Elite short courses,Cold Spring Harbor Laboratory.png,cshl.edu
+Neurotechnology,Fellowship,1,Helen Hay Whitney Fellowship,HHWF,Elite postdoc,HHWF.svg,hhwf.org
+Neurotechnology,Fellowship,2,Schmidt Science Fellows,Schmidt Sciences,Interdisciplinary postdoc,Schmidt Sciences.svg,schmidtsciences.org
+Neurotechnology,Fellowship,3,Grass Fellowship,Grass Foundation / MBL,Summer neuroscience research,Grass Foundation - MBL.png,grassfoundation.org
+Neurotechnology,Fellowship,4,Hertz Fellowship,Hertz Foundation,Top STEM PhD fellowship,Hertz Foundation.png,hertzfoundation.org
+Neurotechnology,Internship / work placement,1,Internships,Neuralink,Leading implantable BCI,Neuralink.svg,neuralink.com
+Neurotechnology,Internship / work placement,2,Internships,Synchron,Endovascular BCI,Synchron.png,synchron.com
+Neurotechnology,Internship / work placement,3,Internships,Precision Neuroscience,Thin-film BCI,Precision Neuroscience.png,precisionneuro.io
+Neurotechnology,Internship / work placement,4,Internships,Blackrock Neurotech,BCI pioneer,Blackrock Neurotech.svg,blackrockneurotech.com
+Neurotechnology,Internship / work placement,5,Reality Labs research (neural interfaces / EMG),Meta,Non-invasive neural interfaces,Meta.jpg,about.meta.com
+Neurotechnology,Accelerator / incubator,1,Y Combinator,Y Combinator,Funds neurotech,Y Combinator.ico,ycombinator.com
+Neurotechnology,Accelerator / incubator,2,IndieBio,SOSV,Bio/neuro startups,SOSV.png,sosv.com
+Neurotechnology,Research training program,1,Summer Workshop on the Dynamic Brain,Allen Institute & University of Washington,"Selective, data-rich",Allen Institute & University of Washington.png,alleninstitute.org
+Neurotechnology,Research training program,2,SURF,Caltech,Summer research,Caltech.png,caltech.edu
+Neurotechnology,Research training program,3,MSRP,MIT,Summer research,MIT.svg,mit.edu
+Neurotechnology,Laboratory program,1,OpenBCI,OpenBCI,Hands-on EEG hardware,OpenBCI.png,openbci.com
+Neurotechnology,Laboratory program,2,Backyard Brains,Backyard Brains,Low-cost neuro experiments,Backyard Brains.svg,backyardbrains.com
+Neurotechnology,Competition / challenge,1,Cybathlon,ETH Zurich,Assistive tech incl. BCI race,ETH Zurich.svg,ethz.ch
+Neurotechnology,Competition / challenge,2,BCI Award,g.tec,Annual BCI research award,g.tec.svg,gtec.at
+Neurotechnology,Competition / challenge,3,NeuroTechX hackathons,NeuroTechX,Community hackathons,NeuroTechX.ico,neurotechx.com
+Neurotechnology,Community of practice,1,NeuroTechX,NeuroTechX,Largest neurotech community,NeuroTechX.ico,neurotechx.com
+Neurotechnology,Community of practice,2,BCI Society,BCI Society,Professional community,BCI Society.png,bcisociety.org
+Neurotechnology,Community of practice,3,Neuromatch,Neuromatch,Global research community,Neuromatch.png,neuromatch.io
+Neurotechnology,Community of practice,4,OpenBCI community,OpenBCI,Builders,OpenBCI.png,openbci.com
+Neurotechnology,Learning retreat / immersion,1,Neurobiology course,MBL Woods Hole,Legendary immersion,MBL Woods Hole.svg,mbl.edu
+Neurotechnology,Learning retreat / immersion,2,Methods in Computational Neuroscience,MBL Woods Hole,Elite,MBL Woods Hole.svg,mbl.edu
+Neurotechnology,Learning retreat / immersion,3,"Brains, Minds and Machines Summer Course",MIT CBMM / MBL,Neuro + AI,MIT CBMM - MBL.jpg,cbmm.mit.edu
+Neurotechnology,Learning retreat / immersion,4,Telluride Neuromorphic Cognition Engineering Workshop,Telluride,Neuromorphic immersion,,tellurideneuromorphic.org
+Semiconductors,Self-study,1,CMOS VLSI Design,Weste & Harris,Standard chip design text,Weste & Harris.jpg,pearson.com
+Semiconductors,Self-study,2,Semiconductor Device Fundamentals,Robert Pierret,Device physics classic,Robert Pierret.jpg,pearson.com
+Semiconductors,Self-study,3,Fundamentals of Microfabrication,Marc Madou,Fab process reference,Marc Madou.png,routledge.com
+Semiconductors,Self-study,4,Asianometry,YouTube,Best semiconductor industry explainer,YouTube.png,youtube.com
+Semiconductors,Self-study,5,Nand2Tetris,Nisan & Schocken,Build a computer from first gates,Nisan & Schocken.png,nand2tetris.org
+Semiconductors,Self-study,6,Zero to ASIC materials,Matt Venn,Open-source chip design,Matt Venn.png,zerotoasiccourse.com
+Semiconductors,Open online course / MOOC,1,nanoHUB-U courses,Purdue University,Leading device physics content,Purdue University.png,purdue.edu
+Semiconductors,Open online course / MOOC,2,Semiconductor Fundamentals,Purdue University (edX),Mark Lundstrom,Purdue University (edX).png,purdue.edu
+Semiconductors,Open online course / MOOC,3,VLSI CAD: Logic to Layout,University of Illinois (Coursera),Rob Rutenbar,University of Illinois (Coursera).png,illinois.edu
+Semiconductors,Open online course / MOOC,4,Nand2Tetris Part I & II,Hebrew University (Coursera),Classic,Hebrew University (Coursera).png,en.huji.ac.il
+Semiconductors,Open online course / MOOC,5,Microelectronic Devices and Circuits (6.012),MIT OpenCourseWare,MIT,MIT OpenCourseWare.ico,ocw.mit.edu
+Semiconductors,Open online course / MOOC,6,FPGA Design for Embedded Systems,CU Boulder (Coursera),Practical HDL,CU Boulder (Coursera).png,colorado.edu
+Semiconductors,Live course,1,Zero to ASIC course,Matt Venn,Tapes out real chips,Matt Venn.png,zerotoasiccourse.com
+Semiconductors,Live course,2,Instructor-led training,Cadence,EDA leader,Cadence.ico,cadence.com
+Semiconductors,Live course,3,Instructor-led training,Synopsys,EDA leader,Synopsys.svg,synopsys.com
+Semiconductors,Cohort-based course,1,Zero to ASIC cohort,Matt Venn,Community cohort,Matt Venn.png,zerotoasiccourse.com
+Semiconductors,Academic degree program,1,Electrical Engineering,Stanford University,Top-ranked,Stanford University.png,stanford.edu
+Semiconductors,Academic degree program,2,EECS,MIT,Top-ranked,MIT.svg,mit.edu
+Semiconductors,Academic degree program,3,EECS (Berkeley Wireless Research Center),UC Berkeley,Top-ranked,UC Berkeley.svg,berkeley.edu
+Semiconductors,Academic degree program,4,Electrical & Computer Engineering,University of Illinois,Top-ranked,University of Illinois.png,illinois.edu
+Semiconductors,Academic degree program,5,Semiconductor Degrees Program,Purdue University,National semiconductor hub,Purdue University.png,purdue.edu
+Semiconductors,Academic degree program,6,Electrical & Computer Engineering,Georgia Tech,Top-ranked,Georgia Tech.png,gatech.edu
+Semiconductors,Academic degree program,7,PhD with imec,KU Leuven,World's leading semiconductor R&D lab,KU Leuven.png,kuleuven.be
+Semiconductors,Academic degree program,8,Microelectronics,TU Delft,European leader,TU Delft.png,tudelft.nl
+Semiconductors,Academic degree program,9,Electrical Engineering,National Taiwan University,TSMC talent pipeline,National Taiwan University.svg,ntu.edu.tw
+Semiconductors,Academic degree program,10,Electrical Engineering,KAIST,Samsung/SK Hynix pipeline,KAIST.ico,kaist.ac.kr
+Semiconductors,Professional certification program,1,Cadence certification,Cadence,EDA credential,Cadence.ico,cadence.com
+Semiconductors,Professional certification program,2,IPC certifications,IPC,Electronics manufacturing standard,IPC.svg,ipc.org
+Semiconductors,Workshop / masterclass,1,ISSCC tutorials,IEEE,Premier chip design venue,IEEE.jpg,ieee.org
+Semiconductors,Workshop / masterclass,2,Hot Chips tutorials,Hot Chips,Leading architecture venue,Hot Chips.png,hotchips.org
+Semiconductors,Workshop / masterclass,3,imec Academy courses,imec,Leading semiconductor R&D,imec.svg,imec-int.com
+Semiconductors,Workshop / masterclass,4,SEMI University courses,SEMI,Industry association,SEMI.png,semi.org
+Semiconductors,Bootcamp,1,Quick Start semiconductor technician program,Maricopa Community Colleges & Intel,Fast-track fab technician,Maricopa Community Colleges & Intel.png,maricopa.edu
+Semiconductors,Fellowship,1,SRC Graduate Fellowship,Semiconductor Research Corporation,Industry consortium,Semiconductor Research Corporation.png,src.org
+Semiconductors,Fellowship,2,Qualcomm Innovation Fellowship,Qualcomm,Selective PhD award,Qualcomm.png,qualcomm.com
+Semiconductors,Fellowship,3,Intel PhD Fellowship,Intel,Selective,Intel.ico,intel.com
+Semiconductors,Fellowship,4,NVIDIA Graduate Fellowship,NVIDIA,Selective,NVIDIA.svg,nvidia.com
+Semiconductors,Fellowship,5,SCALE,Purdue University / DoD,Microelectronics workforce,Purdue University - DoD.png,purdue.edu
+Semiconductors,Apprenticeship,1,Mikrotechnologe/in,Infineon / Bosch (Germany),Dual training,Infineon - Bosch (Germany).svg,infineon.com
+Semiconductors,Apprenticeship,2,Apprenticeships,Micron,US fab workforce,Micron.png,micron.com
+Semiconductors,Apprenticeship,3,MBO technician programs,ASML (Netherlands),Lithography leader,ASML (Netherlands).ico,asml.com
+Semiconductors,Internship / work placement,1,Internships,TSMC,World's leading foundry,TSMC.png,tsmc.com
+Semiconductors,Internship / work placement,2,Internships,NVIDIA,GPU design,NVIDIA.svg,nvidia.com
+Semiconductors,Internship / work placement,3,Internships,Apple (Silicon Engineering),Custom silicon,Apple (Silicon Engineering).ico,apple.com
+Semiconductors,Internship / work placement,4,Internships,Intel,Integrated device maker,Intel.ico,intel.com
+Semiconductors,Internship / work placement,5,Internships,ASML,EUV monopoly,ASML.ico,asml.com
+Semiconductors,Internship / work placement,6,Internships,Applied Materials,Equipment leader,Applied Materials.png,appliedmaterials.com
+Semiconductors,Internship / work placement,7,Internships,Qualcomm,Mobile chips,Qualcomm.png,qualcomm.com
+Semiconductors,Internship / work placement,8,Internships,AMD,CPUs and GPUs,AMD.ico,amd.com
+Semiconductors,Internship / work placement,9,Internships (TPU),Google,Custom AI silicon,Google.png,google.com
+Semiconductors,Accelerator / incubator,1,Silicon Catalyst,Silicon Catalyst,Only semiconductor-focused incubator,Silicon Catalyst.webp,siliconcatalyst.com
+Semiconductors,Accelerator / incubator,2,imec.istart,imec,Deep-tech incubator,imec.svg,imec-int.com
+Semiconductors,Accelerator / incubator,3,Y Combinator,Y Combinator,Growing chip portfolio,Y Combinator.ico,ycombinator.com
+Semiconductors,Research training program,1,REU sites,NNCI (NSF),Nanofab research,NNCI (NSF).png,nnci.net
+Semiconductors,Research training program,2,Summer research,Stanford Nanofabrication Facility,Fab experience,Stanford Nanofabrication Facility.png,snf.stanford.edu
+Semiconductors,Laboratory program,1,Stanford Nanofabrication Facility,Stanford,Academic fab,Stanford.png,stanford.edu
+Semiconductors,Laboratory program,2,MIT.nano,MIT,Flagship facility,MIT.svg,mit.edu
+Semiconductors,Laboratory program,3,Birck Nanotechnology Center,Purdue University,Large cleanroom,Purdue University.png,purdue.edu
+Semiconductors,Laboratory program,4,Cornell NanoScale Facility,Cornell University,National user facility,Cornell University.png,cornell.edu
+Semiconductors,Laboratory program,5,imec,imec,Industrial R&D,imec.svg,imec-int.com
+Semiconductors,Competition / challenge,1,Tiny Tapeout,Tiny Tapeout,Affordable real chip tapeouts,Tiny Tapeout.png,tinytapeout.com
+Semiconductors,Competition / challenge,2,Code-a-Chip / PICO,IEEE Solid-State Circuits Society,Open-source chip design contest,IEEE Solid-State Circuits Society.png,sscs.ieee.org
+Semiconductors,Competition / challenge,3,System Design Contest,Design Automation Conference,Academic design contest,Design Automation Conference.png,dac.com
+Semiconductors,Community of practice,1,Tiny Tapeout community,Tiny Tapeout,Open-silicon builders,Tiny Tapeout.png,tinytapeout.com
+Semiconductors,Community of practice,2,FOSSi Foundation / OpenROAD,FOSSi,Open-source silicon,FOSSi.svg,fossi-foundation.org
+Semiconductors,Community of practice,3,RISC-V International,RISC-V,Open ISA community,RISC-V.svg,riscv.org
+Semiconductors,Community of practice,4,SemiWiki,SemiWiki,Industry forum,SemiWiki.png,semiwiki.com
+Semiconductors,Corporate training program,1,Training,Applied Materials,Equipment training,Applied Materials.png,appliedmaterials.com
+Semiconductors,Corporate training program,2,Training,Lam Research,Equipment training,Lam Research.png,lamresearch.com
+Semiconductors,Corporate training program,3,Training,Synopsys / Cadence,EDA training,Synopsys - Cadence.svg,synopsys.com
+Semiconductors,Professional development program,1,SEMI University,SEMI,Continuing education,SEMI.png,semi.org
+Semiconductors,Professional development program,2,imec Academy,imec,Professional courses,imec.svg,imec-int.com
+Advanced Energy,Self-study,1,Sustainable Energy – Without the Hot Air,David MacKay (free),Numerate classic,David MacKay (free).ico,withouthotair.com
+Advanced Energy,Self-study,2,Energy and Civilization,Vaclav Smil,Historical perspective,Vaclav Smil.png,mitpress.mit.edu
+Advanced Energy,Self-study,3,Catalyst with Shayle Kann,Latitude Media (podcast),Top energy-tech podcast,Latitude Media (podcast).svg,latitudemedia.com
+Advanced Energy,Self-study,4,Volts,David Roberts (newsletter/podcast),Respected energy policy,David Roberts (newsletter-podcast).png,volts.wtf
+Advanced Energy,Self-study,5,World Energy Outlook,IEA,Authoritative data,IEA.png,iea.org
+Advanced Energy,Open online course / MOOC,1,Energy Innovation & Emerging Technologies,Stanford (Coursera),Stanford faculty,Stanford (Coursera).png,stanford.edu
+Advanced Energy,Open online course / MOOC,2,Solar Energy,TU Delft (edX),Popular solar course,TU Delft (edX).png,tudelft.nl
+Advanced Energy,Open online course / MOOC,3,Introduction to Nuclear Science (22.01),MIT OpenCourseWare,MIT NSE,MIT OpenCourseWare.ico,ocw.mit.edu
+Advanced Energy,Open online course / MOOC,4,Sustainable Energy (ENE),MITx,MIT Energy Initiative,MITx.ico,openlearning.mit.edu
+Advanced Energy,Cohort-based course,1,Climate Change: Learning for Action,Terra.do,Leading climate career cohort,Terra.do.svg,terra.do
+Advanced Energy,Cohort-based course,2,Climatebase Fellowship,Climatebase,Large climate career cohort,Climatebase.png,climatebase.org
+Advanced Energy,Academic degree program,1,Nuclear Science & Engineering,MIT,Top-ranked,MIT.svg,mit.edu
+Advanced Energy,Academic degree program,2,PhD Plasma Physics (PPPL),Princeton University,Fusion leader,Princeton University.ico,princeton.edu
+Advanced Energy,Academic degree program,3,Energy Science & Engineering,Stanford (Doerr School),Top program,Stanford (Doerr School).png,sustainability.stanford.edu
+Advanced Energy,Academic degree program,4,Nuclear Engineering,UC Berkeley,Top-ranked,UC Berkeley.svg,berkeley.edu
+Advanced Energy,Academic degree program,5,Nuclear Engineering & Radiological Sciences,University of Michigan,Top-ranked,University of Michigan.ico,umich.edu
+Advanced Energy,Academic degree program,6,Energy programs,Imperial College London,Top UK,Imperial College London.svg,imperial.ac.uk
+Advanced Energy,Academic degree program,7,Energy Science & Technology,ETH Zurich,Top Europe,ETH Zurich.svg,ethz.ch
+Advanced Energy,Academic degree program,8,Wind Energy,Technical University of Denmark (DTU),Wind leader,Technical University of Denmark (DTU).ico,dtu.dk
+Advanced Energy,Academic degree program,9,Sustainable Energy Technology,TU Delft,Leading European program,TU Delft.png,tudelft.nl
+Advanced Energy,Academic degree program,10,MPhil Engineering for Sustainable Development,University of Cambridge,Elite,University of Cambridge.svg,cam.ac.uk
+Advanced Energy,Professional certification program,1,NABCEP PV certifications,NABCEP,Solar standard,NABCEP.jpg,nabcep.org
+Advanced Energy,Professional certification program,2,Certified Energy Manager,AEE,Energy management standard,AEE.png,aeecenter.org
+Advanced Energy,Professional certification program,3,Basic Safety Training,Global Wind Organisation,Wind standard,Global Wind Organisation.svg,globalwindsafety.org
+Advanced Energy,Workshop / masterclass,1,ARPA-E Summit,ARPA-E,Premier energy innovation event,ARPA-E.png,arpa-e.energy.gov
+Advanced Energy,Fellowship,1,Activate Fellowship,Activate.org,Premier hard-tech fellowship,Activate.org.svg,activate.org
+Advanced Energy,Fellowship,2,Breakthrough Energy Fellows,Breakthrough Energy (Bill Gates),Selective climate founders,Breakthrough Energy (Bill Gates).png,breakthroughenergy.org
+Advanced Energy,Fellowship,3,Computational Science Graduate Fellowship,DOE,Prestigious,DOE.png,energy.gov
+Advanced Energy,Fellowship,4,Fusion Energy Sciences fellowship,DOE,Fusion PhD,DOE.png,energy.gov
+Advanced Energy,Fellowship,5,Clean Energy Leadership Institute Fellowship,CELI,Early-career leadership,CELI.webp,cleanenergyleaders.org
+Advanced Energy,Residency,1,Office of Science Graduate Student Research (SCGSR),DOE,Embedded at national labs,DOE.png,energy.gov
+Advanced Energy,Apprenticeship,1,Inside Wireman apprenticeship,IBEW-NECA,Electrification workforce,IBEW-NECA.png,electricaltrainingalliance.org
+Advanced Energy,Apprenticeship,2,Wind technician apprenticeships,Vestas / Siemens Gamesa,OEM programs,Vestas - Siemens Gamesa.ico,vestas.com
+Advanced Energy,Apprenticeship,3,Nuclear apprenticeships,Sellafield / EDF (UK),Nuclear workforce,Sellafield - EDF (UK).ico,edfenergy.com
+Advanced Energy,Internship / work placement,1,SULI,DOE,National lab internships,DOE.png,energy.gov
+Advanced Energy,Internship / work placement,2,Internships,NREL,Renewables lab,NREL.svg,nlr.gov
+Advanced Energy,Internship / work placement,3,Internships,Commonwealth Fusion Systems,Fusion leader,Commonwealth Fusion Systems.svg,cfs.energy
+Advanced Energy,Internship / work placement,4,Internships,Tesla Energy,Storage leader,Tesla Energy.ico,tesla.com
+Advanced Energy,Internship / work placement,5,Internships,TAE Technologies,Fusion,TAE Technologies.svg,tae.com
+Advanced Energy,Internship / work placement,6,Internships,Form Energy,Long-duration storage,Form Energy.png,formenergy.com
+Advanced Energy,Accelerator / incubator,1,Activate,Activate.org,Leading hard-tech program,Activate.org.svg,activate.org
+Advanced Energy,Accelerator / incubator,2,Breakthrough Energy Fellows,Breakthrough Energy,Gates-backed,Breakthrough Energy.png,breakthroughenergy.org
+Advanced Energy,Accelerator / incubator,3,Elemental Impact,Elemental,Climate tech accelerator,Elemental.svg,elementalimpact.com
+Advanced Energy,Accelerator / incubator,4,Greentown Labs,Greentown Labs,Largest climate incubator,Greentown Labs.svg,greentownlabs.com
+Advanced Energy,Accelerator / incubator,5,Third Derivative,RMI,Climate accelerator,RMI.svg,rmi.org
+Advanced Energy,Accelerator / incubator,6,Cleantech Open,Cleantech Open,Largest cleantech accelerator,Cleantech Open.jpg,cleantechopen.org
+Advanced Energy,Accelerator / incubator,7,Y Combinator,Y Combinator,Climate track,Y Combinator.ico,ycombinator.com
+Advanced Energy,Mentorship program,1,Mentorship,WRISE,Women in renewables,WRISE.png,wrisenergy.org
+Advanced Energy,Research training program,1,SULI (PPPL),Princeton Plasma Physics Laboratory,Fusion research,Princeton Plasma Physics Laboratory.png,pppl.gov
+Advanced Energy,Research training program,2,REU sites in energy,NSF,Funded research,NSF.png,nsf.gov
+Advanced Energy,Laboratory program,1,Energy Systems Integration Facility,NREL,National user facility,NREL.svg,nlr.gov
+Advanced Energy,Competition / challenge,1,Solar Decathlon,DOE,Iconic student competition,DOE.png,energy.gov
+Advanced Energy,Competition / challenge,2,American-Made Solar Prize,DOE,Startup prize,DOE.png,energy.gov
+Advanced Energy,Competition / challenge,3,Collegiate Wind Competition,DOE / NREL,Student wind,DOE - NREL.png,energy.gov
+Advanced Energy,Competition / challenge,4,Carbon Removal XPRIZE,XPRIZE,$100M prize,XPRIZE.svg,xprize.org
+Advanced Energy,Field school / expedition,1,Geothermal Training Programme,GRÓ GTP (Iceland),Field geothermal training,GRÓ GTP (Iceland).svg,grocentre.is
+Advanced Energy,Community of practice,1,Work on Climate,Work on Climate,Large practitioner Slack,Work on Climate.png,workonclimate.org
+Advanced Energy,Community of practice,2,MCJ Collective,MCJ,Climate investors and operators,MCJ.png,mcj.vc
+Advanced Energy,Community of practice,3,Climatebase,Climatebase,Climate careers,Climatebase.png,climatebase.org
+Advanced Energy,Community of practice,4,Fusion Industry Association,FIA,Fusion industry,FIA.jpg,fusionindustryassociation.org
+Advanced Energy,Learning retreat / immersion,1,Graduate Summer School,Princeton Plasma Physics Laboratory,Plasma immersion,Princeton Plasma Physics Laboratory.png,pppl.gov
+Advanced Energy,Learning retreat / immersion,2,Energy schools,ICTP / IAEA,International immersion,ICTP - IAEA.ico,ictp.it
+Nanotechnology,Self-study,1,Introduction to Nanoscience,Stuart Lindsay,Standard text,Stuart Lindsay.png,global.oup.com
+Nanotechnology,Self-study,2,There's Plenty of Room at the Bottom,Richard Feynman,Founding lecture,Richard Feynman.png,caltech.edu
+Nanotechnology,Self-study,3,nanoHUB resources,Purdue University,Large free library,Purdue University.png,purdue.edu
+Nanotechnology,Self-study,4,Fundamentals of Nanoelectronics,Supriyo Datta,Classic,Supriyo Datta.svg,nanohub.org
+Nanotechnology,Open online course / MOOC,1,nanoHUB-U,Purdue University,Leading nano MOOCs,Purdue University.png,purdue.edu
+Nanotechnology,Open online course / MOOC,2,Nanotechnology: A Maker's Course,Duke & NC State (Coursera),Hands-on,Duke & NC State (Coursera).png,duke.edu
+Nanotechnology,Open online course / MOOC,3,Nanotechnology and Nanosensors,Technion (Coursera),Popular,Technion (Coursera).png,technion.ac.il
+Nanotechnology,Open online course / MOOC,4,Fundamentals of Nanoelectronics,Purdue University (edX),Datta,Purdue University (edX).png,purdue.edu
+Nanotechnology,Academic degree program,1,Nanoscience / Applied Physics,Rice University (Smalley-Curl Institute),Birthplace of fullerenes,Rice University (Smalley-Curl Institute).svg,rice.edu
+Nanotechnology,Academic degree program,2,Materials Science & Engineering,MIT,Top-ranked,MIT.svg,mit.edu
+Nanotechnology,Academic degree program,3,Applied Physics / MSE,Cornell University,Top-ranked,Cornell University.png,cornell.edu
+Nanotechnology,Academic degree program,4,Materials Science (IIN),Northwestern University,Leading nano institute,Northwestern University.png,northwestern.edu
+Nanotechnology,Academic degree program,5,Materials Science,UC Berkeley,Top-ranked,UC Berkeley.svg,berkeley.edu
+Nanotechnology,Academic degree program,6,Materials Science,Stanford University,Top-ranked,Stanford University.png,stanford.edu
+Nanotechnology,Academic degree program,7,Applied Physics (SEAS),Harvard University,Top-ranked,Harvard University.png,harvard.edu
+Nanotechnology,Academic degree program,8,NanoDTC,University of Cambridge,Funded doctoral training,University of Cambridge.svg,cam.ac.uk
+Nanotechnology,Academic degree program,9,Nanotechnology Engineering (BASc),University of Waterloo,Dedicated undergrad degree,University of Waterloo.png,uwaterloo.ca
+Nanotechnology,Academic degree program,10,Nanobiology / Kavli Institute,TU Delft,Kavli nanoscience,TU Delft.png,tudelft.nl
+Nanotechnology,Workshop / masterclass,1,Gordon Research Conferences (nano),GRC,Elite,GRC.ico,grc.org
+Nanotechnology,Workshop / masterclass,2,MRS tutorials,Materials Research Society,Leading venue,Materials Research Society.png,mrs.org
+Nanotechnology,Fellowship,1,Foresight Fellowship,Foresight Institute,Molecular nanotech,Foresight Institute.png,foresight.org
+Nanotechnology,Fellowship,2,Kavli Postdoctoral Fellowships,Kavli Institutes,Prestigious,Kavli Institutes.ico,kavlifoundation.org
+Nanotechnology,Internship / work placement,1,User programs,Molecular Foundry (Berkeley Lab),National facility,Molecular Foundry (Berkeley Lab).png,foundry.lbl.gov
+Nanotechnology,Internship / work placement,2,User programs,Center for Functional Nanomaterials (Brookhaven),National facility,Center for Functional Nanomaterials (Brookhaven).svg,bnl.gov
+Nanotechnology,Research training program,1,REU sites,NNCI (NSF),Nanofab research,NNCI (NSF).png,nnci.net
+Nanotechnology,Research training program,2,REU,Cornell NanoScale Facility,Nanofab research,Cornell NanoScale Facility.png,cnf.cornell.edu
+Nanotechnology,Laboratory program,1,Cornell NanoScale Facility,Cornell University,National user facility,Cornell University.png,cornell.edu
+Nanotechnology,Laboratory program,2,Stanford Nanofabrication Facility,Stanford,Academic fab,Stanford.png,stanford.edu
+Nanotechnology,Laboratory program,3,MIT.nano,MIT,Flagship facility,MIT.svg,mit.edu
+Nanotechnology,Laboratory program,4,Center for Nanoscale Systems,Harvard University,Shared facility,Harvard University.png,harvard.edu
+Nanotechnology,Competition / challenge,1,Nanocar Race,CNRS,Molecular racing,CNRS.svg,cnrs.fr
+Nanotechnology,Competition / challenge,2,BIOMOD,BIOMOD,Biomolecular design,BIOMOD.png,biomod.net
+Nanotechnology,Community of practice,1,nanoHUB community,Purdue University,Researcher community,Purdue University.png,purdue.edu
+Nanotechnology,Community of practice,2,Foresight Institute,Foresight Institute,Frontier nanotech community,Foresight Institute.png,foresight.org

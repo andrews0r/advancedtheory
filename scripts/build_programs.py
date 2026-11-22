@@ -95,8 +95,53 @@ def note_of(r: dict) -> str:
     return first[:220]
 
 
+# ----------------------------------------------------------------- logos
+def norm(s: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
+
+
+def load_logos():
+    """Provider logos supplied in data/logos_index.csv + logos/ (converted by the import step).
+    Returns (by_provider_name, by_domain) -> '/logos/<file>'."""
+    mapping = json.loads((SITE / "logos" / "_map.json").read_text()) if (SITE / "logos" / "_map.json").exists() else {}
+    by_name, by_dom = {}, {}
+    path = DATA / "logos_index.csv"
+    if not path.exists():
+        return by_name, by_dom
+    for r in csv.DictReader(path.open(encoding="utf-8-sig")):
+        f = mapping.get(r["logo_filename"])
+        if not f or not (SITE / "logos" / f).exists():
+            continue
+        by_name.setdefault(norm(r["provider"]), "/logos/" + f)
+        d = host("https://" + r["source_domain"].split("/")[0]) if r.get("source_domain") else ""
+        if d:
+            by_dom.setdefault(d, "/logos/" + f)
+    return by_name, by_dom
+
+
+def logo_for(name: str, domain: str, by_name: dict, by_dom: dict) -> str:
+    n = norm(name)
+    if n in by_name:
+        return by_name[n]
+    if domain and domain in by_dom:
+        return by_dom[domain]
+    # "MIT Energy Initiative" -> "MIT", "Stanford Online" -> "Stanford": shorten word by word.
+    words = n.split()
+    for k in range(len(words) - 1, 0, -1):
+        cand = " ".join(words[:k])
+        if len(cand) >= 3 and cand in by_name:
+            return by_name[cand]
+    # Parent domain: "ocw.mit.edu" -> "mit.edu".
+    if domain and domain.count(".") >= 2:
+        parent = ".".join(domain.split(".")[-2:])
+        if parent in by_dom:
+            return by_dom[parent]
+    return ""
+
+
 def load_top20():
     rows = list(csv.DictReader((DATA / "programs_top20.csv").open(encoding="utf-8")))
+    by_name, by_dom = load_logos()
     items = []
     for r in rows:
         if r["direction"] not in FIELD_SLUG:
@@ -116,6 +161,7 @@ def load_top20():
             "section": section,
             "url": url,
             "domain": host(url),
+            "logo": logo_for(r["provider"], host(url), by_name, by_dom),
             "rank": int(r["rank_final"]) if (r.get("rank_final") or "").isdigit() else 99,
             "sources": int(r["source_count"]) if (r.get("source_count") or "").isdigit() else 1,
             "cost": cost_of(r),
@@ -130,6 +176,7 @@ def load_top20():
 def load_ranked():
     manifest = {m["program"].strip().lower(): m for m in csv.DictReader((DATA / "programs_logo_manifest.csv").open(encoding="utf-8-sig"))}
     rows = list(csv.DictReader((DATA / "programs_ranked_168.csv").open(encoding="utf-8-sig")))
+    by_name, by_dom = load_logos()
     out = []
     for r in rows:
         status = r["selection_status"]
@@ -144,6 +191,7 @@ def load_ranked():
             "operator": r["operator"].strip(),
             "url": (r.get("official_program_url") or "").strip(),
             "domain": domain,
+            "logo": logo_for(r["operator"], domain, by_name, by_dom) or logo_for(r["program"], domain, by_name, by_dom),
             "kind": (m["category"] if m else "").strip(),
             "examples": [x.strip() for x in (r.get("example_companies") or "").split(";") if x.strip()][:3],
             "hit_rate": float(r["hit_rate_pct"]) if (r.get("hit_rate_pct") or "").replace(".", "", 1).isdigit() else None,
@@ -238,6 +286,8 @@ def main():
         d = SITE / section
         d.mkdir(exist_ok=True)
         (d / "index.html").write_text(PAGE.format(section=section, base=BASE, **meta))
+    with_logo = sum(1 for i in items if i["logo"]) + sum(1 for r in ranked if r["logo"])
+    print(f"logos matched for {with_logo} of {len(items) + len(ranked)} entries")
     print(f"courses {len(courses)}, programs {len(programs)}, ranked {len(ranked)}; wrote data/programs.js, courses/index.html, programs/index.html")
 
 

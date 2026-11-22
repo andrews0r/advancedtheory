@@ -1,0 +1,501 @@
+provider,logo_filename,source_domain,logo_source_url,logo_type,width,height,notes
+MIT Press (free online),MIT Press (free online).png,mitpress.mit.edu,https://www.google.com/s2/favicons?domain=mitpress.mit.edu&sz=256,fallback_service,192,192,site blocked direct fetch; favicon via Google/DDG favicon service
+Andrej Karpathy (YouTube),Andrej Karpathy (YouTube).jpg,youtube.com/@AndrejKarpathy,https://yt3.googleusercontent.com/ytc/AIdro_nDvyq2NoPL626bk1IbxQ94SfQsD-B0qgZchghtQNkLWoEz=s900-c-k-c0x00ffffff-no-rj,site_logo,900,900,person — YouTube channel avatar
+"Zhang, Lipton, Li, Smola","Zhang, Lipton, Li, Smola.png",d2l.ai,https://d2l.ai/_static/logo-with-text.png,site_logo,3500,1251,authors; used d2l.ai book site
+fast.ai (Jeremy Howard),fast.ai (Jeremy Howard).png,fast.ai,https://github.com/fastai.png?size=400,fallback_service,135,135,official GitHub org avatar (site has no favicon/logo reachable)
+Sutton & Barto,Sutton & Barto.png,mitpress.mit.edu,https://www.google.com/s2/favicons?domain=mitpress.mit.edu&sz=256,fallback_service,192,192,textbook; publisher MIT Press logo; site blocked direct fetch; favicon via Google/DDG favicon service
+"Simon Prince (MIT Press, free PDF)","Simon Prince (MIT Press, free PDF).png",mitpress.mit.edu,https://www.google.com/s2/favicons?domain=mitpress.mit.edu&sz=256,fallback_service,192,192,author; publisher MIT Press logo; site blocked direct fetch; favicon via Google/DDG favicon service
+Hugging Face,Hugging Face.svg,huggingface.co,https://huggingface.co/front/assets/huggingface_logo-noborder.svg,site_logo,256,237,
+OpenAI,OpenAI.png,openai.com,https://openai.com/apple-icon.png?apple-icon.3o0tf8iy4mx7y.png,touch_icon,180,180,
+Christopher Bishop (Microsoft Research),Christopher Bishop (Microsoft Research).png,microsoft.com,https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31,site_logo,216,46,author; book hosted by Microsoft Research — Microsoft logo
+3Blue1Brown / Jay Alammar,3Blue1Brown - Jay Alammar.svg,3blue1brown.com,https://www.3blue1brown.com/icon.svg,favicon,100,100,two creators; used first-named (3Blue1Brown)
+Stanford & DeepLearning.AI (Coursera),Stanford & DeepLearning.AI (Coursera).png,stanford.edu,https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=8616aa88302e02a264fb95b5f9fd8e7cd27aa45797f70e20502ac3baa58dd669366166653461623433366137343735353637323366653131,favicon,192,192,joint; used first-named (Stanford)
+DeepLearning.AI (Coursera),DeepLearning.AI (Coursera).png,deeplearning.ai,https://www.deeplearning.ai/_next/image?url=%2Fdlai%2Fassets%2Fdlai-logo.png&w=640&q=75&dpl=dpl_5GJvuXALrBqApNMWpMMuvhhuFScu,site_logo,640,144,
+Stanford (YouTube / course site),Stanford (YouTube - course site).png,stanford.edu,https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=8616aa88302e02a264fb95b5f9fd8e7cd27aa45797f70e20502ac3baa58dd669366166653461623433366137343735353637323366653131,favicon,192,192,Stanford logo
+Stanford (YouTube),Stanford (YouTube).png,stanford.edu,https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=8616aa88302e02a264fb95b5f9fd8e7cd27aa45797f70e20502ac3baa58dd669366166653461623433366137343735353637323366653131,favicon,192,192,Stanford logo
+Stanford Online (YouTube),Stanford Online (YouTube).png,online.stanford.edu,https://online.stanford.edu/apple-touch-icon.png,touch_icon,180,180,
+MIT (YouTube),MIT (YouTube).svg,mit.edu,inline <svg> on https://www.mit.edu/,site_logo,867,200,MIT logo
+"UC Berkeley (Sergey Levine, YouTube)","UC Berkeley (Sergey Levine, YouTube).svg",berkeley.edu,https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley.svg?v=3,site_logo,256,48,UC Berkeley logo
+Harvard (edX),Harvard (edX).png,harvard.edu,https://www.harvard.edu/wp-content/uploads/2020/10/cropped-logo-branding-compressed.png?w=180,touch_icon,180,180,institution logo (course on edX)
+Google & Kaggle,Google & Kaggle.png,kaggle.com,https://www.google.com/s2/favicons?domain=www.kaggle.com&sz=256,fallback_service,48,48,Kaggle (Google) — program hosted on Kaggle; site blocked direct fetch; favicon via Google/DDG favicon service
+University of Helsinki & MinnaLearn,University of Helsinki & MinnaLearn.ico,helsinki.fi,https://www.helsinki.fi/themes/custom/helsingin_yliopisto/favicon.ico,favicon,16,16,joint; used University of Helsinki; FLAG: small <32px
+Maven (Hamel Husain & Shreya Shankar),Maven (Hamel Husain & Shreya Shankar).png,maven.com,https://maven.com/favicon.ico,favicon,32,32,course on Maven; Maven logo; FLAG: light/white logo on transparent — view on dark background
+NVIDIA Deep Learning Institute,NVIDIA Deep Learning Institute.svg,nvidia.com,inline <svg> on https://www.nvidia.com/en-us/,site_logo,117,35,uses NVIDIA logo
+Stanford Online,Stanford Online.png,online.stanford.edu,https://online.stanford.edu/apple-touch-icon.png,touch_icon,180,180,
+MIT Professional Education,MIT Professional Education.png,professional.mit.edu,https://professional.mit.edu/themes/basis/images/profed-2024.png,site_logo,464,91,
+Maven (various top practitioners),Maven (various top practitioners).png,maven.com,https://maven.com/favicon.ico,favicon,32,32,FLAG: light/white logo on transparent — view on dark background
+BlueDot Impact,BlueDot Impact.png,bluedot.org,https://bluedot.org/apple-touch-icon.png,touch_icon,128,128,
+MIT xPRO,MIT xPRO.ico,xpro.mit.edu,https://xpro.mit.edu/static/images/favicon.ico,favicon,32,32,FLAG: light/white logo on transparent — view on dark background
+Stanford Online (SCPD),Stanford Online (SCPD).png,online.stanford.edu,https://online.stanford.edu/apple-touch-icon.png,touch_icon,180,180,
+Berkeley Executive Education,Berkeley Executive Education.svg,executive.berkeley.edu,https://executive.berkeley.edu/sites/default/files/BEE-Logo-RGB-Navy.svg,site_logo,2200,255,
+Uplimit,Uplimit.svg,uplimit.com,https://uplimit.com/marketing/logo-alt.svg,site_logo,123,26,
+Stanford University (SAIL),Stanford University (SAIL).png,ai.stanford.edu,https://ai.stanford.edu/wp-content/themes/sail/img/logo.png,site_logo,380,175,
+MIT (CSAIL),MIT (CSAIL).svg,csail.mit.edu,inline <svg> on https://www.csail.mit.edu/,site_logo,150,86,
+UC Berkeley,UC Berkeley.svg,berkeley.edu,https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley.svg?v=3,site_logo,256,48,
+Carnegie Mellon University,Carnegie Mellon University.svg,cmu.edu,inline <svg> on https://www.cmu.edu/,site_logo,144,12,
+University of Cambridge,University of Cambridge.svg,cam.ac.uk,https://www.cam.ac.uk/themes/custom/fresh/images/interface/cambridge_university2.svg,site_logo,566,117,
+University of Oxford,University of Oxford.png,ox.ac.uk,https://www.google.com/s2/favicons?domain=www.ox.ac.uk&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+ETH Zurich (ETH AI Center),ETH Zurich (ETH AI Center).svg,ai.ethz.ch,inline <svg> on https://ai.ethz.ch/,site_logo,120,20,
+Mila / Université de Montréal,Mila - Université de Montréal.svg,mila.quebec,https://mila.quebec/sites/default/themes/mila_v1/logo.svg,site_logo,169,50,used Mila
+University of Toronto / Vector Institute,University of Toronto - Vector Institute.ico,utoronto.ca,https://www.utoronto.ca/themes/custom/bootstrap_uoft/images/favicons/favicon.ico,favicon,48,48,joint; used University of Toronto
+Georgia Tech OMSCS,Georgia Tech OMSCS.ico,omscs.gatech.edu,https://omscs.gatech.edu/sites/default/files/favicon.ico,favicon,16,16,FLAG: small <32px
+Google Cloud,Google Cloud.svg,cloud.google.com,https://www.gstatic.com/cgc/google-cloud-logo-fullcolor.svg,site_logo,123,20,site blocked direct fetch; favicon via Google/DDG favicon service
+AWS,AWS.png,aws.amazon.com,https://a0.awsstatic.com/libra-css/images/site/touch-icon-iphone-114-smile.png,touch_icon,114,114,
+Microsoft,Microsoft.png,microsoft.com,https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31,site_logo,216,46,
+Stanford Center for Professional Development,Stanford Center for Professional Development.png,online.stanford.edu,https://online.stanford.edu/apple-touch-icon.png,touch_icon,180,180,SCPD is now Stanford Online
+IAPP,IAPP.ico,iapp.org,https://iapp.org/favicon.ico,favicon,32,32,
+NVIDIA,NVIDIA.svg,nvidia.com,inline <svg> on https://www.nvidia.com/en-us/,site_logo,117,35,
+Databricks,Databricks.svg,databricks.com,data-URI image on https://www.databricks.com/,site_logo,132,22,
+PECB,PECB.svg,pecb.com,https://pecb.com/wp-content/uploads/2025/08/pecb-logo-black.svg,site_logo,146,46,
+NeurIPS Foundation,NeurIPS Foundation.svg,neurips.cc,https://neurips.cc/static/core/img/neurips-navbar-logo.svg,site_logo,256,256,
+ICML / ICLR,ICML - ICLR.ico,icml.cc,https://icml.cc/favicon.ico,favicon,335,335,joint; used ICML
+UC Berkeley Simons Institute,UC Berkeley Simons Institute.svg,simons.berkeley.edu,https://simons.berkeley.edu/themes/custom/simons_glider/images/simons-institute-logo.svg,site_logo,240,72,
+AI Engineer,AI Engineer.png,ai.engineer,https://ai.engineer/favicon.ico,favicon,167,167,AI Engineer World's Fair
+CVF / IEEE,CVF - IEEE.jpg,thecvf.com,https://www.thecvf.com/wp-content/uploads/2016/04/cropped-cropped-cvf-s2-1.jpg,site_logo,2000,1290,used CVF
+"ARENA, London","ARENA, London.webp",arena.education,https://images.squarespace-cdn.com/content/v1/67e146e032bcbc72c7a584bf/1742817006443-SUY6P0K9RCRPU638TUL6/ARENA+Logo+014C82.png?format=1500w,site_logo,500,500,
+Full Stack Deep Learning,Full Stack Deep Learning.png,fullstackdeeplearning.com,https://fullstackdeeplearning.com/images/favicon.png,site_logo,72,72,
+Le Wagon,Le Wagon.svg,lewagon.com,https://www.lewagon.com/assets/v4/logo-lewagon-9c19fb39a748cd3b1f49059ce0dc6c0dfc4cc2447d5a9a3e01bd2d5a214faf3c.svg,site_logo,512,135,
+"Data Science Retreat, Berlin","Data Science Retreat, Berlin.png",datascienceretreat.com,https://cloud-1de12d.becdn.net/media/iW=180&iH=any/23bf53b9bc46f5a8077db2b2916fda2d.png,touch_icon,100,101,
+Correlation One,Correlation One.png,correlation-one.com,https://www.correlation-one.com/hubfs/c1_Dark%201.png,site_logo,440,40,
+MATS,MATS.svg,matsprogram.org,https://cdn.prod.website-files.com/6909901117f6b8d83783ca29/690fa017d221ed2fd31e3735_05eb9a096d484f219928543ee6cdae64_MATS%20Logo.svg,site_logo,271,70,
+Anthropic,Anthropic.svg,anthropic.com,inline <svg> on https://www.anthropic.com/,site_logo,570,64,
+Google,Google.png,google.com,https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico,favicon,32,32,site blocked direct fetch; favicon via Google/DDG favicon service
+Apple,Apple.ico,apple.com,https://www.apple.com/favicon.ico,favicon,64,64,FLAG: light/white logo on transparent — view on dark background
+Meta,Meta.jpg,about.meta.com,https://www.google.com/s2/favicons?domain=about.meta.com&sz=256,fallback_service,180,180,site blocked direct fetch; favicon via Google/DDG favicon service
+Schmidt Sciences,Schmidt Sciences.svg,schmidtsciences.org,https://www.schmidtsciences.org/wp-content/themes/schmidt-sciences/src/images/logo.svg,site_logo,160,50,
+Fannie & John Hertz Foundation,Fannie & John Hertz Foundation.png,hertzfoundation.org,https://www.hertzfoundation.org/nitropack_static/XOwTMhedrlrZlhfiljZPHQQxWXonFjFG/assets/images/optimized/rev-eb16e8f/www.hertzfoundation.org/wp-content/uploads/2025/06/cropped-favicon-180x180.png,touch_icon,180,180,
+Cohere Labs,Cohere Labs.svg,cohere.com,https://cohere.com/logo.svg,site_logo,118,20,uses parent Cohere logo
+Mercatus Center (Tyler Cowen),Mercatus Center (Tyler Cowen).png,mercatus.org,https://www.google.com/s2/favicons?domain=www.mercatus.org&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+Allen Institute for AI (Ai2),Allen Institute for AI (Ai2).png,allenai.org,https://allenai.org/apple-icon.png?c1d111c3e4ad49a6,touch_icon,180,180,
+Google Research / Google DeepMind,Google Research - Google DeepMind.png,research.google,https://www.gstatic.com/images/branding/googleg_gradient/1x/googleg_gradient_standard_20dp.png,favicon,20,20,used Google Research; FLAG: small <32px; site blocked direct fetch; favicon via Google/DDG favicon service
+Cambridge Spark (UK),Cambridge Spark (UK).webp,cambridgespark.com,https://www.cambridgespark.com/hubfs/cambridge-spark-2023-favicon_48x48px.webp,favicon,48,48,
+Multiverse (UK/US),Multiverse (UK-US).png,multiverse.io,https://cdn.prod.website-files.com/69381061fef68be00431dd04/69c3d4b040bd33eec71349d4_256x256.png,favicon,256,256,
+IBM,IBM.png,ibm.com,https://www.ibm.com/content/dam/worldwide-content/creative-assets/s-migr/ul/g/18/f9/ibm_logo_pos_blue60_rgb.png,site_logo,1034,780,
+Google DeepMind,Google DeepMind.svg,deepmind.google,https://storage.googleapis.com/gdm-deepmind-com-prod-public/media/images/0xBk-c8kzB5UTrWs/nav__gdm-lockup__light.height-25.svg,site_logo,144,20,
+Microsoft Research,Microsoft Research.png,microsoft.com,https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31,site_logo,216,46,uses Microsoft logo
+NVIDIA Research,NVIDIA Research.svg,nvidia.com,inline <svg> on https://www.nvidia.com/en-us/,site_logo,117,35,uses NVIDIA logo
+Google Research,Google Research.png,research.google,https://www.gstatic.com/images/branding/googleg_gradient/1x/googleg_gradient_standard_20dp.png,favicon,20,20,FLAG: small <32px; site blocked direct fetch; favicon via Google/DDG favicon service
+Y Combinator,Y Combinator.ico,ycombinator.com,https://bookface-static.ycombinator.com/assets/ycdc/favicon-c8a914eeeba9fe6f7a863b35608b55aeedd7c1ff409c97b9ecb96b7a6c278d70.ico,favicon,256,256,
+Nat Friedman & Daniel Gross,,aigrant.com,,none,,,used AI Grant site; not found (site unreachable from box or no icon published)
+South Park Commons,South Park Commons.png,southparkcommons.com,https://www.southparkcommons.com/assets/icons/spc-gold-256.png,favicon,256,256,
+Entrepreneur First,Entrepreneur First.png,joinef.com,https://www.joinef.com/wp-content/themes/joinef2023/img/framework/apple-touch-icon.png,touch_icon,180,180,
+Andreessen Horowitz,Andreessen Horowitz.png,a16z.com,https://d1lamhf6l6yk6d.cloudfront.net/uploads/2025/06/Favicon-%E2%80%94-180x180px.png,touch_icon,180,180,
+Neo (Ali Partovi),Neo (Ali Partovi).png,neo.com,"https://71c9fe9609ea9fda6ebde82a25572d56.cdn.bubble.io/cdn-cgi/image/f=auto,w=128,fit=contain,dpr=1/f1565428819435x289919589841785900/egg-for-slack.png",favicon,128,128,
+Conviction (Sarah Guo),Conviction (Sarah Guo).png,conviction.com,https://www.conviction.com/applogo.png,site_logo,937,1001,
+Sequoia Capital,Sequoia Capital.png,sequoiacap.com,https://framerusercontent.com/images/BjlCZkZ0WlX5JcURORpeyljjCmM.png,favicon,256,256,
+SPAR,SPAR.svg,sparai.org,https://sparai.org/_astro/spar-mark.3VYM_0PV.svg,site_logo,34,34,
+ML Collective,ML Collective.png,mlcollective.org,https://mlcollective.org/static/mlc_logo_words.png,site_logo,4388,1045,
+Women in Machine Learning (WiML),Women in Machine Learning (WiML).png,wimlworkshop.org,https://www.google.com/s2/favicons?domain=wimlworkshop.org&sz=256,fallback_service,192,192,site blocked direct fetch; favicon via Google/DDG favicon service
+Black in AI,Black in AI.png,blackinai.org,https://cdn.prod.website-files.com/6616955b828f34542443aabf/663bfd3903d65592891a632c_Group%2048095812.png,favicon,256,256,
+LatinX in AI,LatinX in AI.webp,latinxinai.org,https://images.squarespace-cdn.com/content/v1/5f8de2b5eb427172886cea17/1604518024737-AKI0XA2ME16NEEW6MSE6/LXAI-logo-black.png?format=1500w,site_logo,400,288,
+NeurIPS,NeurIPS.svg,neurips.cc,https://neurips.cc/static/core/img/neurips-navbar-logo.svg,site_logo,256,256,
+ADPList,ADPList.svg,adplist.org,https://adplist.org/landing/matched/logo.svg,site_logo,195,49,
+MentorCruise,MentorCruise.png,mentorcruise.com,https://cdn.mentorcruise.com/img/favicons/v2/apple-touch-icon.png,touch_icon,180,180,
+Exponent,Exponent.png,tryexponent.com,https://www.aced.io/apple_touch_icon.png,touch_icon,180,180,Exponent rebranded Aced (2026); redirects to aced.io — Aced logo
+Interview Kickstart,Interview Kickstart.png,interviewkickstart.com,https://cdn-ilcidid.nitrocdn.com/UUGFLrvwXQisJMMAxvyGgbCYGRGywWEY/assets/images/optimized/rev-1b39a8e/interviewkickstart.com/wp-content/uploads/2024/12/cropped-IK_Icon_Color-180x180.png,touch_icon,180,180,
+OpenAI / Anthropic / Google,OpenAI - Anthropic - Google.png,openai.com,https://openai.com/apple-icon.png?apple-icon.3o0tf8iy4mx7y.png,touch_icon,180,180,three orgs; used first-named (OpenAI)
+Eureka Labs (Karpathy),Eureka Labs (Karpathy).png,eurekalabs.ai,https://github.com/EurekaLabsAI.png?size=400,fallback_service,400,400,official GitHub org avatar (site has no favicon/logo reachable)
+MIT,MIT.svg,mit.edu,inline <svg> on https://www.mit.edu/,site_logo,867,200,
+Stanford CS,Stanford CS.png,cs.stanford.edu,https://www.cs.stanford.edu/sites/g/files/sbiybj28076/files/2026-02/stanford-line1-1_0.png,site_logo,1080,101,
+ELLIS,ELLIS.webp,ellis.eu,https://ellis.eu/img/containers/assets/logos/ellis_logo.png/5fb0f91c0fefeaead3bb52c4fe7f9dff/ellis_logo.webp,site_logo,240,37,
+NSF,NSF.png,nsf.gov,https://www.nsf.gov/themes/custom/nsf_theme/components/molecules/logo/logo-desktop.png,site_logo,320,320,
+Caltech,Caltech.png,caltech.edu,https://www.caltech.edu/static/core/img/caltech-new-logo.png,site_logo,450,110,
+AI Safety Camp,AI Safety Camp.png,aisafety.camp,https://www.google.com/s2/favicons?domain=www.aisafety.camp&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+Simons Institute (Berkeley),Simons Institute (Berkeley).svg,simons.berkeley.edu,https://simons.berkeley.edu/themes/custom/simons_glider/images/simons-institute-logo.svg,site_logo,240,72,
+MIT Media Lab,MIT Media Lab.png,media.mit.edu,https://www.media.mit.edu/static/images/icons/apple-icon-57x57.png,touch_icon,57,57,
+NYU Tisch,NYU Tisch.ico,tisch.nyu.edu,https://tisch.nyu.edu/apps/settings/wcm/designs/tisch/favicon.ico,favicon,16,16,FLAG: small <32px
+Berlin,Berlin.webp,schoolofma.org,https://images.squarespace-cdn.com/content/v1/61ae498cca23ac5879391900/c0ec7d3c-a746-4c6b-8986-3238c1786c45/SM_COLOR_SLG.png?format=1500w,site_logo,743,283,"provider listed as city; used School of Machines, Making & Make-Believe"
+Carnegie Mellon HCII,Carnegie Mellon HCII.ico,hcii.cmu.edu,https://hcii.cmu.edu/sites/default/files/favicon.ico,favicon,72,72,
+Gray Area (San Francisco),Gray Area (San Francisco).jpg,grayarea.org,https://grayarea.org/wp-content/uploads/2025/08/cropped-8f5e47db-7326-4826-9777-b05c4d396187-180x180.jpeg,touch_icon,180,180,
+Kaggle,Kaggle.png,kaggle.com,https://www.google.com/s2/favicons?domain=www.kaggle.com&sz=256,fallback_service,48,48,site blocked direct fetch; favicon via Google/DDG favicon service
+Kaggle (Google),Kaggle (Google).png,kaggle.com,https://www.google.com/s2/favicons?domain=www.kaggle.com&sz=256,fallback_service,48,48,site blocked direct fetch; favicon via Google/DDG favicon service
+ARC Prize Foundation,ARC Prize Foundation.png,arcprize.org,https://arcprize.org/media/images/favicon.png,favicon,32,32,
+XTX Markets,XTX Markets.png,xtxmarkets.com,https://www.xtxmarkets.com/apple-touch-icon.png,touch_icon,180,180,
+IOAI,IOAI.png,ioai-official.org,https://ioai-official.org/wp-content/uploads/2025/06/IOAI-1000-x-500-px-1000-x-250-px.png,site_logo,1000,250,International Olympiad in AI
+AIcrowd,AIcrowd.png,aicrowd.com,https://assets.aicrowd.com/s3backend/57/misc/favicon.png,favicon,57,54,
+DrivenData,DrivenData.svg,drivendata.org,https://drivendata-prod-public.s3.amazonaws.com/images/drivendata-logo.58f94dd407ef.svg,site_logo,223,36,
+Gray Swan AI,Gray Swan AI.svg,grayswan.ai,https://cdn.prod.website-files.com/6614467b00e631b0f073e2b7/66886e33b08f49fb5ee91687_584d03b1fc431c846cd06f6237351573_Gray%20Swan%3DDark%20Horizontal.svg,site_logo,227,33,
+Omdena,Omdena.png,omdena.com,https://www.omdena.com/OmdenaFavicon.png,favicon,927,854,
+WILDLABS,WILDLABS.ico,wildlabs.net,https://wildlabs.net/themes/custom/wildlabs/favicon.ico,favicon,48,48,
+EleutherAI,EleutherAI.svg,eleuther.ai,https://eleuther.ai/assets/eleutherai-logo.svg,site_logo,800,149,
+Lightcone Infrastructure,Lightcone Infrastructure.ico,lesswrong.com,https://res.cloudinary.com/lesswrong-2-0/image/upload/v1497915096/favicon_lncumn.ico,favicon,100,100,used LessWrong (Lightcone product)
+swyx & Alessio,swyx & Alessio.png,latent.space,https://latent.space/favicon.png,favicon,64,64,hosts; used Latent Space site; FLAG: light/white logo on transparent — view on dark background
+MLOps Community,MLOps Community.svg,mlops.community,https://cdn.sanity.io/images/4o10fa7h/production/16dd7d8270b673d376cadca831ab3d5ea003bb89-838x203.svg,site_logo,838,203,MLOps Community joined Agentic AI Foundation (May 2026); site redirects to aaif.io — AAIF logo
+LAION,LAION.png,laion.ai,https://laion.ai/favicon.png,favicon,32,32,
+Various hosts,,,,none,,,multiple rotating hosts; no single official org — left blank
+AI for Global Goals / Oxford,AI for Global Goals - Oxford.png,oxfordml.school,https://www.oxfordml.school/favicon.png,favicon,792,787,OxML summer school site
+Deep Learning Indaba,Deep Learning Indaba.png,deeplearningindaba.com,https://deeplearningindaba.com/wp-content/uploads/2025/08/indaba-logo.png,site_logo,650,299,
+EEML,EEML.png,eeml.eu,https://www.google.com/s2/favicons?domain=www.eeml.eu&sz=256,fallback_service,64,64,site blocked direct fetch; favicon via Google/DDG favicon service
+LxMLS,LxMLS.png,lxmls.it.pt,https://lxmls.it.pt/2026/images/lxmls-logo.png,site_logo,1554,664,
+M2L,M2L.png,m2lschool.org,https://www.google.com/s2/favicons?domain=www.m2lschool.org&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+Khipu,Khipu.png,khipu.ai,https://i0.wp.com/khipu.ai/wp-content/uploads/2025/03/cropped-khipu-favicon.png?fit=180%2C180&ssl=1,touch_icon,180,180,
+Recurse Center (NYC),Recurse Center (NYC).ico,recurse.com,https://d29xw0ra2h4o4u.cloudfront.net/assets/favicon-1a17dc5c528c8f54c864c91997f1ebfdc1e91146e6ce55ec589c2cb091916ded.ico,favicon,32,32,
+Amazon,Amazon.svg,amazon.science,https://cdn.amazon.science/fb/1c/07d25693486eb3d6b49091864af7/amazonscience-squidink.svg,site_logo,5276,1002,Amazon (MLU); used amazon.science
+DeepLearning.AI / Coursera for Business,DeepLearning.AI - Coursera for Business.png,deeplearning.ai,https://www.deeplearning.ai/_next/image?url=%2Fdlai%2Fassets%2Fdlai-logo.png&w=640&q=75&dpl=dpl_5GJvuXALrBqApNMWpMMuvhhuFScu,site_logo,640,144,used DeepLearning.AI
+Section,Section.svg,sectionai.com,https://cdn.prod.website-files.com/69b2e3ac50e9b987b57f1aa1/69b2f085649bea4d55afba0c_logo-section-ai.svg,site_logo,123,35,
+General Assembly,General Assembly.png,generalassemb.ly,https://www.generalassemb.ly/apple-icon.png?apple-icon.0u-dc.0mru4k6.png,touch_icon,152,152,
+MIT Sloan & MIT CSAIL,MIT Sloan & MIT CSAIL.png,mitsloan.mit.edu,https://mitsloan.mit.edu/favicon-32x32.png,favicon,32,32,joint; used MIT Sloan
+Oxford Saïd Business School,Oxford Saïd Business School.png,sbs.ox.ac.uk,https://www.google.com/s2/favicons?domain=www.sbs.ox.ac.uk&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+Wharton Online,Wharton Online.png,online.wharton.upenn.edu,https://www.google.com/s2/favicons?domain=executiveeducation.wharton.upenn.edu&sz=256,fallback_service,180,180,site blocked direct fetch; favicon via Google/DDG favicon service
+Kellogg Executive Education,Kellogg Executive Education.svg,kellogg.northwestern.edu,https://www.kellogg.northwestern.edu/-/media/images/web2022/shared-components/logos/kellogg-logo-stacked.svg?h=102&iar=0&w=172&rev=bff87bc83fdb430a86e428a18633daf8&sc_lang=en&hash=6FFE4DDDBF40996754E50D2F70D0FD89,site_logo,200,118,
+Northwestern / Cambridge University Press (free),Northwestern - Cambridge University Press (free).png,northwestern.edu,https://common.northwestern.edu/v8/icons/favicon-180.png,touch_icon,180,180,used Northwestern
+"Thrun, Burgard, Fox","Thrun, Burgard, Fox.png",mitpress.mit.edu,https://www.google.com/s2/favicons?domain=mitpress.mit.edu&sz=256,fallback_service,192,192,textbook; publisher MIT Press logo; site blocked direct fetch; favicon via Google/DDG favicon service
+"Russ Tedrake, MIT","Russ Tedrake, MIT.svg",mit.edu,inline <svg> on https://www.mit.edu/,site_logo,867,200,person; used MIT logo
+Open Robotics,Open Robotics.webp,openrobotics.org,https://images.squarespace-cdn.com/content/v1/606d378755a86f589aa297b7/1620763545036-819PQO6MHZHDEDRHO53Z/openrobotics-logo-stacked.png?format=1500w,site_logo,170,46,
+Peter Corke (QUT),Peter Corke (QUT).png,robotacademy.net.au,https://robotacademy.net.au/wp-content/uploads/2017/04/cropped-favicon-180x180.png,touch_icon,180,180,person; used Robot Academy site
+"Siegwart, Nourbakhsh, Scaramuzza","Siegwart, Nourbakhsh, Scaramuzza.png",mitpress.mit.edu,https://www.google.com/s2/favicons?domain=mitpress.mit.edu&sz=256,fallback_service,192,192,textbook; publisher MIT Press logo; site blocked direct fetch; favicon via Google/DDG favicon service
+Northwestern University (Coursera),Northwestern University (Coursera).png,northwestern.edu,https://common.northwestern.edu/v8/icons/favicon-180.png,touch_icon,180,180,institution logo (course on Coursera)
+University of Pennsylvania (Coursera),University of Pennsylvania (Coursera).png,upenn.edu,https://www.google.com/s2/favicons?domain=www.upenn.edu&sz=256,fallback_service,229,256,institution logo (course on Coursera); site blocked direct fetch; favicon via Google/DDG favicon service
+University of Toronto (Coursera),University of Toronto (Coursera).ico,utoronto.ca,https://www.utoronto.ca/themes/custom/bootstrap_uoft/images/favicons/favicon.ico,favicon,48,48,institution logo (course on Coursera)
+ETH Zurich (edX),ETH Zurich (edX).svg,ethz.ch,inline <svg> on https://ethz.ch/de.html,site_logo,120,20,institution logo (course on edX)
+UC Berkeley (YouTube),UC Berkeley (YouTube).svg,berkeley.edu,https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley.svg?v=3,site_logo,256,48,UC Berkeley logo
+The Construct,The Construct.png,theconstruct.ai,https://www.theconstruct.ai/wp-content/uploads/2020/08/Logo-The-Construct-Facebook-400x400-copy.png,favicon,400,400,
+Udacity,Udacity.png,udacity.com,https://www.udacity.com/favicon/apple-touch-icon.png,touch_icon,180,180,
+Carnegie Mellon Robotics Institute,Carnegie Mellon Robotics Institute.svg,ri.cmu.edu,https://www.ri.cmu.edu/app/uploads/2024/03/cmu-ri-logo-march-2024.svg,site_logo,1186,203,
+Stanford University,Stanford University.png,stanford.edu,https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=8616aa88302e02a264fb95b5f9fd8e7cd27aa45797f70e20502ac3baa58dd669366166653461623433366137343735353637323366653131,favicon,192,192,
+ETH Zurich,ETH Zurich.svg,ethz.ch,inline <svg> on https://ethz.ch/de.html,site_logo,120,20,
+Georgia Tech,Georgia Tech.png,gatech.edu,https://www.gatech.edu/themes/custom/gatech/images/gatech-color_logo.png,site_logo,348,60,
+University of Pennsylvania (GRASP Lab),University of Pennsylvania (GRASP Lab).svg,grasp.upenn.edu,https://www.grasp.upenn.edu/assets/img/svgs/logo.svg,site_logo,2161,1054,
+University of Michigan,University of Michigan.ico,umich.edu,https://umich.edu/favicon.ico,favicon,32,32,
+Technical University of Munich,Technical University of Munich.png,tum.de,https://www.tum.de/apple-touch-icon.png,touch_icon,180,180,
+Edinburgh Centre for Robotics,Edinburgh Centre for Robotics.jpg,edinburgh-robotics.org,https://www.edinburgh-robotics.org/sites/all/themes/bootstrap_banner/images/edinburgh-centre-for-robotics-logo.jpg,site_logo,500,500,
+Association for Advancing Automation (A3),Association for Advancing Automation (A3).svg,automate.org,https://www.automate.org/images/logo-a3-tagline.svg,site_logo,338,72,
+FANUC,FANUC.svg,fanucamerica.com,https://www.fanucamerica.com/uploads/brand/logo.svg?fit=scale-down&width=300&s=_VLS3l4Z3T98MLKXn-MG1XgFOQoFpG24eLr6AvdTSQI,site_logo,850,149,
+Universal Robots,Universal Robots.png,universal-robots.com,https://www.universal-robots.com/assets/favicon/apple-touch-icon.png,touch_icon,180,180,
+ABB,ABB.png,abb.com,https://www.abb.com/etc.clientlibs/aot/clientlibs/clientlib-resources/resources/icon-180x180.png,touch_icon,181,180,
+IEEE Robotics & Automation Society,IEEE Robotics & Automation Society.webp,ieee-ras.org,https://www.ieee-ras.org/wp-content/smush-webp/2025/05/IEEE-RAS-square-300x300.jpg.webp,favicon,300,300,
+Robotics: Science and Systems,Robotics- Science and Systems.svg,roboticsconference.org,https://roboticsconference.org/images/rss2027-banner.svg,site_logo,688,289,
+Conference on Robot Learning,Conference on Robot Learning.png,corl.org,https://www.google.com/s2/favicons?domain=www.corl.org&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+IEEE / RSJ,IEEE - RSJ.jpg,ieee.org,https://www.google.com/s2/favicons?domain=www.ieee.org&sz=256,fallback_service,180,180,IROS (IEEE/RSJ); used IEEE; site blocked direct fetch; favicon via Google/DDG favicon service
+NASA JPL,NASA JPL.png,jpl.nasa.gov,https://www.jpl.nasa.gov/img/apple-icon-57x57.png,touch_icon,57,57,
+Max Planck Institute for Intelligent Systems,Max Planck Institute for Intelligent Systems.png,is.mpg.de,https://www.google.com/s2/favicons?domain=is.mpg.de&sz=256,fallback_service,48,48,site blocked direct fetch; favicon via Google/DDG favicon service
+Siemens / Bosch / KUKA (Germany),Siemens - Bosch - KUKA (Germany).svg,siemens.com,https://www.siemens.com/_static/favicon.svg,favicon,555,555,three employers; used first-named (Siemens)
+ABB Switzerland,ABB Switzerland.png,abb.com,https://www.abb.com/etc.clientlibs/aot/clientlibs/clientlib-resources/resources/icon-180x180.png,touch_icon,181,180,uses parent ABB logo
+FANUC & Tooling U-SME (US),FANUC & Tooling U-SME (US).svg,fanucamerica.com,https://www.fanucamerica.com/uploads/brand/logo.svg?fit=scale-down&width=300&s=_VLS3l4Z3T98MLKXn-MG1XgFOQoFpG24eLr6AvdTSQI,site_logo,850,149,joint; used FANUC
+UK apprenticeship standard,,,,none,,,"generic standard, not an organization; no single official org — left blank"
+Boston Dynamics,Boston Dynamics.svg,bostondynamics.com,https://bostondynamics.com/wp-content/uploads/2023/03/Logo-v2.svg,site_logo,216,216,
+Toyota Research Institute,Toyota Research Institute.svg,tri.global,https://www.tri.global/themes/custom/tri_global/assets/images/tri-logo-black-bg.svg,site_logo,243,79,
+Tesla,Tesla.ico,tesla.com,https://www.tesla.com/favicon.ico,favicon,32,32,
+Amazon Robotics,Amazon Robotics.svg,amazon.science,https://cdn.amazon.science/fb/1c/07d25693486eb3d6b49091864af7/amazonscience-squidink.svg,site_logo,5276,1002,uses Amazon Science logo
+Figure AI,Figure AI.svg,figure.ai,inline <svg> on https://www.figure.ai/,site_logo,12,24,
+MassRobotics,MassRobotics.svg,massrobotics.org,inline <svg> on https://www.massrobotics.org/,site_logo,302,24,
+SOSV,SOSV.png,sosv.com,https://sosv.com/wp-content/uploads/2022/05/cropped-sosv-favicon-300x300.png,favicon,300,300,
+MIT-affiliated,MIT-affiliated.png,engine.xyz,https://engine.xyz/static/dist/img/favicon/apple-touch-icon.png,touch_icon,180,180,The Engine (MIT-founded)
+Innovation Works (Pittsburgh),Innovation Works (Pittsburgh).png,innovationworks.org,https://www.google.com/s2/favicons?domain=www.innovationworks.org&sz=256,fallback_service,192,192,site blocked direct fetch; favicon via Google/DDG favicon service
+Women in Robotics,Women in Robotics.png,womeninrobotics.org,https://www.womeninrobotics.org/assets/images/logo/WiRLogo-widet.png,site_logo,1650,600,
+FIRST,FIRST.svg,firstinspires.org,https://www.firstinspires.org/hubfs/web/design/first-web/Branding/Primaries/Logo%20Primary.svg,site_logo,154,40,
+Carnegie Mellon,Carnegie Mellon.svg,cmu.edu,inline <svg> on https://www.cmu.edu/,site_logo,144,12,
+ETH Zurich Robotic Systems Lab,ETH Zurich Robotic Systems Lab.svg,rsl.ethz.ch,inline <svg> on https://rsl.ethz.ch/,site_logo,120,20,
+Stanford,Stanford.png,stanford.edu,https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=8616aa88302e02a264fb95b5f9fd8e7cd27aa45797f70e20502ac3baa58dd669366166653461623433366137343735353637323366653131,favicon,192,192,
+Olin College of Engineering,Olin College of Engineering.svg,olin.edu,inline <svg> on https://www.olin.edu/,site_logo,330,64,
+Duckietown Foundation,Duckietown Foundation.png,duckietown.com,https://duckietown.com/wp-content/uploads/2020/10/Duckietown-logo-small-300x87.png,site_logo,300,87,
+RoboCup Federation,RoboCup Federation.png,robocup.org,https://www.robocup.org/assets/frontend/robocup_logo_no_bg-824a0338f57b2804e73903286f5e9eda1dc1b51c1070a900f33b7ea1d9efa3e4.png,site_logo,153,88,
+REC Foundation,REC Foundation.png,roboticseducation.org,https://www.google.com/s2/favicons?domain=www.roboticseducation.org&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+DARPA,DARPA.ico,darpa.mil,https://www.darpa.mil/themes/custom/darpa_uswds/favicon.ico,favicon,16,24,FLAG: small <32px
+IAC,IAC.webp,indyautonomouschallenge.com,https://images.squarespace-cdn.com/content/v1/5da73021d0636f4ec706fa0a/746a8566-c587-4b17-a833-6358fa8ac177/android-chrome-512x512.png,site_logo,512,512,Indy Autonomous Challenge
+NASA,NASA.png,nasa.gov,https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo@2x.png,site_logo,121,102,
+The Mars Society,The Mars Society.jpg,marssociety.org,https://www.marssociety.org/wp-content/themes/tms2020/img/MarsSociety_Main_Logo.jpg,site_logo,424,76,
+DJI,DJI.png,dji.com,https://www-cdn.djiits.com/dps/47033021c805779769704a19c1b275d5.png,favicon,120,120,
+Asia-Pacific Broadcasting Union,Asia-Pacific Broadcasting Union.jpg,abu.org.my,https://abu-prod-wp-media.s3.ap-southeast-1.amazonaws.com/uploads/2026/08/cropped-ABU-Logo-blue-square-180x180.jpg,touch_icon,180,180,
+Eurobot,Eurobot.png,eurobot.org,https://www.eurobot.org/wp-content/uploads/2023/10/pic-eurobot-retina.png,site_logo,96,96,
+Woods Hole Oceanographic Institution,Woods Hole Oceanographic Institution.png,whoi.edu,https://www.whoi.edu/wp-content/uploads/2020/08/faviconWHOI-500-300x300.png,favicon,300,300,
+MBARI,MBARI.png,mbari.org,https://www.mbari.org/wp-content/uploads/2022/06/cropped-mbari-favicon-3-180x180.png,touch_icon,180,180,
+IEEE,IEEE.jpg,ieee.org,https://www.google.com/s2/favicons?domain=www.ieee.org&sz=256,fallback_service,180,180,site blocked direct fetch; favicon via Google/DDG favicon service
+Stack Exchange,Stack Exchange.svg,stackexchange.com,inline <svg> on https://stackexchange.com/,site_logo,26,31,
+IEEE RAS,IEEE RAS.webp,ieee-ras.org,https://www.ieee-ras.org/wp-content/smush-webp/2025/05/IEEE-RAS-square-300x300.jpg.webp,favicon,300,300,
+ABB Robotics,ABB Robotics.png,abb.com,https://www.abb.com/etc.clientlibs/aot/clientlibs/clientlib-resources/resources/icon-180x180.png,touch_icon,181,180,uses parent ABB logo
+KUKA,KUKA.svg,kuka.com,https://www.kuka.com/-/media/kuka-corporate/images/home/logos/kuka_logo.svg?rev=b6777e96fb614606b2f7bcf154547e20&hash=C9E845D11207339406F0B376D96CF4B6,site_logo,199,34,
+Siemens,Siemens.svg,siemens.com,https://www.siemens.com/_static/favicon.svg,favicon,555,555,
+A3,A3.svg,automate.org,https://www.automate.org/images/logo-a3-tagline.svg,site_logo,338,72,Association for Advancing Automation
+Tooling U-SME,Tooling U-SME.svg,toolingu.com,https://learn.toolingu.com/contentassets/5fd26a50e4ca46a59197d8f468bdbd10/logo-blue.e817be1f.svg,site_logo,278,34,
+Nielsen & Chuang,Nielsen & Chuang.png,cambridge.org,https://www.google.com/s2/favicons?domain=www.cambridge.org&sz=256,fallback_service,16,16,textbook; publisher Cambridge University Press logo; FLAG: small <32px; site blocked direct fetch; favicon via Google/DDG favicon service
+IBM Quantum,IBM Quantum.png,ibm.com,https://www.ibm.com/content/dam/worldwide-content/creative-assets/s-migr/ul/g/18/f9/ibm_logo_pos_blue60_rgb.png,site_logo,1034,780,uses IBM logo
+Andy Matuschak & Michael Nielsen,Andy Matuschak & Michael Nielsen.png,quantum.country,https://quantum.country/logo-120x120.png,favicon,120,120,authors; used Quantum Country site icon
+"John Preskill, Caltech","John Preskill, Caltech.png",caltech.edu,https://www.caltech.edu/static/core/img/caltech-new-logo.png,site_logo,450,110,person; used Caltech logo
+Xanadu,Xanadu.png,xanadu.ai,https://www.xanadu.ai/nav/xanadu-logo-landscape.png,site_logo,3936,1006,
+Scott Aaronson,Scott Aaronson.png,cambridge.org,https://www.google.com/s2/favicons?domain=www.cambridge.org&sz=256,fallback_service,16,16,author; book publisher Cambridge University Press logo; FLAG: small <32px; site blocked direct fetch; favicon via Google/DDG favicon service
+John Watrous,John Watrous.png,cambridge.org,https://www.google.com/s2/favicons?domain=www.cambridge.org&sz=256,fallback_service,16,16,author; book publisher Cambridge University Press logo; FLAG: small <32px; site blocked direct fetch; favicon via Google/DDG favicon service
+Google Quantum AI,Google Quantum AI.svg,quantumai.google,https://www.gstatic.com/devrel-devsite/prod/vc11e4c9d4c060345ba98585d538d4546e842f4a6ee5c5f9e85be4bd345767217/quantum/images/lockup.svg,site_logo,479,78,site blocked direct fetch; favicon via Google/DDG favicon service
+MITx (edX),MITx (edX).ico,openlearning.mit.edu,https://openlearning.mit.edu/themes/basis/favicon.ico,favicon,32,32,MIT Open Learning (MITx); FLAG: light/white logo on transparent — view on dark background
+"IBM (John Watrous, YouTube)","IBM (John Watrous, YouTube).png",ibm.com,https://www.ibm.com/content/dam/worldwide-content/creative-assets/s-migr/ul/g/18/f9/ibm_logo_pos_blue60_rgb.png,site_logo,1034,780,IBM Quantum course; IBM logo
+TU Delft / QuTech (edX),TU Delft - QuTech (edX).png,tudelft.nl,https://www.tudelft.nl/_assets/2f383d4a929ad3d42eff11e81cdd4068/img/apple-touch-icon-57x57.png,touch_icon,57,57,used TU Delft
+Caltech & TU Delft (edX),Caltech & TU Delft (edX).png,caltech.edu,https://www.caltech.edu/static/core/img/caltech-new-logo.png,site_logo,450,110,joint; used first-named (Caltech)
+Keio University (FutureLearn),Keio University (FutureLearn).svg,keio.ac.jp,https://www.keio.ac.jp/logos/keio-ja.svg,site_logo,153,36,institution logo (course on FutureLearn)
+KAIST (Coursera),KAIST (Coursera).ico,kaist.ac.kr,https://www.kaist.ac.kr/favicon.ico,favicon,48,48,institution logo (course on Coursera)
+IBM Quantum (YouTube),IBM Quantum (YouTube).jpg,youtube.com/@qiskit,https://yt3.googleusercontent.com/YQnuzB3TXutCUHZvEdkWgc-Vtkyiy480S8ba_uwN4koTHmddv2G3iJuWGx0mNkJR552Z6-bdE9w=s900-c-k-c0x00ffffff-no-rj,site_logo,900,900,Qiskit YouTube channel avatar
+Brilliant (with Microsoft & Google Quantum AI),Brilliant (with Microsoft & Google Quantum AI).png,brilliant.org,https://brilliant.org/apple-touch-icon-precomposed.png,touch_icon,57,57,
+"Stanford (Leonard Susskind, YouTube)","Stanford (Leonard Susskind, YouTube).png",stanford.edu,https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=8616aa88302e02a264fb95b5f9fd8e7cd27aa45797f70e20502ac3baa58dd669366166653461623433366137343735353637323366653131,favicon,192,192,Stanford logo
+Womanium,Womanium.png,womanium.org,https://www.womanium.org/WOMANIUM/static/images/Logos/W_Logo_09.png,favicon,482,314,
+The Coding School (Qubit by Qubit),The Coding School (Qubit by Qubit).png,qubitbyqubit.org,https://www.qubitbyqubit.org/prod/images/favicon.png,favicon,88,88,
+QWorld,QWorld.jpg,qworld.net,https://qworld.net/wp-content/uploads/2019/10/cropped-logo_top-1.jpg,site_logo,600,124,
+University of Waterloo (IQC),University of Waterloo (IQC).png,uwaterloo.ca,https://uwaterloo.ca/profiles/uw_base_profile/themes/uw_fdsu_theme_resp/apple-touch-icon.png,touch_icon,180,180,uses University of Waterloo logo
+Harvard University,Harvard University.png,harvard.edu,https://www.harvard.edu/wp-content/uploads/2020/10/cropped-logo-branding-compressed.png?w=180,touch_icon,180,180,
+University of Chicago (PME),University of Chicago (PME).png,pme.uchicago.edu,https://pme.uchicago.edu/themes/custom/sd_base/images/pme-logo.png,site_logo,3397,760,
+TU Delft,TU Delft.png,tudelft.nl,https://www.tudelft.nl/_assets/2f383d4a929ad3d42eff11e81cdd4068/img/apple-touch-icon-57x57.png,touch_icon,57,57,
+University of Maryland,University of Maryland.svg,umd.edu,https://umd-main.files.svdcdn.com/production/umd/logos/default/primary-logo-dark.svg?dm=1722455539,site_logo,314,50,
+University of Colorado Boulder (JILA),University of Colorado Boulder (JILA).svg,jila.colorado.edu,https://cdn.colorado.edu/static/brand-assets/live/images/cu-boulder-logo-text-black.svg,site_logo,868,79,
+QIP Conference,,,,none,,,conference rotates hosts yearly; no permanent official site; no single official org — left blank
+American Physical Society,American Physical Society.jpg,aps.org,https://www.google.com/s2/favicons?domain=www.aps.org&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+University of Waterloo IQC,University of Waterloo IQC.png,uwaterloo.ca,https://uwaterloo.ca/profiles/uw_base_profile/themes/uw_fdsu_theme_resp/apple-touch-icon.png,touch_icon,180,180,uses University of Waterloo logo
+Princeton University,Princeton University.ico,princeton.edu,https://www.princeton.edu/favicon.ico,favicon,48,48,
+Perimeter Institute,Perimeter Institute.svg,perimeterinstitute.ca,https://perimeterinstitute.ca/themes/custom/pi_theme/logo.svg,site_logo,181,60,
+—,,,,none,,,placeholder row (no provider); no single official org — left blank
+Quantinuum,Quantinuum.png,quantinuum.com,https://cdn.prod.website-files.com/669960f53cd73aedb80c8eea/66a27a596b380c7df0f12edf_quantinuum_webclip.png,favicon,256,256,
+IonQ,IonQ.png,ionq.com,https://cdn.prod.website-files.com/68836cf9cff21bf9efa61419/69134555b96bed09364a35dc_IonQ%20Webclip.png,favicon,256,256,
+PsiQuantum,PsiQuantum.webp,psiquantum.com,https://images.squarespace-cdn.com/content/v1/63bdc0806d7fbd5344be5be2/652caad6-d15c-47d7-ac5e-bfb5957c1574/favicon.ico?format=100w,favicon,100,100,
+Rigetti Computing,Rigetti Computing.svg,rigetti.com,inline <svg> on https://www.rigetti.com/,site_logo,591,196,
+NIST / University of Maryland,NIST - University of Maryland.svg,jqi.umd.edu,https://jqi.umd.edu/jqi-logo-dark.svg,site_logo,343,69,JQI (NIST/UMD joint institute)
+Creative Destruction Lab,Creative Destruction Lab.png,creativedestructionlab.com,https://creativedestructionlab.com/wp-content/uploads/2016/10/cropped-icon-1-180x180.png,touch_icon,180,180,
+University of Chicago Polsky / Chicago Quantum Exchange,University of Chicago Polsky - Chicago Quantum Exchange.svg,polsky.uchicago.edu,https://polsky.uchicago.edu/wp-content/themes/ucpolsky/assets/images/polsky-logo-horizontal.svg,site_logo,753,76,used Polsky Center
+Quantum Delta NL,,quantumdelta.nl,,none,,,not found (site unreachable from box or no icon published)
+Quantum Open Source Foundation (QOSF),Quantum Open Source Foundation (QOSF).png,qosf.org,https://github.com/qosf.png?size=400,fallback_service,400,400,official GitHub org avatar (site has no favicon/logo reachable)
+NIST,NIST.svg,nist.gov,https://www.nist.gov/libraries/nist-component-library/dist/img/logo/nist_logo_sidestack.svg,site_logo,295,39,
+QuTech,QuTech.svg,qutech.nl,inline <svg> on https://qutech.nl/,site_logo,176,65,
+XPRIZE & Google Quantum AI,XPRIZE & Google Quantum AI.svg,xprize.org,https://assets-us-01.kc-usercontent.com/9bc15d1f-8a5c-007d-b507-e3496e85af86/400b6a1b-6641-4887-9b70-3cc9e27706ce/XPRIZE-Logo-Black.svg,site_logo,130,32,joint; used XPRIZE
+Unitary Foundation,Unitary Foundation.png,unitary.foundation,https://unitary.foundation/favicon/apple-touch-icon.png,touch_icon,180,180,
+QOSF,QOSF.png,qosf.org,https://github.com/qosf.png?size=400,fallback_service,400,400,official GitHub org avatar (site has no favicon/logo reachable)
+École de Physique des Houches,École de Physique des Houches.svg,houches-school-physics.com,https://www.houches-school-physics.com/uas/HOUCHES/UGA_LOGO_ACCUEIL/logo+EPH.svg,site_logo,178,176,
+University of Colorado,University of Colorado.png,colorado.edu,https://www.colorado.edu/themes/custom/boulder_base/favicon.png,favicon,64,64,
+Los Alamos National Laboratory,Los Alamos National Laboratory.png,lanl.gov,https://www.lanl.gov/icon.png?icon.2i5t7edqxrafa.png,favicon,100,100,
+Q-CTRL,Q-CTRL.png,q-ctrl.com,https://cdn.prod.website-files.com/64fe49580f2049d94a40e0df/64fe49580f2049d94a40e1bc_Favicon.png,favicon,256,256,
+QED-C,QED-C.png,quantumconsortium.org,https://quantumconsortium.org/wp-content/uploads/2026/01/cropped-favicon-180x180.png,touch_icon,180,180,
+Howard Curtis,Howard Curtis.svg,elsevier.com,https://www.elsevier.com/images/elsevier-logo-orange.svg,site_logo,171,48,textbook author; publisher Elsevier logo
+Microcosm Press,Microcosm Press.jpg,microcosmpress.com,https://microcosmpress.com/wp-content/uploads/2012/04/cropped-microcosm-press-logo-wide1.jpg,site_logo,300,100,
+Sutton & Biblarz,Sutton & Biblarz.svg,wiley.com,inline <svg> on https://www.wiley.com/en-us,site_logo,38,40,textbook; publisher Wiley logo
+YouTube,YouTube.png,youtube.com,https://www.gstatic.com/youtube/img/web/maskable/logo_512x512.png,touch_icon,512,512,multiple channels; YouTube logo; site blocked direct fetch; favicon via Google/DDG favicon service
+YouTube (Tim Dodd),YouTube (Tim Dodd).jpg,youtube.com/@EverydayAstronaut,https://yt3.googleusercontent.com/ytc/AIdro_kUZyAAcoEKNPeHoncE8QHfzXX7dByvg2piQBKsDJOH5_s=s900-c-k-c0x00ffffff-no-rj,site_logo,900,900,person — YouTube channel avatar (Everyday Astronaut)
+Squad / Private Division,Squad - Private Division.ico,kerbalspaceprogram.com,https://www.kerbalspaceprogram.com/favicon.ico,favicon,48,48,used Kerbal Space Program site
+ESA,ESA.png,esa.int,https://www.esa.int/assets/images/favicon.ico,favicon,16,16,FLAG: small <32px
+CU Boulder (Coursera),CU Boulder (Coursera).png,colorado.edu,https://www.colorado.edu/themes/custom/boulder_base/favicon.png,favicon,64,64,institution logo (course on Coursera)
+MIT OpenCourseWare,MIT OpenCourseWare.ico,ocw.mit.edu,https://ocw.mit.edu/favicon.ico,favicon,32,32,
+University of Arizona (Coursera),University of Arizona (Coursera).ico,arizona.edu,https://www.arizona.edu/themes/custom/www_barrio/favicon.ico,favicon,48,48,institution logo (course on Coursera)
+Caltech (Coursera),Caltech (Coursera).png,caltech.edu,https://www.caltech.edu/static/core/img/caltech-new-logo.png,site_logo,450,110,institution logo (course on Coursera)
+EPFL (edX),EPFL (edX).svg,epfl.ch,https://www.epfl.ch/wp-content/themes/wp-theme-2018/assets/svg/epfl-logo.svg,site_logo,182,53,institution logo (course on edX)
+AIAA,AIAA.ico,aiaa.org,https://aiaa.org/favicon.ico,favicon,48,48,
+University of Colorado Boulder,University of Colorado Boulder.png,colorado.edu,https://www.colorado.edu/themes/custom/boulder_base/favicon.png,favicon,64,64,
+Purdue University,Purdue University.png,purdue.edu,https://www.purdue.edu/home/wp-content/mu-plugins/boilerup-wp/favicon/apple-icon-57x57.png,touch_icon,57,57,
+International Space University,International Space University.png,isunet.edu,https://www.isunet.edu/wp-content/uploads/2025/09/ISU-Logo-patch-300px.png,site_logo,300,298,note: ISU in liquidation (Jul 2026)
+Cranfield University,Cranfield University.png,cranfield.ac.uk,https://www.cranfield.ac.uk/~/media/brand/appleicon57x57.png,touch_icon,57,57,
+ISAE-SUPAERO,ISAE-SUPAERO.png,isae-supaero.fr,https://www.isae-supaero.fr/wp-content/uploads/2025/01/cropped-512x512-1-180x180.png,touch_icon,180,180,
+INCOSE,INCOSE.png,incose.org,https://www.google.com/s2/favicons?domain=www.incose.org&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+AIAA SciTech / ASCEND,AIAA SciTech - ASCEND.ico,aiaa.org,https://aiaa.org/favicon.ico,favicon,48,48,uses AIAA logo
+ESA Academy,ESA Academy.png,esa.int,https://www.esa.int/assets/images/favicon.ico,favicon,16,16,uses ESA logo; FLAG: small <32px
+U.S. Space & Rocket Center (Space Camp),U.S. Space & Rocket Center (Space Camp).png,spacecamp.com,https://rocketcenter.com/wp-content/uploads/2025/12/nasa-logo-svg.png,site_logo,108,88,
+Brooke Owens Fellowship,Brooke Owens Fellowship.webp,brookeowensfellowship.org,https://images.squarespace-cdn.com/content/v1/577f2528bebafb28867da673/1535828043606-PPZW61A4KVAMZ35R8OCB/BOF-logo_transparent-lightbg_sm990.png,site_logo,990,623,
+Matthew Isakowitz Fellowship,Matthew Isakowitz Fellowship.webp,matthewisakowitzfellowship.org,https://images.squarespace-cdn.com/content/v1/597fc194b8a79be81b5bd928/1501648237056-W2G1CSVBV516AV4XA9RP/favicon.ico?format=100w,favicon,100,102,
+Patti Grace Smith Fellowship,Patti Grace Smith Fellowship.webp,pgsfellowship.org,https://images.squarespace-cdn.com/content/v1/5f61676ab765cc4f9c9ecc02/1600235588350-9R074QJDQP92JGLZXLP0/favicon.ico?format=100w,favicon,100,105,
+Zonta International,Zonta International.png,zonta.org,https://www.zonta.org/images/Online/zontalogosm.png?version=8A5B99D7,site_logo,1585,400,
+NASA / ORAU,NASA - ORAU.png,nasa.gov,https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo@2x.png,site_logo,121,102,used NASA
+Airbus,Airbus.png,airbus.com,https://www.google.com/s2/favicons?domain=www.airbus.com&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+Lockheed Martin,Lockheed Martin.svg,lockheedmartin.com,https://www.lockheedmartin.com/content/dam/lockheed-martin/general/lm-logo.svg,site_logo,2131,322,
+SpaceX,SpaceX.ico,spacex.com,https://www.spacex.com/assets/favicon-spacex.ico,favicon,48,48,
+Blue Origin,Blue Origin.png,blueorigin.com,https://www.google.com/s2/favicons?domain=www.blueorigin.com&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+Rocket Lab,Rocket Lab.png,rocketlabcorp.com,https://rocketlabcorp.com/_resources/themes/base/production/images/admin_logo.png?m=1747131331,site_logo,600,222,
+Seraphim Space,Seraphim Space.png,seraphim.vc,https://seraphim.vc/wp-content/themes/seraphimvc/src/images/fav/apple-touch-icon.png,touch_icon,180,180,
+Starburst Aerospace,Starburst Aerospace.svg,starburst.aero,inline <svg> on https://starburst.aero/,site_logo,342,64,
+Space Generation Advisory Council,Space Generation Advisory Council.png,spacegeneration.org,https://spacegeneration.org/wp-content/uploads/2026/08/sgac-logo-full-150x55.png,site_logo,150,55,
+Women in Aerospace,Women in Aerospace.ico,womeninaerospace.org,https://www.womeninaerospace.org/favicon.ico,favicon,64,64,
+Caltech / NASA JPL,Caltech - NASA JPL.png,caltech.edu,https://www.caltech.edu/static/core/img/caltech-new-logo.png,site_logo,450,110,joint; used Caltech
+"University-run (e.g. Cal Poly, CU Boulder)",,,,none,,,generic multi-university entry; no single official org — left blank
+Ansys AGI,Ansys AGI.svg,ansys.com,inline <svg> on https://ansys.synopsys.com/,site_logo,555,285,STK (formerly AGI) now under Ansys; FLAG: light/white logo on transparent — view on dark background
+ESRA,ESRA.png,soundingrocket.org,https://www.soundingrocket.org/uploads/9/0/6/4/9064598/published/esra-insignia4.png?1746242084,site_logo,272,272,Experimental Sounding Rocket Association
+AAS / AIAA,AAS - AIAA.ico,aiaa.org,https://aiaa.org/favicon.ico,favicon,48,48,joint AAS/AIAA CanSat competition; used AIAA
+JAXA,JAXA.ico,global.jaxa.jp,https://global.jaxa.jp/common/images/content_images/icons/favicon.ico,favicon,32,32,
+AIA / NAR,AIA - NAR.png,rocketcontest.org,https://www.rocketrychallenge.org/wp-content/uploads/cropped-ARC-Text-1-1.png,site_logo,384,213,American Rocketry Challenge site (AIA/NAR)
+HI-SEAS,HI-SEAS.webp,hi-seas.org,https://www.hi-seas.org/favicon.ico,favicon,100,100,
+Mars Institute / NASA,Mars Institute - NASA.png,marsinstitute.no,"https://static.wixstatic.com/media/3dcc38_6d7ef3faa014447ca8ed4660c5cdcadb~mv2.png/v1/fill/w_175,h_70,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/The%20Mars%20Institute%20Logo.png",site_logo,175,70,used Mars Institute (marsinstitute.net is parked); FLAG: light/white logo on transparent — view on dark background
+SGAC,SGAC.png,spacegeneration.org,https://spacegeneration.org/wp-content/uploads/2026/08/sgac-logo-full-150x55.png,site_logo,150,55,
+LSF,LSF.svg,libre.space,https://www.libre.space/brand/LSF_Icon_Color.svg,favicon,193,106,Libre Space Foundation
+AMSAT,AMSAT.png,amsat.org,https://www.amsat.org/wordpress/wp-content/uploads/cm/AMSATALTLOGO5.png,site_logo,1125,825,
+FFG / ESA,FFG - ESA.png,ffg.at,https://www.google.com/s2/favicons?domain=www.ffg.at&sz=256,fallback_service,180,180,Alpbach Summer School organizer FFG; site blocked direct fetch; favicon via Google/DDG favicon service
+Teaching Science & Technology (TSTI),Teaching Science & Technology (TSTI).jpg,tsti.net,https://www.tsti.net/wp-content/uploads/2024/02/Skype_Picture_2024_02_01T14_09_29_046Z.jpeg,site_logo,700,176,
+Alberts et al.,Alberts et al..png,wwnorton.com,https://wwnorton.com/favicon.ico,favicon,32,32,textbook (Molecular Biology of the Cell); publisher W. W. Norton logo
+Compeau & Pevzner,Compeau & Pevzner.jpg,bioinformaticsalgorithms.org,https://static.wixstatic.com/media/988d7f_e474959fdd1d4d1d9b057cbe276e9f3f%7Emv2.jpg/v1/fill/w_180%2Ch_180%2Clg_1%2Cusm_0.66_1.00_0.01/988d7f_e474959fdd1d4d1d9b057cbe276e9f3f%7Emv2.jpg,touch_icon,180,180,authors; used book site
+Rosalind project,Rosalind project.png,rosalind.info,https://rosalind.info/static/img/logo.png?v=1637535648,site_logo,167,40,
+iBiology,iBiology.png,ibiology.org,https://www.ibiology.org/wp-content/uploads/2023/01/NSF-logo-4.png,site_logo,282,179,
+Addgene,Addgene.svg,addgene.org,https://static.addgene.org/addgene-core/beb05dcd75/images/common/svg/addgene-logo.svg,site_logo,214,38,
+Watson et al.,Watson et al..jpg,pearson.com,https://www.pearson.com/eds/favicons/apple-touch-icon.png,touch_icon,180,180,textbook (Molecular Biology of the Gene); publisher Pearson logo
+UC San Diego (Coursera),UC San Diego (Coursera).png,ucsd.edu,https://www.ucsd.edu/_resources/img/logo_UCSD.png,site_logo,510,102,institution logo (course on Coursera)
+Johns Hopkins (Coursera),Johns Hopkins (Coursera).png,jhu.edu,https://www.google.com/s2/favicons?domain=www.jhu.edu&sz=256,fallback_service,180,180,institution logo (course on Coursera); site blocked direct fetch; favicon via Google/DDG favicon service
+HarvardX (edX),HarvardX (edX).png,harvard.edu,https://www.harvard.edu/wp-content/uploads/2020/10/cropped-logo-branding-compressed.png?w=180,touch_icon,180,180,uses Harvard logo
+Biotech Primer,Biotech Primer.png,biotechprimer.com,https://d29gneapmav1af.cloudfront.net/wp-content/uploads/2024/01/20170408/cropped-btp-favo-180x180.png,touch_icon,180,180,
+UCSF,UCSF.svg,ucsf.edu,https://www.ucsf.edu/themes/custom/ucsf/logo.svg,site_logo,80,39,
+Johns Hopkins University,Johns Hopkins University.png,jhu.edu,https://www.google.com/s2/favicons?domain=www.jhu.edu&sz=256,fallback_service,180,180,site blocked direct fetch; favicon via Google/DDG favicon service
+Rockefeller University,Rockefeller University.png,rockefeller.edu,https://www.rockefeller.edu/img/favicon/apple-icon-57x57.png?v=8,touch_icon,57,57,
+UC Berkeley / UCSF,UC Berkeley - UCSF.svg,berkeley.edu,https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley.svg?v=3,site_logo,256,48,joint; used UC Berkeley
+RAPS,RAPS.webp,raps.org,https://www.raps.org/static/101e2bda-0c63-416f-9c947a6af340a61e/2026RAPS-50-H-Full-Color.webp,site_logo,286,110,
+SOCRA,SOCRA.png,socra.org,https://socra.org/wp-content/uploads/2026/02/sorco-logo_350px.png,site_logo,350,104,
+ASQ,ASQ.ico,asq.org,https://asq.org/favicon.ico,favicon,64,62,
+Cold Spring Harbor Laboratory,Cold Spring Harbor Laboratory.png,cshl.edu,https://www.cshl.edu/nitropack_static/PIZqeXISbpCcnYALLoaLxzuciMmyBMGe/assets/images/optimized/rev-fb9402f/www.cshl.edu/wp-content/themes/cshl-coresite/favicons/apple-touch-icon.png,touch_icon,180,180,
+EMBO,EMBO.svg,embo.org,https://www.embo.org/wp-content/uploads/2020/08/Logo.svg,site_logo,174,98,
+GRC,GRC.ico,grc.org,https://www.grc.org/favicon.ico,favicon,16,16,Gordon Research Conferences; FLAG: small <32px
+Genspace (NYC),Genspace (NYC).webp,genspace.org,https://images.squarespace-cdn.com/content/v1/588b7cc315d5dbdea1425e5e/1570552144192-LKZBXTCCBNBD5IE3NRVM/a1.png?format=1500w,site_logo,1500,377,
+Hertz Foundation,Hertz Foundation.png,hertzfoundation.org,https://www.hertzfoundation.org/nitropack_static/XOwTMhedrlrZlhfiljZPHQQxWXonFjFG/assets/images/optimized/rev-eb16e8f/www.hertzfoundation.org/wp-content/uploads/2025/06/cropped-favicon-180x180.png,touch_icon,180,180,
+HHWF,HHWF.svg,hhwf.org,https://hhwf.org/wp-content/themes/hhwf/images/logo.svg,site_logo,256,171,Helen Hay Whitney Foundation
+JCC Fund,JCC Fund.png,jccfund.org,https://www.jccfund.org/favicon.ico,favicon,16,16,Jane Coffin Childs Fund; FLAG: small <32px
+Damon Runyon Cancer Research Foundation,Damon Runyon Cancer Research Foundation.svg,damonrunyon.org,https://www.damonrunyon.org/themes/dr_custom_theme/images/logo.svg,site_logo,2617,768,
+HHMI,HHMI.png,hhmi.org,https://www.hhmi.org/themes/custom/hhmi/assets/favicon/apple-touch-icon.png,touch_icon,180,180,
+LSRF,LSRF.png,lsrf.org,https://lsrf.org/wp-content/uploads/2021/01/LSRF-logo.png,site_logo,606,108,Life Sciences Research Foundation
+Stanford Byers Center for Biodesign,Stanford Byers Center for Biodesign.png,biodesign.stanford.edu,https://biodesign.stanford.edu/_jcr_content/local-header/_jcr_content/custom-logo.img.full.high.png,site_logo,1920,703,
+Harvard Society of Fellows,Harvard Society of Fellows.png,socfell.fas.harvard.edu,https://www.google.com/s2/favicons?domain=socfell.fas.harvard.edu&sz=256,fallback_service,32,32,site blocked direct fetch; favicon via Google/DDG favicon service
+Whitehead Institute (MIT),Whitehead Institute (MIT).ico,wi.mit.edu,https://wi.mit.edu/themes/custom/whitehead/favicon.ico,favicon,48,48,
+NIH,NIH.png,nih.gov,https://www.nih.gov/themes/custom/nih2_uswds/assets/img/nih-logo.png,site_logo,1625,254,
+GSK / AstraZeneca (UK),GSK - AstraZeneca (UK).png,gsk.com,https://www.gsk.com/nuxtassets/img/favicons/apple-touch-icon-57x57.png,touch_icon,57,57,two employers; used first-named (GSK)
+Bayer / BASF (Germany),Bayer - BASF (Germany).png,bayer.com,https://www.google.com/s2/favicons?domain=www.bayer.com&sz=256,fallback_service,180,180,two employers; used first-named (Bayer); site blocked direct fetch; favicon via Google/DDG favicon service
+Roche / Novartis (Switzerland),Roche - Novartis (Switzerland).svg,roche.com,inline <svg> on https://www.roche.com/,site_logo,72,40,two employers; used first-named (Roche)
+NIIMBL (US),NIIMBL (US).svg,niimbl.org,https://www.niimbl.org/wp-content/uploads/2024/01/NIIMBL_Isolated-Logo-279x55-1.svg,site_logo,279,55,
+Amgen Foundation,Amgen Foundation.svg,amgen.com,https://www.amgen.com/-/media/Themes/Global/Global/Global/images/migration/Common/amgen-blue.svg?la=en&hash=2F9332F2F46EA1E1EF9CCF9D40B8C7B8,site_logo,1781,454,uses parent Amgen logo
+Genentech,Genentech.svg,gene.com,https://www.gene.com/assets/frontend/img/favicon-prefers-light-mode.svg,favicon,128,128,
+Regeneron,Regeneron.ico,regeneron.com,https://www.regeneron.com/favicon.ico,favicon,48,48,
+Moderna,Moderna.svg,modernatx.com,inline <svg> on https://www.modernatx.com/,site_logo,108,24,
+Broad Institute,Broad Institute.png,broadinstitute.org,https://www.google.com/s2/favicons?domain=www.broadinstitute.org&sz=256,fallback_service,44,46,site blocked direct fetch; favicon via Google/DDG favicon service
+Ginkgo Bioworks,Ginkgo Bioworks.png,ginkgobioworks.com,https://cdn.prod.website-files.com/691b94a518664e13feebd656/692cd99bb36d17aec8b4f222_webclip.png,favicon,256,256,
+Novartis,Novartis.svg,novartis.com,https://www.novartis.com/themes/custom/cosmos/logo.svg,site_logo,283,42,
+Nucleate,Nucleate.png,nucleate.org,https://nucleate.org/wp-content/themes/nucleate/assets/images/main-logo.png,site_logo,334,46,
+Johnson & Johnson,Johnson & Johnson.bmp,jnj.com,https://www.jnj.com/favicon.ico,favicon,128,128,
+Pillar VC,Pillar VC.png,pillar.vc,https://www.pillar.vc/wp-content/uploads/2019/12/pillar-icon.png,favicon,32,32,
+LabCentral,LabCentral.svg,labcentral.org,https://labcentral-site.files.svdcdn.com/production/labcentralorg/images/logo.svg?dm=1734641026,site_logo,163,50,
+Activate.org,Activate.org.svg,activate.org,https://activate.org/hubfs/ActivateName.svg,site_logo,440,89,
+MassBio,MassBio.png,massbio.org,https://www.massbio.org/wp-content/themes/massbio/favicons/apple-touch-icon.png,touch_icon,180,180,
+BioCurious (Bay Area),BioCurious (Bay Area).jpg,biocurious.org,https://biocurious.org/images/Logo-in-txt-blue_black.jpg,site_logo,4784,948,
+iGEM Foundation,iGEM Foundation.svg,igem.org,https://static.igem.org/websites/common/2022/favicons/favicon.svg,favicon,332,332,
+Protein Structure Prediction Center,Protein Structure Prediction Center.ico,predictioncenter.org,https://predictioncenter.org/favicon.ico,favicon,17,16,FLAG: small <32px
+Adaptyv Bio,Adaptyv Bio.png,adaptyvbio.com,https://www.adaptyvbio.com/icon.png?icon.259v48fgfrav_.png,favicon,128,128,
+Sage Bionetworks,Sage Bionetworks.svg,sagebionetworks.org,inline <svg> on https://sagebionetworks.org/,site_logo,288,48,
+BIOMOD,BIOMOD.png,biomod.net,https://biomod.net/assets/images/apple-touch-icon.png,touch_icon,144,144,
+IBO,IBO.png,ibo-info.org,https://www.ibo-info.org/apple-touch-icon.png,touch_icon,180,180,International Biology Olympiad
+SynBioBeta,SynBioBeta.png,synbiobeta.com,https://framerusercontent.com/images/SvhSNqixrPOUQFek63D9M6JfvXo.png?width=546&height=205,site_logo,546,205,
+DIYbio.org,DIYbio.org.png,diybio.org,https://diybiology.files.wordpress.com/2011/10/diybio-logo-black-90x60px.png,site_logo,90,60,
+MBL Woods Hole,MBL Woods Hole.svg,mbl.edu,inline <svg> on https://www.mbl.edu/,site_logo,456,180,
+NC State BTEC,NC State BTEC.png,btec.ncsu.edu,https://cdn.ncsu.edu/brand-assets/favicons/apple-touch-icon.png,touch_icon,180,180,
+NIIMBL,NIIMBL.svg,niimbl.org,https://www.niimbl.org/wp-content/uploads/2024/01/NIIMBL_Isolated-Logo-279x55-1.svg,site_logo,279,55,
+Kandel et al.,Kandel et al..svg,mheducation.com,https://www.mheducation.com/uxt/static/external/assets/mgh-logo.svg,site_logo,432,432,textbook (Principles of Neural Science); publisher McGraw Hill logo
+Neuromatch,Neuromatch.png,neuromatch.io,https://neuromatch.io/wp-content/uploads/2025/11/Asset-1SVG.png,favicon,30,33,FLAG: small <32px
+"Wulfram Gerstner, EPFL","Wulfram Gerstner, EPFL.svg",epfl.ch,https://www.epfl.ch/wp-content/themes/wp-theme-2018/assets/svg/epfl-logo.svg,site_logo,182,53,person; used EPFL logo
+Dayan & Abbott,Dayan & Abbott.png,mitpress.mit.edu,https://www.google.com/s2/favicons?domain=mitpress.mit.edu&sz=256,fallback_service,192,192,textbook; publisher MIT Press logo; site blocked direct fetch; favicon via Google/DDG favicon service
+NeuroTechX,NeuroTechX.ico,neurotechx.com,https://neurotechx.org/favicon.ico?favicon.3fpu2ql9ns1a0.ico,favicon,256,256,
+OpenBCI,OpenBCI.png,openbci.com,https://openbci.com/apple-touch-icon.png,touch_icon,180,180,
+Backyard Brains,Backyard Brains.svg,backyardbrains.com,https://backyardbrains.com/icons/byb-logo.svg,site_logo,282,100,
+"MIT (Nancy Kanwisher, YouTube/OCW)","MIT (Nancy Kanwisher, YouTube-OCW).ico",ocw.mit.edu,https://ocw.mit.edu/favicon.ico,favicon,32,32,course on MIT OCW; OCW logo
+University of Washington (Coursera),University of Washington (Coursera).ico,washington.edu,https://uw.edu/static/hometemp/wp-content/themes/uw_wp_theme/favicon.ico,favicon,16,16,institution logo (course on Coursera); FLAG: small <32px
+Duke University (Coursera),Duke University (Coursera).png,duke.edu,https://www.duke.edu/wp-content/uploads/2025/12/cropped-dfavicon-1-180x180.png,touch_icon,180,180,institution logo (course on Coursera)
+Hebrew University (Coursera),Hebrew University (Coursera).png,en.huji.ac.il,https://en.huji.ac.il/profiles/openscholar/themes/os_bootstrap/images/logo_ltr.png,site_logo,843,293,institution logo (course on Coursera)
+Neuromatch Academy,Neuromatch Academy.png,neuromatch.io,https://neuromatch.io/wp-content/uploads/2025/11/Asset-1SVG.png,favicon,30,33,FLAG: small <32px
+Stanford (Wu Tsai Neurosciences Institute),Stanford (Wu Tsai Neurosciences Institute).svg,neuroscience.stanford.edu,https://neuroscience.stanford.edu/themes/custom/stanford_wutsai/logo.svg,site_logo,185,42,
+Columbia University,Columbia University.png,columbia.edu,https://www.google.com/s2/favicons?domain=www.columbia.edu&sz=256,fallback_service,48,48,site blocked direct fetch; favicon via Google/DDG favicon service
+University College London,University College London.ico,ucl.ac.uk,https://www.ucl.ac.uk/favicon.ico,favicon,256,256,
+ETH Zurich / University of Zurich,ETH Zurich - University of Zurich.svg,ethz.ch,inline <svg> on https://ethz.ch/de.html,site_logo,120,20,joint; used ETH Zurich
+Brown University,Brown University.png,brown.edu,https://www.brown.edu/themes/custom/brown/static/apple-touch-icon.png,touch_icon,180,180,
+BCIA,BCIA.jpg,bcia.org,https://www.bcia.org/assets/site/logo-link.jpg,site_logo,500,500,
+ABRET,ABRET.png,abret.org,https://www.abret.org/concrete/themes/atomik/assets/img/abret_logo_updated.png,site_logo,680,138,
+University of Washington eScience,University of Washington eScience.png,escience.washington.edu,https://escience.washington.edu/wp-content/uploads/2022/07/escience-logo.png,site_logo,1500,376,
+Society for Neuroscience,Society for Neuroscience.png,sfn.org,https://www.sfn.org/-/media/SfN/Images/NEW-SfN/Logos/20250502_SfN_logo.png?h=91&iar=0&w=300&hash=BBF40D984AB469CD55BF34DBB95BD299596FD703,site_logo,300,91,
+Grass Foundation / MBL,Grass Foundation - MBL.png,grassfoundation.org,https://grassfoundation.org/wp-content/uploads/2021/04/Grass_Foundation_logo.png,site_logo,259,90,used Grass Foundation
+Neuralink,Neuralink.svg,neuralink.com,inline <svg> on https://neuralink.com/,site_logo,56,35,
+Synchron,Synchron.png,synchron.com,https://synchron.com/assets/synchron-logo.png,site_logo,1801,446,
+Precision Neuroscience,Precision Neuroscience.png,precisionneuro.io,https://www.precisionneuro.io/images/favicon.png,favicon,320,320,
+Blackrock Neurotech,Blackrock Neurotech.svg,blackrockneurotech.com,inline <svg> on https://blackrockneurotech.com/,site_logo,242,54,
+Allen Institute & University of Washington,Allen Institute & University of Washington.png,alleninstitute.org,https://cdn.prod.website-files.com/69a0ca6ef8ecfacbc1d10ea2/69e679ac5d6c5599fbf838c5_webclip.png,favicon,256,256,joint; used Allen Institute
+g.tec,g.tec.svg,gtec.at,https://www.gtec.at/wp-content/themes/gtc/images/logo.svg,site_logo,80,52,
+BCI Society,BCI Society.png,bcisociety.org,https://bcisociety.org/wp-content/uploads/2023/11/BCI-Black-and-White.png,site_logo,844,381,
+MIT CBMM / MBL,MIT CBMM - MBL.jpg,cbmm.mit.edu,https://www.google.com/s2/favicons?domain=cbmm.mit.edu&sz=256,fallback_service,16,16,used CBMM; FLAG: small <32px; site blocked direct fetch; favicon via Google/DDG favicon service
+Telluride,,tellurideneuromorphic.org,,none,,,site is a Google Sites page; only Google Sites favicon available; not found
+Weste & Harris,Weste & Harris.jpg,pearson.com,https://www.pearson.com/eds/favicons/apple-touch-icon.png,touch_icon,180,180,textbook; publisher Pearson logo
+Robert Pierret,Robert Pierret.jpg,pearson.com,https://www.pearson.com/eds/favicons/apple-touch-icon.png,touch_icon,180,180,textbook author; publisher Pearson logo
+Marc Madou,Marc Madou.png,routledge.com,https://www.routledge.com/images/routledge-logo.png,site_logo,214,60,textbook author; publisher CRC Press/Routledge (Taylor & Francis) logo
+Nisan & Schocken,Nisan & Schocken.png,nand2tetris.org,https://static.wixstatic.com/media/44046b_387f62dae530480dac9b1fa8f731bebf~mv2.png,site_logo,846,293,authors; used Nand2Tetris site
+Matt Venn,Matt Venn.png,zerotoasiccourse.com,https://www.zerotoasiccourse.com/zero-to-asic-logo-transp.png,favicon,1000,1000,person; used Zero to ASIC course site
+Purdue University (edX),Purdue University (edX).png,purdue.edu,https://www.purdue.edu/home/wp-content/mu-plugins/boilerup-wp/favicon/apple-icon-57x57.png,touch_icon,57,57,institution logo (course on edX)
+University of Illinois (Coursera),University of Illinois (Coursera).png,illinois.edu,https://www.google.com/s2/favicons?domain=illinois.edu&sz=256,fallback_service,180,180,institution logo (course on Coursera); site blocked direct fetch; favicon via Google/DDG favicon service
+Cadence,Cadence.ico,cadence.com,https://www.cadence.com/favicon.ico,favicon,16,16,FLAG: small <32px
+Synopsys,Synopsys.svg,synopsys.com,https://www.synopsys.com/content/dam/synopsys/icon/ai-black.svg,site_logo,72,72,
+University of Illinois,University of Illinois.png,illinois.edu,https://www.google.com/s2/favicons?domain=illinois.edu&sz=256,fallback_service,180,180,site blocked direct fetch; favicon via Google/DDG favicon service
+KU Leuven,KU Leuven.png,kuleuven.be,https://stijl.kuleuven.be/releases/latest/img/favicon.png,favicon,96,96,
+National Taiwan University,National Taiwan University.svg,ntu.edu.tw,https://www.ntu.edu.tw/images/icon-logo-header.svg,site_logo,442,68,
+KAIST,KAIST.ico,kaist.ac.kr,https://www.kaist.ac.kr/favicon.ico,favicon,48,48,
+IPC,IPC.svg,ipc.org,https://www.electronics.org/themes/custom/ipc_cms/gfx/logos/logo-electronics.svg,site_logo,600,119,IPC now Global Electronics Association (ipc.org redirects to electronics.org)
+Hot Chips,Hot Chips.png,hotchips.org,https://hotchips.org/assets/img/hc_logo.png,site_logo,128,62,
+imec,imec.svg,imec-int.com,https://www.imec-int.com/assets/img/imec-logo.svg,site_logo,373,112,
+SEMI,SEMI.png,semi.org,https://www.google.com/s2/favicons?domain=www.semi.org&sz=256,fallback_service,16,16,FLAG: small <32px; site blocked direct fetch; favicon via Google/DDG favicon service
+Maricopa Community Colleges & Intel,Maricopa Community Colleges & Intel.png,maricopa.edu,https://www.google.com/s2/favicons?domain=www.maricopa.edu&sz=256,fallback_service,48,48,joint; used Maricopa; site blocked direct fetch; favicon via Google/DDG favicon service
+Semiconductor Research Corporation,Semiconductor Research Corporation.png,src.org,https://www.src.org/web/img/SRC_logo_blue.png,site_logo,1132,450,
+Qualcomm,Qualcomm.png,qualcomm.com,https://www.qualcomm.com/etc.clientlibs/qcomm-martech/clientlibs/clientlib-react/resources/logo512.png,touch_icon,512,512,
+Intel,Intel.ico,intel.com,https://www.intel.com/favicon.ico,favicon,32,32,
+Purdue University / DoD,Purdue University - DoD.png,purdue.edu,https://www.purdue.edu/home/wp-content/mu-plugins/boilerup-wp/favicon/apple-icon-57x57.png,touch_icon,57,57,used Purdue
+Infineon / Bosch (Germany),Infineon - Bosch (Germany).svg,infineon.com,https://www.infineon.com/etc.clientlibs/ifx/components/common/mainnavigation/clientlibs/resources/logo.svg,site_logo,91,40,two employers; used first-named (Infineon)
+Micron,Micron.png,micron.com,https://www.micron.com/content/dam/micron/global/favicon/apple-icon-57x57.png,touch_icon,57,57,
+ASML (Netherlands),ASML (Netherlands).ico,asml.com,https://www.asml.com/favicon.ico,favicon,48,48,
+TSMC,TSMC.png,tsmc.com,https://www.google.com/s2/favicons?domain=www.tsmc.com&sz=256,fallback_service,16,16,FLAG: small <32px; site blocked direct fetch; favicon via Google/DDG favicon service
+Apple (Silicon Engineering),Apple (Silicon Engineering).ico,apple.com,https://www.apple.com/favicon.ico,favicon,64,64,uses Apple logo; FLAG: light/white logo on transparent — view on dark background
+ASML,ASML.ico,asml.com,https://www.asml.com/favicon.ico,favicon,48,48,
+Applied Materials,Applied Materials.png,appliedmaterials.com,https://www.google.com/s2/favicons?domain=www.appliedmaterials.com&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+AMD,AMD.ico,amd.com,https://www.amd.com/content/dam/code/images/favicon/favicon.ico,favicon,16,16,FLAG: small <32px
+Silicon Catalyst,Silicon Catalyst.webp,siliconcatalyst.com,https://images.squarespace-cdn.com/content/v1/5526ce42e4b0930deae868d4/dde5889e-6131-4cbd-914f-8915f43a6558/SiC_Logo_Web_WhiteBG.png?format=1500w,site_logo,1054,1200,
+NNCI (NSF),NNCI (NSF).png,nnci.net,https://nnci.net/themes/cb_base/images/logo-black.png,site_logo,283,60,
+Stanford Nanofabrication Facility,Stanford Nanofabrication Facility.png,snf.stanford.edu,https://nanolabs.stanford.edu/sites/g/files/sbiybj33266/files/2025-07/logo.png,site_logo,1080,240,
+Cornell University,Cornell University.png,cornell.edu,https://www.google.com/s2/favicons?domain=www.cornell.edu&sz=256,fallback_service,256,256,site blocked direct fetch; favicon via Google/DDG favicon service
+Tiny Tapeout,Tiny Tapeout.png,tinytapeout.com,https://tinytapeout.com/ttlogo_400.png,site_logo,400,390,
+IEEE Solid-State Circuits Society,IEEE Solid-State Circuits Society.png,sscs.ieee.org,https://sscs.ieee.org/wp-content/uploads/ieee-sscs-logo2x.png,site_logo,594,160,
+Design Automation Conference,Design Automation Conference.png,dac.com,https://confcats-siteplex.s3.amazonaws.com/dac/glide-cache/containers/logos/dac27-logo-lr_simple.png/3d85be3a0970da61696a206d53e59686/dac27-logo-lr_simple.png,site_logo,1024,376,
+FOSSi,FOSSi.svg,fossi-foundation.org,https://fossi-foundation.org/images/fossi-logo-full.svg,site_logo,500,165,
+RISC-V,RISC-V.svg,riscv.org,https://riscv.org/wp-content/uploads/2024/08/riscv-color.svg,site_logo,991,157,
+SemiWiki,SemiWiki.png,semiwiki.com,https://semiwiki.com/wp-content/themes/semiwiki/assets/images/SemiWiki-logo-color.png,site_logo,500,107,
+Lam Research,Lam Research.png,lamresearch.com,https://www.lamresearch.com/etc.clientlibs/lamresearch/clientlibs/clientlib-site/resources/images/favicon.png,favicon,512,512,
+Synopsys / Cadence,Synopsys - Cadence.svg,synopsys.com,https://www.synopsys.com/content/dam/synopsys/icon/ai-black.svg,site_logo,72,72,two vendors; used first-named (Synopsys)
+David MacKay (free),David MacKay (free).ico,withouthotair.com,https://www.withouthotair.com/favicon.ico,favicon,32,32,author; used book site
+Vaclav Smil,Vaclav Smil.png,mitpress.mit.edu,https://www.google.com/s2/favicons?domain=mitpress.mit.edu&sz=256,fallback_service,192,192,author (Energy and Civilization); publisher MIT Press logo; site blocked direct fetch; favicon via Google/DDG favicon service
+Latitude Media (podcast),Latitude Media (podcast).svg,latitudemedia.com,https://www.latitudemedia.com/wp-content/themes/latitudemedia/src/images/Logo.svg,site_logo,380,53,
+David Roberts (newsletter/podcast),David Roberts (newsletter-podcast).png,volts.wtf,"https://substackcdn.com/image/fetch/$s_!yt3B!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F4b077985-3d3c-47a9-bfa5-e3d1d06f595e%2Fapple-touch-icon-57x57.png",touch_icon,57,57,person; used Volts newsletter site
+IEA,IEA.png,iea.org,https://www.iea.org/assets/front/images/apple-touch-icon.png,touch_icon,180,180,
+Stanford (Coursera),Stanford (Coursera).png,stanford.edu,https://www.stanford.edu/icon1.png?icon1.2k3tekyi17a_q.png?dpl=8616aa88302e02a264fb95b5f9fd8e7cd27aa45797f70e20502ac3baa58dd669366166653461623433366137343735353637323366653131,favicon,192,192,institution logo (course on Coursera)
+TU Delft (edX),TU Delft (edX).png,tudelft.nl,https://www.tudelft.nl/_assets/2f383d4a929ad3d42eff11e81cdd4068/img/apple-touch-icon-57x57.png,touch_icon,57,57,institution logo (course on edX)
+MITx,MITx.ico,openlearning.mit.edu,https://openlearning.mit.edu/themes/basis/favicon.ico,favicon,32,32,MIT Open Learning (MITx); FLAG: light/white logo on transparent — view on dark background
+Terra.do,Terra.do.svg,terra.do,https://www.terra.do/favicon.svg,favicon,900,900,
+Climatebase,Climatebase.png,climatebase.org,https://www.google.com/s2/favicons?domain=climatebase.org&sz=256,fallback_service,180,180,site blocked direct fetch; favicon via Google/DDG favicon service
+Stanford (Doerr School),Stanford (Doerr School).png,sustainability.stanford.edu,https://sustainability.stanford.edu/wp-content/uploads/sites/11/2026/08/favicon-5.png,favicon,64,64,
+Imperial College London,Imperial College London.svg,imperial.ac.uk,inline <svg> on https://www.imperial.ac.uk/,site_logo,727,80,
+Technical University of Denmark (DTU),Technical University of Denmark (DTU).ico,dtu.dk,https://www.dtu.dk/favicon.ico,favicon,16,16,FLAG: small <32px
+NABCEP,NABCEP.jpg,nabcep.org,https://www.nabcep.org/wp-content/uploads/2026/03/nabcep-logo.jpg,site_logo,374,172,
+AEE,AEE.png,aeecenter.org,https://www.aeecenter.org/wp-content/uploads/2021/11/cropped-aee-favicon-180x180.png,touch_icon,180,180,Association of Energy Engineers
+Global Wind Organisation,Global Wind Organisation.svg,globalwindsafety.org,https://cdn.prod.website-files.com/5ce6247122f44f06d8edebbb/62062091528be8a8f084f07a_gwo_logo.svg,site_logo,490,172,
+ARPA-E,ARPA-E.png,arpa-e.energy.gov,https://arpa-e.energy.gov/themes/custom/arpae_react/favicon.png,favicon,164,164,
+Breakthrough Energy (Bill Gates),Breakthrough Energy (Bill Gates).png,breakthroughenergy.org,https://www.breakthroughenergy.org/apple-touch-icon.png,touch_icon,180,180,FLAG: light/white logo on transparent — view on dark background
+DOE,DOE.png,energy.gov,https://www.energy.gov/themes/custom/energy_gov/img/logo-image.png,site_logo,800,230,
+CELI,CELI.webp,cleanenergyleaders.org,https://images.squarespace-cdn.com/content/v1/5b5c9fcf2971149eaea381a2/a4b1350e-af30-453c-96d6-7d66b5789388/CELI+logo+transparent.png,site_logo,240,100,Clean Energy Leadership Institute
+IBEW-NECA,IBEW-NECA.png,electricaltrainingalliance.org,https://www.electricaltrainingalliance.org/Content/images/logo.png,site_logo,650,158,IBEW-NECA Electrical Training Alliance
+Vestas / Siemens Gamesa,Vestas - Siemens Gamesa.ico,vestas.com,https://www.vestas.com/etc.clientlibs/vestas/clientlibs/clientlib-site/resources/icons/favicon.ico,favicon,128,128,two employers; used first-named (Vestas)
+Sellafield / EDF (UK),Sellafield - EDF (UK).ico,edfenergy.com,https://www.edfenergy.com/profiles/spire_profile/themes/custom/spire/favicon.ico,favicon,48,48,two employers; used EDF (Sellafield site is on gov.uk)
+NREL,NREL.svg,nlr.gov,https://www.nlr.gov/images/libraries/global/nlr-logo-horizontal.svg?sfvrsn=3f07526e_2,site_logo,415,69,NREL renamed National Laboratory of the Rockies (nlr.gov)
+Commonwealth Fusion Systems,Commonwealth Fusion Systems.svg,cfs.energy,inline <svg> on https://cfs.energy/,site_logo,162,164,
+Tesla Energy,Tesla Energy.ico,tesla.com,https://www.tesla.com/favicon.ico,favicon,32,32,uses Tesla logo
+TAE Technologies,TAE Technologies.svg,tae.com,https://tae.com/wp-content/uploads/TAE-logo.svg,site_logo,1295,411,
+Form Energy,Form Energy.png,formenergy.com,https://www.google.com/s2/favicons?domain=formenergy.com&sz=256,fallback_service,192,192,site blocked direct fetch; favicon via Google/DDG favicon service
+Breakthrough Energy,Breakthrough Energy.png,breakthroughenergy.org,https://www.breakthroughenergy.org/apple-touch-icon.png,touch_icon,180,180,FLAG: light/white logo on transparent — view on dark background
+Elemental,Elemental.svg,elementalimpact.com,https://elementalimpact.com/wp-content/themes/_eex/img/eex-rebrand/new/logo-black.svg,site_logo,783,312,Elemental Impact
+Greentown Labs,Greentown Labs.svg,greentownlabs.com,https://greentown.org/greentown-mark.svg,site_logo,70,64,redirects to greentown.org (rebranded Greentown)
+RMI,RMI.svg,rmi.org,https://rmi.org/app/themes/duo/public/build/assets/rmi-logo-mMY7T1IW.svg,site_logo,221,60,
+Cleantech Open,Cleantech Open.jpg,cleantechopen.org,https://s3.amazonaws.com/skipsolabs_cleantechopen-competition/frontend/cto_logo%20%283%29.jpg,site_logo,264,144,
+WRISE,WRISE.png,wrisenergy.org,https://wrisenergy.org/wp-content/uploads/2017/06/logo.png,site_logo,641,374,
+Princeton Plasma Physics Laboratory,Princeton Plasma Physics Laboratory.png,pppl.gov,https://www.google.com/s2/favicons?domain=www.pppl.gov&sz=256,fallback_service,32,32,site blocked direct fetch; favicon via Google/DDG favicon service
+DOE / NREL,DOE - NREL.png,energy.gov,https://www.energy.gov/themes/custom/energy_gov/img/logo-image.png,site_logo,800,230,joint; used DOE
+XPRIZE,XPRIZE.svg,xprize.org,https://assets-us-01.kc-usercontent.com/9bc15d1f-8a5c-007d-b507-e3496e85af86/400b6a1b-6641-4887-9b70-3cc9e27706ce/XPRIZE-Logo-Black.svg,site_logo,130,32,
+GRÓ GTP (Iceland),GRÓ GTP (Iceland).svg,grocentre.is,https://www.grocentre.is/static/themes/2019/images/logo.svg,site_logo,213,44,
+Work on Climate,Work on Climate.png,workonclimate.org,https://workonclimate.org/wp-content/uploads/2023/04/cropped-Social2-180x180.png,touch_icon,180,180,
+MCJ,MCJ.png,mcj.vc,https://ovr.vc/wp-content/uploads/2026/08/Favicon-Orange-300x300.png,favicon,300,300,MCJ rebranded Override Ventures (Oct 2026); mcj.vc redirects to ovr.vc — Override logo
+FIA,FIA.jpg,fusionindustryassociation.org,https://www.fusionindustryassociation.org/wp-content/uploads/2023/03/fia_logo.jpg,site_logo,1020,332,Fusion Industry Association
+ICTP / IAEA,ICTP - IAEA.ico,ictp.it,https://www.ictp.it/themes/custom/ictp/favicon.ico,favicon,48,48,joint; used ICTP; FLAG: light/white logo on transparent — view on dark background
+Stuart Lindsay,Stuart Lindsay.png,global.oup.com,https://www.google.com/s2/favicons?domain=global.oup.com&sz=256,fallback_service,48,48,textbook author; publisher Oxford University Press logo; site blocked direct fetch; favicon via Google/DDG favicon service
+Richard Feynman,Richard Feynman.png,caltech.edu,https://www.caltech.edu/static/core/img/caltech-new-logo.png,site_logo,450,110,person; talk given/published at Caltech — Caltech logo
+Supriyo Datta,Supriyo Datta.svg,nanohub.org,https://nanohub.org/app/templates/NaN/images/home-v2/nanohub-logo.svg,site_logo,274,90,person; course on nanoHUB (Purdue) — nanoHUB logo
+Duke & NC State (Coursera),Duke & NC State (Coursera).png,duke.edu,https://www.duke.edu/wp-content/uploads/2025/12/cropped-dfavicon-1-180x180.png,touch_icon,180,180,joint; used first-named (Duke)
+Technion (Coursera),Technion (Coursera).png,technion.ac.il,https://www.technion.ac.il/wp-content/uploads/2026/08/android-chrome-512x512-1-300x300.png,touch_icon,300,300,institution logo (course on Coursera)
+Rice University (Smalley-Curl Institute),Rice University (Smalley-Curl Institute).svg,rice.edu,https://www.rice.edu/sites/g/files/bxs2566/files/2019-08/Rice_University_Horizontal_Blue.svg,site_logo,275,40,uses Rice University logo
+Northwestern University,Northwestern University.png,northwestern.edu,https://common.northwestern.edu/v8/icons/favicon-180.png,touch_icon,180,180,
+University of Waterloo,University of Waterloo.png,uwaterloo.ca,https://uwaterloo.ca/profiles/uw_base_profile/themes/uw_fdsu_theme_resp/apple-touch-icon.png,touch_icon,180,180,
+Materials Research Society,Materials Research Society.png,mrs.org,https://www.mrs.org/apple-touch-icon.png,touch_icon,180,180,
+Foresight Institute,Foresight Institute.png,foresight.org,https://foresight.org/wp-content/uploads/2025/05/Group-240x240.png,favicon,240,240,
+Kavli Institutes,Kavli Institutes.ico,kavlifoundation.org,https://www.kavlifoundation.org/favicon.ico,favicon,32,32,Kavli Foundation logo
+Molecular Foundry (Berkeley Lab),Molecular Foundry (Berkeley Lab).png,foundry.lbl.gov,https://www.google.com/s2/favicons?domain=foundry.lbl.gov&sz=256,fallback_service,192,192,site blocked direct fetch; favicon via Google/DDG favicon service
+Center for Functional Nanomaterials (Brookhaven),Center for Functional Nanomaterials (Brookhaven).svg,bnl.gov,https://www.bnl.gov/assets/global/images/bnl-logo-2021.svg,site_logo,570,142,uses Brookhaven National Lab logo
+Cornell NanoScale Facility,Cornell NanoScale Facility.png,cnf.cornell.edu,https://www.cnf.cornell.edu/sites/default/files/CNFLogo-trans650.png,site_logo,650,219,
+CNRS,CNRS.svg,cnrs.fr,https://www.cnrs.fr/sites/default/files/logo/logo.svg,site_logo,55,55,

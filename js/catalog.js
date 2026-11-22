@@ -36,10 +36,11 @@
   const go = (patch) => { location.hash = link(patch); };
 
   // ------------------------------------------------------------------- bits
-  function logo(domain, name) {
+  function logo(item, name) {
     const initials = name.replace(/[^A-Za-z0-9 ]/g, ' ').trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || '?';
-    const img = domain ? `<img loading="lazy" src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=64" alt="" onload="if(this.naturalWidth>16)this.classList.add('ok')">` : '';
-    return `<span class="logo sm" aria-hidden="true"><span class="mono">${esc(initials)}</span>${img}</span>`;
+    // Real provider logo when one is in /logos/; the monogram shows until it loads and stays if there is none.
+    const img = item.logo ? `<img loading="lazy" src="${esc(item.logo)}" alt="" onload="this.classList.add('ok')">` : '';
+    return `<span class="logo sm ${item.logo ? 'has' : ''}" aria-hidden="true"><span class="mono">${esc(initials)}</span>${img}</span>`;
   }
   const tag = (label, href) => href ? `<a class="tag" href="${href}">${esc(label)}</a>` : `<span class="tag">${esc(label)}</span>`;
   const chip = (label, href, active, n) => `<a class="chip small ${active ? 'active' : ''}" href="${href}">${esc(label)}${n != null ? ` <span>${n}</span>` : ''}</a>`;
@@ -87,7 +88,7 @@
     const filtered = !!(s.fmt || s.cost || s.q || s.f !== 'all');
 
     const rows = items.slice(0, s.n).map((i) => `<tr>
-        <td class="name">${logo(i.domain, i.provider || i.name)}${i.url ? ext(i.url, i.name) : esc(i.name)}</td>
+        <td class="name">${logo(i, i.provider || i.name)}${i.url ? ext(i.url, i.name) : esc(i.name)}</td>
         <td class="mono-cell">${esc(i.provider)}</td>
         <td>${tag(i.fmt, link({ fmt: i.format, n: 0 }))}</td>
         <td>${tag(fieldLabel(i.field), link({ f: i.field, n: 0 }))}</td>
@@ -127,7 +128,7 @@
     const catCount = {}; for (const r of D.ranked) catCount[r.category] = (catCount[r.category] || 0) + 1;
     const rows = rs.map((r) => `<tr>
         <td class="mono-cell num">${String(r.rank).padStart(2, '0')}</td>
-        <td class="name">${logo(r.domain, r.operator || r.name)}${r.url ? ext(r.url, r.name) : esc(r.name)}${r.candidate ? ' <span class="tag" title="Candidate, under editorial review">candidate</span>' : ''}</td>
+        <td class="name">${logo(r, r.operator || r.name)}${r.url ? ext(r.url, r.name) : esc(r.name)}${r.candidate ? ' <span class="tag" title="Candidate, under editorial review">candidate</span>' : ''}</td>
         <td class="mono-cell">${esc(r.operator)}</td>
         <td>${tag(r.category, link({ cat: s.cat === r.category ? '' : r.category }))}</td>
         <td class="mono-cell">${esc(r.kind)}</td>

@@ -2,7 +2,8 @@
 """People and Research sections: two hand-curated CSVs become one data file and two pages.
 
   data/people.csv     field,name,kind,role,org,site,x,youtube,note
-  data/research.csv   field,title,authors,year,kind,url,note
+  data/research.csv   field,title,authors,year,kind,url,note          (editorial picks)
+  data/research_hn.csv  + hn_points,hn_comments,hn_id,mentions          (scripts/mine_papers.py)
 
 Writes data/library.js (window.FC_LIBRARY) and data/library.json for js/catalog.js, and
 people/index.html and research/index.html: the same shell as the Courses page, with the
@@ -32,7 +33,7 @@ RESEARCH_KINDS = ["Paper", "Textbook", "Lecture notes", "Essay", "Reading list",
 META = {
     "people": {"title": "People", "blurb": "Who to follow and learn from in each field: the researchers, builders, educators and writers whose work is the primary source.",
                "placeholder": "Search people, organizations"},
-    "research": {"title": "Research", "blurb": "The papers, textbooks, lecture notes and essays each field is built on: read these before the summaries of them.",
+    "research": {"title": "Research", "blurb": "The papers, textbooks, lecture notes and essays each field is built on, plus the papers Hacker News readers upvoted most in each field.",
                  "placeholder": "Search papers, authors"},
 }
 
@@ -61,19 +62,45 @@ def people() -> list[dict]:
         fields = [x for x in r["field"].split("|") if x]
         rank[fields[0]] = rank.get(fields[0], 0) + 1
         url = r["site"] or (f"https://x.com/{r['x']}" if r["x"] else r["youtube"])
-        out.append({"id": f"{fields[0]}-{slug(r['name'])}", "name": r["name"], "kind": r["kind"], "kinds": [r["kind"]], "role": r["role"], "org": r["org"],
+        pid = f"{fields[0]}-{slug(r['name'])}"
+        avatar = f"/logos/people/{pid}.jpg" if (SITE / "logos" / "people" / f"{pid}.jpg").exists() else ""
+        out.append({"id": pid, "name": r["name"], "kind": r["kind"], "kinds": [r["kind"]], "role": r["role"], "org": r["org"],
                     "field": fields[0], "fields": fields, "site": r["site"], "x": r["x"], "youtube": r["youtube"], "url": url, "domain": domain(url),
-                    "note": r["note"], "rank": rank[fields[0]]})
+                    "logo": avatar, "note": r["note"], "rank": rank[fields[0]]})
     return out
 
 
+def paper_key(url: str) -> str:
+    m = re.search(r"arxiv\.org/(?:abs|pdf|html)/([a-z\-]+/\d{7}|\d{4}\.\d{4,5})", url, re.I)
+    if m: return "arxiv:" + m.group(1).lower()
+    m = re.search(r"(10\.\d{4,9}/[^\s?#]+)", url)
+    if m: return "doi:" + m.group(1).rstrip("/.").lower()
+    if "nature.com/articles/" in url: return "doi:10.1038/" + url.split("nature.com/articles/")[1].split("?")[0].rstrip("/").lower()
+    return "url:" + re.sub(r"^https?://(www\.)?", "", url).split("#")[0].split("?")[0].rstrip("/").lower()
+
+
 def research() -> list[dict]:
-    out, rank = [], {}
+    """Editorial picks first (CSV order within a field), then the HN-mined papers by points.
+    A mined paper that is also an editorial pick just lends it its HN numbers."""
+    out, rank, seen = [], {}, {}
     for r in read("research.csv"):
         fields = [x for x in r["field"].split("|") if x]
         rank[fields[0]] = rank.get(fields[0], 0) + 1
-        out.append({"id": f"{fields[0]}-{slug(r['title'])[:60]}", "name": r["title"], "authors": r["authors"], "year": int(r["year"]), "kind": r["kind"], "kinds": [r["kind"]],
-                    "field": fields[0], "fields": fields, "url": r["url"], "domain": domain(r["url"]), "note": r["note"], "rank": rank[fields[0]]})
+        item = {"id": f"{fields[0]}-{slug(r['title'])[:60]}", "name": r["title"], "authors": r["authors"], "year": int(r["year"]), "kind": r["kind"], "kinds": [r["kind"]],
+                "field": fields[0], "fields": fields, "url": r["url"], "domain": domain(r["url"]), "note": r["note"], "rank": rank[fields[0]], "source": "editorial"}
+        out.append(item); seen[paper_key(r["url"])] = item
+    hn_path = DATA / "research_hn.csv"
+    if hn_path.exists():
+        for r in read("research_hn.csv"):
+            hn = {"hn_points": int(r["hn_points"] or 0), "hn_comments": int(r["hn_comments"] or 0), "hn_id": r["hn_id"], "mentions": int(r["mentions"] or 1)}
+            k = paper_key(r["url"])
+            if k in seen:
+                seen[k].update(hn); continue
+            fields = [x for x in r["field"].split("|") if x]
+            rank[fields[0]] = rank.get(fields[0], 0) + 1
+            item = {"id": f"{fields[0]}-hn-{slug(r['title'])[:60]}", "name": r["title"], "authors": r["authors"], "year": int(r["year"] or 0), "kind": r["kind"], "kinds": [r["kind"]],
+                    "field": fields[0], "fields": fields, "url": r["url"], "domain": domain(r["url"]), "note": r["note"], "rank": rank[fields[0]], "source": "hn", **hn}
+            out.append(item); seen[k] = item
     return out
 
 
@@ -94,12 +121,12 @@ def page(section: str, items: list[dict], description: str) -> str:
     shell = shell.replace('<script src="/data/programs.js"></script>', '<script src="/data/library.js"></script>')
     # Pre-rendered list for crawlers; catalog.js replaces it.
     if section == "people":
-        rows = "".join(f'<tr><td><a href="{esc(i["url"])}" rel="noopener">{esc(i["name"])}</a></td><td>{esc(i["role"])}{" · " + esc(i["org"]) if i["org"] else ""}</td><td>{esc(LABEL[i["field"]])}</td><td>{esc(i["note"])}</td></tr>' for i in items)
+        rows = "".join(f'<tr><td>{"<img src=" + chr(34) + esc(i["logo"]) + chr(34) + " alt=" + chr(34) + chr(34) + " width=24 height=24> " if i.get("logo") else ""}<a href="{esc(i["url"])}" rel="noopener">{esc(i["name"])}</a></td><td>{esc(i["role"])}{" · " + esc(i["org"]) if i["org"] else ""}</td><td>{esc(LABEL[i["field"]])}</td><td>{esc(i["note"])}</td></tr>' for i in items)
         head = "<tr><th>Person</th><th>Role</th><th>Field</th><th>Why</th></tr>"
         ld_items = [{"@type": "ListItem", "position": n, "item": {"@type": "Person", "name": i["name"], "url": i["url"], "jobTitle": i["role"], **({"affiliation": i["org"]} if i["org"] else {})}} for n, i in enumerate(items, 1)]
     else:
-        rows = "".join(f'<tr><td><a href="{esc(i["url"])}" rel="noopener">{esc(i["name"])}</a></td><td>{esc(i["authors"])} · {i["year"]}</td><td>{esc(i["kind"])}</td><td>{esc(LABEL[i["field"]])}</td><td>{esc(i["note"])}</td></tr>' for i in items)
-        head = "<tr><th>Title</th><th>Authors</th><th>Type</th><th>Field</th><th>Why</th></tr>"
+        rows = "".join(f'<tr><td><a href="{esc(i["url"])}" rel="noopener">{esc(i["name"])}</a></td><td>{esc(i["authors"])} · {i["year"]}</td><td>{esc(i["kind"])}</td><td>{esc(LABEL[i["field"]])}</td><td>{esc(i["note"])}</td><td>{i.get("hn_points", "")}</td></tr>' for i in items)
+        head = "<tr><th>Title</th><th>Authors</th><th>Type</th><th>Field</th><th>Why</th><th>HN points</th></tr>"
         ld_items = [{"@type": "ListItem", "position": n, "item": {"@type": "ScholarlyArticle" if i["kind"] == "Paper" else "Book" if i["kind"] == "Textbook" else "CreativeWork", "name": i["name"], "url": i["url"], "author": i["authors"], "datePublished": str(i["year"])}} for n, i in enumerate(items, 1)]
     static = f'<header class="page-head"><h1>{m["title"]}</h1><p class="blurb">{esc(m["blurb"])}</p></header><div class="table-wrap"><table class="table"><thead>{head}</thead><tbody>{rows}</tbody></table></div>'
     shell = shell.replace('<main class="main" id="main" tabindex="-1"><noscript><p>This page needs JavaScript to filter the list. <a href="/">Frontier Concepts home</a>.</p></noscript></main>',
@@ -111,13 +138,14 @@ def page(section: str, items: list[dict], description: str) -> str:
 
 def main():
     P, R = people(), research()
-    lib = {"fields": [{"slug": s, "name": n, "label": l} for s, n, l in FIELDS], "kinds": {"people": PEOPLE_KINDS, "research": RESEARCH_KINDS}, "people": P, "research": R}
+    lib = {"fields": [{"slug": s, "name": n, "label": l} for s, n, l in FIELDS], "kinds": {"people": PEOPLE_KINDS, "research": RESEARCH_KINDS},
+           "sources": {"editorial": "Editorial picks", "hn": "Hacker News"}, "people": P, "research": R}
     (DATA / "library.json").write_text(json.dumps(lib, ensure_ascii=False, indent=0))
     (DATA / "library.js").write_text("window.FC_LIBRARY = " + json.dumps(lib, ensure_ascii=False) + ";\n")
     fields_txt = "AI, robotics, quantum, space, biotech, neurotech, semiconductors, energy and nanotech"
     for section, items, desc in (
         ("people", P, f"{len(P)} people to follow and learn from across {fields_txt}: researchers, builders, educators and writers, with where to find their work."),
-        ("research", R, f"{len(R)} papers, textbooks, lecture notes and essays the frontier technologies are built on, across {fields_txt}, each with why it matters."),
+        ("research", R, f"{len(R)} papers, textbooks, lecture notes and essays across {fields_txt}: {sum(1 for r in R if r['source'] == 'editorial')} editorial picks with why each matters, and the papers Hacker News readers upvoted most in each field."),
     ):
         d = SITE / section
         d.mkdir(exist_ok=True)

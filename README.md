@@ -29,6 +29,8 @@ Everything is chosen offline by `scripts/fetch_videos.py`, which writes `data/vi
 
 `scripts/build_library.py` builds `/research/` and `/people/` from two hand-curated CSVs: `data/research.csv` (field, title, authors, year, kind, url, note) and `data/people.csv` (field, name, kind, role, org, site, x, youtube, note). Fifty rows each to start; the CSV order within a field is the editorial order. It writes `data/library.js` and both pages, with the list pre-rendered in the HTML and an ItemList in JSON-LD so crawlers see it without JavaScript. Both pages use the same table engine as Courses and Programs (`js/catalog.js`) with their own columns: People has role, kind, field, why and where to follow; Research has authors, year, type, field and why it matters.
 
+Two feeders: `scripts/mine_papers.py` pulls every Hacker News story that links to a paper host (arXiv, Nature, Science, DOI, bioRxiv, IEEE, ACM, APS and PDFs) above a points floor, assigns each to a field by title pattern, keeps the top 20 per field by points, fills authors and years from the arXiv API and Crossref, and writes `data/research_hn.csv`; the library build appends those after the editorial picks (an HN paper that is also an editorial pick just lends it its points), and the Research page gets a Source filter and an HN column linking to the discussion. `scripts/merge_x_accounts.py <export.csv>` folds an X accounts export (field, account_type, handle, name, why) into `data/people.csv`: it fills handles for people already listed and adds the rest using the hand-written profiles in the script. Both only touch the CSVs; re-run `build_library.py` after.
+
 ## Refreshing the catalogue
 
 1. Put a YouTube Data API key in `.env` as `YOUTUBE_API_KEY=...` (git-ignored).

@@ -18,14 +18,14 @@
   const BLURB = {
     courses: 'Things you take to learn a field: open online courses, self-study texts, bootcamps, cohort courses, workshops and certifications.',
     programs: 'Things you join to enter a field: fellowships, degrees, research training, internships, accelerators, labs and residencies.',
-    people: 'Who to follow and learn from: the researchers, builders, educators and writers whose work is the primary source. Fifty to start, in editorial order within each field.',
-    research: 'What each field is built on: the papers, textbooks, lecture notes and essays to read before the summaries of them. Fifty to start, in editorial order within each field.',
+    people: 'Who to follow and learn from: the researchers, builders, educators and writers whose work is the primary source. In editorial order within each field, with where to find them.',
+    research: 'What each field is built on: the papers, textbooks, lecture notes and essays to read before the summaries of them: editorial picks first, then the papers Hacker News readers upvoted most, with the discussion a click away.',
   };
   const field = (slug) => D.fields.find((f) => f.slug === slug);
   const fieldLabel = (slug) => (field(slug) || {}).label || slug;
 
   // ------------------------------------------------------------------ state
-  const KEYS = ['f', 'fmt', 'cost', 'q', 'sort', 'dir', 'view', 'cat'];
+  const KEYS = ['f', 'fmt', 'cost', 'q', 'sort', 'dir', 'view', 'cat', 'src'];
   function state() {
     const p = new URLSearchParams(location.hash.replace(/^#/, ''));
     const s = {}; for (const k of KEYS) s[k] = p.get(k) || '';
@@ -121,8 +121,10 @@
     let items = ITEMS.slice();
     if (s.f !== 'all') items = items.filter((i) => i.fields.includes(s.f));
     if (s.fmt) items = items.filter((i) => i.kinds.includes(s.fmt));
+    if (s.src) items = items.filter((i) => i.source === s.src);
     if (s.q) { const terms = s.q.toLowerCase().split(/\s+/); items = items.filter((i) => { const hay = [i.name, i.role, i.org, i.authors, i.year, i.kind, i.note, i.domain, fieldLabel(i.field)].join(' ').toLowerCase(); return terms.every((t) => hay.includes(t)); }); }
     const byRank = (a, b) => fieldOrder(a.field) - fieldOrder(b.field) || a.rank - b.rank;
+    const hnCell = (i) => i.hn_points ? `<a href="https://news.ycombinator.com/item?id=${esc(i.hn_id)}" target="_blank" rel="noopener" title="${i.hn_comments} comments on Hacker News">${i.hn_points.toLocaleString()}</a>` : '';
     const cmp = {
       name: (a, b) => a.name.localeCompare(b.name),
       kind: (a, b) => a.kind.localeCompare(b.kind) || byRank(a, b),
@@ -130,12 +132,14 @@
       org: (a, b) => (a.org || 'zz').localeCompare(b.org || 'zz') || byRank(a, b),
       year: (a, b) => (a.year || 0) - (b.year || 0) || byRank(a, b),
       authors: (a, b) => (a.authors || '').localeCompare(b.authors || '') || byRank(a, b),
+      hn: (a, b) => (b.hn_points || 0) - (a.hn_points || 0) || byRank(a, b),
     }[s.sort] || byRank;
     items.sort(cmp);
     if (s.dir === 'desc') items.reverse();
     const base = ITEMS.filter((i) => s.f === 'all' || i.fields.includes(s.f));
     const kindCount = {}; for (const i of base) for (const x of i.kinds) kindCount[x] = (kindCount[x] || 0) + 1;
-    const filtered = !!(s.fmt || s.q || s.f !== 'all');
+    const filtered = !!(s.fmt || s.src || s.q || s.f !== 'all');
+    const srcCount = {}; for (const i of base) if (i.source) srcCount[i.source] = (srcCount[i.source] || 0) + 1;
     const fieldTags = (i) => i.fields.map((x) => tag(fieldLabel(x), link({ f: x, n: 0 }))).join('');
     const kindTags = (i) => i.kinds.map((x) => tag(x, link({ fmt: s.fmt === x ? '' : x, n: 0 }))).join('');
     let head, rows;
@@ -143,7 +147,7 @@
       const follow = (i) => [i.site ? ext(i.site, i.domain) : '', i.x ? ext('https://x.com/' + i.x, '@' + i.x) : '', i.youtube ? ext(i.youtube, 'YouTube') : ''].filter(Boolean).join(' · ');
       head = `${th('Person', 'name', s, 'name')}${th('Role', 'org', s)}${th('Kind', 'kind', s)}${th('Field', 'field', s)}<th>Why</th><th>Follow</th>`;
       rows = items.slice(0, s.n).map((i) => `<tr>
-        <td class="name">${logo(i, i.name)}${ext(i.url, i.name)}</td>
+        <td class="name">${logo(i, i.name).replace('class="logo sm', 'class="logo sm round')}${ext(i.url, i.name)}</td>
         <td class="note" title="${esc(i.role)}${i.org ? ' · ' + esc(i.org) : ''}">${esc(i.role)}${i.org ? ` <span class="muted">· ${esc(i.org)}</span>` : ''}</td>
         <td>${kindTags(i)}</td>
         <td>${fieldTags(i)}</td>
@@ -151,7 +155,7 @@
         <td class="mono-cell">${follow(i)}</td>
       </tr>`).join('');
     } else {
-      head = `${th('Title', 'name', s, 'name')}${th('Authors', 'authors', s)}${th('Year', 'year', s, 'num')}${th('Type', 'kind', s)}${th('Field', 'field', s)}<th>Why it matters</th><th>Link</th>`;
+      head = `${th('Title', 'name', s, 'name')}${th('Authors', 'authors', s)}${th('Year', 'year', s, 'num')}${th('Type', 'kind', s)}${th('Field', 'field', s)}<th>Why it matters</th>${th('HN', 'hn', s, 'num')}<th>Link</th>`;
       rows = items.slice(0, s.n).map((i) => `<tr>
         <td class="name">${ext(i.url, i.name)}</td>
         <td class="mono-cell">${esc(i.authors)}</td>
@@ -159,15 +163,17 @@
         <td>${kindTags(i)}</td>
         <td>${fieldTags(i)}</td>
         <td class="note wide" title="${esc(i.note)}">${esc(i.note)}</td>
+        <td class="mono-cell num">${hnCell(i)}</td>
         <td class="mono-cell">${ext(i.url, i.domain)}</td>
       </tr>`).join('');
     }
-    const cols = SECTION === 'people' ? 6 : 7;
+    const cols = SECTION === 'people' ? 6 : 8;
     return `
       <div class="filters">
         <div class="filter-row"><span class="filter-label">${FILTER_LABEL}</span>${KINDS.filter((x) => kindCount[x]).map((x) => chip(x, link({ fmt: s.fmt === x ? '' : x, n: 0 }), s.fmt === x, kindCount[x])).join('')}</div>
+        ${D.sources && Object.keys(srcCount).length > 1 ? `<div class="filter-row"><span class="filter-label">Source</span>${Object.keys(D.sources).filter((x) => srcCount[x]).map((x) => chip(D.sources[x], link({ src: s.src === x ? '' : x, n: 0 }), s.src === x, srcCount[x])).join('')}</div>` : ''}
         <div class="filter-row">
-          <span class="filter-meta">${filtered ? `<a href="${link({ f: 'all', fmt: '', q: '', n: 0 })}">Clear all</a> · ` : ''}${s.sort ? `<a href="${link({ sort: '', dir: '', n: 0 })}">Reset sort</a> · ` : ''}${Math.min(items.length, s.n)} of ${items.length} shown</span>
+          <span class="filter-meta">${filtered ? `<a href="${link({ f: 'all', fmt: '', src: '', q: '', n: 0 })}">Clear all</a> · ` : ''}${s.sort ? `<a href="${link({ sort: '', dir: '', n: 0 })}">Reset sort</a> · ` : ''}${Math.min(items.length, s.n)} of ${items.length} shown</span>
         </div>
       </div>
       <div class="table-wrap"><table class="table">

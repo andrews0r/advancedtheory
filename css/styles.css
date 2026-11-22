@@ -397,6 +397,9 @@ body.tv-on .footer, body.tv-on .tabs { display: none; }
 .logo.sm .mono { font-size: 8px; letter-spacing: 0; }
 .logo.sm img { padding: 1px; border-radius: 4px; }
 .logo.has.sm { background: #fff; border: 1px solid var(--line); }
+.logo.round, .logo.round img { border-radius: 50%; }
+.logo.round img { object-fit: cover; padding: 0; }
+.logo.sm.round { width: 24px; height: 24px; }
 .table td.thumb-cell { width: 72px; padding-right: 8px; }
 .table td.thumb-cell img { width: 64px; aspect-ratio: 16/9; object-fit: cover; border-radius: 3px; display: block; border: 1px solid var(--line); }
 @media (max-width: 700px) { .filter-label { width: 100%; } .filter-meta { margin-left: 0; width: 100%; } }

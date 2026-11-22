@@ -1,0 +1,178 @@
+field,title,authors,year,kind,url,note,hn_points,hn_comments,hn_id,mentions
+ai,DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning,DeepSeek-AI et al.,2025,Paper,https://arxiv.org/abs/2501.12948,,1351,1056,42823568,1
+ai,The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits,Ma et al.,2024,Paper,https://arxiv.org/abs/2402.17764,,1040,447,39535800,1
+ai,Mercury: Ultra-Fast Language Models Based on Diffusion,Labs et al.,2025,Paper,https://arxiv.org/abs/2506.17298,,576,242,44489690,1
+ai,Differential Transformer,Ye et al.,2024,Paper,https://arxiv.org/abs/2410.05258,,562,177,41776324,1
+ai,Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm,Silver et al.,2017,Paper,https://arxiv.org/abs/1712.01815,,539,270,15858197,1
+ai,Hybrid Reasoning Agents,Zou et al.,2026,Paper,https://arxiv.org/abs/2610.18861,,520,239,50145337,1
+ai,Discovering faster matrix multiplication algorithms with reinforcement learning,Fawzi et al.,2022,Paper,https://www.nature.com/articles/s41586-022-05172-4,,518,111,33096580,1
+ai,Language Models Can Rewrite Their Own Weights,Fan et al.,2026,Paper,https://arxiv.org/abs/2611.21885,,490,144,50577265,1
+ai,Deep Learning is Not So Mysterious or Different,Wilson,2025,Paper,https://arxiv.org/abs/2503.02113,,485,126,43390400,1
+ai,LLMs Corrupt Your Documents When You Delegate,Laban et al.,2026,Paper,https://arxiv.org/abs/2604.15597,,479,201,48073246,1
+ai,OPT: Open Pre-trained Transformer Language Models,Zhang et al.,2022,Paper,https://arxiv.org/abs/2205.01068,,461,224,31243569,1
+ai,SPECTRE: An FFT-Based Efficient Drop-In Replacement to Self-Attention for Long Contexts,Fein-Ashley et al.,2025,Paper,https://arxiv.org/abs/2502.18394,,456,168,43182325,1
+ai,"Mathematical Introduction to Deep Learning: Methods, Implementations, and Theory",Jentzen et al.,2023,Paper,https://arxiv.org/abs/2310.20360,,450,154,38834244,1
+ai,Language Models are Few-Shot Learners,Brown et al.,2020,Paper,https://arxiv.org/abs/2005.14165,,431,201,23345379,1
+ai,"GLM-4.5: Agentic, Reasoning, and Coding (ARC) Foundation Models",Team et al.,2025,Paper,https://www.arxiv.org/pdf/2508.06471,,417,83,44871337,1
+ai,Pen and Paper Exercises in Machine Learning,Gutmann,2022,Paper,https://arxiv.org/abs/2206.13446,,413,58,43440267,2
+ai,"70% Size, 100% Accuracy: Lossless LLM Compression for Efficient GPU Inference via Dynamic-Length Float (DFloat11)",Zhang et al.,2025,Paper,https://arxiv.org/abs/2504.11651,,411,117,43796935,1
+ai,Every Model Learned by Gradient Descent Is Approximately a Kernel Machine,Domingos,2020,Paper,https://arxiv.org/abs/2012.00152,,406,107,25314830,2
+ai,The Little Book of Generative AI Foundations: An Intuitive Mathematical Primer,Chen,2026,Textbook,https://arxiv.org/abs/2605.29713,,399,60,50358582,1
+ai,Large-Language Models as a Cognitive Virus,Solé et al.,2026,Paper,https://arxiv.org/abs/2609.03344,,398,256,49580164,1
+robotics,Deep Learning in Robotics: A Review of Recent Research,Pierson and Gashler,2017,Paper,https://arxiv.org/abs/1707.07217,,121,16,14846399,1
+robotics,Flapping-wing robot achieves bird-style self-takeoff by adopting reconfigurable mechanisms,Chen et al.,2025,Paper,https://www.science.org/doi/10.1126/sciadv.adx0465,,87,22,45520263,1
+robotics,A 26-Gram Tailless Butterfly-Inspired Flapping-Wing Robot with Onboard Attitude Control,Gu et al.,2026,Paper,https://arxiv.org/abs/2602.06811,,71,17,47111164,1
+robotics,Cavemen Were Better at Depicting Quadruped Walking than Modern Artists: Erroneous Walking Illustrations in the Fine Arts from Prehistory to Today,Horvath et al.,2012,Paper,http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0049786,,64,10,10328695,1
+robotics,Dense Object Nets: Learning Dense Visual Object Descriptors By and For Robotic Manipulation,Florence et al.,2018,Paper,https://arxiv.org/abs/1806.08756,,62,10,17949397,1
+robotics,The Simplest Walking Robot: A bipedal robot with one actuator and two rigid bodies,Kyle et al.,2023,Paper,https://arxiv.org/abs/2308.08401,,59,29,37215331,1
+robotics,Robot metabolism: Toward machines that can grow by consuming other machines,Wyder et al.,2025,Paper,https://www.science.org/doi/10.1126/sciadv.adu6897,,58,27,44622999,1
+robotics,Robotic swimming in curved space via geometric phase,Li et al.,2022,Paper,https://www.pnas.org/doi/full/10.1073/pnas.2200924119,,50,16,32420082,1
+robotics,"Microscopic robots that sense, think, act, and compute",Lassiter et al.,2025,Paper,https://www.science.org/doi/10.1126/scirobotics.adu8009,,40,2,46261260,1
+robotics,Drive Like a Human: Rethinking Autonomous Driving with Large Language Models,Fu et al.,2023,Paper,https://arxiv.org/abs/2307.07162,,39,42,37710865,1
+robotics,Towards Learning to Play Piano with Dexterous Hands and Touch,Xu et al.,2021,Paper,https://arxiv.org/abs/2106.02040,,39,4,28765254,1
+robotics,Behavior Trees in Robotics and AI: An Introduction,Colledanchise and Ögren,2017,Paper,https://arxiv.org/abs/1709.00084,,36,8,26580732,1
+robotics,Buzz: An Extensible Programming Language for Self-Organizing Heterogeneous Robot Swarms,Pinciroli et al.,2015,Paper,http://arxiv.org/abs/1507.05946,,30,18,9973098,1
+robotics,Untethered soft robotics,Rich et al.,2018,Paper,https://www.nature.com/articles/s41928-018-0024-1,,30,1,16384956,1
+robotics,FlyTrap: Physical Distance-Pulling Attack Towards Camera-based Autonomous Target Tracking Systems,Xie et al.,2025,Paper,https://arxiv.org/abs/2509.20362,,23,8,47420697,1
+robotics,Learning garment manipulation policies toward robot-assisted dressing,Zhang and Demiris,2022,Paper,https://www.science.org/doi/10.1126/scirobotics.abm6010,,23,4,31016414,1
+robotics,Stress-Sharing for Decentralized Fault Repair in Modular Spacecraft,Sikka et al.,2026,Paper,https://arxiv.org/abs/2607.13444,,20,5,49111003,1
+quantum,Factoring 2048-bit RSA Integers in 177 Days with 13436 Qubits and a Multimode Memory,Gouzien and Sangouard,2021,Paper,https://arxiv.org/abs/2103.06159,,240,144,26554065,1
+quantum,Why now is the right time to study quantum computing,Harrow,2014,Paper,http://arxiv.org/abs/1501.00011,,195,78,11606249,1
+quantum,Quantum Algorithm Implementations for Beginners,J. et al.,2018,Paper,https://arxiv.org/abs/1804.03719,,191,20,16817234,1
+quantum,Perhaps they are everywhere? Undetectable distributed quantum computation and communication for alien civilizations can be established using thermal light from stars,Rudolph,2021,Paper,https://arxiv.org/abs/2107.13023,,156,83,27997923,1
+quantum,Entanglement between superconducting qubits and a tardigrade,Lee et al.,2021,Paper,https://arxiv.org/abs/2112.07978,,152,114,29580686,1
+quantum,"An Introduction to Quantum Computing, Without the Physics",Nannicini,2017,Paper,https://arxiv.org/abs/1708.03684,,149,18,15018644,1
+quantum,A Polynomial Time Bounded-error Quantum Algorithm for Boolean Satisfiability,Younes and Rowe,2015,Paper,http://arxiv.org/abs/1507.05061,,148,125,9928657,1
+quantum,Arrow of time and its reversal on IBM quantum computer,Lesovik et al.,2017,Paper,https://arxiv.org/abs/1712.10057,,141,98,19378567,1
+quantum,What You Shouldn't Know About Quantum Computers,Ferrie,2024,Paper,https://arxiv.org/abs/2405.15838,,126,101,40498933,1
+quantum,Quintuple: a Python 5-qubit quantum computer simulator to facilitate cloud quantum computing,Moran,2016,Paper,https://arxiv.org/abs/1606.09225,,115,49,12106163,1
+quantum,Two-qubit silicon quantum processor with operation fidelity exceeding 99%,Mills et al.,2022,Paper,https://www.science.org/doi/10.1126/sciadv.abn5130,,110,40,31044211,1
+quantum,Real-time quantum error correction beyond break-even,Sivak et al.,2023,Paper,https://www.nature.com/articles/s41586-023-05782-6,,88,9,35521598,1
+quantum,An 11-qubit atom processor in silicon,Edlbauer et al.,2025,Paper,https://www.nature.com/articles/s41586-025-09827-w,,86,58,46344222,1
+quantum,Silicon quantum processor with robust long-distance qubit couplings,Tosi et al.,2017,Paper,https://www.nature.com/articles/s41467-017-00378-x,,82,12,15190954,1
+quantum,An Introduction to Quantum Computing for Non-Physicists,Rieffel and Polak,1998,Paper,http://arxiv.org/pdf/quant-ph/9809016v2.pdf,,74,3,9420818,1
+quantum,No distributed quantum advantage for approximate graph coloring,Coiteux-Roy et al.,2023,Paper,https://arxiv.org/abs/2307.09444,,71,16,38568264,1
+quantum,Artificial Intelligence for Quantum Computing,Alexeev et al.,2024,Paper,https://arxiv.org/abs/2411.09131,,66,36,42155909,1
+quantum,Mathematics of Topological Quantum Computing,Rowell and Wang,2017,Paper,https://arxiv.org/abs/1705.06206,,66,14,14374381,1
+quantum,A Short Introduction to Topological Quantum Computation,Lahtinen and Pachos,2017,Paper,https://arxiv.org/abs/1705.04103,,66,5,14386502,1
+quantum,Arrow of time and its reversal on the IBM quantum computer,Lesovik et al.,2019,Paper,https://www.nature.com/articles/s41598-019-40765-6,,64,12,20489307,1
+space,Black hole singularity is a surface not a point,Hamilton and McMaken,2026,Paper,https://arxiv.org/abs/2608.21590,,300,223,49437210,1
+space,What if Planet 9 is a Primordial Black Hole?,Scholtz and Unwin,2019,Paper,https://arxiv.org/abs/1909.11090v1,,285,345,21078068,3
+space,"Project Lyra: Sending a Spacecraft to 1I/'Oumuamua (former A/2017 U1), the Interstellar Asteroid",Hein et al.,2017,Paper,https://arxiv.org/abs/1711.03155,,223,73,15772340,1
+space,A Dyson Sphere around a black hole,Hsiao et al.,2021,Paper,https://arxiv.org/abs/2106.15181,,214,231,28230092,1
+space,Tick-Tock: The Imminent Merger of a Supermassive Black Hole Binary,Jiang et al.,2022,Paper,https://arxiv.org/abs/2201.11633,,205,99,30228095,1
+space,Feasibility study of a mission to Sedna -- Nuclear propulsion and advanced solar sailing concepts,Ancona et al.,2025,Paper,https://arxiv.org/abs/2506.17732,,200,92,44434062,1
+space,Earth beyond six of nine planetary boundaries,Richardson et al.,2023,Paper,https://www.science.org/doi/10.1126/sciadv.adh2458,,191,175,37500752,1
+space,A Roadmap to Interstellar Flight,Lubin,2016,Paper,https://arxiv.org/abs/1604.01356,,182,155,27774218,1
+space,Potential Ozone Depletion From Satellite Demise During Atmospheric Reentry in the Era of Mega‐Constellations,Ferreira et al.,2024,Paper,https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2024GL109280,,181,116,40667786,1
+space,Outside the Safe Operating Space of a New Planetary Boundary for Per- and Polyfluoroalkyl Substances (PFAS),Cousins et al.,2022,Paper,https://pubs.acs.org/doi/10.1021/acs.est.2c02765,,160,110,32322515,1
+space,Plants grown in Apollo lunar regolith present stress-associated transcriptomes that inform prospects for lunar exploration,Paul et al.,2022,Paper,https://www.nature.com/articles/s42003-022-03334-8,,158,70,31358609,1
+space,Identification of carbon dioxide in an exoplanet atmosphere,Team et al.,2022,Paper,https://arxiv.org/abs/2208.11692,,149,68,32617331,1
+space,Using satellites to uncover large methane emissions from landfills,Maasakkers et al.,2022,Paper,https://www.science.org/doi/10.1126/sciadv.abn9683,,146,86,32423178,1
+space,Do Black Holes have Singularities?,Kerr,2023,Paper,https://arxiv.org/abs/2312.00841,,139,215,38636225,1
+space,Preliminary analysis of the Hayabusa2 samples returned from C-type asteroid Ryugu,Yada et al.,2021,Paper,https://www.nature.com/articles/s41550-021-01550-6,,139,24,29770051,1
+space,In-orbit demonstration of an iodine electric propulsion system,Rafalskyi et al.,2021,Paper,https://www.nature.com/articles/s41586-021-04015-y,,136,39,29276960,1
+space,Autonomous Restructuring of Asteroids into Rotating Space Stations,Jensen,2023,Paper,https://arxiv.org/abs/2302.12353,,134,59,35043493,1
+space,"Redox-driven mineral and organic associations in Jezero Crater, Mars",Hurowitz et al.,2025,Paper,https://www.nature.com/articles/s41586-025-09413-0,,130,114,45202613,1
+space,A possible direct exposure of the Earth to the cold dense interstellar medium 2–3 Myr ago,Opher et al.,2024,Paper,https://www.nature.com/articles/s41550-024-02279-8,,129,61,40637785,1
+space,LLMs for Engineering: Teaching Models to Design High Powered Rockets,Simonds,2025,Paper,https://arxiv.org/abs/2504.19394,,124,45,43851212,1
+biotech,A physical wiring diagram for the human immune system,Shilts et al.,2022,Paper,https://www.nature.com/articles/s41586-022-05028-x,,342,49,32381790,1
+biotech,An mRNA-based anti-tick vaccine catches ticks red-handed,Kopáček et al.,2021,Paper,https://www.science.org/doi/10.1126/scitranslmed.abm2504,,320,103,29739349,1
+biotech,Habitual coffee intake shapes the gut microbiome and modifies host physiology and cognition,Boscaini et al.,2026,Paper,https://www.nature.com/articles/s41467-026-71264-8,,276,273,47885377,1
+biotech,"Brain aging shows nonlinear transitions, suggesting a midlife “critical window” for metabolic intervention",Antal et al.,2025,Paper,https://www.pnas.org/doi/10.1073/pnas.2416433122,,276,150,44175905,1
+biotech,Mosquito saliva alone has profound effects on the human immune system,Vogt et al.,2018,Paper,https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0006439,,259,229,28279127,1
+biotech,Elimination of HIV-1 Genomes from Human T-lymphoid Cells by CRISPR/Cas9 Gene Editing,Kaminski et al.,2016,Paper,http://www.nature.com/articles/srep22555,,255,79,11382300,1
+biotech,The spike protein of SARS-CoV-2 variant A.30 is heavily mutated and evades vaccine-induced antibodies with high efficiency,Arora et al.,2021,Paper,https://www.nature.com/articles/s41423-021-00779-5,,253,262,29004006,1
+biotech,The invisible witness: air and dust as DNA evidence of human occupancy in indoor premises,Fantinato et al.,2023,Paper,https://www.nature.com/articles/s41598-023-46151-7,,248,93,43374369,1
+biotech,Preclinical safety and biodistribution of CRISPR targeting SIV in non-human primates,Burdo et al.,2024,Paper,https://www.nature.com/articles/s41434-023-00410-4,,233,37,37194302,1
+biotech,Is early-onset cancer an emerging global epidemic? Current evidence and future implications,Ugai et al.,2022,Paper,https://www.nature.com/articles/s41571-022-00672-8,,227,255,32777301,2
+biotech,Aboriginal Australian genomes reveal Indian ancestry,Yong,2013,Paper,https://www.nature.com/articles/nature.2013.12219,,226,216,34988790,1
+biotech,SARS-CoV-2 mRNA vaccines induce persistent human germinal centre responses,Turner et al.,2021,Paper,https://www.nature.com/articles/s41586-021-03738-2,,223,343,27677875,1
+biotech,Human microbiome myths and misconceptions,Walker and Hoyles,2023,Paper,https://www.nature.com/articles/s41564-023-01426-7,,217,90,37967748,1
+biotech,mRNA vaccines — a new era in vaccinology,Pardi et al.,2018,Paper,https://www.nature.com/articles/nrd.2017.243,,211,212,26876195,1
+biotech,Flipping the Metabolic Switch: Understanding and Applying the Health Benefits of Fasting,Anton et al.,2018,Paper,https://onlinelibrary.wiley.com/doi/full/10.1002/oby.22065,,200,169,17153886,1
+biotech,A biological camera that captures and stores images directly into DNA,Lim et al.,2023,Paper,https://www.nature.com/articles/s41467-023-38876-w,,191,119,36663498,1
+biotech,RNA demethylation increases the yield and biomass of rice and potato plants in field trials,Yu et al.,2021,Paper,https://www.nature.com/articles/s41587-021-00982-9,,190,167,27925250,1
+biotech,Molecular Biology Clues Portray SARS-CoV-2 as a Gain-of-Function Laboratory Manipulation of Bat CoV RaTG13,Fernández,2021,Paper,https://pubs.acs.org/doi/10.1021/acsmedchemlett.1c00274,,190,118,27335421,1
+biotech,Robust breast cancer detection in mammography and digital breast tomosynthesis using annotation-efficient deep learning approach,Lotter et al.,2019,Paper,https://arxiv.org/abs/1912.11027,,190,116,21917747,1
+biotech,Nanoparticle-modified microrobots for in vivo antibiotic delivery to treat acute bacterial pneumonia,Zhang et al.,2022,Paper,https://www.nature.com/articles/s41563-022-01360-9,,177,69,33004334,1
+neurotech,Neural correlates of the DMT experience assessed with multivariate EEG,Timmermann et al.,2019,Paper,https://www.nature.com/articles/s41598-019-51974-4,,346,197,21588101,1
+neurotech,Different Brain Regions are Infected with Fungi in Alzheimer’s Disease,Pisa et al.,2015,Paper,http://www.nature.com/articles/srep15015,,338,155,10401344,1
+neurotech,Walking naturally after spinal cord injury using a brain–spine interface,Lorach et al.,2023,Paper,https://www.nature.com/articles/s41586-023-06094-5,,338,44,36059429,1
+neurotech,"Reading on a smartphone affects sigh generation, brain activity, and comprehension",Honma et al.,2022,Paper,https://www.nature.com/articles/s41598-022-05605-0,,320,124,30181560,1
+neurotech,"N,N-dimethyltryptamine compound found in the hallucinogenic tea ayahuasca, regulates adult neurogenesis in vitro and in vivo",Morales-Garcia et al.,2020,Paper,https://www.nature.com/articles/s41398-020-01011-0,,279,145,25246015,1
+neurotech,Competing speech streams are simultaneously represented in the human cortex during attention switching,Carta et al.,2026,Paper,https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3003876,,258,180,48943745,1
+neurotech,Could a Neuroscientist Understand a Microprocessor?,Jonas and Kording,2017,Paper,http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005268,,249,92,16817832,3
+neurotech,Psilocybin for treatment-resistant depression: fMRI-measured brain mechanisms,Carhart-Harris et al.,2017,Paper,https://www.nature.com/articles/s41598-017-13282-7.pdf,,227,108,15469854,1
+neurotech,Vitamin D: A potent regulator of dopaminergic neuron differentiation and function,Pertile et al.,2023,Paper,https://onlinelibrary.wiley.com/doi/10.1111/jnc.15829,,188,239,36105077,1
+neurotech,Natural language instructions induce compositional generalization in networks of neurons,Riveland and Pouget,2024,Paper,https://www.nature.com/articles/s41593-024-01607-5,,186,89,39757665,1
+neurotech,Stress disrupts hippocampal integration of overlapping events and memory inference in humans,Schüren et al.,2026,Paper,https://www.science.org/doi/10.1126/sciadv.aea5496?user_id=66c4bf745d78644b3aa57b08,,173,24,48296622,1
+neurotech,Playing Atari with Six Neurons,Cuccu et al.,2018,Paper,https://arxiv.org/abs/1806.01363,,169,30,17250315,1
+neurotech,Space is a latent sequence: A theory of the hippocampus,Raju et al.,2024,Paper,https://www.science.org/doi/10.1126/sciadv.adm8470,,162,39,41132023,1
+neurotech,Inferring neural activity before plasticity as a foundation for learning beyond backpropagation,Song et al.,2024,Paper,https://www.nature.com/articles/s41593-023-01514-1,,145,48,42259185,1
+neurotech,DishBrain plays Pong and promises more,Goldwag and Wang,2023,Paper,https://www.nature.com/articles/s42256-023-00666-w,,144,109,36169486,1
+neurotech,How brains are built: Principles of computational neuroscience,Granger,2017,Paper,https://arxiv.org/abs/1704.03855,,144,31,14177710,1
+neurotech,"Neurons in Large Language Models: Dead, N-gram, Positional",Voita et al.,2023,Paper,https://arxiv.org/abs/2309.04827,,106,52,37583136,1
+neurotech,Deep language algorithms predict semantic comprehension from brain activity,Caucheteux et al.,2022,Paper,https://www.nature.com/articles/s41598-022-20460-9,,95,46,33197285,1
+neurotech,A Connectome Based Hexagonal Lattice Convolutional Network Model of the Drosophila Visual System,Tschopp et al.,2018,Paper,https://arxiv.org/abs/1806.04793,,88,26,17313211,1
+neurotech,Natural brain-information interfaces: Recommending information by relevance inferred from human brain signals,Eugster et al.,2016,Paper,http://www.nature.com/articles/srep38580,,87,9,13367481,1
+semiconductors,Pangu Pro MoE: Mixture of Grouped Experts for Efficient Sparsity,Tang et al.,2025,Paper,https://arxiv.org/abs/2505.21411,,321,333,44441089,1
+semiconductors,"GPU Offload in Rust: Portable, Safe, and Fast",Drehwald et al.,2026,Paper,https://arxiv.org/abs/2608.13759,,245,65,49334991,1
+semiconductors,MLIR: A Compiler Infrastructure for the End of Moore's Law,Lattner et al.,2020,Paper,https://arxiv.org/abs/2002.11054,,211,68,22429107,1
+semiconductors,An All-Optical General-Purpose CPU and Optical Computer Architecture,Kissner et al.,2024,Paper,https://arxiv.org/abs/2403.00045,,197,103,39651926,1
+semiconductors,Lord of the Ring(s): Side Channel Attacks on the CPU On-Chip Ring Interconnect Are Practical,Paccagnella et al.,2021,Paper,https://arxiv.org/abs/2103.03443,,188,55,26382160,1
+semiconductors,Ara: A 1 GHz+ Scalable and Energy-Efficient RISC-V Vector Processor with Multi-Precision Floating Point Support in 22 nm FD-SOI,Cavalcante et al.,2019,Paper,https://arxiv.org/abs/1906.00478,,187,56,20126280,1
+semiconductors,GPU-friendly Stroke Expansion,Levien and Uguray,2024,Paper,https://arxiv.org/abs/2405.00127,,180,39,40856431,1
+semiconductors,Analyzing Modern NVIDIA GPU cores,Huerta et al.,2025,Paper,https://arxiv.org/abs/2503.20481,,178,37,43900463,1
+semiconductors,Optimization Techniques for GPU Programming,Hijma et al.,2023,Paper,https://dl.acm.org/doi/pdf/10.1145/3570638,,159,34,37067894,1
+semiconductors,Sorting with GPUs: A Survey,Arkhipov et al.,2017,Paper,https://arxiv.org/abs/1709.02520,,148,50,15216142,1
+semiconductors,eGPU: A 750 MHz Class Soft GPGPU for FPGA,Langhammer and Constantinides,2023,Paper,https://arxiv.org/abs/2307.08378,,137,39,36961996,1
+semiconductors,"Graph Processing on FPGAs: Taxonomy, Survey, Challenges",Besta et al.,2019,Paper,https://arxiv.org/abs/1903.06697,,127,21,20141935,1
+semiconductors,Optimizing Datalog for the GPU,Sun et al.,2023,Paper,https://arxiv.org/abs/2311.02206,,127,13,38509255,1
+semiconductors,C-for-Metal: High Performance SIMD Programming on Intel GPUs,Lueh et al.,2021,Paper,https://arxiv.org/abs/2101.11049,,126,49,25955579,1
+semiconductors,The Deep Learning Revolution and Its Implications for Computer Architecture and Chip Design,Dean,2019,Paper,https://arxiv.org/abs/1911.05289,,126,24,21589987,1
+semiconductors,LlamaF: An Efficient Llama2 Architecture Accelerator on Embedded FPGAs,Xu et al.,2024,Paper,https://arxiv.org/abs/2409.11424,,124,29,41669522,1
+semiconductors,Vortex: OpenCL Compatible RISC-V GPGPU,Elsabbagh et al.,2020,Paper,https://arxiv.org/abs/2002.12151,,115,27,22492902,1
+semiconductors,GHz spiking neuromorphic photonic chip with in-situ training,Xiang et al.,2025,Paper,https://arxiv.org/abs/2506.14272,,115,18,44784297,1
+semiconductors,Design of a LISP-based microprocessor,Steele and Sussman,1980,Paper,https://dl.acm.org/doi/10.1145/359024.359031,,114,48,45385354,1
+semiconductors,Automated Translation and Accelerated Solving of Differential Equations on Multiple GPU Platforms,Utkarsh et al.,2023,Paper,https://arxiv.org/abs/2304.06835,,112,32,38749057,1
+energy,"Confirmation of the topology of the Wendelstein 7-X magnetic field to better than 1:100,000",Pedersen et al.,2016,Paper,http://www.nature.com/articles/ncomms13493,,340,113,13149902,1
+energy,High-frequency intraday trading for battery storages,Schaurecker et al.,2025,Paper,https://arxiv.org/abs/2504.06932,,283,269,44255728,1
+energy,Electric vehicle batteries alone could satisfy short-term grid storage demand by as early as 2030,Xu et al.,2023,Paper,https://www.nature.com/articles/s41467-022-35393-0,,264,268,34418340,1
+energy,Tinted Semi‐Transparent Solar Panels Allow Concurrent Production of Crops and Electricity on the Same Cropland,Thompson et al.,2020,Paper,https://onlinelibrary.wiley.com/doi/full/10.1002/aenm.202001189,,218,223,24252048,1
+energy,Paint it black: Efficacy of increased wind turbine rotor blade visibility to reduce avian fatalities,May et al.,2020,Paper,https://onlinelibrary.wiley.com/doi/10.1002/ece3.6592,,209,238,32653133,2
+energy,Highly Efficient Recovery and Recycling of Cobalt from Spent Lithium-Ion Batteries Using an <i>N</i> -Methylurea–Acetamide Nonionic Deep Eutectic Solvent,Suriyanarayanan et al.,2023,Paper,https://pubs.acs.org/doi/10.1021/acsomega.2c07780,,187,85,39502165,1
+energy,Stabilization of gamma sulfur at room temperature to enable the use of carbonate electrolyte in Li-S batteries,Pai et al.,2022,Paper,https://www.nature.com/articles/s42004-022-00626-2.pdf,,183,128,31060183,2
+energy,Direct seawater electrolysis by adjusting the local reaction environment of a catalyst,Guo et al.,2023,Paper,https://www.nature.com/articles/s41560-023-01195-x,,181,87,34635111,1
+energy,The first demonstration of entirely roll-to-roll fabricated perovskite solar cell modules under ambient room conditions,Weerasinghe et al.,2024,Paper,https://www.nature.com/articles/s41467-024-46016-1,,153,107,39998740,1
+energy,Rapid battery cost declines accelerate the prospects of all-electric interregional container shipping,Kersey et al.,2022,Paper,https://www.nature.com/articles/s41560-022-01065-y,,123,245,32159891,1
+energy,Perovskite neural trees,Zhang et al.,2020,Paper,https://www.nature.com/articles/s41467-020-16105-y,,122,27,23107722,1
+energy,Photovoltaic retinal prosthesis restores high-resolution responses to single-pixel stimulation in blind retinas,Chenais et al.,2021,Paper,https://www.nature.com/articles/s43246-021-00133-2,,113,21,26516415,1
+energy,Hydrogen production from the air,Guo et al.,2022,Paper,https://www.nature.com/articles/s41467-022-32652-y,,102,118,32746794,1
+energy,Lithium chloride effectively kills the honey bee parasite Varroa destructor by a systemic mode of action,Ziegelmann et al.,2018,Paper,https://www.nature.com/articles/s41598-017-19137-5,,91,29,16165389,1
+energy,Avoiding fusion plasma tearing instability with deep reinforcement learning,Seo et al.,2024,Paper,https://www.nature.com/articles/s41586-024-07024-9,,86,124,39572871,1
+energy,Unfounded concerns about photovoltaic module toxicity and waste are slowing decarbonization,Mirletz et al.,2023,Paper,https://www.nature.com/articles/s41567-023-02230-0,,81,153,37912203,1
+energy,How weaponizing disinformation can bring down a city’s power grid,Raman et al.,2020,Paper,https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0236517,,77,46,24168342,1
+energy,Magnetic control of tokamak plasmas through deep reinforcement learning,Degrave et al.,2022,Paper,https://www.nature.com/articles/s41586-021-04301-9,,71,3,30363544,1
+energy,Solar cell efficiency tables (Version 63),Green et al.,2024,Paper,https://onlinelibrary.wiley.com/doi/10.1002/pip.3750,,67,18,38813019,1
+energy,On‐Chip Batteries for Dust‐Sized Computers,Li et al.,2022,Paper,https://onlinelibrary.wiley.com/doi/10.1002/aenm.202103641,,61,15,30528230,1
+nanotech,Lemon-Derived Extracellular Vesicle-like Nanoparticles Block the Progression of Kidney Stones by Antagonizing Endoplasmic Reticulum Stress in Renal Tubular Cells,Zhang et al.,2023,Paper,https://pubs.acs.org/doi/full/10.1021/acs.nanolett.2c05099,,201,142,35005017,1
+nanotech,Will Any Crap We Put into Graphene Increase Its Electrocatalytic Effect?,Wang et al.,2020,Paper,https://pubs.acs.org/doi/pdf/10.1021/acsnano.9b00184,,145,55,39891847,2
+nanotech,Real-space and real-time dynamics of CRISPR-Cas9 visualized by high-speed atomic force microscopy,Shibata et al.,2017,Paper,https://www.nature.com/articles/s41467-017-01466-8,,136,12,15699297,1
+nanotech,"Ultralight, strong, and self-reprogrammable mechanical metamaterials",Gregg et al.,2024,Paper,https://www.science.org/doi/10.1126/scirobotics.adi2746,,110,27,39119725,1
+nanotech,Dual Antibacterial Properties of Copper‐Coated Nanotextured Stainless Steel,Tripathi et al.,2024,Paper,https://onlinelibrary.wiley.com/doi/10.1002/smll.202311546,,107,117,40421851,1
+nanotech,Chiral nanoparticle-remodeled gut microbiota alleviates neurodegeneration via the gut–brain axis,Guo et al.,2023,Paper,https://www.nature.com/articles/s43587-023-00516-9,,106,69,38224085,1
+nanotech,"Breakdown of Native Oxide Enables Multifunctional, Free-Form Carbon Nanotube–Metal Hierarchical Architectures",Cui and Wardle,2019,Paper,https://pubs.acs.org/doi/10.1021/acsami.9b08290,,101,68,20973667,1
+nanotech,Electrochromic Inorganic Nanostructures with High Chromaticity and Superior Brightness,Gugole et al.,2021,Paper,https://pubs.acs.org/doi/10.1021/acs.nanolett.1c00904#,,95,35,27830959,1
+nanotech,A DNA turbine powered by a transmembrane potential across a nanopore,Shi et al.,2024,Paper,https://www.nature.com/articles/s41565-023-01527-8,,86,29,38072012,1
+nanotech,"Neuromorphic learning, working memory, and metaplasticity in nanowire networks",Loeffler et al.,2023,Paper,https://www.science.org/doi/10.1126/sciadv.adg3289,,83,12,35690856,1
+nanotech,Deep Learning with Coherent Nanophotonic Circuits,Shen et al.,2016,Paper,https://arxiv.org/abs/1610.02365,,82,9,13051984,1
+nanotech,Superconducting 2D cuprate with a single CuO2 plane,Luo et al.,2026,Paper,https://www.nature.com/articles/s41586-026-10857-1,,74,16,49277153,1
+nanotech,Gold Recovery from E‐Waste by Food‐Waste Amyloid Aerogels,Peydayesh et al.,2024,Paper,https://onlinelibrary.wiley.com/doi/10.1002/adma.202310642,,69,20,39590071,1
+nanotech,Unimpeded Permeation of Water Through Helium-Leak–Tight Graphene-Based Membranes,Nair et al.,2012,Paper,https://www.science.org/doi/10.1126/science.1211694,,67,45,34810208,1
+nanotech,Nanowire arrays restore vision in blind mice,Tang et al.,2018,Paper,https://www.nature.com/articles/s41467-018-03212-0,,66,4,16536094,1
+nanotech,Towards Self-Assembling Artificial Neural Networks through Neural Developmental Programs,Najarro et al.,2023,Paper,https://arxiv.org/abs/2307.08197,,65,16,37759668,1
+nanotech,Power generation from ambient humidity using protein nanowires,Liu et al.,2020,Paper,https://www.nature.com/articles/s41586-020-2010-9,,65,15,22362259,1
+nanotech,Carbon nanotube recognition by human Siglec-14 provokes inflammation,Yamaguchi et al.,2023,Paper,https://www.nature.com/articles/s41565-023-01363-w,,63,13,35485064,1
+nanotech,Atomically precise mechanosynthesis of carbon structures on hydrogenated Si(100) by inverted-mode STM,Cowie et al.,2026,Paper,https://arxiv.org/abs/2605.27250,,57,9,48292560,1
+nanotech,Nanokelvin-resolution thermometry with a photonic microscale sensor at room temperature,Reihani et al.,2022,Paper,https://www.nature.com/articles/s41566-022-01011-0,,54,15,31780312,1

@@ -20,9 +20,9 @@
       line: 'What each field is built on, with why each one matters.' },
     { num: '05', key: 'people', label: 'People', sub: 'Who to follow + learn from', href: '/people/', open: true,
       line: 'Researchers, builders, educators and writers, with where to find their work.' },
-    { num: '06', key: 'opportunities', label: 'Opportunities', sub: 'Jobs + projects + internships', open: false, cta: true,
+    { num: '06', key: 'opportunities', label: 'Opportunities', sub: 'Jobs + gigs + evals', open: false, cta: true,
       href: 'https://x.com/andrewsor_', ctaLabel: 'Join the waitlist →',
-      line: 'Openings from the labs and companies at the frontier: roles, internships and projects you can join.' },
+      line: 'Jobs, paid gigs and model evals from the labs and companies at the frontier.' },
   ];
   const SYMBOL = {
     videos: '<path d="M11 6.5v19l15-9.5z"/>', courses: '<path d="M5 26h7v-6h7v-6h7V7"/>', programs: '<rect x="6" y="6" width="20" height="20"/>',

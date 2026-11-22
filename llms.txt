@@ -21,7 +21,9 @@ Frontier Concepts (https://frontierconcepts.org) is a restricted view of YouTube
 ## Sections
 
 - [Videos](https://frontierconcepts.org/videos/): the open section, 1960 videos
-- Courses, Programs, Research, People, Companies: planned sections, not yet open
+- [Courses](https://frontierconcepts.org/courses/): open online courses, self-study texts, bootcamps, cohort courses, workshops and certifications per field
+- [Programs](https://frontierconcepts.org/programs/): fellowships, degrees, research training, internships, accelerators, labs and residencies, plus programs ranked by founder outcomes
+- Research, People, Companies: planned sections, not yet open
 
 ## Features
 

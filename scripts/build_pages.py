@@ -178,7 +178,7 @@ def main():
     dirs = data["directions"]
     videos = data["videos"]
     today = dt.date.today().isoformat()
-    urls = [(BASE + "/", "weekly", "1.0"), (BASE + "/videos/", "daily", "0.9")]
+    urls = [(BASE + "/", "weekly", "1.0"), (BASE + "/videos/", "daily", "0.9"), (BASE + "/courses/", "weekly", "0.9"), (BASE + "/programs/", "weekly", "0.9")]
 
     for d in dirs:
         vids = sorted([v for v in videos if d["slug"] in v["directions"]], key=lambda v: -v["views"])
@@ -208,7 +208,7 @@ def main():
     for d in dirs:
         n = sum(1 for v in videos if d["slug"] in v["directions"])
         lines.append(f"- [{d['name']}]({BASE}/p/{d['slug']}/): {PLAYLIST_BLURB.get(d['slug'], '')} ({n} videos)")
-    lines += ["", "## Sections", "", f"- [Videos]({BASE}/videos/): the open section, {len(videos)} videos", "- Courses, Programs, Research, People, Companies: planned sections, not yet open", "", "## Features", "",
+    lines += ["", "## Sections", "", f"- [Videos]({BASE}/videos/): the open section, {len(videos)} videos", f"- [Courses]({BASE}/courses/): open online courses, self-study texts, bootcamps, cohort courses, workshops and certifications per field", f"- [Programs]({BASE}/programs/): fellowships, degrees, research training, internships, accelerators, labs and residencies, plus programs ranked by founder outcomes", "- Research, People, Companies: planned sections, not yet open", "", "## Features", "",
               f"- [TV mode]({BASE}/videos/#/tv): lean-back playback of any playlist with keyboard controls",
               f"- [Builders]({BASE}/videos/#/builders): explainers from the companies building each field",
               f"- [Hacker News favorites]({BASE}/videos/#/hn): videos linked repeatedly on Hacker News",

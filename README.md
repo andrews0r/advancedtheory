@@ -21,6 +21,10 @@ Everything is chosen offline by `scripts/fetch_videos.py`, which writes `data/vi
 3. **Builders**: explainers and technical updates from the channels of the companies building each field. Channel handles live in `LEADERS` in the fetch script.
 4. **Curated lists**: `data/curated_library.csv` feeds the Start a Company and Advanced Theory tabs; `data/manual_adds.txt` takes one-off links (URL, playlist slug, optional label).
 
+## Courses and Programs
+
+`scripts/build_programs.py` builds the two catalogue pages from `data/programs_top20.csv` (the Frontier Academy list, 2,452 programs across nine fields and 25 formats), `data/programs_ranked_168.csv` (programs ranked by founder outcomes) and `data/programs_logo_manifest.csv` (domains for logos). Course-type formats (MOOCs, self-study, bootcamps, cohort courses, workshops, certifications) go to `/courses/`; the rest (fellowships, degrees, research training, internships, accelerators, labs, residencies) go to `/programs/`, which also shows the ranked list. It writes `data/programs.js` and both pages' HTML. Logos are each provider's site favicon with a monogram fallback.
+
 ## Refreshing the catalogue
 
 1. Put a YouTube Data API key in `.env` as `YOUTUBE_API_KEY=...` (git-ignored).
@@ -30,7 +34,7 @@ Responses are cached in `cache/`, so re-runs are nearly free. The default run st
 
 ## Routes
 
-- `/` site home (sections; Videos is open, the rest are locked levels) · `/videos/#/` videos home · `/videos/#/p/<slug>` playlist · `#/w/<id>` watch · `#/search?q=` · `#/builders` · `#/hn` · `#/history` · `#/about`
+- `/` site home · `/courses/` and `/programs/` (`#f=<field>&fmt=<format>&cost=free|funded|paid&q=`) · `/videos/#/` videos home · `/videos/#/p/<slug>` playlist · `#/w/<id>` watch · `#/search?q=` · `#/builders` · `#/hn` · `#/history` · `#/about`
 - `/videos/#/tv?p=<slug>` TV mode: arrows next/previous, Space pause, S shuffle, F full screen, M mute, 0–9 switch playlist, Esc exit.
 
 ## Deploying

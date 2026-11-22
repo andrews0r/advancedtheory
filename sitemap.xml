@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://frontierconcepts.org/</loc><lastmod>2026-11-22</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://frontierconcepts.org/videos/</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://frontierconcepts.org/courses/</loc><lastmod>2026-11-22</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://frontierconcepts.org/programs/</loc><lastmod>2026-11-22</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://frontierconcepts.org/p/ai/</loc><lastmod>2026-11-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://frontierconcepts.org/p/robotics/</loc><lastmod>2026-11-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://frontierconcepts.org/p/quantum/</loc><lastmod>2026-11-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>

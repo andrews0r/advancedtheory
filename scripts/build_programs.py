@@ -96,9 +96,16 @@ LOW_SIGNAL = ["khan academy", "khanmigo", "udemy", "coursera", "edx", "simplilea
               "linkedin learning", "skillshare", "codecademy", "datacamp", "udacity"]
 
 
+# Editorial boosts, by normalized program name: things that belong near the top regardless of the data.
+BOOST = {
+    "spinning up in deep rl": 17,
+}
+
+
 def signal_score(fmt: str, rank: int, sources: int, provider: str, cost: str, program: str) -> float:
     n = norm(provider)
     score = max(0, 21 - rank) * 0.6              # position within its field x format cell (0..12)
+    score += BOOST.get(norm(program), 0)
     score += 8 * max(0, sources - 1)              # listed by two, three sources: strong agreement
     score += FORMAT_WEIGHT.get(fmt, 2)
     if any(k in n for k in PRESTIGE):
@@ -291,6 +298,17 @@ def merge_duplicates(items: list[dict]) -> list[dict]:
     return merged
 
 
+KIND_TYPE = {
+    "research lab": "Lab", "fellowship": "Fellowship", "scholarship": "Fellowship", "corporate early-career program": "Corporate",
+    "military/gov tech unit": "Government", "government program": "Government", "university program": "University",
+    "founder program": "Founder program", "student venture program": "Founder program", "community": "Community", "competition": "Competition",
+}
+CATEGORY_TYPE = {
+    "Founder & Venture": "Founder program", "Elite Fellowships & Networks": "Fellowship", "Research & Science": "Research",
+    "Industry & Professional Talent": "Corporate", "Institutions & Other Talent Pipelines": "Institution",
+}
+
+
 def load_ranked():
     manifest = {m["program"].strip().lower(): m for m in csv.DictReader((DATA / "programs_logo_manifest.csv").open(encoding="utf-8-sig"))}
     rows = list(csv.DictReader((DATA / "programs_ranked_168.csv").open(encoding="utf-8-sig")))
@@ -311,6 +329,7 @@ def load_ranked():
             "domain": domain,
             "logo": logo_for(r["operator"], domain, by_name, by_dom) or logo_for(r["program"], domain, by_name, by_dom),
             "kind": (m["category"] if m else "").strip(),
+            "type": KIND_TYPE.get((m["category"] if m else "").strip().lower()) or CATEGORY_TYPE.get(r["final_category"], ""),
             "examples": [x.strip() for x in (r.get("example_companies") or "").split(";") if x.strip()][:3],
             "hit_rate": float(r["hit_rate_pct"]) if (r.get("hit_rate_pct") or "").replace(".", "", 1).isdigit() else None,
             "alumni": int(r["harmonic_alumni"]) if (r.get("harmonic_alumni") or "").isdigit() else None,

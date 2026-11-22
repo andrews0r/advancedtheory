@@ -127,8 +127,7 @@
         <td class="mono-cell num">${String(r.rank).padStart(2, '0')}</td>
         <td class="name">${logo(r, r.operator || r.name)}${r.url ? ext(r.url, r.name) : esc(r.name)}${r.candidate ? ' <span class="tag" title="Candidate, under editorial review">candidate</span>' : ''}</td>
         <td class="mono-cell">${esc(r.operator)}</td>
-        <td>${tag(r.category, link({ cat: s.cat === r.category ? '' : r.category }))}</td>
-        <td class="mono-cell">${esc(r.kind)}</td>
+        <td>${tag(r.type || r.category, link({ cat: s.cat === r.category ? '' : r.category }))}</td>
         <td class="note">${esc(r.examples.join(', '))}</td>
         <td class="mono-cell num">${r.hit_rate != null ? r.hit_rate + '%' : ''}</td>
         <td class="mono-cell num">${r.alumni != null ? r.alumni.toLocaleString() : ''}</td>
@@ -140,8 +139,8 @@
         <p class="filter-note">Programs ranked within each category by how often their alumni go on to found frontier companies, from the Frontier Programs index. Hit rate is the share of tracked alumni who founded one; alumni is the tracked population.</p>
       </div>
       <div class="table-wrap"><table class="table">
-        <thead><tr><th class="num">#</th>${th('Program', 'name', s, 'name')}${th('Operator', 'operator', s)}<th>Category</th><th>Kind</th><th>Alumni companies</th>${th('Hit rate', 'hit', s, 'num')}${th('Alumni', 'alumni', s, 'num')}</tr></thead>
-        <tbody>${rows || '<tr><td colspan="8" class="empty-row">Nothing matches.</td></tr>'}</tbody>
+        <thead><tr><th class="num">#</th>${th('Program', 'name', s, 'name')}${th('Operator', 'operator', s)}<th>Type</th><th>Alumni companies</th>${th('Hit rate', 'hit', s, 'num')}${th('Alumni', 'alumni', s, 'num')}</tr></thead>
+        <tbody>${rows || '<tr><td colspan="7" class="empty-row">Nothing matches.</td></tr>'}</tbody>
       </table></div>`;
   }
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,7 +52,6 @@
   try {
     var t = localStorage.getItem('fa-theme');
     if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
-    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) document.documentElement.setAttribute('data-theme', 'light');
   } catch (e) {}
 </script>
 </head>
@@ -61,9 +60,6 @@
 
 <header class="topbar" id="topbar">
   <div class="topbar-left">
-    <button class="icon-btn" id="menu-btn" aria-label="Toggle menu" title="Menu">
-      <svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" fill="currentColor"/></svg>
-    </button>
     <a class="brand" href="#/" aria-label="Frontier Concepts home">
       <span class="brand-mark"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28" /><path d="M10 2v28" /><path d="M14 2v28" /><path d="M18 2v28" /><path d="M22 2v28" /><path d="M26 2v28" /><path d="M2 6h28" /><path d="M2 10h28" /><path d="M2 14h28" /><path d="M2 18h28" /><path d="M2 22h28" /><path d="M2 26h28" /></g><g stroke="#ffffff" stroke-width="1.1" fill="none" stroke-linecap="round"><circle cx="16" cy="16" r="11"/></g></svg></span>
       <span class="brand-text">frontier <span class="brand-tv">concepts.</span></span>
@@ -90,10 +86,15 @@
   </div>
 </header>
 
+<nav class="tabs" id="tabs" aria-label="Sections"></nav>
+
 <div class="layout">
-  <nav class="sidebar" id="sidebar" aria-label="Playlists"></nav>
   <main class="main" id="main" tabindex="-1"><noscript><p>Frontier Concepts needs JavaScript to play videos. Browse the playlists as plain pages: <a href="/p/ai/">AI</a>, <a href="/p/robotics/">Robotics</a>, <a href="/p/quantum/">Quantum</a>, <a href="/p/space/">Space</a>, <a href="/p/biotech/">Biotech</a>, <a href="/p/neurotech/">Neurotech</a>, <a href="/p/semiconductors/">Semiconductors</a>, <a href="/p/energy/">Energy</a>, <a href="/p/nanotech/">Nanotech</a>, <a href="/p/startup/">Start a Company</a>, <a href="/p/theory/">Advanced Theory</a>.</p></noscript></main>
 </div>
+<footer class="footer">
+  <a href="https://x.com/andrewsor_" target="_blank" rel="noopener" title="Andrew Sorohan on X">Created by <svg viewBox="0 0 24 24" width="12" height="12" aria-label="X" style="vertical-align:-1px"><path d="M18.9 2H22l-7 8 8.2 12h-6.4l-5-6.6L6 22H2.8l7.5-8.6L2.4 2h6.6l4.5 6L18.9 2zm-1.1 18h1.8L7.3 3.9H5.4L17.8 20z" fill="currentColor"/></svg> @andrewsor_</a>
+  <span>Videos belong to their creators and are streamed from YouTube.</span>
+</footer>
 
 <div class="tv" id="tv" hidden></div>
 

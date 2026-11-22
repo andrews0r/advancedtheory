@@ -12,7 +12,7 @@
   const PROV = window.FA_PROVIDERS || {};
   const $ = (sel, el = document) => el.querySelector(sel);
   const main = $('#main');
-  const sidebar = $('#sidebar');
+  const tabsEl = $('#tabs');
   const tvRoot = $('#tv');
 
   // ------------------------------------------------------------ direction meta
@@ -100,54 +100,45 @@
 
   // ----------------------------------------------------------------- sidebar
   function renderSidebar(active) {
-    const item = (href, icon, label, count, key) =>
-      `<a class="nav-item ${active === key ? 'active' : ''}" href="${href}">${icon}<span>${esc(label)}</span>${count != null ? `<span class="nav-count">${count}</span>` : ''}</a>`;
-    let html = item('#/', svg(ICON_HOME), 'Home', null, 'home');
-    html += item('#/tv', svg(ICON_TV), 'TV mode', null, 'tv');
-    html += item('#/history', svg(ICON_HISTORY), 'History', null, 'history');
-    { const n = DATA.videos.filter((v) => v.leader).length; if (n) html += item('#/builders', svg('M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.8 5.5 21l2-7.5L2 9h7z'), BUILDERS.nav, n, 'leaders'); }
-    { const n = DATA.videos.filter((v) => v.hn).length; if (n) html += item('#/hn', svg('M3 3h18v18H3V3zm8.5 4.5L9.3 11.7 7 7.5H5.4l3.1 5.6V17h1.6v-3.9l3.1-5.6h-1.7z'), 'HN favorites', n, 'hn'); }
-    html += '<hr><div class="nav-section">Playlists</div>';
+    const tab = (href, label, key, extra = '') => `<a class="chip ${active === key ? 'active' : ''}" href="${href}">${esc(label)}${extra}</a>`;
+    let html = '<div class="tabs-row">' + tab('#/', 'All', 'home');
     for (const d of DATA.directions) {
-      if (d.slug === 'startup') html += '<hr>';
-      html += `<a class="nav-item ${active === d.slug ? 'active' : ''}" href="#/p/${d.slug}" style="--c:${dirColor(d.slug)}"><span style="color:var(--c);display:inline-flex">${dirIcon(d.slug)}</span><span>${esc(d.label)}</span><span class="nav-count">${d.count}</span></a>`;
+      if (SPECIAL.has(d.slug)) continue;
+      html += tab(`#/p/${d.slug}`, d.label, d.slug);
     }
-    html += '<hr>' + item('#/about', svg(ICON_INFO), 'About', null, 'about');
-    html += `<a class="nav-sub credit" href="https://x.com/andrewsor_" target="_blank" rel="noopener" title="Andrew Sorohan on X">
-      <span>Created by</span>
-      <svg viewBox="0 0 24 24" width="14" height="14" aria-label="X"><path d="M18.9 2H22l-7 8 8.2 12h-6.4l-5-6.6L6 22H2.8l7.5-8.6L2.4 2h6.6l4.5 6L18.9 2zm-1.1 18h1.8L7.3 3.9H5.4L17.8 20z" fill="currentColor"/></svg>
-      <span>@andrewsor_</span>
-    </a>`;
-    sidebar.innerHTML = html;
+    html += '</div><div class="tabs-row secondary">';
+    for (const d of DATA.directions) if (SPECIAL.has(d.slug)) html += tab(`#/p/${d.slug}`, d.label, d.slug);
+    html += tab('#/builders', BUILDERS.nav, 'leaders') + tab('#/hn', 'HN favorites', 'hn') + tab('#/history', 'History', 'history') + tab('#/about', 'About', 'about');
+    html += '</div>';
+    tabsEl.innerHTML = html;
   }
-  $('#menu-btn').addEventListener('click', () => {
-    if (window.matchMedia('(max-width: 900px)').matches) document.body.classList.toggle('sidebar-open');
-    else document.body.classList.toggle('sidebar-collapsed');
-  });
-  sidebar.addEventListener('click', () => document.body.classList.remove('sidebar-open'));
 
   // ------------------------------------------------------------------- cards
+  function sourceOf(v) {
+    const parts = [];
+    if (v.curated) parts.push(`<span title="${esc(v.curated.note || '')}">${esc(v.curated.subject || v.curated.collection)}</span>`);
+    if (v.leader) parts.push(`<a href="#/builders?c=${encodeURIComponent(v.leader)}">${esc(v.leader)}</a>`);
+    if (v.hn) parts.push(`<a href="${esc(v.hn.url || 'https://news.ycombinator.com')}" target="_blank" rel="noopener" title="Linked in ${v.hn.mentions} Hacker News items">Hacker News ×${v.hn.mentions}</a>`);
+    if (!parts.length && v.providers.length) parts.push(esc(v.providers[0]));
+    return parts.join(' · ');
+  }
   function card(v, opts = {}) {
-    const dirs = v.directions.map((s) => `<a class="tag dir" href="#/p/${s}" style="color:${dirColor(s)}">${esc((dirOf(s) || {}).label || s)}</a>`).join('');
-    const provs = v.providers.slice(0, 2).map((p) => `<span class="tag">${esc(p)}</span>`).join('');
-    const cur = v.curated ? `<span class="tag curated" title="${esc(v.curated.note || v.curated.collection)}">${esc(v.curated.subject || v.curated.collection)}</span>` : '';
-    const lead = v.leader ? `<a class="tag leader" href="#/builders?c=${encodeURIComponent(v.leader)}" title="All explainers from ${esc(v.leader)}">${esc(v.leader)}</a>` : '';
-    const hn = v.hn ? `<span class="tag hn" title="Linked in ${v.hn.mentions} Hacker News ${v.hn.mentions === 1 ? 'item' : 'items'}${v.hn.years && v.hn.years.length > 1 ? ' across ' + v.hn.years.length + ' years' : ''}">HN ×${v.hn.mentions}</span>` : '';
     const pl = opts.playlist ? `?p=${opts.playlist}` : '';
-    return `<div class="card">
-      <a href="#/w/${v.id}${pl}" aria-label="${esc(v.title)}">
+    const topics = v.directions.filter((d) => dirOf(d)).map((d) => `<a href="#/p/${d}">${esc(dirOf(d).label)}</a>`).join(', ');
+    return `<article class="card">
+      <a class="thumb-link" href="#/w/${v.id}${pl}" aria-label="${esc(v.title)}">
         <div class="thumb"><img loading="lazy" src="${thumb(v.id)}" alt=""><span class="dur">${fmtDur(v.duration)}</span></div>
       </a>
       <div class="card-body">
-        <div class="avatar" style="background:${avatarColor(v.channel)}">${esc(v.channel.slice(0, 1).toUpperCase())}</div>
-        <div style="min-width:0">
-          <a href="#/w/${v.id}${pl}"><h3 class="card-title">${esc(v.title)}</h3></a>
-          <div class="meta">${esc(v.channel)}</div>
-          <div class="meta">${fmtViews(v.views)}<span class="dot"></span>${fmtAgo(v.published)}</div>
-          <div class="card-tags">${hn}${lead}${cur}${dirs}${v.leader || v.curated ? '' : provs}</div>
-        </div>
+        <a href="#/w/${v.id}${pl}"><h3 class="card-title">${esc(v.title)}</h3></a>
+        <dl class="kv">
+          <dt>Channel</dt><dd>${esc(v.channel)}</dd>
+          ${sourceOf(v) ? `<dt>Source</dt><dd>${sourceOf(v)}</dd>` : ''}
+          ${topics ? `<dt>Topic</dt><dd>${topics}</dd>` : ''}
+          <dt>Views</dt><dd>${fmtViews(v.views).replace(' views', '')} · ${(v.published || '').slice(0, 4)}</dd>
+        </dl>
       </div>
-    </div>`;
+    </article>`;
   }
   function listItem(v, playlist, current) {
     return `<a class="list-item ${current ? 'current' : ''}" href="#/w/${v.id}${playlist ? '?p=' + playlist : ''}">
@@ -155,10 +146,7 @@
       <div style="min-width:0"><p class="t">${esc(v.title)}</p><div class="meta">${esc(v.channel)}</div><div class="meta">${fmtViews(v.views)}<span class="dot"></span>${fmtAgo(v.published)}</div></div>
     </a>`;
   }
-  const chipsBar = (active) => `<div class="chips">
-      <a class="chip ${active === 'all' ? 'active' : ''}" href="#/">All</a>
-      ${DATA.directions.map((d) => `<a class="chip ${active === d.slug ? 'active' : ''}" href="#/p/${d.slug}">${esc(d.label)}</a>`).join('')}
-    </div>`;
+  const chipsBar = () => '';
 
   // ------------------------------------------------------------------- views
   function emptyState() {
@@ -191,8 +179,8 @@
       html += `<section class="section"><div class="section-head"><h2>Hacker News favorites</h2><a href="#/hn">All ${hnPicks.length} HN picks</a></div><div class="row">${hnPicks.slice(0, 12).map((v) => card(v)).join('')}</div></section>`;
     }
     html += `<section class="section"><div class="section-head"><h2>${sort === 'new' ? 'Newest' : 'Most viewed'} across Frontier Concepts</h2>
-      <div class="sort"><a class="chip small ${sort === 'views' ? 'active' : ''}" href="#/?sort=views">Most viewed</a><a class="chip small ${sort === 'new' ? 'active' : ''}" href="#/?sort=new">Newest</a></div></div>
-      <div class="grid">${all.slice(0, page).map((v) => card(v)).join('')}</div>
+      <div class="sort"><a class="chip small ${sort === 'views' ? 'active' : ''}" href="#/?sort=views">Most viewed</a><a class="chip small ${sort === 'new' ? 'active' : ''}" href="#/?sort=new">Newest</a>${viewToggle()}</div></div>
+      <div class="${gridClass()}">${all.slice(0, page).map((v) => card(v)).join('')}</div>
       ${page < all.length ? `<div class="more"><a class="pill-btn" href="#/?sort=${sort}&n=${page + 24}">Show more</a></div>` : ''}</section>`;
     for (const d of DATA.directions) {
       const vids = videosIn(d.slug).sort(byViews).slice(0, 8);
@@ -202,6 +190,11 @@
     }
     return html;
   }
+
+  const VIEWS = ['grid', 'list', 'large'];
+  const currentView = () => { const v = store.get('fa-view', 'grid'); return VIEWS.includes(v) ? v : 'grid'; };
+  const viewToggle = () => `<div class="view-toggle" role="group" aria-label="Layout">${VIEWS.map((v) => `<button class="vt ${currentView() === v ? 'active' : ''}" data-view="${v}" title="${v} view">${v === 'grid' ? svg('M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z', 16) : v === 'list' ? svg('M3 4h18v3H3zm0 6.5h18v3H3zM3 17h18v3H3z', 16) : svg('M3 3h18v18H3z', 16)}</button>`).join('')}</div>`;
+  const gridClass = () => `grid view-${currentView()}`;
 
   function viewPlaylist(slug, params) {
     const d = dirOf(slug);
@@ -229,7 +222,7 @@
     const first = vids[0];
     const info = PROV[slug];
     return `${chipsBar(slug)}
-      <header class="playlist-head" style="--dir-color:${dirColor(slug)}">
+      <header class="playlist-head">
         <div class="big-icon">${dirIcon(slug, 52)}</div>
         <div style="flex:1;min-width:0">
           <h1>${esc(d.name)}</h1>
@@ -238,7 +231,7 @@
             ${first ? `<a class="pill-btn primary" href="#/w/${first.id}?p=${slug}">${svg('M8 5v14l11-7z', 18)} Play all</a>` : ''}
             <a class="pill-btn" href="#/w/${(shuffle(vids)[0] || {}).id}?p=${slug}&shuffle=1">${svg('M10.6 9.2L5.4 4H2v2h2.6l4.6 4.6 1.4-1.4zM14.5 4l2.1 2.1L4 18.7l1.4 1.4L18 7.5l2 2V4h-5.5zm0 16H20v-5.5l-2.1 2.1-3.3-3.3-1.4 1.4 3.3 3.3L14.5 20z', 18)} Shuffle</a>
             <a class="pill-btn" href="#/tv?p=${slug}">${svg(ICON_TV, 18)} Watch in TV mode</a>
-            <div class="sort"><a class="chip small ${sort === 'views' ? 'active' : ''}" href="#/p/${slug}?sort=views${q ? '&prov=' + encodeURIComponent(q) : ''}">Most viewed</a><a class="chip small ${sort === 'new' ? 'active' : ''}" href="#/p/${slug}?sort=new${q ? '&prov=' + encodeURIComponent(q) : ''}">Newest</a></div>
+            <div class="sort"><a class="chip small ${sort === 'views' ? 'active' : ''}" href="#/p/${slug}?sort=views${q ? '&prov=' + encodeURIComponent(q) : ''}">Most viewed</a><a class="chip small ${sort === 'new' ? 'active' : ''}" href="#/p/${slug}?sort=new${q ? '&prov=' + encodeURIComponent(q) : ''}">Newest</a>${viewToggle()}</div>
           </div>
           <div class="providers-strip collapsed">
             ${special ? `<a class="chip small ${!field ? 'active' : ''}" href="#/p/${slug}?sort=${sort}">All fields</a>${DATA.directions.filter((x) => fieldCount[x.slug]).map((x) => `<a class="chip small ${field === x.slug ? 'active' : ''}" href="#/p/${slug}?sort=${sort}&field=${x.slug}" style="color:${dirColor(x.slug)}">${esc(x.label)} <span>${fieldCount[x.slug]}</span></a>`).join('')}<span style="flex-basis:100%"></span>` : `<a class="chip small ${!src ? 'active' : ''}" href="#/p/${slug}?sort=${sort}">All sources</a>`}
@@ -252,7 +245,7 @@
           </div>
         </div>
       </header>
-      <div class="grid">${vids.map((v) => card(v, { playlist: slug })).join('')}</div>
+      <div class="${gridClass()}">${vids.map((v) => card(v, { playlist: slug })).join('')}</div>
       ${vids.length ? '' : '<div class="empty"><h2>Nothing here yet</h2></div>'}`;
   }
 
@@ -273,7 +266,7 @@
     const res = terms.length ? DATA.videos.map((v) => [score(v), v]).filter((x) => x[0] > 0).sort((a, b) => b[0] - a[0]).map((x) => x[1]) : [];
     return `${chipsBar('')}
       <div class="section-head"><h2>${res.length} result${res.length === 1 ? '' : 's'} for “${esc(q)}”</h2></div>
-      <div class="grid">${res.map((v) => card(v)).join('')}</div>
+      <div class="${gridClass()}">${res.map((v) => card(v)).join('')}</div>
       ${res.length ? '' : '<div class="empty"><p>Try a topic (“fusion”), a channel (“MIT OpenCourseWare”) or an organization (“NASA”).</p></div>'}`;
   }
 
@@ -287,7 +280,7 @@
         ${DATA.directions.map((d) => `<a class="chip ${slug === d.slug ? 'active' : ''}" href="#/hn?p=${d.slug}">${esc(d.label)} <span>${counts[d.slug] || 0}</span></a>`).join('')}
       </div>
       <div class="section-head"><h2>Hacker News favorites${slug !== 'all' ? ' · ' + esc((dirOf(slug) || {}).name || '') : ''}</h2><span style="color:var(--ink-2)">${vids.length} videos, ordered by how often HN linked them</span></div>
-      <div class="grid">${vids.map((v) => card(v, { playlist: slug !== 'all' ? slug : '' })).join('')}</div>`;
+      <div class="${gridClass()}">${vids.map((v) => card(v, { playlist: slug !== 'all' ? slug : '' })).join('')}</div>`;
   }
 
   function viewLeaders(params) {
@@ -310,14 +303,14 @@
         <a class="chip small ${!company ? 'active' : ''}" href="${link(slug, '')}">All companies</a>
         ${Object.entries(companies).sort((a, b) => b[1] - a[1]).map(([c, n]) => `<a class="chip small ${company.toLowerCase() === c.toLowerCase() ? 'active' : ''}" href="${link(slug, c)}">${esc(c)} <span>${n}</span></a>`).join('')}
       </div>
-      <div class="grid">${vids.map((v) => card(v, { playlist: slug !== 'all' ? slug : '' })).join('')}</div>`;
+      <div class="${gridClass()}">${vids.map((v) => card(v, { playlist: slug !== 'all' ? slug : '' })).join('')}</div>`;
   }
 
   function viewHistory() {
     const h = history();
     return `${chipsBar('')}
       <div class="section-head"><h2>History</h2>${h.length ? '<a href="#/history?clear=1" id="clear-history">Clear</a>' : ''}</div>
-      <div class="grid">${h.map((v) => card(v)).join('')}</div>
+      <div class="${gridClass()}">${h.map((v) => card(v)).join('')}</div>
       ${h.length ? '' : '<div class="empty"><p>Videos you open will show up here.</p></div>'}`;
   }
 
@@ -339,7 +332,6 @@
         <h1>${esc(v.title)}</h1>
         <div class="watch-meta">
           <div class="channel">
-            <div class="avatar" style="background:${avatarColor(v.channel)}">${esc(v.channel.slice(0, 1).toUpperCase())}</div>
             <div><div class="name">${esc(v.channel)}</div><div class="sub">${v.leader ? `<a href="#/builders?c=${encodeURIComponent(v.leader)}" style="color:#1c62b9;font-weight:600">Builder: ${esc(v.leader)}</a>` : (v.providers.length ? 'Organization: ' + esc(v.providers.join(', ')) : '')}${v.curated ? `${v.providers.length ? ' · ' : ''}<span style="color:#8e44ad;font-weight:600">Curated: ${esc(v.curated.collection)}${v.curated.subject ? ' · ' + esc(v.curated.subject) : ''}</span>${v.curated.note ? ` <span style="color:var(--ink-2)">— ${esc(v.curated.note)}</span>` : ''}` : ''}${v.startup && !v.curated ? `${v.providers.length ? ' · ' : ''}<a href="#/p/startup" style="color:#e53935;font-weight:600">Start a Company: ${esc(v.startup.channel)} (${esc(v.startup.reasons.join(', '))})</a>` : ''}${v.hn ? `${v.providers.length ? ' · ' : ''}<a href="${esc(v.hn.url || 'https://news.ycombinator.com')}" target="_blank" rel="noopener" style="color:#ff6600;font-weight:600">Linked on Hacker News ${v.hn.mentions}× (${v.hn.stories} ${v.hn.stories === 1 ? 'story' : 'stories'}, ${v.hn.comments} ${v.hn.comments === 1 ? 'comment' : 'comments'}${v.hn.years && v.hn.years.length ? ', ' + v.hn.years[0] + (v.hn.years.length > 1 ? '–' + v.hn.years[v.hn.years.length - 1] : '') : ''})</a>` : ''}</div></div>
           </div>
           <div class="actions">
@@ -601,7 +593,7 @@
     let active = 'home';
     document.title = 'Frontier Concepts';
     switch (head) {
-      case '': html = viewHome(params); break;
+      case '': html = viewHome(params); active = 'home'; break;
       case 'p': html = viewPlaylist(parts[1], params); active = parts[1]; document.title = `${(dirOf(parts[1]) || {}).name || 'Playlist'} · Frontier Concepts`; break;
       case 'w': destroyPlayer(); html = viewWatch(parts[1], params); active = params.get('p') || ''; { const v = findVideo(parts[1]); if (v) document.title = v.title + ' · Frontier Concepts'; } break;
       case 'search': html = viewSearch(params); active = ''; $('#search-input').value = params.get('q') || ''; break;
@@ -650,6 +642,8 @@
     else go('#/');
   });
   main.addEventListener('click', (e) => {
+    const vt = e.target.closest('.vt');
+    if (vt) { store.set('fa-view', vt.dataset.view); route(); return; }
     const b = e.target.closest('.more-toggle');
     if (!b) return;
     const strip = b.closest('.providers-strip');

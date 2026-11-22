@@ -72,6 +72,44 @@ FORMAT_ORDER = {
 }
 
 
+# ------------------------------------------------------------ signal score
+# Default ordering: what a serious person should see first. Agreement between the
+# research passes, the format's weight, the provider's standing, and a few penalties.
+FORMAT_WEIGHT = {
+    "Fellowship": 10, "Degree": 8, "Research training": 8, "Residency": 8, "Lab": 6, "Accelerator": 6, "Internship": 5,
+    "Apprenticeship": 4, "Competition": 4, "Field school": 3, "Community": 2, "Retreat": 2, "Mentorship": 2, "Professional development": 1,
+    "Self-study": 8, "Online course": 7, "Live course": 4, "Workshop": 3, "Bootcamp": 3, "Project-based": 3, "Certification": 0,
+    "Corporate": -2, "Coaching": -2,
+}
+PRESTIGE = [  # substrings matched against the normalized provider name
+    "mit", "stanford", "harvard", "berkeley", "caltech", "carnegie mellon", "cmu", "princeton", "yale", "cornell", "columbia", "oxford",
+    "cambridge", "eth zurich", "epfl", "imperial", "ucl", "tsinghua", "georgia tech", "university of michigan", "university of washington",
+    "university of toronto", "nasa", "esa", "jpl", "deepmind", "openai", "anthropic", "nvidia", "google", "microsoft", "ibm", "meta", "apple",
+    "karpathy", "3blue1brown", "fast ai", "hugging face", "y combinator", "sutton", "goodfellow", "bishop", "lilian weng",
+    "cold spring harbor", "embl", "broad institute", "hhmi", "howard hughes", "allen institute", "santa fe institute", "perimeter",
+    "los alamos", "lawrence livermore", "oak ridge", "argonne", "sandia", "nrel", "cern", "iter", "spacex", "neuralink", "boston dynamics",
+    "qiskit", "ibm quantum", "google quantum", "xanadu", "psiquantum", "tsmc", "asml", "intel", "arm", "cadence", "synopsys",
+    "thiel", "hertz", "schmidt", "rhodes", "marshall", "fulbright", "gates cambridge", "churchill", "knight hennessy", "nsf", "darpa",
+    "arpa e", "doe", "department of energy", "nih", "khosla", "a16z", "sequoia", "activate", "entrepreneur first", "neurips", "icml",
+]
+LOW_SIGNAL = ["khan academy", "khanmigo", "udemy", "coursera", "edx", "simplilearn", "edureka", "reddit", "chatgpt", "youtube", "medium",
+              "linkedin learning", "skillshare", "codecademy", "datacamp", "udacity"]
+
+
+def signal_score(fmt: str, rank: int, sources: int, provider: str, cost: str, program: str) -> float:
+    n = norm(provider)
+    score = max(0, 21 - rank) * 0.6              # position within its field x format cell (0..12)
+    score += 8 * max(0, sources - 1)              # listed by two, three sources: strong agreement
+    score += FORMAT_WEIGHT.get(fmt, 2)
+    if any(k in n for k in PRESTIGE):
+        score += 10
+    if any(k in n or k in norm(program) for k in LOW_SIGNAL):
+        score -= 12
+    if cost == "free":
+        score += 1
+    return round(score, 2)
+
+
 def host(url: str) -> str:
     try:
         h = urlparse(url.strip()).netloc.lower()
@@ -221,11 +259,14 @@ def load_top20():
             "rank": int(r["rank_final"]) if (r.get("rank_final") or "").isdigit() else 99,
             "sources": int(r["source_count"]) if (r.get("source_count") or "").isdigit() else 1,
             "cost": cost_of(r),
+            "score": 0.0,
             "level": (r.get("level_chatgpt") or "").strip(),
             "access": (r.get("access_chatgpt") or "").strip(),
             "selectivity": (r.get("selectivity_grok") or "").strip(),
             "note": note_of(r),
         })
+        it = items[-1]
+        it["score"] = signal_score(it["fmt"], it["rank"], it["sources"], it["provider"], it["cost"], it["name"])
     return items
 
 

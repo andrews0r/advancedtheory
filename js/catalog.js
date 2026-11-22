@@ -78,7 +78,7 @@
       field: (a, b) => fieldLabel(a.field).localeCompare(fieldLabel(b.field)) || a.rank - b.rank,
       cost: (a, b) => (a.cost || 'zz').localeCompare(b.cost || 'zz') || a.rank - b.rank,
       level: (a, b) => (a.level || 'zz').localeCompare(b.level || 'zz') || a.rank - b.rank,
-    }[s.sort] || ((a, b) => (s.f === 'all' ? fieldLabel(a.field).localeCompare(fieldLabel(b.field)) : 0) || a.rank - b.rank || b.sources - a.sources);
+    }[s.sort] || ((a, b) => (b.score || 0) - (a.score || 0) || a.rank - b.rank || b.sources - a.sources);
     items.sort(cmp);
     if (s.dir === 'desc') items.reverse();
 

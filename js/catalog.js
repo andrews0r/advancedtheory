@@ -103,7 +103,7 @@
         </div>
       </div>
       <div class="table-wrap"><table class="table">
-        <thead><tr>${th(SECTION === 'courses' ? 'Course' : 'Program', 'name', s, 'name')}${th('Format', 'format', s)}${th('Field', 'field', s)}<th>Why it's here</th><th>Link</th></tr></thead>
+        <thead><tr>${th(SECTION === 'courses' ? 'Course' : 'Program', 'name', s, 'name')}${th('Format', 'format', s)}${th('Field', 'field', s)}<th>About</th><th>Link</th></tr></thead>
         <tbody>${rows || '<tr><td colspan="5" class="empty-row">Nothing matches. Clear a filter or try another word.</td></tr>'}</tbody>
       </table></div>
       ${items.length > s.n ? `<div class="more"><a class="pill-btn" href="${link({ n: s.n + 100 })}">Show more</a></div>` : ''}`;

@@ -66,8 +66,8 @@
   // -------------------------------------------------------------- main table
   function mainTable(s) {
     let items = ITEMS.slice();
-    if (s.f !== 'all') items = items.filter((i) => i.field === s.f);
-    if (s.fmt) items = items.filter((i) => i.fmt === s.fmt);
+    if (s.f !== 'all') items = items.filter((i) => (i.fields || [i.field]).includes(s.f));
+    if (s.fmt) items = items.filter((i) => (i.fmts || [i.fmt]).includes(s.fmt));
     if (s.cost) items = items.filter((i) => i.cost === s.cost);
     if (s.q) { const terms = s.q.toLowerCase().split(/\s+/); items = items.filter((i) => { const hay = (i.name + ' ' + i.provider + ' ' + i.note + ' ' + i.fmt + ' ' + fieldLabel(i.field)).toLowerCase(); return terms.every((t) => hay.includes(t)); }); }
     const cmp = {
@@ -82,15 +82,15 @@
     items.sort(cmp);
     if (s.dir === 'desc') items.reverse();
 
-    const base = ITEMS.filter((i) => s.f === 'all' || i.field === s.f);
-    const fmtCount = {}; for (const i of base) fmtCount[i.fmt] = (fmtCount[i.fmt] || 0) + 1;
+    const base = ITEMS.filter((i) => s.f === 'all' || (i.fields || [i.field]).includes(s.f));
+    const fmtCount = {}; for (const i of base) for (const x of (i.fmts || [i.fmt])) fmtCount[x] = (fmtCount[x] || 0) + 1;
     const costCount = {}; for (const i of base) if (i.cost) costCount[i.cost] = (costCount[i.cost] || 0) + 1;
     const filtered = !!(s.fmt || s.cost || s.q || s.f !== 'all');
 
     const rows = items.slice(0, s.n).map((i) => `<tr>
         <td class="name" title="${esc(i.provider)}">${logo(i, i.provider || i.name)}${i.url ? ext(i.url, i.name) : esc(i.name)}</td>
-        <td>${tag(i.fmt, link({ fmt: i.fmt, n: 0 }))}</td>
-        <td>${tag(fieldLabel(i.field), link({ f: i.field, n: 0 }))}</td>
+        <td>${(i.fmts || [i.fmt]).map((x) => tag(x, link({ fmt: x, n: 0 }))).join('')}</td>
+        <td>${(i.fields || [i.field]).length >= 7 ? tag('All fields', link({ f: 'all', n: 0 })) : (i.fields || [i.field]).map((x) => tag(fieldLabel(x), link({ f: x, n: 0 }))).join('')}</td>
         <td class="note wide" title="${esc(i.note)}">${esc(i.note)}</td>
         <td class="mono-cell">${i.url ? ext(i.url, i.domain || 'link') : ''}</td>
       </tr>`).join('');

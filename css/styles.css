@@ -391,6 +391,8 @@ body.tv-on .footer, body.tv-on .tabs { display: none; }
 .table td.empty-row { color: var(--ink-3); padding: 24px 0; white-space: normal; }
 .table .tag { font-size: 10.5px; }
 .table .tag + .tag { margin-left: 2px; }
+.table td .tag { white-space: nowrap; }
+.table td:nth-child(2), .table td:nth-child(3) { white-space: normal; max-width: 260px; }
 .logo.sm { width: 20px; height: 20px; border-radius: 4px; display: inline-grid; vertical-align: middle; margin-right: 8px; }
 .logo.sm .mono { font-size: 8px; letter-spacing: 0; }
 .logo.sm img { padding: 1px; border-radius: 4px; }

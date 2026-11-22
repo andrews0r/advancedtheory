@@ -267,7 +267,28 @@ def load_top20():
         })
         it = items[-1]
         it["score"] = signal_score(it["fmt"], it["rank"], it["sources"], it["provider"], it["cost"], it["name"])
-    return items
+    return merge_duplicates(items)
+
+
+def merge_duplicates(items: list[dict]) -> list[dict]:
+    """One row per program: the same name+provider listed under several fields or
+    formats becomes a single entry carrying all of them (fields, fmts), keeping the
+    best-scoring row's rank, note and link."""
+    groups: dict[tuple, list[dict]] = {}
+    for it in items:
+        groups.setdefault((it["section"], norm(it["name"]), norm(it["provider"])), []).append(it)
+    merged = []
+    for rows in groups.values():
+        rows.sort(key=lambda r: (-r["score"], r["rank"]))
+        best = dict(rows[0])
+        best["fields"] = list(dict.fromkeys(r["field"] for r in rows))
+        best["fmts"] = list(dict.fromkeys(r["fmt"] for r in rows))
+        best["score"] = round(max(r["score"] for r in rows) + 1.5 * (len(best["fields"]) - 1), 2)  # cross-field presence is a mild plus
+        best["url"] = best["url"] or next((r["url"] for r in rows if r["url"]), "")
+        best["domain"] = best["domain"] or next((r["domain"] for r in rows if r["domain"]), "")
+        best["logo"] = best["logo"] or next((r["logo"] for r in rows if r["logo"]), "")
+        merged.append(best)
+    return merged
 
 
 def load_ranked():

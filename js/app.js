@@ -181,7 +181,7 @@
     }
     html += `<section class="section"><div class="section-head"><h2>${sort === 'new' ? 'Newest' : 'Most viewed'} across Frontier Concepts</h2>
       <div class="sort"><a class="chip small ${sort === 'views' ? 'active' : ''}" href="#/?sort=views">Most viewed</a><a class="chip small ${sort === 'new' ? 'active' : ''}" href="#/?sort=new">Newest</a>${viewToggle()}</div></div>
-      <div class="${gridClass()}">${all.slice(0, page).map((v) => card(v)).join('')}</div>
+      ${renderVideos(all.slice(0, page), '')}
       ${page < all.length ? `<div class="more"><a class="pill-btn" href="#/?sort=${sort}&n=${page + 24}">Show more</a></div>` : ''}</section>`;
     for (const d of DATA.directions) {
       const vids = videosIn(d.slug).sort(byViews).slice(0, 8);
@@ -192,10 +192,25 @@
     return html;
   }
 
-  const VIEWS = ['grid', 'list', 'large'];
+  const VIEWS = ['grid', 'list', 'large', 'table'];
   const currentView = () => { const v = store.get('fa-view', 'grid'); return VIEWS.includes(v) ? v : 'grid'; };
-  const viewToggle = () => `<div class="view-toggle" role="group" aria-label="Layout">${VIEWS.map((v) => `<button class="vt ${currentView() === v ? 'active' : ''}" data-view="${v}" title="${v} view">${v === 'grid' ? svg('M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z', 16) : v === 'list' ? svg('M3 4h18v3H3zm0 6.5h18v3H3zM3 17h18v3H3z', 16) : svg('M3 3h18v18H3z', 16)}</button>`).join('')}</div>`;
+  const viewToggle = () => `<div class="view-toggle" role="group" aria-label="Layout">${VIEWS.map((v) => `<button class="vt ${currentView() === v ? 'active' : ''}" data-view="${v}" title="${v} view">${v === 'grid' ? svg('M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z', 16) : v === 'list' ? svg('M3 4h18v3H3zm0 6.5h18v3H3zM3 17h18v3H3z', 16) : v === 'large' ? svg('M3 3h18v18H3z', 16) : svg('M3 4h18v2H3zm0 4h18v2H3zm0 4h18v2H3zm0 4h18v2H3z', 16)}</button>`).join('')}</div>`;
   const gridClass = () => `grid view-${currentView()}`;
+  function videoTable(vids, playlist) {
+    const pl = playlist ? `?p=${playlist}` : '';
+    const rows = vids.map((v) => `<tr>
+      <td class="thumb-cell"><a href="#/w/${v.id}${pl}"><img loading="lazy" src="${thumb(v.id, 'mqdefault')}" alt=""></a></td>
+      <td class="name"><a href="#/w/${v.id}${pl}">${esc(v.title)}</a></td>
+      <td class="mono-cell">${esc(v.channel)}</td>
+      <td class="mono-cell">${sourceOf(v)}</td>
+      <td>${v.directions.filter((d) => dirOf(d)).map((d) => `<a class="tag" href="#/p/${d}">${esc(dirOf(d).label)}</a>`).join('')}</td>
+      <td class="mono-cell num">${fmtViews(v.views).replace(' views', '')}</td>
+      <td class="mono-cell num">${(v.published || '').slice(0, 4)}</td>
+      <td class="mono-cell num">${fmtDur(v.duration)}</td>
+    </tr>`).join('');
+    return `<div class="table-wrap"><table class="table"><thead><tr><th></th><th>Title</th><th>Channel</th><th>Source</th><th>Topic</th><th class="num">Views</th><th class="num">Year</th><th class="num">Length</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+  const renderVideos = (vids, playlist) => currentView() === 'table' ? videoTable(vids, playlist) : `<div class="${gridClass()}">${vids.map((v) => card(v, { playlist })).join('')}</div>`;
 
   function viewPlaylist(slug, params) {
     const d = dirOf(slug);
@@ -246,7 +261,7 @@
           </div>
         </div>
       </header>
-      <div class="${gridClass()}">${vids.map((v) => card(v, { playlist: slug })).join('')}</div>
+      ${renderVideos(vids, slug)}
       ${vids.length ? '' : '<div class="empty"><h2>Nothing here yet</h2></div>'}`;
   }
 

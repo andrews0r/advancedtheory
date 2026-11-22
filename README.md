@@ -23,7 +23,7 @@ Everything is chosen offline by `scripts/fetch_videos.py`, which writes `data/vi
 
 ## Courses and Programs
 
-`scripts/build_programs.py` builds the two catalogue pages from `data/programs_top20.csv` (the Frontier Academy list, 2,452 programs across nine fields and 25 formats), `data/programs_ranked_168.csv` (programs ranked by founder outcomes) and `data/programs_logo_manifest.csv` (domains for logos). Course-type formats (MOOCs, self-study, bootcamps, cohort courses, workshops, certifications) go to `/courses/`; the rest (fellowships, degrees, research training, internships, accelerators, labs, residencies) go to `/programs/`, which also shows the ranked list. It writes `data/programs.js` and both pages' HTML. Logos are each provider's site favicon with a monogram fallback.
+`scripts/build_programs.py` builds the two catalogue pages from `data/programs_top20.csv` (the Frontier Academy list, 2,452 programs across nine fields and 25 formats), `data/programs_ranked_168.csv` (programs ranked by founder outcomes) and `data/programs_logo_manifest.csv` (domains for logos). Course-type formats (MOOCs, self-study, bootcamps, cohort courses, workshops, certifications) go to `/courses/`; the rest (fellowships, degrees, research training, internships, accelerators, labs, residencies) go to `/programs/`, which also shows the ranked list. It writes `data/programs.js` and both pages' HTML. Both pages are dense sortable tables with filter chips; the Programs page has a second view, "Ranked by founder outcomes". Logos are each provider's site favicon with a monogram fallback.
 
 ## Refreshing the catalogue
 
@@ -34,7 +34,7 @@ Responses are cached in `cache/`, so re-runs are nearly free. The default run st
 
 ## Routes
 
-- `/` site home · `/courses/` and `/programs/` (`#f=<field>&fmt=<format>&cost=free|funded|paid&q=`) · `/videos/#/` videos home · `/videos/#/p/<slug>` playlist · `#/w/<id>` watch · `#/search?q=` · `#/builders` · `#/hn` · `#/history` · `#/about`
+- `/` site home · `/courses/` and `/programs/` (`#f=<field>&fmt=<format>&cost=free|funded|paid&q=&sort=<column>&dir=asc|desc`; `#view=ranked` on Programs) · `/videos/#/` videos home · `/videos/#/p/<slug>` playlist · `#/w/<id>` watch · `#/search?q=` · `#/builders` · `#/hn` · `#/history` · `#/about`
 - `/videos/#/tv?p=<slug>` TV mode: arrows next/previous, Space pause, S shuffle, F full screen, M mute, 0–9 switch playlist, Esc exit.
 
 ## Deploying

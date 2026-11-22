@@ -18,9 +18,9 @@
       line: 'Fellowships, degrees, labs and accelerators, ranked by founder outcomes.' },
     { num: '04', key: 'research', label: 'Research', sub: 'Papers + reading lists', open: false, level: 4 },
     { num: '05', key: 'people', label: 'People', sub: 'Who to follow + learn from', open: false, level: 5 },
-    { num: '06', key: 'assistant', label: 'Join', sub: 'A personal learning assistant', open: false, cta: true,
+    { num: '06', key: 'assistant', label: 'Join', sub: 'Your path + your pace', open: false, cta: true,
       href: 'https://x.com/andrewsor_', ctaLabel: 'Join the waitlist →',
-      line: 'An AI that builds a learning path through the videos, courses and programs for you, and keeps it current as you go. In the works.' },
+      line: 'A learning assistant that turns the videos, courses and programs into a path for you: where to start, what to skip, what comes next.' },
   ];
   const SYMBOL = {
     videos: '<path d="M11 6.5v19l15-9.5z"/>', courses: '<path d="M5 26h7v-6h7v-6h7V7"/>', programs: '<rect x="6" y="6" width="20" height="20"/>',

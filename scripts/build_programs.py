@@ -107,6 +107,39 @@ def norm(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
 
 
+# Platforms whose icon would be the platform's, not the provider's.
+PLATFORMS = {"coursera.org", "edx.org", "github.com", "reddit.com", "youtube.com", "youtu.be", "medium.com", "substack.com",
+             "linkedin.com", "x.com", "twitter.com", "discord.com", "discord.gg", "notion.site", "google.com", "udemy.com",
+             "classcentral.com", "eventbrite.com", "meetup.com", "luma.com", "lu.ma", "usa.gov"}
+# Organizations behind entries whose own URL is a platform page or missing: name -> site domain.
+ORG_DOMAINS = {
+    "khan academy": "khanacademy.org", "u s department of energy": "energy.gov", "doe": "energy.gov",
+    "u s national science foundation": "nsf.gov", "nsf": "nsf.gov", "university of washington": "washington.edu",
+    "technion israel institute of technology": "technion.ac.il", "penn state nack network": "psu.edu", "penn state cneu": "psu.edu",
+    "santa fe institute": "santafe.edu", "embl": "embl.org", "embl ebi": "ebi.ac.uk", "oak ridge national laboratory": "ornl.gov",
+    "argonne national laboratory": "anl.gov", "lawrence livermore national laboratory": "llnl.gov", "sandia national laboratories": "sandia.gov",
+    "national renewable energy laboratory": "nrel.gov", "nrel national laboratory of the rockies": "nrel.gov", "uk atomic energy authority": "ukaea.uk",
+    "iaea": "iaea.org", "iter organization": "iter.org", "space foundation": "spacefoundation.org", "illumina": "illumina.com",
+    "institute of neuromorphic engineering": "ine-web.org", "datatalks club": "datatalks.club", "brainhack": "brainhack.org",
+    "openroad": "theopenroadproject.org", "research triangle nanotechnology network": "rtnn.org", "lindau nobel laureate meetings": "lindau-nobel.org",
+    "edge city": "edgecity.live", "reddit": "reddit.com", "energy institute": "energyinst.org", "biobuilder": "biobuilderlearning.org",
+    "university of michigan": "umich.edu", "university of pennsylvania": "upenn.edu", "johns hopkins university": "jhu.edu", "columbia university": "columbia.edu",
+    "university of colorado boulder": "colorado.edu", "georgia institute of technology": "gatech.edu", "university of cambridge": "cam.ac.uk",
+    "university of oxford": "ox.ac.uk", "imperial college london": "imperial.ac.uk", "tu delft": "tudelft.nl", "epfl": "epfl.ch", "ucsf": "ucsf.edu",
+    "uc san diego": "ucsd.edu", "uc berkeley": "berkeley.edu", "university of arizona": "arizona.edu", "purdue university": "purdue.edu",
+    "cornell university": "cornell.edu", "harvard university": "harvard.edu", "harvardx": "harvard.edu", "caltech": "caltech.edu",
+    # ranked programs with no URL in the index
+    "marshall commission": "marshallscholarship.org", "fulbright program": "fulbrightonline.org", "gates cambridge": "gatescambridge.org",
+    "schwarzman scholars": "schwarzmanscholars.org", "winston churchill foundation": "churchillscholarship.org", "us ireland alliance": "us-irelandalliance.org",
+    "pd soros foundation": "pdsoros.org", "aspen institute": "aspeninstitute.org", "rhodes trust": "rhodeshouse.ox.ac.uk", "kauffman fellows": "kauffmanfellows.org",
+    "thiel foundation": "thielfellowship.org", "y combinator": "ycombinator.com", "flagship pioneering": "flagshippioneering.com", "south park commons": "southparkcommons.com",
+    "entrepreneur first": "joinef.com", "antler": "antler.co", "techstars": "techstars.com", "emergent ventures": "mercatus.org", "interact": "joininteract.com",
+    "idf": "idf.il", "nsf graduate research fellowship": "nsfgrfp.org", "hertz foundation": "hertzfoundation.org", "schmidt science fellows": "schmidtsciencefellows.org",
+    "jane street": "janestreet.com", "openai": "openai.com", "google deepmind": "deepmind.google", "mit": "mit.edu", "stanford university": "stanford.edu",
+    "palantir": "palantir.com", "apache software foundation": "apache.org", "google": "google.com", "microsoft research": "microsoft.com", "meta": "meta.com",
+}
+
+
 def load_logos():
     """Provider logos supplied in data/logos_index.csv + logos/ (converted by the import step).
     Returns (by_provider_name, by_domain) -> '/logos/<file>'."""
@@ -123,6 +156,8 @@ def load_logos():
         d = host("https://" + r["source_domain"].split("/")[0]) if r.get("source_domain") else ""
         if d:
             by_dom.setdefault(d, "/logos/" + f)
+    for f in (SITE / "logos").glob("fav-*.png"):
+        by_dom.setdefault(f.name[4:-4], "/logos/" + f.name)
     return by_name, by_dom
 
 
@@ -130,7 +165,18 @@ def logo_for(name: str, domain: str, by_name: dict, by_dom: dict) -> str:
     n = norm(name)
     if n in by_name:
         return by_name[n]
-    if domain and domain in by_dom:
+    # An entry hosted on a platform (Coursera, GitHub...) takes its organization's logo, not the platform's.
+    platform = bool(domain) and (domain in PLATFORMS or any(domain.endswith("." + p) for p in PLATFORMS))
+    org_dom = ORG_DOMAINS.get(n)
+    if not org_dom:
+        words = n.split()
+        for k in range(len(words) - 1, 0, -1):
+            if " ".join(words[:k]) in ORG_DOMAINS:
+                org_dom = ORG_DOMAINS[" ".join(words[:k])]
+                break
+    if org_dom and org_dom in by_dom:
+        return by_dom[org_dom]
+    if domain and not platform and domain in by_dom:
         return by_dom[domain]
     # "MIT Energy Initiative" -> "MIT", "Stanford Online" -> "Stanford": shorten word by word.
     words = n.split()
@@ -139,7 +185,7 @@ def logo_for(name: str, domain: str, by_name: dict, by_dom: dict) -> str:
         if len(cand) >= 3 and cand in by_name:
             return by_name[cand]
     # Parent domain: "ocw.mit.edu" -> "mit.edu".
-    if domain and domain.count(".") >= 2:
+    if domain and not platform and domain.count(".") >= 2:
         parent = ".".join(domain.split(".")[-2:])
         if parent in by_dom:
             return by_dom[parent]
@@ -190,7 +236,7 @@ def load_ranked():
         if not status.startswith(("Selected", "Additional")):
             continue  # contextual entities and exclusions are not programs
         m = manifest.get(r["program"].strip().lower())
-        domain = (m["domain_for_logo"] if m else "") or host(r.get("official_program_url") or "")
+        domain = (m["domain_for_logo"] if m else "") or host(r.get("official_program_url") or "") or ORG_DOMAINS.get(norm(r["operator"]), "")
         out.append({
             "category": r["final_category"],
             "rank": int(r["category_rank"]) if r["category_rank"].isdigit() else 99,

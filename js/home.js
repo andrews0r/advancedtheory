@@ -11,11 +11,11 @@
   // ------------------------------------------------------------ sections
   const SECTIONS = [
     { num: '01', key: 'videos', label: 'Videos', sub: 'Lectures + talks + founders', href: '/videos/', open: true,
-      line: `${n(T.videos)} lectures, talks and founder interviews, with a TV mode.` },
+      line: 'Lectures, talks and founder interviews, with a TV mode.' },
     { num: '02', key: 'courses', label: 'Courses', sub: 'Structured paths per field', href: '/courses/', open: true,
-      line: `${n(T.courses)} courses, from canonical textbooks to bootcamps, ranked by signal.` },
+      line: 'From canonical textbooks to bootcamps, ranked by signal.' },
     { num: '03', key: 'programs', label: 'Programs', sub: 'Fellowships + labs + schools', href: '/programs/', open: true,
-      line: `${n(T.programs)} fellowships, degrees, labs and accelerators; ${n(T.ranked)} ranked by founder outcomes.` },
+      line: 'Fellowships, degrees, labs and accelerators, ranked by founder outcomes.' },
     { num: '04', key: 'research', label: 'Research', sub: 'Papers + reading lists', open: false, level: 4 },
     { num: '05', key: 'people', label: 'People', sub: 'Who to follow + learn from', open: false, level: 5 },
     { num: '06', key: 'companies', label: 'Companies', sub: 'The builders + what they ship', open: false, level: 6 },

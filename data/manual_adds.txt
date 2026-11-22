@@ -1,0 +1,6 @@
+# Hand-picked videos. One per line:  <YouTube URL or 11-char id>  <playlist slug>  [label shown as provider/channel]
+# Slugs: ai robotics quantum space biotech neurotech semiconductors energy nanotech startup
+# Lines starting with # are ignored. Each run looks these up at about 1 quota unit per 50 videos.
+# Examples (remove the leading # to activate):
+# https://www.youtube.com/watch?v=p0LjpYVjPY4  startup  Mammoth Biosciences
+# https://www.youtube.com/watch?v=FPW2nnEqfMs  startup  Lightmatter

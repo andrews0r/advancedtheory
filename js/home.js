@@ -20,13 +20,13 @@
       line: 'What each field is built on, with why each one matters.' },
     { num: '05', key: 'people', label: 'People', sub: 'Who to follow + learn from', href: '/people/', open: true,
       line: 'Researchers, builders, educators and writers, with where to find their work.' },
-    { num: '06', key: 'assistant', label: 'Join', sub: 'Your path + your pace', open: false, cta: true,
+    { num: '06', key: 'opportunities', label: 'Opportunities', sub: 'Jobs + projects + internships', open: false, cta: true,
       href: 'https://x.com/andrewsor_', ctaLabel: 'Join the waitlist →',
-      line: 'A learning assistant that turns the videos, courses and programs into a path for you: where to start, what to skip, what comes next.' },
+      line: 'Openings from the labs and companies at the frontier: roles, internships and projects you can join.' },
   ];
   const SYMBOL = {
     videos: '<path d="M11 6.5v19l15-9.5z"/>', courses: '<path d="M5 26h7v-6h7v-6h7V7"/>', programs: '<rect x="6" y="6" width="20" height="20"/>',
-    research: '<path d="M16 5l11 11-11 11L5 16z"/>', people: '<circle cx="16" cy="12" r="4.5"/><path d="M7 27a9 9 0 0 1 18 0"/>', assistant: '<path d="M16 4c1 6.5 4.5 10 11 12-6.5 1.5-10 5-11 12-1-7-4.5-10.5-11-12 6.5-2 10-5.5 11-12z"/>',
+    research: '<path d="M16 5l11 11-11 11L5 16z"/>', people: '<circle cx="16" cy="12" r="4.5"/><path d="M7 27a9 9 0 0 1 18 0"/>', opportunities: '<path d="M6 11h20v15H6z"/><path d="M12 11V7h8v4"/><path d="M6 18h20"/>',
   };
   const sym = (key, size = 18) => `<svg viewBox="0 0 32 32" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${SYMBOL[key]}</svg>`;
 

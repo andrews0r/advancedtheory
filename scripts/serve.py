@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static server for Advanced Theory that tells browsers not to cache, so edits show on reload.
+"""Static server for Frontier Concepts that tells browsers not to cache, so edits show on reload.
 
 Usage: python3 scripts/serve.py [port]   (serves the site folder, default port 8765)
 """
@@ -28,5 +28,5 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     with http.server.ThreadingHTTPServer(("127.0.0.1", PORT), Handler) as httpd:
-        print(f"Advanced Theory at http://localhost:{PORT} (no-cache)", flush=True)
+        print(f"Frontier Concepts at http://localhost:{PORT} (no-cache)", flush=True)
         httpd.serve_forever()

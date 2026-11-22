@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the crawlable side of Advanced Theory from data/videos.json.
+"""Generate the crawlable side of Frontier Concepts from data/videos.json.
 
 The app itself is a hash-routed single page, which search engines and AI crawlers
 cannot index route by route. This script writes plain HTML pages that they can:
@@ -23,8 +23,8 @@ import re
 
 SITE = pathlib.Path(__file__).resolve().parent.parent
 DATA = SITE / "data"
-BASE = "https://advancedtheory.org"
-NAME = "Advanced Theory"
+BASE = "https://frontierconcepts.org"
+NAME = "Frontier Concepts"
 TAGLINE = "The best lectures, talks and founder stories on the frontier technologies."
 TOPICS = "AI, robotics, quantum computing, space exploration, biotechnology, neurotechnology, semiconductors, advanced energy and nanotechnology"
 
@@ -193,7 +193,7 @@ def main():
         + "</urlset>\n")
 
     (SITE / "robots.txt").write_text(
-        "# Advanced Theory welcomes search engines and AI crawlers.\n"
+        "# Frontier Concepts welcomes search engines and AI crawlers.\n"
         "User-agent: *\nAllow: /\nDisallow: /cache/\nDisallow: /scripts/\n\n"
         + "".join(f"User-agent: {bot}\nAllow: /\n\n" for bot in (
             "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "Claude-User", "anthropic-ai",

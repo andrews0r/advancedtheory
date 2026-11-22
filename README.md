@@ -1,8 +1,8 @@
-# Advanced Theory
+# Frontier Concepts
 
-**[advancedtheory.org](https://advancedtheory.org)** — the best lectures, talks and founder stories on the frontier technologies: AI, robotics, quantum computing, space, biotech, neurotech, semiconductors, energy and nanotech.
+**[frontierconcepts.org](https://frontierconcepts.org)** — the best lectures, talks and founder stories on the frontier technologies: AI, robotics, quantum computing, space, biotech, neurotech, semiconductors, energy and nanotech.
 
-A curated, ad-free view of YouTube. Nine topic playlists plus Builders, Hacker News favorites, Start a Company and The Hard Stuff; dark and light mode; a lean-back TV mode. Vanilla HTML, CSS and JavaScript, no build step, hosted on GitHub Pages.
+A curated, ad-free view of YouTube. Nine topic playlists plus Builders, Hacker News favorites, Start a Company and Advanced Theory; dark and light mode; a lean-back TV mode. Vanilla HTML, CSS and JavaScript, no build step, hosted on GitHub Pages.
 
 ## Run locally
 
@@ -19,7 +19,7 @@ Everything is chosen offline by `scripts/fetch_videos.py`, which writes `data/vi
 1. **Organizations** behind a curated list of frontier learning programs: YouTube searches per topic, kept only when the video is on a listed organization's channel or names one.
 2. **Hacker News**: videos linked two or more times on HN for the topic (`scripts/fetch_hn.py`, no key needed).
 3. **Builders**: explainers and technical updates from the channels of the companies building each field. Channel handles live in `LEADERS` in the fetch script.
-4. **Curated lists**: `data/curated_library.csv` feeds the Start a Company and The Hard Stuff tabs; `data/manual_adds.txt` takes one-off links (URL, playlist slug, optional label).
+4. **Curated lists**: `data/curated_library.csv` feeds the Start a Company and Advanced Theory tabs; `data/manual_adds.txt` takes one-off links (URL, playlist slug, optional label).
 
 ## Refreshing the catalogue
 
@@ -35,6 +35,6 @@ Responses are cached in `cache/`, so re-runs are nearly free. The default run st
 
 ## Deploying
 
-Push to `main`. GitHub Pages serves the repo root at advancedtheory.org; `cache/` and `.env` never leave your machine.
+Push to `main`. GitHub Pages serves the repo root at frontierconcepts.org; `cache/` and `.env` never leave your machine.
 
 Created by [@andrewsor_](https://x.com/andrewsor_). Videos belong to their creators and are streamed from YouTube.

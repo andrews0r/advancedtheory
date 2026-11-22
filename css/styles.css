@@ -287,6 +287,7 @@ body.tv-on .topbar, body.tv-on .layout { display: none; }
 .tv .tv-btn:hover, .tv .tv-btn:focus-visible { background: rgba(255,255,255,.28); outline: none; }
 .tv .tv-btn.primary { background: #fff; color: #000; }
 .tv .tv-brand { font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 10px; white-space: nowrap; flex: 0 0 auto; color: #fff; padding: 6px 10px 6px 6px; border-radius: 22px; }
+.tv .tv-brand .brand-tv { margin-left: -6px; }
 .tv .tv-brand:hover, .tv .tv-brand:focus-visible { background: rgba(255,255,255,.18); outline: none; }
 .tv .tv-pl { margin-left: auto; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; max-width: 70vw; }
 .tv .tv-pl::-webkit-scrollbar { display: none; }

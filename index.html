@@ -59,21 +59,22 @@
   #map.focus .node:not(.lit) { opacity: .3; }
   #map .node { transition: opacity .2s; }
   .stage > * { min-width: 0; }
-  .index { min-width: 0; overflow: hidden; background: var(--card); border-radius: 18px; box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.06); padding: 10px 16px; }
+  .index { min-width: 0; overflow: hidden; background: var(--card); border-radius: 14px; box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.06); padding: 4px 14px; }
   .row { border-bottom: 1px dashed var(--line); }
   .row:last-child { border-bottom: 0; }
-  .row-head { width: 100%; min-width: 0; white-space: normal; display: grid; grid-template-columns: 24px 1fr 20px; align-items: center; gap: 12px; padding: 14px 4px; text-align: left; color: var(--ink); }
+  .row-head { width: 100%; min-width: 0; white-space: normal; display: grid; grid-template-columns: 20px 1fr 16px; align-items: center; gap: 10px; padding: 10px 2px; text-align: left; color: var(--ink); }
   .row-head:disabled { cursor: not-allowed; }
   .row-sym { display: inline-flex; color: var(--ink); }
-  .row-label { font-family: var(--mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+  .row-label { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
   .row-label .num { color: var(--ink-3); margin-right: 10px; font-size: 11px; }
-  .row-sub { display: block; font-size: 10px; color: var(--cardinal); letter-spacing: .05em; margin-top: 3px; }
-  .row-plus { font-family: var(--mono); font-size: 18px; color: var(--ink); text-align: right; display: inline-flex; justify-content: flex-end; }
+  .row-sub { font-size: 10px; color: var(--cardinal); letter-spacing: .05em; }
+  .row-plus { font-family: var(--mono); font-size: 16px; color: var(--ink); text-align: right; display: inline-flex; justify-content: flex-end; }
   .row.locked .row-sym, .row.locked .row-label, .row.locked .row-plus { color: var(--ink-3); }
   .row.locked .row-sub { color: var(--ink-3); }
-  .row-body { display: none; padding: 0 4px 16px 36px; }
+  .row-body { display: none; padding: 0 2px 10px 30px; }
   .row.open .row-body { display: block; }
-  .row-body p { margin: 0 0 10px; font-size: 13px; line-height: 1.5; color: var(--ink-2); white-space: normal; overflow-wrap: anywhere; }
+  .row-body p { margin: 0; font-size: 12px; line-height: 1.45; color: var(--ink-2); white-space: normal; overflow-wrap: anywhere; }
+  .row-body p a { color: var(--ink); font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; margin-left: 6px; white-space: nowrap; }
   .row-links { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
   .row-links a { color: var(--ink); }
   .row-links a:hover { text-decoration: underline; }
@@ -85,6 +86,8 @@
   .intro .start a:hover { color: var(--ink); }
   .foot { padding: 18px 24px 26px; display: flex; gap: 18px; flex-wrap: wrap; justify-content: space-between; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); }
   .foot a { color: var(--ink-2); }
+  .foot .fields a { color: var(--ink-3); }
+  .foot .fields a:hover { color: var(--ink); }
   .foot a:hover { color: var(--ink); }
   @media (max-width: 900px) {
     .stage { grid-template-columns: 1fr; gap: 16px; align-items: start; }
@@ -113,11 +116,10 @@
 
 <section class="intro">
   <p><b>Frontier Concepts</b> is a curated guide to learning the frontier technologies, for people who want to get into a field or deeper into one and would rather learn from the people doing the work. Lectures and talks, courses and programs across nine fields, ranked by who made them and who recommends them. <a href="/about/">How it is built</a>.</p>
-  <p class="start">Start here: <a href="/learn/ai/">AI</a> · <a href="/learn/robotics/">Robotics</a> · <a href="/learn/quantum/">Quantum</a> · <a href="/learn/space/">Space</a> · <a href="/learn/biotech/">Biotech</a> · <a href="/learn/neurotech/">Neurotech</a> · <a href="/learn/semiconductors/">Semiconductors</a> · <a href="/learn/energy/">Energy</a> · <a href="/learn/nanotech/">Nanotech</a></p>
 </section>
 
 <footer class="foot">
-  <span>AI · Robotics · Quantum · Space · Biotech · Neurotech · Semiconductors · Energy · Nanotech</span>
+  <span class="fields"><a href="/learn/ai/">AI</a> · <a href="/learn/robotics/">Robotics</a> · <a href="/learn/quantum/">Quantum</a> · <a href="/learn/space/">Space</a> · <a href="/learn/biotech/">Biotech</a> · <a href="/learn/neurotech/">Neurotech</a> · <a href="/learn/semiconductors/">Semiconductors</a> · <a href="/learn/energy/">Energy</a> · <a href="/learn/nanotech/">Nanotech</a></span>
   <a href="https://x.com/andrewsor_" target="_blank" rel="noopener">Created by @andrewsor_</a>
 </footer>
 <script src="/data/home.js"></script>

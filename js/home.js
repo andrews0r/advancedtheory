@@ -11,14 +11,11 @@
   // ------------------------------------------------------------ sections
   const SECTIONS = [
     { num: '01', key: 'videos', label: 'Videos', sub: 'Lectures + talks + founders', href: '/videos/', open: true,
-      desc: `${n(T.videos)} lectures, talks, explainers and founder interviews on the nine fields, chosen because they teach something. No news, promos or entertainment.`,
-      links: [['Open the videos', '/videos/'], ['TV mode', '/videos/#/tv'], ['Hacker News favorites', '/videos/#/hn'], ['From the builders', '/videos/#/builders'], ['Start a Company', '/videos/#/p/startup'], ['Advanced Theory', '/videos/#/p/theory']] },
+      line: `${n(T.videos)} lectures, talks and founder interviews, with a TV mode.` },
     { num: '02', key: 'courses', label: 'Courses', sub: 'Structured paths per field', href: '/courses/', open: true,
-      desc: `${n(T.courses)} courses to learn a field: online courses, self-study texts, live courses, bootcamps, workshops and certifications, ranked by signal.`,
-      links: [['Browse all courses', '/courses/'], ['How to learn each field', '/learn/']] },
+      line: `${n(T.courses)} courses, from canonical textbooks to bootcamps, ranked by signal.` },
     { num: '03', key: 'programs', label: 'Programs', sub: 'Fellowships + labs + schools', href: '/programs/', open: true,
-      desc: `${n(T.programs)} programs that take you into a field: fellowships, degrees, research training, internships, accelerators, labs and residencies, plus ${n(T.ranked)} ranked by founder outcomes.`,
-      links: [['Browse all programs', '/programs/'], ['Ranked by founder outcomes', '/programs/#view=ranked']] },
+      line: `${n(T.programs)} fellowships, degrees, labs and accelerators; ${n(T.ranked)} ranked by founder outcomes.` },
     { num: '04', key: 'research', label: 'Research', sub: 'Papers + reading lists', open: false, level: 4 },
     { num: '05', key: 'people', label: 'People', sub: 'Who to follow + learn from', open: false, level: 5 },
     { num: '06', key: 'companies', label: 'Companies', sub: 'The builders + what they ship', open: false, level: 6 },
@@ -39,7 +36,7 @@
           <span class="row-label"><span class="num">${s.num}</span>${esc(s.label)}<span class="row-sub">${esc(s.sub)}${s.open ? '' : ` · Level ${s.level} · locked`}</span></span>
           <span class="row-plus" aria-hidden="true">${s.open ? '+' : '<svg viewBox="0 0 24 24" width="14" height="14"><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>'}</span>
         </button>
-        ${s.open ? `<div class="row-body"><p>${esc(s.desc)}</p><div class="row-links">${s.links.map(([l, h]) => `<a href="${h}">${esc(l)} →</a>`).join('')}</div></div>` : ''}
+        ${s.open ? `<div class="row-body"><p>${esc(s.line)}<a href="${s.href}">Open →</a></p></div>` : ''}
       </div>`).join('');
     el.addEventListener('click', (e) => {
       const head = e.target.closest('.row-head');

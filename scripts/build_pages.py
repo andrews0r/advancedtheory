@@ -114,7 +114,7 @@ def page_shell(title: str, description: str, canonical: str, body: str, jsonld: 
 def brand() -> str:
     return (f'<header><a href="/" class="brand" aria-label="{NAME} home"><span class="brand-mark">'
             f'<svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/>'
-            f'<g stroke="#fff" stroke-width="1.1" fill="none" stroke-linecap="round"><circle cx="16" cy="16" r="11"/><ellipse cx="16" cy="16" rx="3.5" ry="11"/><ellipse cx="16" cy="16" rx="7.5" ry="11"/><path d="M16 5v22"/><path d="M7.5 9h17"/><path d="M5.6 12.5h20.8"/><path d="M5.6 19.5h20.8"/><path d="M7.5 23h17"/></g></svg>'
+            f'<g stroke="#fff" stroke-width="1.1" fill="none" stroke-linecap="round"><circle cx="16" cy="16" r="11"/></g></svg>'
             f'</span><span class="brand-text">Frontier<span class="brand-tv">Tube</span></span></a></header>')
 
 

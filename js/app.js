@@ -1,4 +1,4 @@
-/* FrontierTube — a small hash-routed YouTube-style viewer.
+/* Advanced Theory — a small hash-routed YouTube-style viewer.
    Data comes from data/videos.js (window.FA_DATA) and data/providers.js
    (window.FA_PROVIDERS), both produced by scripts/fetch_videos.py. */
 (function () {
@@ -190,7 +190,7 @@
     if (hnPicks.length) {
       html += `<section class="section"><div class="section-head"><h2>Hacker News favorites</h2><a href="#/hn">All ${hnPicks.length} HN picks</a></div><div class="row">${hnPicks.slice(0, 12).map((v) => card(v)).join('')}</div></section>`;
     }
-    html += `<section class="section"><div class="section-head"><h2>${sort === 'new' ? 'Newest' : 'Most viewed'} across FrontierTube</h2>
+    html += `<section class="section"><div class="section-head"><h2>${sort === 'new' ? 'Newest' : 'Most viewed'} across Advanced Theory</h2>
       <div class="sort"><a class="chip small ${sort === 'views' ? 'active' : ''}" href="#/?sort=views">Most viewed</a><a class="chip small ${sort === 'new' ? 'active' : ''}" href="#/?sort=new">Newest</a></div></div>
       <div class="grid">${all.slice(0, page).map((v) => card(v)).join('')}</div>
       ${page < all.length ? `<div class="more"><a class="pill-btn" href="#/?sort=${sort}&n=${page + 24}">Show more</a></div>` : ''}</section>`;
@@ -376,10 +376,10 @@
         <div class="prov-list">${p.providers.map((x) => x.videos ? `<a class="chip small" href="#/p/${d.slug}?prov=${encodeURIComponent(x.name)}">${esc(x.name)} <span>${x.videos}</span></a>` : `<span class="chip small" style="opacity:.55">${esc(x.name)}</span>`).join('')}</div></details>`;
     }).join('');
     return `<article class="about">
-      <h1>About FrontierTube</h1>
+      <h1>About Advanced Theory</h1>
       <p class="lede">A lean-back way to watch the best lectures, talks and courses on the frontier technologies: AI, robotics, quantum, space, biotech, neurotech, semiconductors, energy and nanotech.</p>
       <h2>Where the videos come from</h2>
-      <p>FrontierTube is a restricted view of YouTube. Videos come from the organizations behind a curated list of frontier learning programs, from what Hacker News readers keep recommending, and from the channels of the companies building each field. Everything is filtered to lectures, talks, explainers and interviews; news, promos and entertainment are left out.</p>
+      <p>Advanced Theory is a restricted view of YouTube. Videos come from the organizations behind a curated list of frontier learning programs, from what Hacker News readers keep recommending, and from the channels of the companies building each field. Everything is filtered to lectures, talks, explainers and interviews; news, promos and entertainment are left out.</p>
       <table class="dir-table">
         <thead><tr><th>Direction</th><th style="text-align:right">Videos</th><th>Top organizations</th></tr></thead>
         <tbody>${rows}</tbody>
@@ -390,7 +390,7 @@
         <li><b>${esc(BUILDERS.nav)}</b>: explainers and technical updates from the leading companies' own channels.</li>
         <li><b>HN favorites</b>: videos Hacker News has linked again and again over the years.</li>
         <li><b>Start a Company</b>: hand-picked founder stories, podcasts and interviews where company building meets the frontier.</li>
-        <li><b>Advanced Theory</b>: a curated set of the hardest, deepest lectures behind each field.</li>
+        <li><b>The Hard Stuff</b>: a curated set of the hardest, deepest lectures behind each field.</li>
       </ul>
       <h2>TV mode</h2>
       <p>Pick a playlist and let it play. Controls fade while you watch: <span class="kbd">→</span> next, <span class="kbd">←</span> previous, <span class="kbd">Space</span> pause, <span class="kbd">S</span> shuffle, <span class="kbd">F</span> full screen, <span class="kbd">Esc</span> exit.</p>
@@ -460,7 +460,7 @@
       <div class="tv-player"><div id="tv-player"></div></div>
       <div class="tv-overlay">
         <div class="tv-top">
-          <a class="tv-brand" href="#/" title="Back to the home page"><svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28" /><path d="M10 2v28" /><path d="M14 2v28" /><path d="M18 2v28" /><path d="M22 2v28" /><path d="M26 2v28" /><path d="M2 6h28" /><path d="M2 10h28" /><path d="M2 14h28" /><path d="M2 18h28" /><path d="M2 22h28" /><path d="M2 26h28" /></g><g stroke="#ffffff" stroke-width="1.1" fill="none" stroke-linecap="round"><circle cx="16" cy="16" r="11"/></g></svg> FrontierTube</a>
+          <a class="tv-brand" href="#/" title="Back to the home page"><svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28" /><path d="M10 2v28" /><path d="M14 2v28" /><path d="M18 2v28" /><path d="M22 2v28" /><path d="M26 2v28" /><path d="M2 6h28" /><path d="M2 10h28" /><path d="M2 14h28" /><path d="M2 18h28" /><path d="M2 22h28" /><path d="M2 26h28" /></g><g stroke="#ffffff" stroke-width="1.1" fill="none" stroke-linecap="round"><circle cx="16" cy="16" r="11"/></g></svg> Advanced Theory</a>
           <div class="tv-pl">${chip('all', 'Everything', DATA.videos.length)}${DATA.directions.map((d) => chip(d.slug, d.label, d.count)).join('')}</div>
           <button class="tv-btn" data-tv="exit" title="Exit TV mode (Esc)">${svg('M19 6.4L17.6 5 12 10.6 6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6z', 20)}</button>
         </div>
@@ -488,7 +488,7 @@
         if (!b || !window.YT) return;
         b.innerHTML = state === YT.PlayerState.PLAYING ? svg('M6 19h4V5H6v14zm8-14v14h4V5h-4z', 22) : svg('M8 5v14l11-7z', 22);
       });
-      document.title = v.title + ' · FrontierTube';
+      document.title = v.title + ' · Advanced Theory';
       recordWatch(v.id);
     }
     tvWake();
@@ -582,7 +582,7 @@
   // ------------------------------------------------------------------ router
   function setSeo(title, description, ld) {
     const d = $('meta[name="description"]'); if (d && description) d.setAttribute('content', description);
-    const ogt = $('meta[property="og:title"]'); if (ogt) ogt.setAttribute('content', title || 'FrontierTube');
+    const ogt = $('meta[property="og:title"]'); if (ogt) ogt.setAttribute('content', title || 'Advanced Theory');
     const ogd = $('meta[property="og:description"]'); if (ogd && description) ogd.setAttribute('content', description);
     const el = $('#route-ld'); if (el) el.textContent = ld ? JSON.stringify(ld) : '';
   }
@@ -599,17 +599,17 @@
     tvExit();
     let html = '';
     let active = 'home';
-    document.title = 'FrontierTube';
+    document.title = 'Advanced Theory';
     switch (head) {
       case '': html = viewHome(params); break;
-      case 'p': html = viewPlaylist(parts[1], params); active = parts[1]; document.title = `${(dirOf(parts[1]) || {}).name || 'Playlist'} · FrontierTube`; break;
-      case 'w': destroyPlayer(); html = viewWatch(parts[1], params); active = params.get('p') || ''; { const v = findVideo(parts[1]); if (v) document.title = v.title + ' · FrontierTube'; } break;
+      case 'p': html = viewPlaylist(parts[1], params); active = parts[1]; document.title = `${(dirOf(parts[1]) || {}).name || 'Playlist'} · Advanced Theory`; break;
+      case 'w': destroyPlayer(); html = viewWatch(parts[1], params); active = params.get('p') || ''; { const v = findVideo(parts[1]); if (v) document.title = v.title + ' · Advanced Theory'; } break;
       case 'search': html = viewSearch(params); active = ''; $('#search-input').value = params.get('q') || ''; break;
       case 'leaders':
-      case 'builders': html = viewLeaders(params); active = 'leaders'; document.title = BUILDERS.nav + ' · FrontierTube'; break;
-      case 'hn': html = viewHN(params); active = 'hn'; document.title = 'Hacker News favorites · FrontierTube'; break;
+      case 'builders': html = viewLeaders(params); active = 'leaders'; document.title = BUILDERS.nav + ' · Advanced Theory'; break;
+      case 'hn': html = viewHN(params); active = 'hn'; document.title = 'Hacker News favorites · Advanced Theory'; break;
       case 'history': if (params.get('clear')) { store.set('fa-history', []); go('#/history'); return; } html = viewHistory(); active = 'history'; break;
-      case 'about': html = viewAbout(); active = 'about'; document.title = 'About · FrontierTube'; break;
+      case 'about': html = viewAbout(); active = 'about'; document.title = 'About · Advanced Theory'; break;
       default: html = '<div class="empty"><h2>Page not found</h2><p><a href="#/">Back home</a></p></div>';
     }
     destroyPlayer();
@@ -618,12 +618,12 @@
     {
       const v = head === 'w' ? findVideo(parts[1]) : null;
       const d = head === 'p' ? dirOf(parts[1]) : null;
-      if (v) setSeo(document.title, `${v.title} — ${v.channel}. Watch on FrontierTube, a curated viewer for frontier technology lectures and talks.`, {
+      if (v) setSeo(document.title, `${v.title} — ${v.channel}. Watch on Advanced Theory, a curated viewer for frontier technology lectures and talks.`, {
         '@context': 'https://schema.org', '@type': 'VideoObject', name: v.title, description: v.description || v.title,
         thumbnailUrl: thumb(v.id), uploadDate: v.published || undefined, duration: `PT${Math.floor(v.duration / 60)}M${v.duration % 60}S`,
         embedUrl: `https://www.youtube-nocookie.com/embed/${v.id}`, url: location.href, author: { '@type': 'Organization', name: v.channel },
       });
-      else if (d) setSeo(document.title, `${d.name} on FrontierTube: ${d.count} curated lectures, talks and explainers.`, { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `${d.name} · FrontierTube`, url: `https://frontiertube.org/p/${d.slug}/` });
+      else if (d) setSeo(document.title, `${d.name} on Advanced Theory: ${d.count} curated lectures, talks and explainers.`, { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `${d.name} · Advanced Theory`, url: `https://advancedtheory.org/p/${d.slug}/` });
       else setSeo(document.title, '', null);
     }
     if (head !== 'w') window.scrollTo(0, 0); else window.scrollTo(0, 0);

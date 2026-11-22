@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the FrontierTube video catalogue from the YouTube Data API.
+"""Build the Advanced Theory video catalogue from the YouTube Data API.
 
 Reads the curated provider list (frontier_academy_programs_filtered_top20.csv),
 searches YouTube for the most viewed and most relevant videos in each of the nine
@@ -296,7 +296,7 @@ STARTUP_SEARCHES = {
     "ai": ["AI lab founder interview", "frontier AI startup founder podcast", "DeepMind OpenAI Anthropic founder interview"],
 }
 STARTUP_DIRECTION = {"slug": "startup", "label": "Start a Company", "name": "Start a Company", "icon": "flag"}
-THEORY_DIRECTION = {"slug": "theory", "label": "Advanced Theory", "name": "Advanced Theory", "icon": "sigma"}
+THEORY_DIRECTION = {"slug": "theory", "label": "The Hard Stuff", "name": "The Hard Stuff", "icon": "sigma"}
 # Hand-curated library (data/curated_library.csv): section -> playlist slug.
 CURATED_SECTIONS = {"start a company": "startup", "curated collections": "theory"}
 FOUNDER_RX = re.compile(

@@ -1,4 +1,4 @@
-# FrontierTube welcomes search engines and AI crawlers.
+# Advanced Theory welcomes search engines and AI crawlers.
 User-agent: *
 Allow: /
 Disallow: /cache/
@@ -61,4 +61,4 @@ Allow: /
 User-agent: MistralAI-User
 Allow: /
 
-Sitemap: https://frontiertube.org/sitemap.xml
+Sitemap: https://advancedtheory.org/sitemap.xml

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the crawlable side of FrontierTube from data/videos.json.
+"""Generate the crawlable side of Advanced Theory from data/videos.json.
 
 The app itself is a hash-routed single page, which search engines and AI crawlers
 cannot index route by route. This script writes plain HTML pages that they can:
@@ -23,8 +23,8 @@ import re
 
 SITE = pathlib.Path(__file__).resolve().parent.parent
 DATA = SITE / "data"
-BASE = "https://frontiertube.org"
-NAME = "FrontierTube"
+BASE = "https://advancedtheory.org"
+NAME = "Advanced Theory"
 TAGLINE = "The best lectures, talks and founder stories on the frontier technologies."
 TOPICS = "AI, robotics, quantum computing, space exploration, biotechnology, neurotechnology, semiconductors, advanced energy and nanotechnology"
 
@@ -115,7 +115,7 @@ def brand() -> str:
     return (f'<header><a href="/" class="brand" aria-label="{NAME} home"><span class="brand-mark">'
             f'<svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/>'
             f'<g stroke="#fff" stroke-width="1.1" fill="none" stroke-linecap="round"><circle cx="16" cy="16" r="11"/></g></svg>'
-            f'</span><span class="brand-text">Frontier<span class="brand-tv">Tube</span></span></a></header>')
+            f'</span><span class="brand-text">Advanced<span class="brand-tv">Theory</span></span></a></header>')
 
 
 def playlist_page(d: dict, videos: list[dict], all_dirs: list[dict]) -> str:
@@ -193,7 +193,7 @@ def main():
         + "</urlset>\n")
 
     (SITE / "robots.txt").write_text(
-        "# FrontierTube welcomes search engines and AI crawlers.\n"
+        "# Advanced Theory welcomes search engines and AI crawlers.\n"
         "User-agent: *\nAllow: /\nDisallow: /cache/\nDisallow: /scripts/\n\n"
         + "".join(f"User-agent: {bot}\nAllow: /\n\n" for bot in (
             "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "Claude-User", "anthropic-ai",

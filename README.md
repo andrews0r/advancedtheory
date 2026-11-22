@@ -37,9 +37,13 @@ Put links in `data/manual_adds.txt` (one per line: URL or id, playlist slug, opt
 
 A tenth tab, **Start a Company**, holds up to 100 founder videos where company building meets the frontier topics: uploads from Y Combinator (incl. Peter Thiel's CS183B lectures), a16z, First Round Capital, Lenny's Podcast, NFX, 20VC and Acquired whose titles name one of the nine topics or a builder company (generic startup advice is excluded), plus catalogue videos whose titles are about founding. Channels also include Sequoia, Founders Fund, Lux, Khosla and Bessemer. Optional topic-targeted founder searches (`STARTUP_SEARCHES`, `--startup-searches N`, off by default, 100 units each) add interviews and startup stories for the non-AI directions, and the tab is balanced: AI-only titles take at most `--startup-ai-share` (30%) of the slots and each other topic gets `--startup-topic-min` (8) reserved slots first. At most 20 per channel; `--startup-pages` sets how many upload pages (50 each) to scan per channel.
 
+## SEO and discoverability
+
+`scripts/build_pages.py` (run automatically at the end of the fetch) writes the crawlable side of the site: a static HTML page per playlist under `p/<slug>/` with JSON-LD `VideoObject` lists, `sitemap.xml`, a `robots.txt` that allows search and AI crawlers, `llms.txt` and `llms-full.txt` for language models (llmstxt.org), and a `404.html` that returns to the app. The app itself updates the meta description and a per-route JSON-LD block as you navigate.
+
 ## Deploying
 
-Static site: publish `index.html`, `css/`, `js/`, `og.png` and `data/videos.js` + `data/providers.js` (the rest is build tooling). The site lives at https://frontiertube.org; the Open Graph tags in `index.html` already point there.
+Static site hosted on GitHub Pages from `main` (repo andrews0r/frontiertube). Everything in the repo except `scripts/` and `data/*.json`/`.csv` is served; `cache/` and `.env` are git-ignored. The site lives at https://frontiertube.org; the Open Graph tags in `index.html` already point there.
 
 ## Routes
 

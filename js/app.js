@@ -580,6 +580,13 @@
   });
 
   // ------------------------------------------------------------------ router
+  function setSeo(title, description, ld) {
+    const d = $('meta[name="description"]'); if (d && description) d.setAttribute('content', description);
+    const ogt = $('meta[property="og:title"]'); if (ogt) ogt.setAttribute('content', title || 'FrontierTube');
+    const ogd = $('meta[property="og:description"]'); if (ogd && description) ogd.setAttribute('content', description);
+    const el = $('#route-ld'); if (el) el.textContent = ld ? JSON.stringify(ld) : '';
+  }
+
   function route() {
     const { parts, params } = parseHash();
     const head = parts[0] || '';
@@ -608,6 +615,17 @@
     destroyPlayer();
     main.innerHTML = html;
     renderSidebar(active);
+    {
+      const v = head === 'w' ? findVideo(parts[1]) : null;
+      const d = head === 'p' ? dirOf(parts[1]) : null;
+      if (v) setSeo(document.title, `${v.title} — ${v.channel}. Watch on FrontierTube, a curated viewer for frontier technology lectures and talks.`, {
+        '@context': 'https://schema.org', '@type': 'VideoObject', name: v.title, description: v.description || v.title,
+        thumbnailUrl: thumb(v.id), uploadDate: v.published || undefined, duration: `PT${Math.floor(v.duration / 60)}M${v.duration % 60}S`,
+        embedUrl: `https://www.youtube-nocookie.com/embed/${v.id}`, url: location.href, author: { '@type': 'Organization', name: v.channel },
+      });
+      else if (d) setSeo(document.title, `${d.name} on FrontierTube: ${d.count} curated lectures, talks and explainers.`, { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `${d.name} · FrontierTube`, url: `https://frontiertube.org/p/${d.slug}/` });
+      else setSeo(document.title, '', null);
+    }
     if (head !== 'w') window.scrollTo(0, 0); else window.scrollTo(0, 0);
     if (head === 'w') {
       const v = findVideo(parts[1]);

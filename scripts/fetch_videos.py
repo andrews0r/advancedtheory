@@ -1348,6 +1348,11 @@ def main():
     (DATA / "providers.json").write_text(json.dumps(prov_summary, ensure_ascii=False, indent=1))
     (DATA / "providers.js").write_text("window.FA_PROVIDERS = " + json.dumps(prov_summary, ensure_ascii=False) + ";\n")
     log(f"wrote {DATA / 'videos.json'} and providers.json")
+    try:  # crawlable pages, sitemap, robots and llms.txt follow the catalogue
+        import build_pages
+        build_pages.main()
+    except Exception as e:  # noqa: BLE001
+        log(f"build_pages skipped: {e}")
     for d in out["directions"]:
         log(f"  {d['label']:15} {d['count']:4} videos")
 

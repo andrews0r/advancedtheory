@@ -58,7 +58,8 @@
 "Textbook",
 "Lecture notes",
 "Essay",
-"Reading list"
+"Reading list",
+"Reference"
 ]
 },
 "people": [
@@ -174,8 +175,8 @@
 "kinds": [
 "Researcher"
 ],
-"role": "Chief AI scientist; professor",
-"org": "Meta and NYU",
+"role": "Founder; professor; former chief AI scientist at Meta",
+"org": "AMI Labs and NYU",
 "field": "ai",
 "fields": [
 "ai"
@@ -189,25 +190,46 @@
 "rank": 6
 },
 {
-"id": "ai-jeremy-howard",
-"name": "Jeremy Howard",
-"kind": "Educator",
+"id": "ai-demis-hassabis",
+"name": "Demis Hassabis",
+"kind": "Builder",
 "kinds": [
-"Educator"
+"Builder"
 ],
-"role": "Co-founder",
-"org": "fast.ai and Answer.AI",
+"role": "Co-founder and CEO; Nobel laureate in chemistry",
+"org": "Google DeepMind",
 "field": "ai",
 "fields": [
 "ai"
 ],
-"site": "https://www.fast.ai",
-"x": "jeremyphoward",
+"site": "https://deepmind.google/about/",
+"x": "demishassabis",
 "youtube": "",
-"url": "https://www.fast.ai",
-"domain": "fast.ai",
-"note": "Practical Deep Learning for Coders: top-down teaching that gets you training models on day one",
+"url": "https://deepmind.google/about/",
+"domain": "deepmind.google",
+"note": "AlphaGo to AlphaFold; the lab that keeps turning games and science into general methods",
 "rank": 7
+},
+{
+"id": "ai-yoshua-bengio",
+"name": "Yoshua Bengio",
+"kind": "Researcher",
+"kinds": [
+"Researcher"
+],
+"role": "Professor; founder of Mila and LawZero",
+"org": "Université de Montréal",
+"field": "ai",
+"fields": [
+"ai"
+],
+"site": "https://yoshuabengio.org",
+"x": "",
+"youtube": "",
+"url": "https://yoshuabengio.org",
+"domain": "yoshuabengio.org",
+"note": "Deep learning pioneer and Turing laureate; now the most careful public voice on what safe AI requires",
+"rank": 8
 },
 {
 "id": "robotics-sergey-levine",
@@ -258,8 +280,8 @@
 "kinds": [
 "Researcher"
 ],
-"role": "Professor; co-founder",
-"org": "UC Berkeley and Covariant",
+"role": "Professor; co-founded Covariant",
+"org": "UC Berkeley",
 "field": "robotics",
 "fields": [
 "robotics"
@@ -294,6 +316,27 @@
 "rank": 4
 },
 {
+"id": "robotics-daniela-rus",
+"name": "Daniela Rus",
+"kind": "Researcher",
+"kinds": [
+"Researcher"
+],
+"role": "Professor; director of CSAIL",
+"org": "MIT",
+"field": "robotics",
+"fields": [
+"robotics"
+],
+"site": "https://danielarus.csail.mit.edu",
+"x": "",
+"youtube": "",
+"url": "https://danielarus.csail.mit.edu",
+"domain": "danielarus.csail.mit.edu",
+"note": "Soft robots and liquid neural networks and self-driving; runs the largest robotics lab in the US",
+"rank": 5
+},
+{
 "id": "robotics-marc-raibert",
 "name": "Marc Raibert",
 "kind": "Builder",
@@ -312,27 +355,6 @@
 "url": "https://rai-inst.com",
 "domain": "rai-inst.com",
 "note": "Forty years of legged robots from the MIT Leg Lab to Atlas; now runs a research institute on robot intelligence",
-"rank": 5
-},
-{
-"id": "robotics-lerrel-pinto",
-"name": "Lerrel Pinto",
-"kind": "Researcher",
-"kinds": [
-"Researcher"
-],
-"role": "Assistant professor",
-"org": "NYU",
-"field": "robotics",
-"fields": [
-"robotics"
-],
-"site": "https://www.lerrelpinto.com",
-"x": "LerrelPinto",
-"youtube": "",
-"url": "https://www.lerrelpinto.com",
-"domain": "lerrelpinto.com",
-"note": "Cheap data collection for robot learning; publishes open hardware and datasets you can reproduce",
 "rank": 6
 },
 {
@@ -525,24 +547,24 @@
 "rank": 4
 },
 {
-"id": "space-eric-berger",
-"name": "Eric Berger",
-"kind": "Writer",
+"id": "space-sara-seager",
+"name": "Sara Seager",
+"kind": "Researcher",
 "kinds": [
-"Writer"
+"Researcher"
 ],
-"role": "Senior space editor",
-"org": "Ars Technica",
+"role": "Professor of planetary science and physics",
+"org": "MIT",
 "field": "space",
 "fields": [
 "space"
 ],
-"site": "https://arstechnica.com/author/ericberger/",
-"x": "SciGuySpace",
+"site": "https://www.saraseager.com",
+"x": "ProfSaraSeager",
 "youtube": "",
-"url": "https://arstechnica.com/author/ericberger/",
-"domain": "arstechnica.com",
-"note": "The reporter the industry reads; Liftoff and Reentry are the histories of SpaceX",
+"url": "https://www.saraseager.com",
+"domain": "saraseager.com",
+"note": "Exoplanet atmospheres and the search for life; her Exoplanet Atmospheres is the textbook",
 "rank": 5
 },
 {
@@ -903,24 +925,24 @@
 "rank": 6
 },
 {
-"id": "semiconductors-chris-miller",
-"name": "Chris Miller",
-"kind": "Writer",
+"id": "semiconductors-lisa-su",
+"name": "Lisa Su",
+"kind": "Builder",
 "kinds": [
-"Writer"
+"Builder"
 ],
-"role": "Professor; author of Chip War",
-"org": "Tufts University",
+"role": "Chair and CEO",
+"org": "AMD",
 "field": "semiconductors",
 "fields": [
 "semiconductors"
 ],
-"site": "https://www.christophermiller.net",
-"x": "crmiller1",
+"site": "https://www.amd.com/en/corporate/leadership/lisa-su.html",
+"x": "LisaSu",
 "youtube": "",
-"url": "https://www.christophermiller.net",
-"domain": "christophermiller.net",
-"note": "Chip War: the geopolitical history of semiconductors and the book to read first about the industry",
+"url": "https://www.amd.com/en/corporate/leadership/lisa-su.html",
+"domain": "amd.com",
+"note": "Turned AMD around with chiplets and Zen; her keynotes are the clearest view of where compute is going",
 "rank": 7
 },
 {
@@ -1008,27 +1030,6 @@
 "rank": 4
 },
 {
-"id": "energy-vaclav-smil",
-"name": "Vaclav Smil",
-"kind": "Writer",
-"kinds": [
-"Writer"
-],
-"role": "Professor emeritus",
-"org": "University of Manitoba",
-"field": "energy",
-"fields": [
-"energy"
-],
-"site": "https://vaclavsmil.com",
-"x": "",
-"youtube": "",
-"url": "https://vaclavsmil.com",
-"domain": "vaclavsmil.com",
-"note": "Energy and Civilization and How the World Really Works; the history of energy transitions in numbers",
-"rank": 5
-},
-{
 "id": "nanotech-eric-drexler",
 "name": "Eric Drexler",
 "kind": "Writer",
@@ -1092,24 +1093,24 @@
 "rank": 3
 },
 {
-"id": "nanotech-andrew-maynard",
-"name": "Andrew Maynard",
-"kind": "Writer",
+"id": "nanotech-paul-alivisatos",
+"name": "Paul Alivisatos",
+"kind": "Researcher",
 "kinds": [
-"Writer"
+"Researcher"
 ],
-"role": "Professor; author of Films from the Future",
-"org": "Arizona State University",
+"role": "President; professor of chemistry",
+"org": "University of Chicago",
 "field": "nanotech",
 "fields": [
 "nanotech"
 ],
-"site": "https://andrewmaynard.net",
-"x": "2020science",
+"site": "https://alivisatoslab.uchicago.edu",
+"x": "",
 "youtube": "",
-"url": "https://andrewmaynard.net",
-"domain": "andrewmaynard.net",
-"note": "Risk and responsibility in nanotech and emerging tech; the field's most readable public voice",
+"url": "https://alivisatoslab.uchicago.edu",
+"domain": "alivisatoslab.uchicago.edu",
+"note": "Colloidal nanocrystals and quantum dots; the chemistry behind displays and bioimaging and solar",
 "rank": 4
 }
 ],
@@ -1133,6 +1134,24 @@
 "rank": 1
 },
 {
+"id": "ai-imagenet-classification-with-deep-convolutional-neural-netwo",
+"name": "ImageNet Classification with Deep Convolutional Neural Networks",
+"authors": "Krizhevsky and Sutskever and Hinton",
+"year": 2012,
+"kind": "Paper",
+"kinds": [
+"Paper"
+],
+"field": "ai",
+"fields": [
+"ai"
+],
+"url": "https://proceedings.neurips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html",
+"domain": "proceedings.neurips.cc",
+"note": "AlexNet; the result that started the deep learning era by winning ImageNet on GPUs",
+"rank": 2
+},
+{
 "id": "ai-scaling-laws-for-neural-language-models",
 "name": "Scaling Laws for Neural Language Models",
 "authors": "Kaplan et al.",
@@ -1148,24 +1167,6 @@
 "url": "https://arxiv.org/abs/2001.08361",
 "domain": "arxiv.org",
 "note": "Loss falls as a power law in model size and data and compute; why bigger keeps working",
-"rank": 2
-},
-{
-"id": "ai-training-compute-optimal-large-language-models",
-"name": "Training Compute-Optimal Large Language Models",
-"authors": "Hoffmann et al.",
-"year": 2022,
-"kind": "Paper",
-"kinds": [
-"Paper"
-],
-"field": "ai",
-"fields": [
-"ai"
-],
-"url": "https://arxiv.org/abs/2203.15556",
-"domain": "arxiv.org",
-"note": "Chinchilla: for a fixed compute budget train a smaller model on more tokens",
 "rank": 3
 },
 {
@@ -1295,6 +1296,24 @@
 "rank": 2
 },
 {
+"id": "robotics-probabilistic-robotics",
+"name": "Probabilistic Robotics",
+"authors": "Thrun and Burgard and Fox",
+"year": 2005,
+"kind": "Textbook",
+"kinds": [
+"Textbook"
+],
+"field": "robotics",
+"fields": [
+"robotics"
+],
+"url": "https://mitpress.mit.edu/9780262201629/probabilistic-robotics/",
+"domain": "mitpress.mit.edu",
+"note": "Localization and mapping and planning under uncertainty; the textbook behind every autonomous vehicle stack",
+"rank": 3
+},
+{
 "id": "robotics-end-to-end-training-of-deep-visuomotor-policies",
 "name": "End-to-End Training of Deep Visuomotor Policies",
 "authors": "Levine et al.",
@@ -1310,7 +1329,7 @@
 "url": "https://arxiv.org/abs/1504.00702",
 "domain": "arxiv.org",
 "note": "First convincing pixels-to-torques robot learning; the start of the deep robot learning era",
-"rank": 3
+"rank": 4
 },
 {
 "id": "robotics-rt-2-vision-language-action-models-transfer-web-knowledge-to",
@@ -1328,24 +1347,6 @@
 "url": "https://arxiv.org/abs/2307.15818",
 "domain": "arxiv.org",
 "note": "A vision-language model fine-tuned to output robot actions; the template for robot foundation models",
-"rank": 4
-},
-{
-"id": "robotics-diffusion-policy-visuomotor-policy-learning-via-action-diffu",
-"name": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
-"authors": "Chi et al.",
-"year": 2023,
-"kind": "Paper",
-"kinds": [
-"Paper"
-],
-"field": "robotics",
-"fields": [
-"robotics"
-],
-"url": "https://arxiv.org/abs/2303.04137",
-"domain": "arxiv.org",
-"note": "Diffusion models as robot policies; now the default for imitation learning from demonstrations",
 "rank": 5
 },
 {
@@ -1496,7 +1497,7 @@
 "id": "space-fundamentals-of-astrodynamics",
 "name": "Fundamentals of Astrodynamics",
 "authors": "Bate and Mueller and White",
-"year": 1971,
+"year": 2020,
 "kind": "Textbook",
 "kinds": [
 "Textbook"
@@ -1507,7 +1508,7 @@
 ],
 "url": "https://store.doverpublications.com/products/9780486497044",
 "domain": "store.doverpublications.com",
-"note": "Orbital mechanics for a few dollars; the Dover classic used in every astrodynamics course",
+"note": "Orbital mechanics for a few dollars; second edition of the 1971 Dover classic used in every astrodynamics course",
 "rank": 3
 },
 {
@@ -1533,9 +1534,9 @@
 "name": "General Catalog of Artificial Space Objects",
 "authors": "McDowell",
 "year": 2025,
-"kind": "Reading list",
+"kind": "Reference",
 "kinds": [
-"Reading list"
+"Reference"
 ],
 "field": "space",
 "fields": [
@@ -1583,6 +1584,24 @@
 "rank": 2
 },
 {
+"id": "biotech-a-synthetic-oscillatory-network-of-transcriptional-regulator",
+"name": "A Synthetic Oscillatory Network of Transcriptional Regulators",
+"authors": "Elowitz and Leibler",
+"year": 2000,
+"kind": "Paper",
+"kinds": [
+"Paper"
+],
+"field": "biotech",
+"fields": [
+"biotech"
+],
+"url": "https://doi.org/10.1038/35002125",
+"domain": "doi.org",
+"note": "The repressilator; the first engineered genetic circuit and the founding paper of synthetic biology",
+"rank": 3
+},
+{
 "id": "biotech-de-novo-design-of-protein-structure-and-function-with-rfdiff",
 "name": "De Novo Design of Protein Structure and Function with RFdiffusion",
 "authors": "Watson et al.",
@@ -1598,24 +1617,6 @@
 "url": "https://doi.org/10.1038/s41586-023-06415-8",
 "domain": "doi.org",
 "note": "Diffusion models that design new proteins that work in the lab; the Baker lab's generative turn",
-"rank": 3
-},
-{
-"id": "biotech-evolutionary-scale-prediction-of-atomic-level-protein-struct",
-"name": "Evolutionary-Scale Prediction of Atomic-Level Protein Structure with a Language Model",
-"authors": "Lin et al.",
-"year": 2023,
-"kind": "Paper",
-"kinds": [
-"Paper"
-],
-"field": "biotech",
-"fields": [
-"biotech"
-],
-"url": "https://doi.org/10.1126/science.ade2574",
-"domain": "doi.org",
-"note": "ESM-2 and ESMFold: a language model trained on sequences alone predicts structure",
 "rank": 4
 },
 {
@@ -1745,6 +1746,24 @@
 "rank": 1
 },
 {
+"id": "semiconductors-the-transistor-a-semi-conductor-triode",
+"name": "The Transistor: A Semi-Conductor Triode",
+"authors": "Bardeen and Brattain",
+"year": 1948,
+"kind": "Paper",
+"kinds": [
+"Paper"
+],
+"field": "semiconductors",
+"fields": [
+"semiconductors"
+],
+"url": "https://doi.org/10.1103/PhysRev.74.230",
+"domain": "doi.org",
+"note": "The transistor announced in a page and a half; everything in this section follows from it",
+"rank": 2
+},
+{
 "id": "semiconductors-design-of-ion-implanted-mosfets-with-very-small-physical-dim",
 "name": "Design of Ion-Implanted MOSFETs with Very Small Physical Dimensions",
 "authors": "Dennard et al.",
@@ -1760,7 +1779,7 @@
 "url": "https://doi.org/10.1109/JSSC.1974.1050511",
 "domain": "doi.org",
 "note": "Dennard scaling; why shrinking transistors used to make them faster and cheaper and cooler at once",
-"rank": 2
+"rank": 3
 },
 {
 "id": "semiconductors-computer-architecture-a-quantitative-approach",
@@ -1778,31 +1797,13 @@
 "url": "https://shop.elsevier.com/books/computer-architecture/hennessy/978-0-12-811905-1",
 "domain": "shop.elsevier.com",
 "note": "The architecture textbook; how to reason about performance and what the numbers mean",
-"rank": 3
-},
-{
-"id": "semiconductors-a-new-golden-age-for-computer-architecture",
-"name": "A New Golden Age for Computer Architecture",
-"authors": "Hennessy and Patterson",
-"year": 2019,
-"kind": "Essay",
-"kinds": [
-"Essay"
-],
-"field": "semiconductors",
-"fields": [
-"semiconductors"
-],
-"url": "https://doi.org/10.1145/3282307",
-"domain": "doi.org",
-"note": "The Turing lecture: with Moore's law ending the gains come from domain-specific architectures",
 "rank": 4
 },
 {
-"id": "semiconductors-chip-war-the-fight-for-the-world-s-most-critical-technology",
-"name": "Chip War: The Fight for the World's Most Critical Technology",
-"authors": "Miller",
-"year": 2022,
+"id": "semiconductors-introduction-to-vlsi-systems",
+"name": "Introduction to VLSI Systems",
+"authors": "Mead and Conway",
+"year": 1980,
 "kind": "Textbook",
 "kinds": [
 "Textbook"
@@ -1811,9 +1812,9 @@
 "fields": [
 "semiconductors"
 ],
-"url": "https://www.simonandschuster.com/books/Chip-War/Chris-Miller/9781982172008",
-"domain": "simonandschuster.com",
-"note": "The history of the industry and its geopolitics; the book to read first",
+"url": "https://ai.eecs.umich.edu/people/conway/VLSI/VLSIText/VLSIText.html",
+"domain": "ai.eecs.umich.edu",
+"note": "The book that let people outside the fabs design chips; free online from Lynn Conway's archive",
 "rank": 5
 },
 {
@@ -1835,6 +1836,24 @@
 "rank": 1
 },
 {
+"id": "energy-detailed-balance-limit-of-efficiency-of-p-n-junction-solar-c",
+"name": "Detailed Balance Limit of Efficiency of p-n Junction Solar Cells",
+"authors": "Shockley and Queisser",
+"year": 1961,
+"kind": "Paper",
+"kinds": [
+"Paper"
+],
+"field": "energy",
+"fields": [
+"energy"
+],
+"url": "https://doi.org/10.1063/1.1736034",
+"domain": "doi.org",
+"note": "The Shockley-Queisser limit; why a single-junction solar cell tops out near a third and how to beat it",
+"rank": 2
+},
+{
 "id": "energy-some-criteria-for-a-power-producing-thermonuclear-reactor",
 "name": "Some Criteria for a Power Producing Thermonuclear Reactor",
 "authors": "Lawson",
@@ -1850,7 +1869,7 @@
 "url": "https://doi.org/10.1088/0370-1301/70/1/303",
 "domain": "doi.org",
 "note": "The Lawson criterion; what density and temperature and confinement time a fusion reactor needs",
-"rank": 2
+"rank": 3
 },
 {
 "id": "energy-overview-of-the-sparc-tokamak",
@@ -1868,7 +1887,7 @@
 "url": "https://doi.org/10.1017/S0022377820001257",
 "domain": "doi.org",
 "note": "The physics basis for a compact high-field tokamak; the plan Commonwealth Fusion is executing",
-"rank": 3
+"rank": 4
 },
 {
 "id": "energy-achievement-of-target-gain-larger-than-unity-in-an-inertial-",
@@ -1886,24 +1905,6 @@
 "url": "https://doi.org/10.1103/PhysRevLett.132.065102",
 "domain": "doi.org",
 "note": "Ignition at the National Ignition Facility; more fusion energy out than laser energy in",
-"rank": 4
-},
-{
-"id": "energy-net-zero-america",
-"name": "Net-Zero America",
-"authors": "Larson et al.",
-"year": 2021,
-"kind": "Reading list",
-"kinds": [
-"Reading list"
-],
-"field": "energy",
-"fields": [
-"energy"
-],
-"url": "https://netzeroamerica.princeton.edu",
-"domain": "netzeroamerica.princeton.edu",
-"note": "Five modelled paths to a zero-carbon United States with the costs and land and jobs; the reference study",
 "rank": 5
 },
 {

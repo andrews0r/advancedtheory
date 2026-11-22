@@ -27,7 +27,7 @@ FIELDS = [("ai", "Artificial intelligence", "AI"), ("robotics", "Robotics", "Rob
           ("semiconductors", "Semiconductors", "Semiconductors"), ("energy", "Advanced energy", "Energy"), ("nanotech", "Nanotechnology", "Nanotech")]
 LABEL = {s: l for s, _, l in FIELDS}
 PEOPLE_KINDS = ["Researcher", "Builder", "Educator", "Writer"]
-RESEARCH_KINDS = ["Paper", "Textbook", "Lecture notes", "Essay", "Reading list"]
+RESEARCH_KINDS = ["Paper", "Textbook", "Lecture notes", "Essay", "Reading list", "Reference"]
 
 META = {
     "people": {"title": "People", "blurb": "Who to follow and learn from in each field: the researchers, builders, educators and writers whose work is the primary source.",

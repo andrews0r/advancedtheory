@@ -109,7 +109,7 @@
     html += '</div><div class="tabs-row secondary">';
     html += '<a class="chip active" href="/videos/">Videos</a><a class="chip" href="/courses/">Courses</a><a class="chip" href="/programs/">Programs</a><span style="width:10px;flex:0 0 auto"></span>';
     for (const d of DATA.directions) if (SPECIAL.has(d.slug)) html += tab(`#/p/${d.slug}`, d.label, d.slug);
-    html += tab('#/builders', BUILDERS.nav, 'leaders') + tab('#/hn', 'HN favorites', 'hn') + tab('#/history', 'History', 'history') + tab('#/about', 'About', 'about');
+    html += tab('#/builders', BUILDERS.nav, 'leaders') + tab('#/hn', 'HN favorites', 'hn') + tab('#/history', 'History', 'history') + tab('/about/', 'About', 'about');
     html += '</div>';
     tabsEl.innerHTML = html;
   }
@@ -242,7 +242,7 @@
         <div class="big-icon">${dirIcon(slug, 52)}</div>
         <div style="flex:1;min-width:0">
           <h1>${esc(d.name)}</h1>
-          ${slug === 'theory' ? `<div class="sub">Curated lectures and explainers of the deep theory behind each field</div>` : ''}
+          ${slug === 'theory' ? `<div class="sub">Curated lectures and explainers of the deep theory behind each field</div>` : !SPECIAL.has(slug) ? `<div class="sub"><a href="/learn/${slug}/">How to learn ${esc(d.label.toLowerCase())} →</a></div>` : ''}
           <div class="actions">
             ${first ? `<a class="pill-btn primary" href="#/w/${first.id}?p=${slug}">${svg('M8 5v14l11-7z', 18)} Play all</a>` : ''}
             <a class="pill-btn" href="#/w/${(shuffle(vids)[0] || {}).id}?p=${slug}&shuffle=1">${svg('M10.6 9.2L5.4 4H2v2h2.6l4.6 4.6 1.4-1.4zM14.5 4l2.1 2.1L4 18.7l1.4 1.4L18 7.5l2 2V4h-5.5zm0 16H20v-5.5l-2.1 2.1-3.3-3.3-1.4 1.4 3.3 3.3L14.5 20z', 18)} Shuffle</a>

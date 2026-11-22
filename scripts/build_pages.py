@@ -187,6 +187,17 @@ def main():
         out.write_text(playlist_page(d, vids, dirs))
         urls.append((f"{BASE}/p/{d['slug']}/", "weekly", "0.8"))
 
+    # Question-led guides, per-field tables and the About page.
+    guide_lines = []
+    try:
+        import sys as _sys
+        _sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+        from build_guides import main as build_guides
+        guide_urls, guide_lines = build_guides()
+        urls += guide_urls
+    except Exception as e:  # noqa: BLE001
+        print(f"guides skipped: {e}")
+
     (SITE / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "".join(f"  <url><loc>{u}</loc><lastmod>{today}</lastmod><changefreq>{f}</changefreq><priority>{p}</priority></url>\n" for u, f, p in urls)
@@ -208,11 +219,11 @@ def main():
     for d in dirs:
         n = sum(1 for v in videos if d["slug"] in v["directions"])
         lines.append(f"- [{d['name']}]({BASE}/p/{d['slug']}/): {PLAYLIST_BLURB.get(d['slug'], '')} ({n} videos)")
-    lines += ["", "## Sections", "", f"- [Videos]({BASE}/videos/): the open section, {len(videos)} videos", f"- [Courses]({BASE}/courses/): open online courses, self-study texts, bootcamps, cohort courses, workshops and certifications per field", f"- [Programs]({BASE}/programs/): fellowships, degrees, research training, internships, accelerators, labs and residencies, plus programs ranked by founder outcomes", "- Research, People, Companies: planned sections, not yet open", "", "## Features", "",
+    lines += ["", "## Start here: how to learn each field", ""] + guide_lines + ["", "## Sections", "", f"- [Videos]({BASE}/videos/): the open section, {len(videos)} videos", f"- [Courses]({BASE}/courses/): open online courses, self-study texts, bootcamps, cohort courses, workshops and certifications per field", f"- [Programs]({BASE}/programs/): fellowships, degrees, research training, internships, accelerators, labs and residencies, plus programs ranked by founder outcomes", "- Research, People, Companies: planned sections, not yet open", "", "## Features", "",
               f"- [TV mode]({BASE}/videos/#/tv): lean-back playback of any playlist with keyboard controls",
               f"- [Builders]({BASE}/videos/#/builders): explainers from the companies building each field",
               f"- [Hacker News favorites]({BASE}/videos/#/hn): videos linked repeatedly on Hacker News",
-              f"- [About]({BASE}/videos/#/about): how videos are chosen",
+              f"- [About]({BASE}/about/): what the site is in numbers, how it is built, how it compares",
               "", "## Optional", "", f"- [Full catalogue]({BASE}/llms-full.txt): every video by playlist, with channel and YouTube id", ""]
     (SITE / "llms.txt").write_text("\n".join(lines))
 

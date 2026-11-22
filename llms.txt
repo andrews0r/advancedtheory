@@ -18,6 +18,37 @@ Frontier Concepts (https://frontierconcepts.org) is a restricted view of YouTube
 - [Start a Company](https://frontierconcepts.org/p/startup/): Founder stories, podcasts and interviews where company building meets the frontier. (100 videos)
 - [Advanced Theory](https://frontierconcepts.org/p/theory/): The hard stuff: curated lectures and explainers of the deep theory behind each field. (68 videos)
 
+## Start here: how to learn each field
+
+- [How do I learn AI and machine learning?](https://frontierconcepts.org/learn/ai/): where to start, the best lectures, courses and programs, and the questions people ask
+- [Artificial intelligence courses](https://frontierconcepts.org/courses/ai/): 163 entries, ranked
+- [Artificial intelligence programs](https://frontierconcepts.org/programs/ai/): 174 entries, ranked
+- [How do I get into robotics?](https://frontierconcepts.org/learn/robotics/): where to start, the best lectures, courses and programs, and the questions people ask
+- [Robotics courses](https://frontierconcepts.org/courses/robotics/): 118 entries, ranked
+- [Robotics programs](https://frontierconcepts.org/programs/robotics/): 156 entries, ranked
+- [How do I learn quantum computing?](https://frontierconcepts.org/learn/quantum/): where to start, the best lectures, courses and programs, and the questions people ask
+- [Quantum computing courses](https://frontierconcepts.org/courses/quantum/): 98 entries, ranked
+- [Quantum computing programs](https://frontierconcepts.org/programs/quantum/): 157 entries, ranked
+- [How do I get into space exploration and aerospace?](https://frontierconcepts.org/learn/space/): where to start, the best lectures, courses and programs, and the questions people ask
+- [Space exploration courses](https://frontierconcepts.org/courses/space/): 107 entries, ranked
+- [Space exploration programs](https://frontierconcepts.org/programs/space/): 161 entries, ranked
+- [How do I learn biotechnology and synthetic biology?](https://frontierconcepts.org/learn/biotech/): where to start, the best lectures, courses and programs, and the questions people ask
+- [Biotechnology courses](https://frontierconcepts.org/courses/biotech/): 109 entries, ranked
+- [Biotechnology programs](https://frontierconcepts.org/programs/biotech/): 161 entries, ranked
+- [How do I get into neurotechnology and brain-computer interfaces?](https://frontierconcepts.org/learn/neurotech/): where to start, the best lectures, courses and programs, and the questions people ask
+- [Neurotechnology courses](https://frontierconcepts.org/courses/neurotech/): 90 entries, ranked
+- [Neurotechnology programs](https://frontierconcepts.org/programs/neurotech/): 133 entries, ranked
+- [How do I learn chip design and semiconductors?](https://frontierconcepts.org/learn/semiconductors/): where to start, the best lectures, courses and programs, and the questions people ask
+- [Semiconductors courses](https://frontierconcepts.org/courses/semiconductors/): 127 entries, ranked
+- [Semiconductors programs](https://frontierconcepts.org/programs/semiconductors/): 149 entries, ranked
+- [How do I get into advanced energy and fusion?](https://frontierconcepts.org/learn/energy/): where to start, the best lectures, courses and programs, and the questions people ask
+- [Advanced energy courses](https://frontierconcepts.org/courses/energy/): 107 entries, ranked
+- [Advanced energy programs](https://frontierconcepts.org/programs/energy/): 183 entries, ranked
+- [How do I learn nanotechnology and nanofabrication?](https://frontierconcepts.org/learn/nanotech/): where to start, the best lectures, courses and programs, and the questions people ask
+- [Nanotechnology courses](https://frontierconcepts.org/courses/nanotech/): 96 entries, ranked
+- [Nanotechnology programs](https://frontierconcepts.org/programs/nanotech/): 128 entries, ranked
+- [About](https://frontierconcepts.org/about/): what the site is in numbers, how it is built, and how it compares to YouTube search, Coursera, Class Central and awesome lists
+
 ## Sections
 
 - [Videos](https://frontierconcepts.org/videos/): the open section, 1960 videos
@@ -30,7 +61,7 @@ Frontier Concepts (https://frontierconcepts.org) is a restricted view of YouTube
 - [TV mode](https://frontierconcepts.org/videos/#/tv): lean-back playback of any playlist with keyboard controls
 - [Builders](https://frontierconcepts.org/videos/#/builders): explainers from the companies building each field
 - [Hacker News favorites](https://frontierconcepts.org/videos/#/hn): videos linked repeatedly on Hacker News
-- [About](https://frontierconcepts.org/videos/#/about): how videos are chosen
+- [About](https://frontierconcepts.org/about/): what the site is in numbers, how it is built, how it compares
 
 ## Optional
 

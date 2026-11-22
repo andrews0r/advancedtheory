@@ -152,7 +152,7 @@
     const ranked = SECTION === 'programs' && s.view === 'ranked';
     let html = `<header class="page-head">
       <h1>${TITLE[SECTION]}${f ? ' <span class="muted">·</span> ' + esc(f.name) : ''}</h1>
-      <p class="blurb">${BLURB[SECTION]}</p>
+      <p class="blurb">${BLURB[SECTION]}${f ? ` · <a href="/learn/${f.slug}/">How to learn ${esc(f.label.toLowerCase())} →</a>` : ' · <a href="/learn/">How to learn each field →</a>'}</p>
       ${SECTION === 'programs' ? `<div class="subtabs"><a class="chip small ${!ranked ? 'active' : ''}" href="${link({ view: '', cat: '', n: 0 })}">All programs <span>${D.programs.length}</span></a><a class="chip small ${ranked ? 'active' : ''}" href="${link({ view: 'ranked', fmt: '', cost: '', n: 0 })}">Ranked by founder outcomes <span>${D.ranked.length}</span></a></div>` : ''}
     </header>`;
     html += ranked ? rankedTable(s) : mainTable(s);

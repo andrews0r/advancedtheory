@@ -48,6 +48,14 @@ def main():
     d = json.loads((DATA / "programs.json").read_text())
     domains = sorted({i["domain"] for k in ("courses", "programs", "ranked") for i in d[k] if i.get("domain") and not i.get("logo")})
     domains = [x for x in domains if x not in PLATFORMS and not any(x.endswith("." + p) for p in PLATFORMS)]
+    # Also the organization sites named in build_programs.ORG_DOMAINS, so platform-hosted entries get their org's icon.
+    try:
+        sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+        from build_programs import ORG_DOMAINS
+        have = {f.name[4:-4] for f in OUT.glob("fav-*.png")}
+        domains = sorted(set(domains) | {v for v in ORG_DOMAINS.values() if v not in have})
+    except Exception as e:  # noqa: BLE001
+        print(f"  (org domains skipped: {e})", file=sys.stderr)
     print(f"{len(domains)} domains without a logo", file=sys.stderr)
 
     def grab(domain):

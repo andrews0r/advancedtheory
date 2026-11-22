@@ -194,6 +194,9 @@ def logo_for(name: str, domain: str, by_name: dict, by_dom: dict) -> str:
 
 def load_top20():
     rows = list(csv.DictReader((DATA / "programs_top20.csv").open(encoding="utf-8")))
+    manual = DATA / "programs_manual.csv"  # hand-added entries, same columns
+    if manual.exists():
+        rows += list(csv.DictReader(manual.open(encoding="utf-8")))
     by_name, by_dom = load_logos()
     items = []
     for r in rows:

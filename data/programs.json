@@ -46692,6 +46692,25 @@
    "access": "",
    "selectivity": "",
    "note": "Professional master's"
+  },
+  {
+   "id": "space-community-of-practice-claudestronomy",
+   "name": "Claudestronomy",
+   "provider": "macrogrants",
+   "field": "space",
+   "format": "Community of practice",
+   "fmt": "Community",
+   "section": "programs",
+   "url": "https://claudestronomy.com/",
+   "domain": "claudestronomy.com",
+   "logo": "/logos/fav-claudestronomy.com.png",
+   "rank": 1,
+   "sources": 1,
+   "cost": "funded",
+   "level": "",
+   "access": "Open application",
+   "selectivity": "",
+   "note": "Grants, compute credits and a community for finding new objects in public sky data (TESS, Gaia, ZTF, DECam, WISE) with AI agents; a $100,000 program by macrogrants"
   }
  ],
  "ranked": [

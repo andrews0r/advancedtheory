@@ -34,7 +34,7 @@ Responses are cached in `cache/`, so re-runs are nearly free. The default run st
 
 ## Routes
 
-- `/` site home · `/courses/` and `/programs/` (`#f=<field>&fmt=<format>&cost=free|funded|paid&q=&sort=<column>&dir=asc|desc`; `#view=ranked` on Programs) · `/videos/#/` videos home · `/videos/#/p/<slug>` playlist · `#/w/<id>` watch · `#/search?q=` · `#/builders` · `#/hn` · `#/history` · `#/about`
+- `/` site home: a node map of the nine fields and six sections drawn from `data/home.js` (counts, written by the page builder) with an expandable index · `/courses/` and `/programs/` (`#f=<field>&fmt=<format>&cost=free|funded|paid&q=&sort=<column>&dir=asc|desc`; `#view=ranked` on Programs) · `/videos/#/` videos home · `/videos/#/p/<slug>` playlist · `#/w/<id>` watch · `#/search?q=` · `#/builders` · `#/hn` · `#/history` · `#/about`
 - `/videos/#/tv?p=<slug>` TV mode: arrows next/previous, Space pause, S shuffle, F full screen, M mute, 0–9 switch playlist, Esc exit.
 
 ## Deploying

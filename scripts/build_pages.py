@@ -188,6 +188,23 @@ def main():
         out.write_text(playlist_page(d, vids, dirs))
         urls.append((f"{BASE}/p/{d['slug']}/", "weekly", "0.8"))
 
+    # Small data file for the home page map: counts per field and section.
+    try:
+        progs = json.loads((DATA / "programs.json").read_text())
+        home = {
+            "fields": [{"slug": d["slug"], "label": d["label"], "name": d["name"],
+                        "videos": sum(1 for v in videos if d["slug"] in v["directions"]),
+                        "courses": sum(1 for c in progs["courses"] if d["slug"] in c.get("fields", [c["field"]])),
+                        "programs": sum(1 for c in progs["programs"] if d["slug"] in c.get("fields", [c["field"]]))}
+                       for d in dirs if d["slug"] not in ("startup", "theory")],
+            "totals": {"videos": len(videos), "courses": len(progs["courses"]), "programs": len(progs["programs"]), "ranked": len(progs["ranked"]),
+                       "hn": sum(1 for v in videos if v.get("hn")), "builders": sum(1 for v in videos if v.get("leader")),
+                       "startup": sum(1 for v in videos if "startup" in v["directions"]), "theory": sum(1 for v in videos if "theory" in v["directions"])},
+        }
+        (DATA / "home.js").write_text("window.FC_HOME = " + json.dumps(home, ensure_ascii=False) + ";\n")
+    except Exception as e:  # noqa: BLE001
+        print(f"home data skipped: {e}")
+
     # Question-led guides, per-field tables and the About page.
     guide_lines = []
     try:

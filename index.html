@@ -37,36 +37,46 @@
 </script>
 <link rel="stylesheet" href="/css/styles.css">
 <style>
-  :root { --bg: #e9e9e7; --card: #ffffff; --ink: #111111; --ink-2: #5a5a5a; --ink-3: #9a9a9a; --line: #d6d6d2; --cardinal: #8C1515; }
+  :root { --bg: #f3f3f0; --card: #ffffff; --ink: #111111; --ink-2: #5a5a5a; --ink-3: #9a9a9a; --line: #d6d6d2; --cardinal: #8C1515; }
   html, body { height: 100%; }
   body { background: var(--bg); color: var(--ink); font-family: var(--font); margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
   .top { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; }
   .top .brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 17px; letter-spacing: -.2px; color: var(--ink); }
   .top .brand-tv { color: var(--cardinal); }
   .top .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
-  .stage { flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px 16px 48px; }
-  .entries { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; max-width: 1180px; }
-  .entry {
-    display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px;
-    width: 340px; padding: 14px 14px 14px 16px; border-radius: 22px; background: var(--card);
-    box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.06);
-    color: var(--ink); text-decoration: none; transition: transform .15s ease, box-shadow .15s ease;
-  }
-  a.entry:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 16px 40px rgba(0,0,0,.09); }
-  .entry .mark { width: 44px; height: 44px; display: grid; place-items: center; }
-  .entry .mark svg { width: 40px; height: 40px; }
-  .entry .text { font-family: var(--mono); letter-spacing: .04em; text-transform: uppercase; line-height: 1.35; min-width: 0; }
-  .entry .title { font-size: 13px; color: var(--ink); display: flex; align-items: baseline; gap: 10px; }
-  .entry .title .num { color: var(--ink-3); font-size: 11px; }
-  .entry .sub { font-size: 11px; color: var(--cardinal); margin-top: 2px; }
-  .entry .go { width: 36px; height: 36px; border-radius: 50%; background: var(--cardinal); color: #fff; display: grid; place-items: center; }
-  .entry .go svg { width: 18px; height: 18px; }
-  .entry.locked { cursor: not-allowed; }
-  .entry.locked .mark { opacity: .45; filter: grayscale(1); }
-  .entry.locked .title { color: var(--ink-2); }
-  .entry.locked .sub { color: var(--ink-3); }
-  .entry.locked .go { background: #efefed; color: var(--ink-3); border: 1px solid var(--line); }
-  .entry.locked .level { display: block; font-size: 10px; color: var(--ink-3); margin-top: 3px; letter-spacing: .08em; }
+  .stage { flex: 1; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(320px, 440px); gap: 24px; align-items: center; max-width: 1480px; width: 100%; margin: 0 auto; padding: 8px 24px 32px; box-sizing: border-box; }
+  #map { width: 100%; height: auto; max-height: 640px; display: block; overflow: visible; }
+  #map .edge { fill: none; stroke: var(--ink); stroke-width: 1.1; transition: opacity .2s; }
+  #map .edge.dashed { stroke: var(--ink-3); stroke-dasharray: 4 4; }
+  #map .lbl { font-family: var(--font); font-size: 13px; fill: var(--ink); }
+  #map .lbl.strong { font-weight: 700; }
+  #map .lbl.muted { fill: var(--ink-3); }
+  #map .num { font-family: var(--mono); font-size: 11px; fill: var(--ink); }
+  #map .node a { cursor: pointer; }
+  #map .node.locked { cursor: not-allowed; }
+  #map .node.locked .num { fill: var(--ink-3); }
+  #map.focus .edge:not(.lit) { opacity: .18; }
+  #map.focus .node:not(.lit) { opacity: .3; }
+  #map .node { transition: opacity .2s; }
+  .stage > * { min-width: 0; }
+  .index { min-width: 0; overflow: hidden; background: var(--card); border-radius: 18px; box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.06); padding: 10px 16px; }
+  .row { border-bottom: 1px dashed var(--line); }
+  .row:last-child { border-bottom: 0; }
+  .row-head { width: 100%; min-width: 0; white-space: normal; display: grid; grid-template-columns: 24px 1fr 20px; align-items: center; gap: 12px; padding: 14px 4px; text-align: left; color: var(--ink); }
+  .row-head:disabled { cursor: not-allowed; }
+  .row-sym { display: inline-flex; color: var(--ink); }
+  .row-label { font-family: var(--mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+  .row-label .num { color: var(--ink-3); margin-right: 10px; font-size: 11px; }
+  .row-sub { display: block; font-size: 10px; color: var(--cardinal); letter-spacing: .05em; margin-top: 3px; }
+  .row-plus { font-family: var(--mono); font-size: 18px; color: var(--ink); text-align: right; display: inline-flex; justify-content: flex-end; }
+  .row.locked .row-sym, .row.locked .row-label, .row.locked .row-plus { color: var(--ink-3); }
+  .row.locked .row-sub { color: var(--ink-3); }
+  .row-body { display: none; padding: 0 4px 16px 36px; }
+  .row.open .row-body { display: block; }
+  .row-body p { margin: 0 0 10px; font-size: 13px; line-height: 1.5; color: var(--ink-2); white-space: normal; overflow-wrap: anywhere; }
+  .row-links { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+  .row-links a { color: var(--ink); }
+  .row-links a:hover { text-decoration: underline; }
   .intro { max-width: 760px; margin: 0 auto; padding: 0 24px 18px; text-align: center; color: var(--ink-2); font-size: 13px; line-height: 1.55; }
   .intro b { color: var(--ink); }
   .intro a { color: var(--ink); text-decoration: underline; }
@@ -76,8 +86,13 @@
   .foot { padding: 18px 24px 26px; display: flex; gap: 18px; flex-wrap: wrap; justify-content: space-between; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); }
   .foot a { color: var(--ink-2); }
   .foot a:hover { color: var(--ink); }
+  @media (max-width: 900px) {
+    .stage { grid-template-columns: 1fr; gap: 16px; align-items: start; }
+    .index { order: -1; }
+    #map { max-height: 420px; }
+    #map .lbl { font-size: 15px; }
+  }
   @media (max-width: 640px) { .top .tag { display: none; } }
-  @media (max-width: 420px) { .entry { width: 100%; } }
 </style>
 </head>
 <body>
@@ -90,39 +105,9 @@
 </header>
 
 <main class="stage">
-  <nav class="entries" aria-label="Sections">
-    <!-- Open -->
-    <a class="entry" href="/videos/">
-      <span class="mark"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28"/><path d="M10 2v28"/><path d="M14 2v28"/><path d="M18 2v28"/><path d="M22 2v28"/><path d="M26 2v28"/><path d="M2 6h28"/><path d="M2 10h28"/><path d="M2 14h28"/><path d="M2 18h28"/><path d="M2 22h28"/><path d="M2 26h28"/></g><path d="M11 6.5v19l15-9.5z" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
-      <span class="text"><span class="title"><span class="num">01</span>Videos</span><span class="sub">Lectures + talks + founders</span></span>
-      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h12m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
-    <!-- Locked levels -->
-    <a class="entry" href="/courses/">
-      <span class="mark"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28"/><path d="M10 2v28"/><path d="M14 2v28"/><path d="M18 2v28"/><path d="M22 2v28"/><path d="M26 2v28"/><path d="M2 6h28"/><path d="M2 10h28"/><path d="M2 14h28"/><path d="M2 18h28"/><path d="M2 22h28"/><path d="M2 26h28"/></g><path d="M5 26h7v-6h7v-6h7V7" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
-      <span class="text"><span class="title"><span class="num">02</span>Courses</span><span class="sub">Structured paths per field</span></span>
-      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h12m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
-    <a class="entry" href="/programs/">
-      <span class="mark"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28"/><path d="M10 2v28"/><path d="M14 2v28"/><path d="M18 2v28"/><path d="M22 2v28"/><path d="M26 2v28"/><path d="M2 6h28"/><path d="M2 10h28"/><path d="M2 14h28"/><path d="M2 18h28"/><path d="M2 22h28"/><path d="M2 26h28"/></g><rect x="6" y="6" width="20" height="20" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
-      <span class="text"><span class="title"><span class="num">03</span>Programs</span><span class="sub">Fellowships + labs + schools</span></span>
-      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h12m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
-    <div class="entry locked" aria-disabled="true" title="Level 4 · locked">
-      <span class="mark"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28"/><path d="M10 2v28"/><path d="M14 2v28"/><path d="M18 2v28"/><path d="M22 2v28"/><path d="M26 2v28"/><path d="M2 6h28"/><path d="M2 10h28"/><path d="M2 14h28"/><path d="M2 18h28"/><path d="M2 22h28"/><path d="M2 26h28"/></g><path d="M16 5l11 11-11 11L5 16z" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
-      <span class="text"><span class="title"><span class="num">04</span>Research</span><span class="sub">Papers + reading lists</span><span class="level">Level 4 · locked</span></span>
-      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
-    </div>
-    <div class="entry locked" aria-disabled="true" title="Level 5 · locked">
-      <span class="mark"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28"/><path d="M10 2v28"/><path d="M14 2v28"/><path d="M18 2v28"/><path d="M22 2v28"/><path d="M26 2v28"/><path d="M2 6h28"/><path d="M2 10h28"/><path d="M2 14h28"/><path d="M2 18h28"/><path d="M2 22h28"/><path d="M2 26h28"/></g><circle cx="16" cy="12" r="4.5" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/><path d="M7 27a9 9 0 0 1 18 0" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
-      <span class="text"><span class="title"><span class="num">05</span>People</span><span class="sub">Who to follow + learn from</span><span class="level">Level 5 · locked</span></span>
-      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
-    </div>
-    <div class="entry locked" aria-disabled="true" title="Level 6 · locked">
-      <span class="mark"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28"/><path d="M10 2v28"/><path d="M14 2v28"/><path d="M18 2v28"/><path d="M22 2v28"/><path d="M26 2v28"/><path d="M2 6h28"/><path d="M2 10h28"/><path d="M2 14h28"/><path d="M2 18h28"/><path d="M2 22h28"/><path d="M2 26h28"/></g><path d="M16 4.5l10 5.75v11.5L16 27.5 6 21.75v-11.5z" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
-      <span class="text"><span class="title"><span class="num">06</span>Companies</span><span class="sub">The builders + what they ship</span><span class="level">Level 6 · locked</span></span>
-      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
-    </div>
+  <svg id="map" role="img" aria-label="Map of the nine fields and six sections of Frontier Concepts"></svg>
+  <nav class="index" id="index" aria-label="Sections">
+    <noscript><a href="/videos/">Videos</a> · <a href="/courses/">Courses</a> · <a href="/programs/">Programs</a> · <a href="/learn/">How to learn each field</a> · <a href="/about/">About</a></noscript>
   </nav>
 </main>
 
@@ -135,5 +120,7 @@
   <span>AI · Robotics · Quantum · Space · Biotech · Neurotech · Semiconductors · Energy · Nanotech</span>
   <a href="https://x.com/andrewsor_" target="_blank" rel="noopener">Created by @andrewsor_</a>
 </footer>
+<script src="/data/home.js"></script>
+<script src="/js/home.js"></script>
 </body>
 </html>

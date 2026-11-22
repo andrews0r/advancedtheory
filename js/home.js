@@ -18,11 +18,13 @@
       line: 'Fellowships, degrees, labs and accelerators, ranked by founder outcomes.' },
     { num: '04', key: 'research', label: 'Research', sub: 'Papers + reading lists', open: false, level: 4 },
     { num: '05', key: 'people', label: 'People', sub: 'Who to follow + learn from', open: false, level: 5 },
-    { num: '06', key: 'companies', label: 'Companies', sub: 'The builders + what they ship', open: false, level: 6 },
+    { num: '06', key: 'assistant', label: 'Assistant', sub: 'Your personal learning path', open: false, cta: true,
+      href: 'https://x.com/andrewsor_', ctaLabel: 'Join the waitlist →',
+      line: 'An AI that builds a learning path through the videos, courses and programs for you, and keeps it current as you go. In the works.' },
   ];
   const SYMBOL = {
     videos: '<path d="M11 6.5v19l15-9.5z"/>', courses: '<path d="M5 26h7v-6h7v-6h7V7"/>', programs: '<rect x="6" y="6" width="20" height="20"/>',
-    research: '<path d="M16 5l11 11-11 11L5 16z"/>', people: '<circle cx="16" cy="12" r="4.5"/><path d="M7 27a9 9 0 0 1 18 0"/>', companies: '<path d="M16 4.5l10 5.75v11.5L16 27.5 6 21.75v-11.5z"/>',
+    research: '<path d="M16 5l11 11-11 11L5 16z"/>', people: '<circle cx="16" cy="12" r="4.5"/><path d="M7 27a9 9 0 0 1 18 0"/>', assistant: '<path d="M16 4c1 6.5 4.5 10 11 12-6.5 1.5-10 5-11 12-1-7-4.5-10.5-11-12 6.5-2 10-5.5 11-12z"/>',
   };
   const sym = (key, size = 18) => `<svg viewBox="0 0 32 32" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${SYMBOL[key]}</svg>`;
 
@@ -30,13 +32,13 @@
   function renderIndex() {
     const el = $('#index');
     el.insertAdjacentHTML('beforeend', SECTIONS.map((s) => `
-      <div class="row ${s.open ? '' : 'locked'}" data-key="${s.key}">
-        <button class="row-head" ${s.open ? '' : 'disabled'} aria-expanded="false">
+      <div class="row ${s.open ? '' : 'locked'} ${s.cta ? 'soon' : ''}" data-key="${s.key}">
+        <button class="row-head" ${s.open || s.cta ? '' : 'disabled'} aria-expanded="false">
           <span class="row-sym">${sym(s.key)}</span>
-          <span class="row-label"><span class="num">${s.num}</span>${esc(s.label)}<span class="row-sub">${esc(s.sub)}${s.open ? '' : ` · Level ${s.level} · locked`}</span></span>
-          <span class="row-plus" aria-hidden="true">${s.open ? '+' : '<svg viewBox="0 0 24 24" width="14" height="14"><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>'}</span>
+          <span class="row-label"><span class="num">${s.num}</span>${esc(s.label)}<span class="row-sub">${esc(s.sub)}${s.cta ? ' · coming' : s.open ? '' : ` · Level ${s.level} · locked`}</span></span>
+          <span class="row-plus" aria-hidden="true">${s.open || s.cta ? '+' : '<svg viewBox="0 0 24 24" width="14" height="14"><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>'}</span>
         </button>
-        ${s.open ? `<div class="row-body"><p>${esc(s.line)}<a href="${s.href}">Open →</a></p></div>` : ''}
+        ${s.open || s.cta ? `<div class="row-body"><p>${esc(s.line)}<a href="${s.href}"${s.cta ? ' target="_blank" rel="noopener"' : ''}>${esc(s.ctaLabel || 'Open →')}</a></p></div>` : ''}
       </div>`).join(''));
     el.addEventListener('click', (e) => {
       const head = e.target.closest('.row-head');
@@ -68,7 +70,7 @@
     SECTIONS.forEach((s, i) => {
       const a = -Math.PI / 2 + 0.35 + (i / SECTIONS.length) * Math.PI * 2;
       const r = RS + 10 * Math.sin(i * 2.1);
-      nodes.push({ id: s.key, kind: 'section', x: CX + r * Math.cos(a), y: CY + r * Math.sin(a), label: s.label, num: s.num, href: s.href, open: s.open, level: s.level });
+      nodes.push({ id: s.key, kind: 'section', x: CX + r * Math.cos(a), y: CY + r * Math.sin(a), label: s.label, num: s.num, href: s.href, open: s.open, cta: s.cta, level: s.level });
       edges.push({ a: 'home', b: s.key, dashed: !s.open });
     });
   }
@@ -87,6 +89,7 @@
     }
     const hex = 'M0,-13 L11.3,-6.5 L11.3,6.5 L0,13 L-11.3,6.5 L-11.3,-6.5 Z';
     const inner = `<path d="${hex}" fill="var(--card)" stroke="${nd.open ? 'var(--ink)' : 'var(--ink-3)'}" stroke-width="1.4"/><text y="3.5" text-anchor="middle" class="num">${nd.num.replace(/^0/, '')}</text><text y="30" text-anchor="middle" class="lbl ${nd.open ? '' : 'muted'}">${esc(nd.label)}</text>`;
+    if (nd.cta) return `<g class="node section locked" data-id="${nd.id}" transform="translate(${nd.x},${nd.y})"><a href="${nd.href}" target="_blank" rel="noopener">${inner}<title>${esc(nd.label)} · coming · join the waitlist →</title></a></g>`;
     return nd.open
       ? `<g class="node section" data-id="${nd.id}" transform="translate(${nd.x},${nd.y})"><a href="${nd.href}">${inner}<title>${esc(nd.label)} →</title></a></g>`
       : `<g class="node section locked" data-id="${nd.id}" transform="translate(${nd.x},${nd.y})">${inner}<title>${esc(nd.label)} · Level ${nd.level} · locked</title></g>`;

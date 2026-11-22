@@ -1349,6 +1349,7 @@ def main():
     (DATA / "providers.js").write_text("window.FA_PROVIDERS = " + json.dumps(prov_summary, ensure_ascii=False) + ";\n")
     log(f"wrote {DATA / 'videos.json'} and providers.json")
     try:  # crawlable pages, sitemap, robots and llms.txt follow the catalogue
+        sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
         import build_pages
         build_pages.main()
     except Exception as e:  # noqa: BLE001

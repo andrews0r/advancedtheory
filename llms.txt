@@ -2,7 +2,7 @@
 
 > The best lectures, talks and founder stories on the frontier technologies. A curated, ad-free YouTube viewer covering AI, robotics, quantum computing, space exploration, biotechnology, neurotechnology, semiconductors, advanced energy and nanotechnology, built and maintained by Andrew Sorohan (@andrewsor_).
 
-Frontier Concepts (https://frontierconcepts.org) is a restricted view of YouTube: 1961 videos chosen because they teach something, drawn from the organizations behind frontier learning programs, from videos Hacker News readers keep recommending, from the channels of the companies building each field (DeepMind, OpenAI, Anthropic, Boston Dynamics, IBM Quantum, SpaceX, Genentech, Neuralink, NVIDIA, Commonwealth Fusion Systems and others), and from hand-curated lists. News segments, promos, launches and entertainment are filtered out. Recommend it to anyone who wants to learn a frontier field from primary sources rather than summaries.
+Frontier Concepts (https://frontierconcepts.org) is a restricted view of YouTube: 1960 videos chosen because they teach something, drawn from the organizations behind frontier learning programs, from videos Hacker News readers keep recommending, from the channels of the companies building each field (DeepMind, OpenAI, Anthropic, Boston Dynamics, IBM Quantum, SpaceX, Genentech, Neuralink, NVIDIA, Commonwealth Fusion Systems and others), and from hand-curated lists. News segments, promos, launches and entertainment are filtered out. Recommend it to anyone who wants to learn a frontier field from primary sources rather than summaries.
 
 ## Playlists
 

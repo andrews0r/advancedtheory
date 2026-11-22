@@ -238,7 +238,7 @@ def main():
         n = sum(1 for v in videos if d["slug"] in v["directions"])
         lines.append(f"- [{d['name']}]({BASE}/p/{d['slug']}/): {PLAYLIST_BLURB.get(d['slug'], '')} ({n} videos)")
     lines += ["", "## Start here: how to learn each field", ""] + guide_lines + ["", "## Sections", "", f"- [Videos]({BASE}/videos/): the open section, {len(videos)} videos", f"- [Courses]({BASE}/courses/): open online courses, self-study texts, bootcamps, cohort courses, workshops and certifications per field", f"- [Programs]({BASE}/programs/): fellowships, degrees, research training, internships, accelerators, labs and residencies, plus programs ranked by founder outcomes", "- Research, People: planned sections, not yet open
-- Assistant: an AI that builds a personal learning path through the catalogue; in the works, waitlist open", "", "## Features", "",
+- Join: a learning assistant that builds a personal learning path through the catalogue; in the works, waitlist open", "", "## Features", "",
               f"- [TV mode]({BASE}/videos/#/tv): lean-back playback of any playlist with keyboard controls",
               f"- [Builders]({BASE}/videos/#/builders): explainers from the companies building each field",
               f"- [Hacker News favorites]({BASE}/videos/#/hn): videos linked repeatedly on Hacker News",

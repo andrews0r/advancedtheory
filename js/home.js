@@ -18,7 +18,7 @@
       line: 'Fellowships, degrees, labs and accelerators, ranked by founder outcomes.' },
     { num: '04', key: 'research', label: 'Research', sub: 'Papers + reading lists', open: false, level: 4 },
     { num: '05', key: 'people', label: 'People', sub: 'Who to follow + learn from', open: false, level: 5 },
-    { num: '06', key: 'assistant', label: 'Assistant', sub: 'Your personal learning path', open: false, cta: true,
+    { num: '06', key: 'assistant', label: 'Join', sub: 'A personal learning assistant', open: false, cta: true,
       href: 'https://x.com/andrewsor_', ctaLabel: 'Join the waitlist →',
       line: 'An AI that builds a learning path through the videos, courses and programs for you, and keeps it current as you go. In the works.' },
   ];

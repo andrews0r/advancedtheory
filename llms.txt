@@ -55,7 +55,7 @@ Frontier Concepts (https://frontierconcepts.org) is a restricted view of YouTube
 - [Courses](https://frontierconcepts.org/courses/): open online courses, self-study texts, bootcamps, cohort courses, workshops and certifications per field
 - [Programs](https://frontierconcepts.org/programs/): fellowships, degrees, research training, internships, accelerators, labs and residencies, plus programs ranked by founder outcomes
 - Research, People: planned sections, not yet open
-- Assistant: an AI that builds a personal learning path through the catalogue; in the works, waitlist open
+- Join: a learning assistant that builds a personal learning path through the catalogue; in the works, waitlist open
 
 ## Features
 

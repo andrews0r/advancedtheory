@@ -67,7 +67,7 @@ def fmt_views(n: int) -> str:
 def page_shell(title: str, description: str, canonical: str, body: str, jsonld: dict | None) -> str:
     ld = f'<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
     return f"""<!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -85,6 +85,7 @@ def page_shell(title: str, description: str, canonical: str, body: str, jsonld: 
 <meta name="twitter:site" content="@andrewsor_">
 <link rel="icon" href="/favicon.svg">
 <link rel="stylesheet" href="/css/styles.css">
+<script>try {{ var t = localStorage.getItem('fa-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); }} catch (e) {{}}</script>
 <style>
   .page {{ max-width: 920px; margin: 0 auto; padding: 24px 16px 64px; }}
   .page header {{ display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }}
@@ -115,7 +116,7 @@ def brand() -> str:
     return (f'<header><a href="/" class="brand" aria-label="{NAME} home"><span class="brand-mark">'
             f'<svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/>'
             f'<g stroke="#fff" stroke-width="1.1" fill="none" stroke-linecap="round"><circle cx="16" cy="16" r="11"/></g></svg>'
-            f'</span><span class="brand-text">Advanced<span class="brand-tv">Theory</span></span></a></header>')
+            f'</span><span class="brand-text">frontier <span class="brand-tv">concepts.</span></span></a></header>')
 
 
 def playlist_page(d: dict, videos: list[dict], all_dirs: list[dict]) -> str:

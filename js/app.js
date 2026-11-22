@@ -368,27 +368,29 @@
         <div class="prov-list">${p.providers.map((x) => x.videos ? `<a class="chip small" href="#/p/${d.slug}?prov=${encodeURIComponent(x.name)}">${esc(x.name)} <span>${x.videos}</span></a>` : `<span class="chip small" style="opacity:.55">${esc(x.name)}</span>`).join('')}</div></details>`;
     }).join('');
     return `<article class="about">
-      <h1>About Frontier Concepts</h1>
-      <p class="lede">A lean-back way to watch the best lectures, talks and courses on the frontier technologies: AI, robotics, quantum, space, biotech, neurotech, semiconductors, energy and nanotech.</p>
-      <h2>Where the videos come from</h2>
-      <p>Frontier Concepts is a restricted view of YouTube. Videos come from the organizations behind a curated list of frontier learning programs, from what Hacker News readers keep recommending, and from the channels of the companies building each field. Everything is filtered to lectures, talks, explainers and interviews; news, promos and entertainment are left out.</p>
+      <h1>About</h1>
+      <p class="lede">The best way to learn a hard field is to watch the people who are actually working on it. YouTube has those videos. It just buries them.</p>
+      <p>Frontier Concepts is the small part of YouTube worth your time on nine frontier technologies: AI, robotics, quantum computing, space, biotech, neurotech, semiconductors, energy and nanotech. About two thousand videos. No ads, no recommendations engine, nothing trying to keep you watching.</p>
+      <h2>How I pick them</h2>
+      <p>Three tests, and a video has to pass all of them. It has to come from somewhere that matters: a university or lab on a curated list of the best programs in each field, a company building the thing, or a link that Hacker News readers kept posting over the years. It has to teach something, so lectures, talks, explainers and interviews stay, and news segments, launches, promos and reaction videos go. And it has to be about the field, not merely mention it.</p>
+      <p>The rules are code, and the code makes mistakes. If something doesn't belong, it's a bug, and I'd like to hear about it.</p>
       <table class="dir-table">
         <thead><tr><th>Direction</th><th style="text-align:right">Videos</th><th>Top organizations</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
-      <h2>Tabs</h2>
+      <h2>What's here</h2>
       <ul>
-        <li><b>Playlists</b> for each of the nine directions, sortable by views or date and filterable by organization.</li>
-        <li><b>${esc(BUILDERS.nav)}</b>: explainers and technical updates from the leading companies' own channels.</li>
-        <li><b>HN favorites</b>: videos Hacker News has linked again and again over the years.</li>
-        <li><b>Start a Company</b>: hand-picked founder stories, podcasts and interviews where company building meets the frontier.</li>
-        <li><b>Advanced Theory</b>: a curated set of the hardest, deepest lectures behind each field.</li>
+        <li><b>Nine playlists</b>, one per field. Sort by views or date, filter by who made it.</li>
+        <li><b>${esc(BUILDERS.nav)}</b>: the companies building each field, explaining their own work. Trailers and announcements removed.</li>
+        <li><b>HN favorites</b>: the videos Hacker News has linked over and over. A good filter for what's actually worth an hour.</li>
+        <li><b>Start a Company</b>: founders of frontier companies on how they did it. Picked by hand.</li>
+        <li><b>Advanced Theory</b>: the hard stuff. The deepest lecture I could find for each field.</li>
       </ul>
       <h2>TV mode</h2>
-      <p>Pick a playlist and let it play. Controls fade while you watch: <span class="kbd">→</span> next, <span class="kbd">←</span> previous, <span class="kbd">Space</span> pause, <span class="kbd">S</span> shuffle, <span class="kbd">F</span> full screen, <span class="kbd">Esc</span> exit.</p>
-      <h2>Organizations by direction</h2>
+      <p>Pick a playlist, put it on the big screen, and let it run. The controls get out of the way: <span class="kbd">→</span> next, <span class="kbd">←</span> previous, <span class="kbd">Space</span> pause, <span class="kbd">S</span> shuffle, <span class="kbd">F</span> full screen, <span class="kbd">Esc</span> exit.</p>
+      <h2>Who's in it</h2>
       ${provDetails}
-      <p style="color:var(--ink-3)">Created by <a href="https://x.com/andrewsor_" target="_blank" rel="noopener">@andrewsor_</a>. Videos belong to their creators and are streamed from YouTube.</p>
+      <p style="color:var(--ink-3)">Made by <a href="https://x.com/andrewsor_" target="_blank" rel="noopener">@andrewsor_</a>. The videos belong to the people who made them; they play from YouTube.</p>
     </article>`;
   }
 

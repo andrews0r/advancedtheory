@@ -1,40 +1,45 @@
 # Frontier Concepts
 
-**[frontierconcepts.org](https://frontierconcepts.org)** — the best lectures, talks and founder stories on the frontier technologies: AI, robotics, quantum computing, space, biotech, neurotech, semiconductors, energy and nanotech.
+**[frontierconcepts.org](https://frontierconcepts.org)**
 
-A curated, ad-free view of YouTube. Nine topic playlists plus Builders, Hacker News favorites, Start a Company and Advanced Theory; dark and light mode; a lean-back TV mode. Vanilla HTML, CSS and JavaScript, no build step, hosted on GitHub Pages.
+The best way to learn a hard field is to watch the people working on it. YouTube has those videos and buries them. This is the small part of YouTube worth your time on nine frontier technologies: AI, robotics, quantum computing, space, biotech, neurotech, semiconductors, energy and nanotech. About two thousand videos, no ads, no recommendation engine.
 
-## Run locally
+It's a static site. HTML, CSS and one JavaScript file. No build step. GitHub Pages serves it.
+
+## Run it
 
 ```bash
 python3 scripts/serve.py
 ```
 
-Then open http://localhost:8765.
+Open http://localhost:8765.
 
-## Where the videos come from
+## How videos get in
 
-Everything is chosen offline by `scripts/fetch_videos.py`, which writes `data/videos.js`. Four sources, all passed through the same filter that keeps lectures, talks, explainers and interviews and drops news, promos, launches and entertainment:
+A script picks them, offline, and writes `data/videos.js`. A video has to pass three tests.
 
-1. **Organizations** behind a curated list of frontier learning programs: YouTube searches per topic, kept only when the video is on a listed organization's channel or names one.
-2. **Hacker News**: videos linked two or more times on HN for the topic (`scripts/fetch_hn.py`, no key needed).
-3. **Builders**: explainers and technical updates from the channels of the companies building each field. Channel handles live in `LEADERS` in the fetch script.
-4. **Curated lists**: `data/curated_library.csv` feeds the Start a Company and Advanced Theory tabs; `data/manual_adds.txt` takes one-off links (URL, playlist slug, optional label).
+1. **It comes from somewhere that matters.** A university or lab on a curated list of the best programs in each field, a company building the thing (`LEADERS` in the fetch script), or a link Hacker News readers kept posting (`scripts/fetch_hn.py`).
+2. **It teaches something.** Lectures, talks, explainers and interviews stay. News, launches, promos and reaction videos go.
+3. **It's about the field**, not just mentioning it.
 
-## Refreshing the catalogue
+Two tabs are picked by hand instead: `data/curated_library.csv` feeds Start a Company and Advanced Theory. One-off links go in `data/manual_adds.txt` (URL, playlist slug, optional label).
 
-1. Put a YouTube Data API key in `.env` as `YOUTUBE_API_KEY=...` (git-ignored).
-2. Run `python3 scripts/fetch_hn.py`, then `python3 scripts/fetch_videos.py`.
+The rules are code, and the code makes mistakes. If something doesn't belong, open an issue.
 
-Responses are cached in `cache/`, so re-runs are nearly free. The default run stays well under the daily API quota; searches that cost 100 units each are opt-in flags (`--startup-searches`, `--max-channel-searches`). The fetch ends by running `scripts/build_pages.py`, which regenerates the crawlable pages under `p/`, `sitemap.xml`, `robots.txt`, `llms.txt` and `llms-full.txt`.
+## Refresh
+
+1. Put a YouTube Data API key in `.env` as `YOUTUBE_API_KEY=...`. It's git-ignored.
+2. `python3 scripts/fetch_hn.py`, then `python3 scripts/fetch_videos.py`.
+
+Responses are cached in `cache/`, so a re-run is almost free. The default run uses a small fraction of the daily API quota; the expensive searches are behind flags (`--startup-searches`, `--max-channel-searches`). The fetch finishes by regenerating the crawlable pages under `p/`, `sitemap.xml`, `robots.txt`, `llms.txt` and `llms-full.txt`.
 
 ## Routes
 
 - `#/` home · `#/p/<slug>` playlist · `#/w/<id>` watch · `#/search?q=` · `#/builders` · `#/hn` · `#/history` · `#/about`
-- `#/tv?p=<slug>` TV mode: arrows next/previous, Space pause, S shuffle, F full screen, M mute, 0–9 switch playlist, Esc exit.
+- `#/tv?p=<slug>` TV mode. Arrows for next and previous, Space to pause, S to shuffle, F for full screen, M to mute, 0–9 to switch playlist, Esc to leave.
 
-## Deploying
+## Deploy
 
-Push to `main`. GitHub Pages serves the repo root at frontierconcepts.org; `cache/` and `.env` never leave your machine.
+Push to `main`. That's it.
 
-Created by [@andrewsor_](https://x.com/andrewsor_). Videos belong to their creators and are streamed from YouTube.
+Made by [@andrewsor_](https://x.com/andrewsor_). The videos belong to the people who made them; they play from YouTube.

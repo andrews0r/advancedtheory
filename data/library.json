@@ -239,7 +239,7 @@
 "youtube": "",
 "url": "https://yoshuabengio.org",
 "domain": "yoshuabengio.org",
-"logo": "",
+"logo": "/logos/people/ai-yoshua-bengio.jpg",
 "note": "Deep learning pioneer and Turing laureate; now the most careful public voice on what safe AI requires",
 "rank": 8
 },
@@ -701,7 +701,7 @@
 "youtube": "https://www.youtube.com/@TheRobotBrainsPodcast",
 "url": "https://people.eecs.berkeley.edu/~pabbeel/",
 "domain": "people.eecs.berkeley.edu",
-"logo": "",
+"logo": "/logos/people/robotics-pieter-abbeel.jpg",
 "note": "Deep RL for manipulation; hosts The Robot Brains podcast with the people building robots",
 "rank": 3
 },
@@ -745,7 +745,7 @@
 "youtube": "",
 "url": "https://danielarus.csail.mit.edu",
 "domain": "danielarus.csail.mit.edu",
-"logo": "",
+"logo": "/logos/people/robotics-daniela-rus.jpg",
 "note": "Soft robots and liquid neural networks and self-driving; runs the largest robotics lab in the US",
 "rank": 5
 },
@@ -767,7 +767,7 @@
 "youtube": "https://www.youtube.com/@BostonDynamics",
 "url": "https://rai-inst.com",
 "domain": "rai-inst.com",
-"logo": "",
+"logo": "/logos/people/robotics-marc-raibert.jpg",
 "note": "Forty years of legged robots from the MIT Leg Lab to Atlas; now runs a research institute on robot intelligence",
 "rank": 6
 },
@@ -811,7 +811,7 @@
 "youtube": "",
 "url": "https://goldberg.berkeley.edu",
 "domain": "goldberg.berkeley.edu",
-"logo": "",
+"logo": "/logos/people/robotics-ken-goldberg.jpg",
 "note": "Grasping and the data question in robotics; the skeptic the field needs",
 "rank": 8
 },
@@ -965,7 +965,7 @@
 "youtube": "",
 "url": "https://www.figure.ai",
 "domain": "figure.ai",
-"logo": "",
+"logo": "/logos/people/robotics-brett-adcock.jpg",
 "note": "Building humanoids for factories and homes; the most public humanoid roadmap",
 "rank": 15
 },
@@ -987,7 +987,7 @@
 "youtube": "",
 "url": "https://www.1x.tech",
 "domain": "1x.tech",
-"logo": "",
+"logo": "/logos/people/robotics-bernt-bornich.jpg",
 "note": "NEO, the home humanoid; posts the real footage, not renders",
 "rank": 16
 },
@@ -1009,7 +1009,7 @@
 "youtube": "",
 "url": "https://preskill.caltech.edu",
 "domain": "preskill.caltech.edu",
-"logo": "",
+"logo": "/logos/people/quantum-john-preskill.jpg",
 "note": "Coined NISQ; his lecture notes are the free graduate course in quantum information",
 "rank": 1
 },
@@ -1031,7 +1031,7 @@
 "youtube": "",
 "url": "https://scottaaronson.blog",
 "domain": "scottaaronson.blog",
-"logo": "",
+"logo": "/logos/people/quantum-scott-aaronson.jpg",
 "note": "Shtetl-Optimized: quantum complexity explained without hype and with the hype called out",
 "rank": 2
 },
@@ -1053,7 +1053,7 @@
 "youtube": "",
 "url": "https://michaelnielsen.org",
 "domain": "michaelnielsen.org",
-"logo": "",
+"logo": "/logos/people/quantum-michael-nielsen.jpg",
 "note": "Co-wrote Nielsen and Chuang; Quantum Country is the best interactive introduction",
 "rank": 3
 },
@@ -1075,7 +1075,7 @@
 "youtube": "",
 "url": "https://math.mit.edu/~shor/",
 "domain": "math.mit.edu",
-"logo": "",
+"logo": "/logos/people/quantum-peter-shor.jpg",
 "note": "Shor's algorithm and the first quantum error-correcting code; the reason the field has a goal",
 "rank": 4
 },
@@ -1097,7 +1097,7 @@
 "youtube": "",
 "url": "https://research.ibm.com/people/jay-gambetta",
 "domain": "research.ibm.com",
-"logo": "",
+"logo": "/logos/people/quantum-jay-gambetta.jpg",
 "note": "Runs the roadmap from Qiskit to fault tolerance; the most public view into building real machines",
 "rank": 5
 },
@@ -1141,7 +1141,7 @@
 "youtube": "",
 "url": "https://algassert.com",
 "domain": "algassert.com",
-"logo": "",
+"logo": "/logos/people/quantum-craig-gidney.jpg",
 "note": "Error correction and resource estimates; the blog that tells you what breaking RSA would actually take",
 "rank": 7
 },
@@ -1207,7 +1207,7 @@
 "youtube": "https://www.youtube.com/@scottmanley",
 "url": "https://www.youtube.com/@scottmanley",
 "domain": "youtube.com",
-"logo": "",
+"logo": "/logos/people/space-scott-manley.jpg",
 "note": "Explains every launch and failure with the orbital mechanics behind it; the field's best explainer",
 "rank": 1
 },
@@ -1229,7 +1229,7 @@
 "youtube": "https://www.youtube.com/@EverydayAstronaut",
 "url": "https://everydayastronaut.com",
 "domain": "everydayastronaut.com",
-"logo": "",
+"logo": "/logos/people/space-tim-dodd.jpg",
 "note": "Long-form explainers on rocket engines and launch systems; interviews the people who build them",
 "rank": 2
 },
@@ -1273,7 +1273,7 @@
 "youtube": "",
 "url": "https://planet4589.org",
 "domain": "planet4589.org",
-"logo": "",
+"logo": "/logos/people/space-jonathan-mcdowell.jpg",
 "note": "Tracks every object launched since 1957; the General Catalog is the field's reference dataset",
 "rank": 4
 },
@@ -1295,7 +1295,7 @@
 "youtube": "",
 "url": "https://www.saraseager.com",
 "domain": "saraseager.com",
-"logo": "",
+"logo": "/logos/people/space-sara-seager.jpg",
 "note": "Exoplanet atmospheres and the search for life; her Exoplanet Atmospheres is the textbook",
 "rank": 5
 },
@@ -1339,7 +1339,7 @@
 "youtube": "",
 "url": "https://spacenews.com/author/jeff-foust/",
 "domain": "spacenews.com",
-"logo": "",
+"logo": "/logos/people/space-jeff-foust.jpg",
 "note": "Policy and industry reporting with the documents attached",
 "rank": 7
 },
@@ -1361,7 +1361,7 @@
 "youtube": "",
 "url": "https://www.rocketlabcorp.com",
 "domain": "rocketlabcorp.com",
-"logo": "",
+"logo": "/logos/people/space-peter-beck.jpg",
 "note": "Electron and Neutron; the second company to make orbital launch routine",
 "rank": 8
 },
@@ -1383,7 +1383,7 @@
 "youtube": "",
 "url": "https://x.com/torybruno",
 "domain": "x.com",
-"logo": "",
+"logo": "/logos/people/space-tory-bruno.jpg",
 "note": "Explains launch vehicle engineering trade-offs in public, with the numbers",
 "rank": 9
 },
@@ -1405,7 +1405,7 @@
 "youtube": "",
 "url": "https://x.com/rookisaacman",
 "domain": "x.com",
-"logo": "",
+"logo": "/logos/people/space-jared-isaacman.jpg",
 "note": "Flew the first commercial spacewalk; posts from the inside of the program",
 "rank": 10
 },
@@ -1449,7 +1449,7 @@
 "youtube": "",
 "url": "https://doudnalab.org",
 "domain": "doudnalab.org",
-"logo": "",
+"logo": "/logos/people/biotech-jennifer-doudna.jpg",
 "note": "Co-invented CRISPR genome editing; the IGI publishes what is coming next in editing",
 "rank": 1
 },
@@ -1493,7 +1493,7 @@
 "youtube": "",
 "url": "https://arep.med.harvard.edu/gmc/",
 "domain": "arep.med.harvard.edu",
-"logo": "",
+"logo": "/logos/people/biotech-george-church.jpg",
 "note": "Genome sequencing and synthesis and dozens of companies; the broadest view of what biology can build",
 "rank": 3
 },
@@ -1515,7 +1515,7 @@
 "youtube": "",
 "url": "https://www.science.org/blogs/pipeline",
 "domain": "science.org",
-"logo": "",
+"logo": "/logos/people/biotech-derek-lowe.jpg",
 "note": "Twenty years of honest commentary on drug discovery: what works and what fails and why",
 "rank": 4
 },
@@ -1537,7 +1537,7 @@
 "youtube": "",
 "url": "https://erictopol.substack.com",
 "domain": "erictopol.substack.com",
-"logo": "",
+"logo": "/logos/people/biotech-eric-topol.jpg",
 "note": "Ground Truths: reads every paper that matters in medicine and AI and tells you which ones do",
 "rank": 5
 },
@@ -1559,7 +1559,7 @@
 "youtube": "",
 "url": "https://www.asimov.press",
 "domain": "asimov.press",
-"logo": "",
+"logo": "/logos/people/biotech-niko-mccarty.jpg",
 "note": "Essays on the history and engineering of biology; the best writing on synthetic biology for builders",
 "rank": 6
 },
@@ -1581,7 +1581,7 @@
 "youtube": "",
 "url": "https://arcinstitute.org",
 "domain": "arcinstitute.org",
-"logo": "",
+"logo": "/logos/people/biotech-patrick-hsu.jpg",
 "note": "Evo, the DNA foundation model, and new CRISPR tools; the lab that treats biology as a design problem",
 "rank": 7
 },
@@ -1603,7 +1603,7 @@
 "youtube": "",
 "url": "https://brianhie.com",
 "domain": "brianhie.com",
-"logo": "",
+"logo": "/logos/people/biotech-brian-hie.jpg",
 "note": "Evolution-scale language models for DNA and protein; the papers behind Evo",
 "rank": 8
 },
@@ -1669,7 +1669,7 @@
 "youtube": "",
 "url": "https://pachterlab.github.io",
 "domain": "pachterlab.github.io",
-"logo": "",
+"logo": "/logos/people/biotech-lior-pachter.jpg",
 "note": "Computational biology and genomics; the field's sharpest critic of weak papers",
 "rank": 11
 },
@@ -1735,7 +1735,7 @@
 "youtube": "",
 "url": "https://dlab.stanford.edu",
 "domain": "dlab.stanford.edu",
-"logo": "",
+"logo": "/logos/people/neurotech-karl-deisseroth.jpg",
 "note": "Optogenetics and CLARITY: the tools that let you control and see circuits in a living brain",
 "rank": 1
 },
@@ -1757,7 +1757,7 @@
 "youtube": "",
 "url": "https://synthneuro.org",
 "domain": "synthneuro.org",
-"logo": "",
+"logo": "/logos/people/neurotech-ed-boyden.jpg",
 "note": "Co-invented optogenetics and expansion microscopy; builds the tools the rest of neuroscience uses",
 "rank": 2
 },
@@ -1801,7 +1801,7 @@
 "youtube": "",
 "url": "https://synchron.com",
 "domain": "synchron.com",
-"logo": "",
+"logo": "/logos/people/neurotech-tom-oxley.jpg",
 "note": "Stentrode: a brain-computer interface implanted through blood vessels; furthest along in human trials",
 "rank": 4
 },
@@ -1823,7 +1823,7 @@
 "youtube": "",
 "url": "https://paradromics.com",
 "domain": "paradromics.com",
-"logo": "",
+"logo": "/logos/people/neurotech-matt-angle.jpg",
 "note": "High-channel-count implants aimed at speech; the engineering-heavy end of the BCI field",
 "rank": 5
 },
@@ -1845,7 +1845,7 @@
 "youtube": "",
 "url": "https://science.xyz",
 "domain": "science.xyz",
-"logo": "",
+"logo": "/logos/people/neurotech-max-hodak.jpg",
 "note": "Retinal and cortical implants; the most technical founder writing about brain interfaces",
 "rank": 6
 },
@@ -2153,7 +2153,7 @@
 "youtube": "https://www.youtube.com/@OnurMutluLectures",
 "url": "https://people.inf.ethz.ch/omutlu/",
 "domain": "people.inf.ethz.ch",
-"logo": "",
+"logo": "/logos/people/semiconductors-onur-mutlu.jpg",
 "note": "Memory systems and computer architecture; every lecture of his courses is online in full",
 "rank": 6
 },
@@ -2175,7 +2175,7 @@
 "youtube": "",
 "url": "https://www.amd.com/en/corporate/leadership/lisa-su.html",
 "domain": "amd.com",
-"logo": "",
+"logo": "/logos/people/semiconductors-lisa-su.jpg",
 "note": "Turned AMD around with chiplets and Zen; her keynotes are the clearest view of where compute is going",
 "rank": 7
 },
@@ -2219,7 +2219,7 @@
 "youtube": "",
 "url": "https://x.com/PGelsinger",
 "domain": "x.com",
-"logo": "",
+"logo": "/logos/people/semiconductors-pat-gelsinger.jpg",
 "note": "Forty years inside Intel from the 486 to the foundry bet",
 "rank": 9
 },
@@ -2439,7 +2439,7 @@
 "youtube": "",
 "url": "https://www.liebreich.com",
 "domain": "liebreich.com",
-"logo": "",
+"logo": "/logos/people/energy-michael-liebreich.jpg",
 "note": "The economics of the energy transition and the hydrogen ladder",
 "rank": 7
 },
@@ -2461,7 +2461,7 @@
 "youtube": "",
 "url": "https://rameznaam.com",
 "domain": "rameznaam.com",
-"logo": "",
+"logo": "/logos/people/energy-ramez-naam.jpg",
 "note": "Forecast the solar cost collapse before it happened; writes the learning-curve analysis",
 "rank": 8
 },
@@ -2527,7 +2527,7 @@
 "youtube": "",
 "url": "https://www.iea.org",
 "domain": "iea.org",
-"logo": "",
+"logo": "/logos/people/energy-fatih-birol.jpg",
 "note": "The World Energy Outlook; the official numbers on supply and demand",
 "rank": 11
 },
@@ -2571,7 +2571,7 @@
 "youtube": "",
 "url": "https://www.helionenergy.com",
 "domain": "helionenergy.com",
-"logo": "",
+"logo": "/logos/people/energy-david-kirtley.jpg",
 "note": "Pulsed fusion with direct electricity recovery; the first fusion power purchase agreement",
 "rank": 13
 },
@@ -2593,7 +2593,7 @@
 "youtube": "",
 "url": "https://en.wikipedia.org/wiki/K._Eric_Drexler",
 "domain": "en.wikipedia.org",
-"logo": "",
+"logo": "/logos/people/nanotech-eric-drexler.jpg",
 "note": "Named the field and set its agenda; molecular manufacturing from first principles",
 "rank": 1
 },
@@ -2615,7 +2615,7 @@
 "youtube": "",
 "url": "https://mirkin-group.northwestern.edu",
 "domain": "mirkin-group.northwestern.edu",
-"logo": "",
+"logo": "/logos/people/nanotech-chad-mirkin.jpg",
 "note": "Spherical nucleic acids and dip-pen lithography; has founded more nanotech companies than anyone",
 "rank": 2
 },
@@ -2659,7 +2659,7 @@
 "youtube": "",
 "url": "https://alivisatoslab.uchicago.edu",
 "domain": "alivisatoslab.uchicago.edu",
-"logo": "",
+"logo": "/logos/people/nanotech-paul-alivisatos.jpg",
 "note": "Colloidal nanocrystals and quantum dots; the chemistry behind displays and bioimaging and solar",
 "rank": 4
 },
@@ -2681,7 +2681,7 @@
 "youtube": "",
 "url": "https://www.jmtour.com",
 "domain": "jmtour.com",
-"logo": "",
+"logo": "/logos/people/nanotech-james-tour.jpg",
 "note": "Nanocars, graphene from anything and the synthesis behind nanomaterials",
 "rank": 5
 },

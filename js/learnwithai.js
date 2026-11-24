@@ -646,7 +646,7 @@
     $('#main').innerHTML = `${header}<article class="lw-detail"><div class="dk">${tag(KIND[it.kind])}${tag(f.label)}${it.meta[0] ? `<span class="dm">${esc(it.meta[0])}</span>` : ''}<span class="dm">${fmtH(it.hours)}</span></div><h1>${esc(it.title)}</h1>${it.kind !== 'build' && it.why ? `<p class="why">${esc(it.why)}</p>` : ''}${body}
       <div class="d-foot"><button class="pill-btn ${done ? 'primary' : ''}" id="done">${done ? 'Done ✓' : 'Mark done'}</button>${prev ? `<a class="pill-btn ghost" href="${itemHref(ch, prev)}">‹ ${esc(KIND[prev.kind])}</a>` : ''}${nxt ? `<a class="pill-btn ghost" href="${itemHref(ch, nxt)}">${esc(KIND[nxt.kind])} ›</a>` : `<a class="pill-btn ghost" href="#/p/${ch.id}">Back to the week</a>`}</div></article>`;
     $('#rail').innerHTML = railPursuit(ch, it);
-    $('#done').addEventListener('click', () => { ch.done[it.id] = !ch.done[it.id]; save(); renderItem(ch, it); });
+    $('#done').addEventListener('click', () => { if (ch.done[it.id]) { ch.done[it.id] = false; save(); renderItem(ch, it); return; } onCard(ch, it, 'done'); save(); location.hash = `#/p/${ch.id}`; });
     $$('.lw-check').forEach((ul) => ul.addEventListener('change', (e) => { const c = e.target; S.checks[ul.dataset.check] = S.checks[ul.dataset.check] || {}; S.checks[ul.dataset.check][c.dataset.i] = c.checked; c.closest('li').classList.toggle('on', c.checked); save(); }));
     const noteOf = () => { S.notes[it.id] = S.notes[it.id] || {}; return S.notes[it.id]; };
     const d = $('#draft'); if (d) d.addEventListener('input', () => { noteOf().draft = d.value; save(); });

@@ -1,8 +1,11 @@
-/* Learn with AI (demo). Pick a topic, a duration and a weekly load; the assistant builds a
-   week-by-week path from the catalogue (videos, courses, programs, papers, people) and keeps it
-   in a channel, one channel per rabbit hole. Calendar, Library and Tasks are views over the same
-   plan. Everything is scripted and local: state lives in localStorage, nothing is sent anywhere.
-   Routes: #/new · #/c/<id> · #/calendar · #/library · #/tasks */
+/* Learn with AI (demo). A pursuit is one subject you are building expertise in: pick a topic, a
+   duration and a weekly load; the assistant builds a week-by-week path from the catalogue (videos,
+   courses, programs, papers, people) and keeps it as a conversation. Every move on the path opens
+   as its own session: a player for a talk, a reading guide for a paper, a brief and checklist for a
+   project, a profile and prep for a conversation. Home lists what is coming up; Discover lists
+   learning experiences from the providers in the catalogue that you can apply to from here.
+   Everything is scripted and local: state lives in localStorage, nothing is sent anywhere.
+   Routes: #/home · #/discover · #/new · #/p/<id> · #/p/<id>/i/<item> · #/calendar · #/library · #/tasks */
 (function () {
   'use strict';
   const V = (window.FA_DATA || {}).videos || [];
@@ -10,10 +13,13 @@
   const LIB = window.FC_LIBRARY || { fields: [], people: [], research: [] };
   const FIELDS = (LIB.fields.length ? LIB.fields : PR.fields);
   const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const store = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
   const KEY = 'fc-learnwithai';
-  const S = store.get(KEY, { channels: [], setup: {} });
+  const S = store.get(KEY, {});
+  S.pursuits = S.pursuits || S.channels || []; delete S.channels;
+  S.setup = S.setup || {}; S.applied = S.applied || {}; S.checks = S.checks || {}; S.notes = S.notes || {}; S.prefs = S.prefs || {};
   const save = () => store.set(KEY, S);
 
   const LOADS = { minimal: { label: 'Minimal', hours: 8, sub: 'up to 10 h a week', days: [1, 3, 5] }, part: { label: 'Part time', hours: 20, sub: 'about 20 h a week', days: [0, 1, 2, 3, 4] }, full: { label: 'Full time', hours: 40, sub: 'about 40 h a week', days: [0, 1, 2, 3, 4] } };
@@ -25,9 +31,12 @@
   const fmtH = (h) => (h >= 1 ? (Math.round(h * 2) / 2).toString().replace('.5', '½') + ' h' : Math.round(h * 60) + ' min');
   const fmtN = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'k' : String(n);
   const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
-
-  // ------------------------------------------------------------ seeded rng
-  function rng(seed) { let x = 0; for (const c of seed) x = (x * 31 + c.charCodeAt(0)) >>> 0; return () => { x = (x * 1664525 + 1013904223) >>> 0; return x / 4294967296; }; }
+  const initials = (n) => (n || '?').split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+  const ext = (url) => /^https?:/.test(url || '') ? 'target="_blank" rel="noopener"' : '';
+  const midnight = (d) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; };
+  const sameDay = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  const fmtDate = (d) => d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  const fmtDay = (d) => d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
 
   // ---------------------------------------------------------------- pools
   function pools(slug, topic) {
@@ -50,31 +59,28 @@
   // A plan is a list of weeks; each week a list of items {id, kind, hours, ref, title, url, meta, why}.
   function buildPlan(ch) {
     const P = pools(ch.field, ch.topic);
-    const r = rng(ch.id);
     const weeks = Math.round(ch.months * 4.33);
     const budget = LOADS[ch.load].hours;
     const f = field(ch.field);
     const idx = { videos: 0, courses: 0, programs: 0, research: 0, people: 0 };
     const next = (k) => { const arr = P[k]; if (!arr.length) return null; const it = arr[idx[k] % arr.length]; idx[k] += 1; return it; };
     const items = [];
-    const mk = (week, kind, hours, ref, title, url, meta, why, extra = {}) => { const it = { id: `${ch.id}-${week}-${items.length}`, week, kind, hours: Math.round(hours * 2) / 2, title, url, meta, why, ...extra }; items.push(it); return it; };
+    const mk = (week, kind, hours, ref, title, url, meta, why, extra = {}) => { const it = { id: `${ch.id}-${week}-${items.length}`, week, kind, hours: Math.round(hours * 2) / 2, ref: ref ? ref.id : '', title, url, meta, why, ...extra }; items.push(it); return it; };
     const vidItem = (w, v, why) => mk(w, 'watch', v.duration / 3600 + 0.25, v, v.title, `/videos/#/w/${v.id}`, [v.channel, fmtH(v.duration / 3600), fmtN(v.views || 0) + ' views'], why, { thumb: `https://i.ytimg.com/vi/${v.id}/mqdefault.jpg` });
     const readItem = (w, p, why) => mk(w, 'read', p.kind === 'Paper' || p.kind === 'Essay' ? 3 : 5, p, p.name, p.url, [p.authors ? `${p.authors} · ${p.year}` : String(p.year), p.kind], why || p.note);
     const talkItem = (w, p, why) => mk(w, 'talk', 1, p, p.name, p.url, [p.role, p.org].filter(Boolean), why, { face: p.logo || '' });
     let course = null, program = null, phaseAt = 0;
-    const bounds = PHASES.map(([name, frac]) => [name, frac]);
     for (let w = 1; w <= weeks; w++) {
-      // phase for this week
       let acc = 0, phase = 'Foundations';
-      for (const [name, frac] of bounds) { acc += frac; if ((w - 1) / weeks < acc) { phase = name; break; } }
+      for (const [name, frac] of PHASES) { acc += frac; if ((w - 1) / weeks < acc) { phase = name; break; } }
       let left = budget;
       const firstOfPhase = phase !== phaseAt; phaseAt = phase;
-      // weekly check-in with the assistant
       mk(w, 'coach', 0.5, null, `Check-in · week ${w}`, '', ['with the assistant', phase], w === 1 ? 'Set the baseline: what you know, what you want to be able to do by the end.' : 'What landed, what did not, what to change next week.');
       left -= 0.5;
       if (phase === 'Foundations') {
-        if (w === 1 && P.research.length) { const t = P.research.find((x) => x.kind === 'Textbook') || P.research[0]; if (t) { const it = readItem(w, t, `The textbook for ${f.name.toLowerCase()}; one chapter a week through this phase.`); it.hours = Math.min(5, Math.round(left * 0.45 * 2) / 2); left -= it.hours; } }
-        else if (P.research.find((x) => x.kind === 'Textbook')) { const t = P.research.find((x) => x.kind === 'Textbook'); const it = readItem(w, t, 'Next chapter.'); it.hours = Math.min(5, Math.round(left * 0.4 * 2) / 2); left -= it.hours; }
+        const tb = P.research.find((x) => x.kind === 'Textbook');
+        if (w === 1 && P.research.length) { const t = tb || P.research[0]; const it = readItem(w, t, `The textbook for ${f.name.toLowerCase()}; one chapter a week through this phase.`); it.hours = Math.min(5, Math.round(left * 0.45 * 2) / 2); left -= it.hours; }
+        else if (tb) { const it = readItem(w, tb, 'Next chapter.'); it.hours = Math.min(5, Math.round(left * 0.4 * 2) / 2); left -= it.hours; }
         while (left > 1 && P.videos.length) { const v = next('videos'); if (!v) break; const it = vidItem(w, v, w === 1 ? 'Start with a talk, not a tutorial: get the shape of the field before the details.' : 'Lecture or talk that fits what you are reading this week.'); left -= it.hours; if (items.filter((x) => x.week === w && x.kind === 'watch').length >= 4) break; }
         if (left > 2.5 && w > 1) { const p = next('research'); if (p && p.kind !== 'Textbook') { const it = readItem(w, p, p.note); left -= it.hours; } }
         if (left > 2) { const it = mk(w, 'build', Math.round(left * 0.8 * 2) / 2, null, w === 1 ? 'Set up: a notes system, the tools the course will need, and a public log of what you learn.' : 'Exercises and notes from this week\'s chapter.', '', ['practice', phase], w === 1 ? 'An hour of setup now saves ten later.' : 'Reading without exercises does not stick; write the summary you wish you had found.'); left -= it.hours; }
@@ -102,53 +108,144 @@
     return { weeks, items, phases: PHASES.map(([n]) => n) };
   }
 
-  const planOf = (ch) => { if (!ch._plan) ch._plan = buildPlan(ch); return ch._plan; };
+  const planOf = (ch) => { if (!ch._plan) { ch._plan = buildPlan(ch); restore(ch); } return ch._plan; };
+  // Re-apply swaps and extras to a freshly built plan (plans are rebuilt from the seed on load).
+  function restore(ch) {
+    const plan = ch._plan;
+    for (const [id, patch] of Object.entries(ch.swaps || {})) { const it = plan.items.find((x) => x.id === id); if (it) Object.assign(it, patch); }
+    for (const it of ch.extra || []) if (!plan.items.some((x) => x.id === it.id)) plan.items.push(it);
+  }
   const phaseOfWeek = (ch, w) => { const n = planOf(ch).weeks; let acc = 0; for (const [name, frac] of PHASES) { acc += frac; if ((w - 1) / n < acc) return name; } return 'Launch'; };
   const startDate = (ch) => { const d = new Date(ch.created); const day = (d.getDay() + 6) % 7; d.setDate(d.getDate() - day + 7); d.setHours(0, 0, 0, 0); return d; };
   const weekOfToday = (ch) => { const ms = Date.now() - startDate(ch).getTime(); return Math.max(1, Math.min(planOf(ch).weeks, Math.floor(ms / (7 * 864e5)) + 1)); };
   const isDone = (ch, it) => !!(ch.done || {})[it.id];
   const isSkipped = (ch, it) => !!(ch.skipped || {})[it.id];
-  const hoursOf = (ch, w, only) => planOf(ch).items.filter((i) => i.week === w && !isSkipped(ch, i) && (!only || only(i))).reduce((a, i) => a + i.hours, 0);
+  const weekItems = (ch, w) => planOf(ch).items.filter((i) => i.week === w && !isSkipped(ch, i));
+  const hoursOf = (ch, w, only) => weekItems(ch, w).filter((i) => !only || only(i)).reduce((a, i) => a + i.hours, 0);
   const progress = (ch) => { const its = planOf(ch).items.filter((i) => !isSkipped(ch, i)); const done = its.filter((i) => isDone(ch, i)).reduce((a, i) => a + i.hours, 0); const all = its.reduce((a, i) => a + i.hours, 0); return all ? done / all : 0; };
-  const fmtDate = (d) => d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  const pct = (ch) => Math.round(progress(ch) * 100);
   const weekDate = (ch, w, offset = 0) => { const d = startDate(ch); d.setDate(d.getDate() + (w - 1) * 7 + offset); return d; };
+  // Every move of a pursuit with the day it lands on (the week's moves spread over the load's days).
+  function dated(ch) {
+    const plan = planOf(ch), L = LOADS[ch.load], out = [];
+    for (let w = 1; w <= plan.weeks; w++) weekItems(ch, w).forEach((it, k) => out.push({ ch, it, date: weekDate(ch, w, L.days[k % L.days.length]) }));
+    return out;
+  }
+  const dateOf = (ch, it) => (dated(ch).find((x) => x.it.id === it.id) || {}).date || weekDate(ch, it.week);
+  const refOf = (it) => {
+    if (!it.ref) return null;
+    if (it.kind === 'watch') return V.find((v) => v.id === it.ref);
+    if (it.kind === 'read') return LIB.research.find((x) => x.id === it.ref);
+    if (it.kind === 'take') return PR.courses.find((x) => x.id === it.ref);
+    if (it.kind === 'attend') return PR.programs.find((x) => x.id === it.ref) || PR.courses.find((x) => x.id === it.ref);
+    if (it.kind === 'talk') return LIB.people.find((x) => x.id === it.ref);
+    return null;
+  };
+  const itemHref = (ch, it) => `#/p/${ch.id}/i/${it.id}`;
 
   // ----------------------------------------------------------------- bits
-  const tag = (t) => `<span class="tag">${esc(t)}</span>`;
-  const chip = (label, active, attrs = '', sub = '') => `<a class="chip ${active ? 'active' : ''}" ${attrs}>${esc(label)}${sub ? `<small>${esc(sub)}</small>` : ''}</a>`;
-  const botIcon = '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="16" cy="16" r="11"/><circle cx="16" cy="16" r="2.2" fill="currentColor" stroke="none"/></svg>';
-  const initials = (n) => n.split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+  const svg = (d, extra = '') => `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${d}</svg>`;
+  const ICO = {
+    home: svg('<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>'),
+    discover: svg('<circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-4 0 2-6z" fill="currentColor" stroke="none"/><path d="M15 9l-6 6"/>'),
+    cal: svg('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+    lib: svg('<path d="M4 4h5v16H4zM11 4h5v16h-5zM17.5 5l4 15"/>'),
+    task: svg('<path d="M4 7l2 2 4-4M4 17l2 2 4-4M13 7h7M13 17h7"/>'),
+    sun: svg('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>', 'class="ico-sun"') + svg('<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>', 'class="ico-moon"'),
+    trash: svg('<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>'),
+    plus: svg('<path d="M12 5v14M5 12h14"/>'),
+    enter: svg('<path d="M20 5v6a3 3 0 0 1-3 3H5M9 10l-4 4 4 4"/>'),
+    chev: svg('<path d="M9 6l6 6-6 6"/>'),
+    back: svg('<path d="M15 6l-6 6 6 6"/>'),
+    ext: svg('<path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>'),
+    check: svg('<path d="M5 12l4 4L19 7"/>'),
+    watch: svg('<circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z" fill="currentColor" stroke="none"/>'),
+    read: svg('<path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/>'),
+    take: svg('<path d="M2 9l10-4 10 4-10 4z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5M22 9v6"/>'),
+    build: svg('<path d="M14 6l4 4-9 9H5v-4zM12 8l4 4"/><path d="M15 3l3 1 2 3-2 2-4-4z"/>'),
+    talk: svg('<path d="M4 5h16v10H9l-5 4z"/>'),
+    attend: svg('<path d="M3 21h18M5 21V8l7-4 7 4v13M10 21v-5h4v5"/>'),
+    coach: svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>'),
+  };
+  const tag = (t, cls = '') => `<span class="tag ${cls}">${esc(t)}</span>`;
+  const chip = (label, active, attrs = '', sub = '') => `<a class="chip small ${active ? 'active' : ''}" ${attrs}>${esc(label)}${sub ? `<span>${esc(sub)}</span>` : ''}</a>`;
+  const fold = (title, body, open = true, right = '') => `<details class="fold" ${open ? 'open' : ''}><summary>${ICO.chev}<span>${esc(title)}</span>${right ? `<em>${right}</em>` : ''}</summary><div class="fb">${body}</div></details>`;
+  const logoOf = (x, cls = '') => `<span class="logo sm ${x.logo ? 'has' : ''} ${cls}">${x.logo ? `<img src="${esc(x.logo)}" alt="" onload="this.classList.add('ok')" onerror="this.remove()">` : ''}<span class="mono">${esc(initials(x.name || x.title))}</span></span>`;
+  const faceOf = (p, cls = 'face') => p.logo ? `<img class="${cls}" src="${esc(p.logo)}" alt="">` : `<span class="${cls} mono">${esc(initials(p.name || p.title))}</span>`;
+  const ptag = (ch) => `<span class="tag ptag">${esc(ch.name)}</span>`;
+  const kv = (rows) => `<dl class="kv">${rows.filter((r) => r[1] || r[1] === 0).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}</dl>`;
+
+  // A move as a compact row (home, calendar, library, tasks).
+  function row(ch, it, right = '') {
+    const done = isDone(ch, it);
+    return `<a class="lw-row ${done ? 'done' : ''}" href="${itemHref(ch, it)}"><span class="ic">${done ? ICO.check : ICO[it.kind]}</span><span class="ti">${esc(it.title)}<small>${ptag(ch)}<span>${KIND[it.kind]}</span>${it.meta[0] ? `<span>${esc(it.meta[0])}</span>` : ''}</small></span><span class="rt">${right || fmtH(it.hours)}</span></a>`;
+  }
+  // A move as a card in the conversation.
   function card(ch, it) {
-    const done = isDone(ch, it), skipped = isSkipped(ch, it);
-    if (skipped) return '';
-    let media = '';
+    const done = isDone(ch, it);
+    if (isSkipped(ch, it)) return '';
+    let media = `<span class="ico">${ICO[it.kind]}</span>`;
     if (it.thumb) media = `<img class="thumb" loading="lazy" src="${esc(it.thumb)}" alt="">`;
-    else if (it.kind === 'talk') media = it.face ? `<img class="face" loading="lazy" src="${esc(it.face)}" alt="">` : `<span class="face mono">${esc(initials(it.title))}</span>`;
-    const title = it.url ? `<a href="${esc(it.url)}" ${/^https?:/.test(it.url) ? 'target="_blank" rel="noopener"' : ''}>${esc(it.title)}</a>` : esc(it.title);
+    else if (it.kind === 'talk') media = faceOf(it, 'face');
+    else if (it.logo) media = `<span class="logo sm has"><img src="${esc(it.logo)}" alt="" onload="this.classList.add('ok')"><span class="mono">${esc(initials(it.title))}</span></span>`;
+    const href = itemHref(ch, it);
     return `<div class="lw-card ${done ? 'done' : ''}" data-id="${it.id}">
-      <div class="kind">${tag(KIND[it.kind])}${media}</div>
-      <div><div class="ti">${title}</div>${it.why ? `<div class="why">${esc(it.why)}</div>` : ''}<div class="m">${it.meta.filter(Boolean).map(esc).join('<span>·</span>')}<span>·</span><span>${fmtH(it.hours)}</span></div></div>
-      <div class="ops"><button data-act="done" class="${done ? 'on' : ''}">${done ? 'Done ✓' : 'Done'}</button>${it.kind !== 'coach' ? '<button data-act="skip">Skip</button>' : ''}${['watch', 'read', 'talk'].includes(it.kind) ? '<button data-act="swap">Swap</button>' : ''}</div>
+      <a class="med" href="${href}">${media}</a>
+      <div class="bd"><a class="ti" href="${href}">${esc(it.title)}</a><div class="m">${tag(KIND[it.kind])}${it.meta.filter(Boolean).map((m) => `<span>${esc(m)}</span>`).join('')}<span>${fmtH(it.hours)}</span></div>${it.why ? `<div class="why">${esc(it.why)}</div>` : ''}</div>
+      <div class="ops"><button data-act="done" class="${done ? 'on' : ''}" title="Mark done">${ICO.check}</button>${it.kind !== 'coach' ? '<button data-act="skip">skip</button>' : ''}${['watch', 'read', 'talk'].includes(it.kind) ? '<button data-act="swap">swap</button>' : ''}</div>
     </div>`;
   }
-  const msg = (html, me = false, t = '') => `<div class="lw-msg ${me ? 'me' : ''}">${me ? '' : `<span class="who">${botIcon}</span>`}<div><div class="txt">${html}</div>${t ? `<div class="t">${esc(t)}</div>` : ''}</div></div>`;
+  const msg = (html, me = false, t = '') => `<div class="cc-msg ${me ? 'me' : 'bot'}"><div class="txt">${html}</div>${t ? `<span class="t">${esc(t)}</span>` : ''}</div>`;
+  const act = (summary, body = '') => `<details class="cc-act"><summary>${ICO.chev}<span>${summary}</span></summary>${body ? `<div class="ab">${body}</div>` : ''}</details>`;
 
   // -------------------------------------------------------------- sidebar
   function renderSide(route) {
-    const chans = S.channels.map((c) => {
-      const active = route.view === 'c' && route.id === c.id;
-      return `<a href="#/c/${c.id}" class="${active ? 'active' : ''}"><span class="hash">#</span><span class="lw-ch-name">${esc(c.name)}</span><span class="lw-ch-meta">${Math.round(progress(c) * 100)}%</span></a>`;
-    }).join('');
-    const view = (key, label, icon) => `<a href="#/${key}" class="${route.view === key ? 'active' : ''}">${icon}<span class="lw-ch-name">${label}</span></a>`;
-    const ico = {
-      cal: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
-      lib: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h5v16H4zM11 4h5v16h-5zM17.5 5l4 15"/></svg>',
-      task: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7l2 2 4-4M4 17l2 2 4-4M13 7h7M13 17h7"/></svg>',
-    };
-    $('#side').innerHTML = `<h3>Rabbit holes</h3><nav class="lw-nav">${chans}<a href="#/new" class="new ${route.view === 'new' ? 'active' : ''}">+ New rabbit hole</a></nav>
-      <h3>Views</h3><nav class="lw-nav">${view('calendar', 'Calendar', ico.cal)}${view('library', 'Library', ico.lib)}${view('tasks', 'Tasks', ico.task)}</nav>
-      <div class="lw-side-foot">Demo. The assistant is scripted and the plan is built from the catalogue; nothing leaves your browser.${S.channels.length ? ' <a href="#" id="reset">Reset</a>.' : ''}</div>`;
-    const reset = $('#reset'); if (reset) reset.addEventListener('click', (e) => { e.preventDefault(); if (confirm('Clear all rabbit holes in this demo?')) { S.channels = []; save(); location.hash = '#/new'; } });
+    const on = (k) => route.view === k ? 'active' : '';
+    const purs = S.pursuits.map((c) => `<a href="#/p/${c.id}" class="${(route.view === 'p' || route.view === 'i') && route.id === c.id ? 'active' : ''}" title="${esc(field(c.field).name)}"><i class="ring" style="--p:${pct(c)}"></i><span class="nm">${esc(c.name)}</span><span class="mt">${pct(c)}%</span></a>`).join('');
+    const ib = (k, label, icon) => `<a href="#/${k}" class="${on(k)}" title="${label}" aria-label="${label}">${icon}</a>`;
+    $('#side').innerHTML = `
+      <a class="lw-brand" href="/" aria-label="Frontier Concepts home"><span class="brand-mark"><svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28"/><path d="M10 2v28"/><path d="M14 2v28"/><path d="M18 2v28"/><path d="M22 2v28"/><path d="M26 2v28"/><path d="M2 6h28"/><path d="M2 10h28"/><path d="M2 14h28"/><path d="M2 18h28"/><path d="M2 22h28"/><path d="M2 26h28"/></g><circle cx="16" cy="16" r="11" stroke="#ffffff" stroke-width="1.1" fill="none"/></svg></span><span class="brand-text">frontier <span class="brand-tv">concepts.</span></span></a>
+      <span class="lw-demo-tag">Learn with AI · demo</span>
+      <nav class="lw-nav top"><a href="#/home" class="${on('home')}">${ICO.home}<span class="nm">Home</span></a><a href="#/discover" class="${on('discover')}">${ICO.discover}<span class="nm">Discover</span></a></nav>
+      <h3>Pursuits</h3>
+      <nav class="lw-nav">${purs}<a href="#/new" class="new ${on('new')}">${ICO.plus}<span class="nm">New pursuit</span></a></nav>
+      <div class="lw-side-bottom">
+        <div class="lw-icons">${ib('calendar', 'Calendar', ICO.cal)}${ib('library', 'Library', ICO.lib)}${ib('tasks', 'Tasks', ICO.task)}<button id="theme-btn" title="Toggle dark mode" aria-label="Toggle dark mode">${ICO.sun}</button><button id="reset" title="Reset the demo" aria-label="Reset the demo">${ICO.trash}</button></div>
+        <div class="lw-user"><span class="av">Y</span><span class="nm"><b>You</b><small>Local demo · nothing leaves the browser</small></span></div>
+      </div>`;
+    $('#theme-btn').addEventListener('click', () => { const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', next); store.set('fa-theme', next); });
+    $('#reset').addEventListener('click', () => { if (confirm('Clear every pursuit, application and note in this demo?')) { for (const k of Object.keys(S)) delete S[k]; S.pursuits = []; S.setup = {}; S.applied = {}; S.checks = {}; S.notes = {}; S.prefs = {}; save(); location.hash = '#/new'; } });
+  }
+
+  // ----------------------------------------------------------------- home
+  function renderHome() {
+    if (!S.pursuits.length) {
+      $('#main').innerHTML = `<div class="lw-page lw-hero"><h1>Hi. What do you want to get good at?</h1><p class="sub">A pursuit is one subject you build expertise in: pick the field, how long you have and how much of each week you can give it. The assistant lays out the path from the catalogue, week by week, and adjusts as you go.</p><div class="acts"><a class="pill-btn primary" href="#/new">Start a pursuit →</a><a class="pill-btn" href="#/discover">Browse Discover</a></div>
+        <div class="lw-hero-kinds">${Object.entries(KIND).map(([k, v]) => `<span>${ICO[k]}${v}</span>`).join('')}</div></div>`;
+      $('#rail').innerHTML = railCatalogue();
+      return;
+    }
+    const today = midnight(new Date());
+    const all = S.pursuits.flatMap(dated);
+    const todays = all.filter((x) => sameDay(x.date, today));
+    const horizon = new Date(today); horizon.setDate(horizon.getDate() + 14);
+    const upcoming = all.filter((x) => x.date > today && x.date <= horizon).sort((a, b) => a.date - b.date);
+    const earlier = all.filter((x) => x.date < today).sort((a, b) => b.date - a.date).slice(0, 24);
+    const nextUp = upcoming[0];
+    const hrs = (xs) => fmtH(xs.reduce((a, x) => a + x.it.hours, 0));
+    const tomorrow = fmtDay(new Date(today.getTime() + 864e5));
+    let html = `<div class="lw-page home"><h1>Coming up</h1>
+      <div class="lw-up"><div class="date"><b>${today.getDate()}</b><span>${today.toLocaleDateString(undefined, { month: 'long' })}<i class="live"></i><br>${DAY[(today.getDay() + 6) % 7]}</span></div>
+        <div class="up-body">${todays.length ? `<div class="up-head">${todays.length} session${todays.length === 1 ? '' : 's'} today · ${hrs(todays)}</div>${todays.map((x) => row(x.ch, x.it)).join('')}` : `<div class="up-empty">${ICO.cal}<b>No sessions today</b><span>${nextUp ? `Next: ${fmtDay(nextUp.date)} · ${KIND[nextUp.it.kind]} · ${esc(nextUp.it.title)}` : 'Nothing scheduled in the next two weeks.'}</span><a class="pill-btn" href="#/calendar">Open calendar</a></div>`}</div></div>`;
+    let lastKey = '';
+    for (const x of upcoming) { const k = fmtDay(x.date); if (k !== lastKey) { html += `<div class="lw-group"><b>${k === tomorrow ? 'Tomorrow' : k}</b>${k === tomorrow ? `<span>${k}</span>` : ''}</div>`; lastKey = k; } html += row(x.ch, x.it); }
+    if (earlier.length) {
+      html += `<div class="lw-group earlier"><b>Earlier</b><span>${earlier.filter((x) => isDone(x.ch, x.it)).length} of ${earlier.length} done</span></div>`;
+      lastKey = '';
+      for (const x of earlier) { const k = fmtDay(x.date); if (k !== lastKey) { html += `<div class="lw-day">${k}</div>`; lastKey = k; } html += row(x.ch, x.it, isDone(x.ch, x.it) ? 'done' : 'missed'); }
+    }
+    $('#main').innerHTML = html + '</div>';
+    $('#rail').innerHTML = railPursuits() + railApplications() + railCatalogue();
   }
 
   // ---------------------------------------------------------------- setup
@@ -158,10 +255,10 @@
     const f = field(st.field);
     const P = pools(st.field, st.topic);
     const weeks = Math.round(st.months * 4.33), hours = weeks * LOADS[st.load].hours;
-    $('#main').innerHTML = `<div class="lw-setup">
-      <h1>Start a rabbit hole</h1>
-      <p class="lead">Tell the assistant what you want to get into, how long you have and how much of each week you can give it. It builds the path from the catalogue and adjusts as you go.</p>
-      <div class="lw-step"><div class="lbl"><span class="n">01</span> Topic</div>
+    $('#main').innerHTML = `<div class="lw-page lw-setup">
+      <h1>New pursuit</h1>
+      <p class="sub">One subject, taken seriously. Tell the assistant what you want to get into, how long you have and how much of each week you can give it. It builds the path from the catalogue and adjusts as you go.</p>
+      <div class="lw-step"><div class="lbl"><span class="n">01</span> Field</div>
         <div class="lw-chips" id="fields">${FIELDS.map((x) => chip(x.label, x.slug === st.field, `data-field="${x.slug}"`)).join('')}</div>
         <input class="lw-text" id="topic" placeholder="Narrow it: e.g. error correction, legged locomotion, protein design" value="${esc(st.topic || '')}">
       </div>
@@ -169,23 +266,12 @@
         <div class="lw-chips" id="months">${DURATIONS.map((m) => chip(`${m} months`, m === st.months, `data-months="${m}"`)).join('')}</div></div>
       <div class="lw-step"><div class="lbl"><span class="n">03</span> Load</div>
         <div class="lw-chips" id="loads">${Object.entries(LOADS).map(([k, v]) => chip(v.label, k === st.load, `data-load="${k}"`, v.sub)).join('')}</div></div>
-      <div class="lw-summary">
-        <dl class="kv"><dt>Field</dt><dd>${esc(f.name)}</dd></dl>
-        <dl class="kv"><dt>Weeks</dt><dd>${weeks}</dd></dl>
-        <dl class="kv"><dt>Hours</dt><dd>≈ ${hours}</dd></dl>
-        <dl class="kv"><dt>From the catalogue</dt><dd>${P.videos.length} videos · ${P.courses.length} courses · ${P.programs.length} programs · ${P.research.length} papers · ${P.people.length} people</dd></dl>
-      </div>
+      <div class="lw-summary">${kv([['Field', esc(f.name)], ['Weeks', weeks], ['Hours', `≈ ${hours}`], ['From the catalogue', `${P.videos.length} videos · ${P.courses.length} courses · ${P.programs.length} programs · ${P.research.length} papers · ${P.people.length} people`]])}</div>
       <a class="pill-btn primary" id="build" href="#">Build my path →</a>
     </div>`;
-    $('#rail').innerHTML = `<h3>How it works</h3><ul>
-      <li>${tag('Watch')} talks and lectures from the videos section</li>
-      <li>${tag('Read')} papers and textbooks from Research</li>
-      <li>${tag('Take')} one course per phase from Courses</li>
-      <li>${tag('Build')} projects sized to your load</li>
-      <li>${tag('Talk')} to people from the People section</li>
-      <li>${tag('Attend')} a program from Programs in the last phase</li>
-      <li>${tag('Coach')} a 30-minute check-in every week</li></ul>
-      <h3>Phases</h3><ul>${PHASES.map(([n, fr]) => `<li><b>${n}</b> <span class="lw-ch-meta">${Math.round(fr * 100)}% of the weeks</span></li>`).join('')}</ul>`;
+    const HOW = { watch: 'talks and lectures from Videos', read: 'papers and textbooks from Research', take: 'one course per phase from Courses', build: 'projects sized to your load', talk: 'people from the People section', attend: 'a program from Programs, or one you apply to in Discover', coach: 'a 30-minute check-in every week' };
+    $('#rail').innerHTML = fold('How it works', `<ul class="fl">${Object.entries(KIND).map(([k, v]) => `<li>${ICO[k]}<b>${v}</b><span>${HOW[k]}</span></li>`).join('')}</ul>`)
+      + fold('Phases', `<ul class="fl">${PHASES.map(([n, fr]) => `<li><b>${n}</b><span>${Math.round(fr * 100)}% of the weeks</span></li>`).join('')}</ul>`) + railCatalogue();
     const on = (sel, key, attr, cast) => $(sel).addEventListener('click', (e) => { const a = e.target.closest('.chip'); if (!a) return; e.preventDefault(); st[key] = cast(a.dataset[attr]); save(); renderSetup(); });
     on('#fields', 'field', 'field', String); on('#months', 'months', 'months', Number); on('#loads', 'load', 'load', String);
     $('#topic').addEventListener('change', (e) => { st.topic = e.target.value.trim(); save(); renderSetup(); });
@@ -194,64 +280,75 @@
       const topic = ($('#topic').value || '').trim(); st.topic = topic;
       const name = slugify(topic || f.name) || f.slug;
       const id = `${name}-${Date.now().toString(36)}`;
-      const ch = { id, name, field: st.field, topic, months: st.months, load: st.load, created: Date.now(), done: {}, skipped: {}, log: [] };
-      S.channels.push(ch); save();
-      location.hash = `#/c/${id}`;
+      S.pursuits.push({ id, name, field: st.field, topic, months: st.months, load: st.load, created: Date.now(), done: {}, skipped: {}, log: [] }); save();
+      location.hash = `#/p/${id}`;
     });
   }
 
-  // -------------------------------------------------------------- channel
+  // -------------------------------------------------------------- pursuit
   function introText(ch) {
     const f = field(ch.field), plan = planOf(ch), L = LOADS[ch.load];
-    return `<p>New rabbit hole: <b>${esc(f.name)}</b>${ch.topic ? `, narrowed to <b>${esc(ch.topic)}</b>` : ''}. ${plan.weeks} weeks at ${L.hours} hours a week, about ${plan.weeks * L.hours} hours.</p>
-      <p>Four phases: <b>Foundations</b> (read the textbook, watch the talks that give you the map), <b>Core</b> (one course, plus the papers it points at), <b>Practice</b> (projects, and conversations with people doing the work) and <b>Launch</b> (apply to a program, finish a capstone).</p>
-      <p>Each week I post the moves. Mark them done, skip what you know, swap what does not fit, or tell me when your week changes.</p>`;
+    return `<p>New pursuit: <b>${esc(f.name)}</b>${ch.topic ? `, narrowed to <b>${esc(ch.topic)}</b>` : ''}. ${plan.weeks} weeks at ${L.hours} hours a week, about ${plan.weeks * L.hours} hours.</p>
+      <p>Four phases: <b>Foundations</b> (the textbook, and the talks that give you the map), <b>Core</b> (one course, plus the papers it points at), <b>Practice</b> (projects, and conversations with people doing the work) and <b>Launch</b> (apply to a program, finish a capstone).</p>
+      <p>Each week I post the moves. Open one to work on it, mark it done, skip what you know, swap what does not fit, or tell me when your week changes.</p>`;
   }
-  function renderChannel(ch) {
+  function pursuitHead(ch, extra = '') {
     const plan = planOf(ch), f = field(ch.field), L = LOADS[ch.load], cur = weekOfToday(ch);
-    let html = `<header class="lw-head"><h1><span class="hash">#</span>${esc(ch.name)}</h1>
-      <span class="meta"><span>${esc(f.label)}</span><span>${ch.months} months</span><span>${L.label} · ${L.hours} h/wk</span><span>week ${cur} of ${plan.weeks}</span></span>
-      <span class="bar" title="${Math.round(progress(ch) * 100)}% of planned hours done"><i style="width:${Math.round(progress(ch) * 100)}%"></i></span>
-      <span class="acts"><a class="chip small" href="#/calendar">Calendar</a><a class="chip small" href="#/tasks">Tasks</a></span></header>`;
-    html += '<div class="lw-stream">';
+    return `<header class="lw-head"><a class="back" href="#/home" title="Home">${ICO.back}</a><h1>${esc(ch.name)}</h1>
+      <span class="meta"><span>${esc(f.label)}</span><span>${ch.months} mo</span><span>${L.label} · ${L.hours} h/wk</span><span>wk ${cur}/${plan.weeks}</span></span>
+      <span class="bar" title="${pct(ch)}% of planned hours done"><i style="width:${pct(ch)}%"></i></span>${extra}</header>`;
+  }
+  function renderPursuit(ch) {
+    const plan = planOf(ch), cur = weekOfToday(ch), P = pools(ch.field, ch.topic);
+    let html = pursuitHead(ch);
+    html += '<div class="cc-stream">';
     html += msg(introText(ch), false, new Date(ch.created).toLocaleDateString());
     const shown = Math.min(plan.weeks, cur + 1);
+    const picked = (w) => { const n = {}; weekItems(ch, w).forEach((i) => { n[i.kind] = (n[i.kind] || 0) + 1; }); return Object.entries(n).map(([k, c]) => `${c} ${KIND[k].toLowerCase()}`).join(', '); };
+    const counts = kv([['Videos', P.videos.length], ['Courses', P.courses.length], ['Programs', P.programs.length], ['Papers', P.research.length], ['People', P.people.length]]);
     for (let w = 1; w <= shown; w++) {
-      const phase = phaseOfWeek(ch, w);
-      html += `<div class="lw-week ${w === cur ? 'cur' : ''}"><b>Week ${w}</b><span>${fmtDate(weekDate(ch, w))} – ${fmtDate(weekDate(ch, w, 6))}</span><span class="ph">${phase}</span><span>${fmtH(hoursOf(ch, w))}</span></div>`;
-      const its = plan.items.filter((i) => i.week === w);
-      const lead = w === cur ? 'This week.' : w < cur ? '' : 'Next week, so you can plan around it.';
-      html += msg(`${lead ? `<p>${lead}</p>` : ''}${its.map((i) => card(ch, i)).join('')}`);
-      for (const m of (ch.log || []).filter((x) => x.week === w)) html += msg(m.html, m.me, m.t);
+      const phase = phaseOfWeek(ch, w), its = weekItems(ch, w), done = its.filter((i) => isDone(ch, i)).length;
+      const line = `Week ${w} · ${phase} · ${fmtH(hoursOf(ch, w))} · ${picked(w)}${done ? ` · ${done} done` : ''}`;
+      if (w < cur) html += act(line, its.map((i) => card(ch, i)).join(''));
+      else {
+        html += `<div class="cc-week ${w === cur ? 'cur' : ''}"><b>Week ${w}</b><span>${fmtDate(weekDate(ch, w))} – ${fmtDate(weekDate(ch, w, 6))}</span><span class="ph">${phase}</span><span>${fmtH(hoursOf(ch, w))}</span></div>`;
+        html += act(`Searched ${P.videos.length} videos, ${P.research.length} papers, ${P.courses.length} courses, ${P.people.length} people · picked ${its.length}`, counts);
+        html += msg(`<p>${w === cur ? 'This week.' : 'Next week, so you can plan around it.'}</p>${its.map((i) => card(ch, i)).join('')}`);
+      }
+      if (w < cur) for (const m of (ch.log || []).filter((x) => x.week === w)) html += msg(m.html, m.me, m.t);
     }
     if (shown < plan.weeks) html += msg(`<p>${plan.weeks - shown} more weeks are planned; they show up as you get there. The <a href="#/calendar">calendar</a> has all of them.</p>`);
+    // The conversation of the current week comes after the posts, like a chat.
+    for (const m of (ch.log || []).filter((x) => x.week >= cur)) html += msg(m.html, m.me, m.t);
     html += '</div>';
-    html += `<div class="lw-compose"><div class="lw-quick">${['What should I do first?', 'I have less time this week', 'Go deeper', 'Who should I talk to?', 'What is next?'].map((q) => `<a class="chip small" data-q="${esc(q)}">${esc(q)}</a>`).join('')}</div>
-      <form id="say"><input id="say-in" placeholder="Tell the assistant how your week looks, or ask for something…" autocomplete="off"><button class="pill-btn primary" type="submit">Send</button></form></div>`;
+    html += `<div class="cc-compose"><div class="cc-quick">${['What should I do first?', 'I have less time this week', 'Go deeper', 'Who should I talk to?', 'What is next?'].map((q) => chip(q, false, `data-q="${esc(q)}"`)).join('')}</div>
+      <form id="say" class="cc-box"><button type="button" class="plus" title="Attach (demo)">${ICO.plus}</button><textarea id="say-in" rows="1" placeholder="Tell the assistant how your week looks, or ask for something…"></textarea><button class="go" type="submit" title="Send">${ICO.enter}</button></form>
+      <div class="cc-status"><span>Scripted assistant · local only</span><span>${esc(ch.name)} · week ${cur} of ${plan.weeks}</span></div></div>`;
     $('#main').innerHTML = html;
-    renderRail(ch);
-    // scroll the current week into view
-    const curEl = $('.lw-week.cur'); if (curEl) { const m = $('#main'); m.scrollTop = Math.max(0, curEl.offsetTop - 12); }
-    $('.lw-stream').addEventListener('click', (e) => {
+    $('#rail').innerHTML = railPursuit(ch);
+    const curEl = $('.cc-week.cur'); if (curEl) { $('#main').scrollTop = Math.max(0, curEl.offsetTop - 12); }
+    $('.cc-stream').addEventListener('click', (e) => {
       const b = e.target.closest('button[data-act]'); if (!b) return;
       const id = b.closest('.lw-card').dataset.id; const it = plan.items.find((x) => x.id === id); if (!it) return;
       if (b.dataset.act === 'done') { ch.done[id] = !ch.done[id]; }
       if (b.dataset.act === 'skip') { ch.skipped[id] = true; }
       if (b.dataset.act === 'swap') swap(ch, it);
-      save(); renderChannel(ch);
+      save(); const top = $('#main').scrollTop; renderPursuit(ch); $('#main').scrollTop = top;
     });
-    $('.lw-quick').addEventListener('click', (e) => { const a = e.target.closest('[data-q]'); if (!a) return; reply(ch, a.dataset.q); });
+    $('.cc-quick').addEventListener('click', (e) => { const a = e.target.closest('[data-q]'); if (!a) return; e.preventDefault(); reply(ch, a.dataset.q); });
     $('#say').addEventListener('submit', (e) => { e.preventDefault(); const v = $('#say-in').value.trim(); if (v) reply(ch, v); });
+    $('#say-in').addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#say').requestSubmit(); } });
+    $('#say-in').addEventListener('input', (e) => { e.target.style.height = 'auto'; e.target.style.height = Math.min(120, e.target.scrollHeight) + 'px'; });
   }
   function swap(ch, it) {
     const P = pools(ch.field, ch.topic);
     const used = new Set(planOf(ch).items.map((x) => x.title));
     const pool = it.kind === 'watch' ? P.videos : it.kind === 'read' ? P.research : P.people;
     const nxt = pool.find((x) => !used.has(x.title || x.name)); if (!nxt) return;
-    if (it.kind === 'watch') Object.assign(it, { title: nxt.title, url: `/videos/#/w/${nxt.id}`, meta: [nxt.channel, fmtH(nxt.duration / 3600), fmtN(nxt.views || 0) + ' views'], thumb: `https://i.ytimg.com/vi/${nxt.id}/mqdefault.jpg`, hours: Math.round((nxt.duration / 3600 + 0.25) * 2) / 2, why: 'Swapped in.' });
-    else if (it.kind === 'read') Object.assign(it, { title: nxt.name, url: nxt.url, meta: [nxt.authors ? `${nxt.authors} · ${nxt.year}` : String(nxt.year), nxt.kind], why: nxt.note });
-    else Object.assign(it, { title: nxt.name, url: nxt.url, meta: [nxt.role, nxt.org].filter(Boolean), face: nxt.logo || '', why: 'Swapped in.' });
-    ch.swaps = ch.swaps || {}; ch.swaps[it.id] = { title: it.title, url: it.url, meta: it.meta, thumb: it.thumb, face: it.face, hours: it.hours, why: it.why };
+    if (it.kind === 'watch') Object.assign(it, { ref: nxt.id, title: nxt.title, url: `/videos/#/w/${nxt.id}`, meta: [nxt.channel, fmtH(nxt.duration / 3600), fmtN(nxt.views || 0) + ' views'], thumb: `https://i.ytimg.com/vi/${nxt.id}/mqdefault.jpg`, hours: Math.round((nxt.duration / 3600 + 0.25) * 2) / 2, why: 'Swapped in.' });
+    else if (it.kind === 'read') Object.assign(it, { ref: nxt.id, title: nxt.name, url: nxt.url, meta: [nxt.authors ? `${nxt.authors} · ${nxt.year}` : String(nxt.year), nxt.kind], why: nxt.note });
+    else Object.assign(it, { ref: nxt.id, title: nxt.name, url: nxt.url, meta: [nxt.role, nxt.org].filter(Boolean), face: nxt.logo || '', why: 'Swapped in.' });
+    ch.swaps = ch.swaps || {}; ch.swaps[it.id] = { ref: it.ref, title: it.title, url: it.url, meta: it.meta, thumb: it.thumb, face: it.face, hours: it.hours, why: it.why };
   }
   // Scripted replies: the demo's "assistant". Keyword intents, deterministic.
   function reply(ch, text) {
@@ -260,7 +357,7 @@
     const now = new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
     ch.log = ch.log || [];
     ch.log.push({ week: cur, me: true, html: `<p>${esc(text)}</p>`, t: now });
-    const week = plan.items.filter((i) => i.week === cur && !isSkipped(ch, i) && !isDone(ch, i));
+    const week = weekItems(ch, cur).filter((i) => !isDone(ch, i));
     let html;
     if (/less time|busy|travel|no time|skip this week|lighter/.test(t)) {
       const drop = week.filter((i) => i.kind === 'watch').slice(-1)[0] || week.filter((i) => i.kind === 'read').slice(-1)[0];
@@ -268,16 +365,16 @@
       else html = '<p>Nothing left to trim this week without losing the main block. Do the check-in and call it a week.</p>';
     } else if (/deeper|more|harder|advanced|theory/.test(t)) {
       const p = P.research.find((x) => !plan.items.some((i) => i.title === x.name));
-      if (p) { const it = { id: `${ch.id}-${cur}-x${plan.items.length}`, week: cur, kind: 'read', hours: 3, title: p.name, url: p.url, meta: [p.authors ? `${p.authors} · ${p.year}` : String(p.year), p.kind], why: p.note }; plan.items.push(it); ch.extra = ch.extra || []; ch.extra.push(it); html = `<p>Added a primary source to this week: <b>${esc(p.name)}</b>. ${esc(p.note)}</p>`; }
+      if (p) { const it = { id: `${ch.id}-${cur}-x${plan.items.length}`, week: cur, kind: 'read', hours: 3, ref: p.id, title: p.name, url: p.url, meta: [p.authors ? `${p.authors} · ${p.year}` : String(p.year), p.kind], why: p.note }; plan.items.push(it); ch.extra = ch.extra || []; ch.extra.push(it); html = `<p>Added a primary source to this week: <b><a href="${itemHref(ch, it)}">${esc(p.name)}</a></b>. ${esc(p.note)}</p>`; }
       else html = '<p>You have read everything in the catalogue for this field. Time to write something.</p>';
     } else if (/who|people|talk|expert|mentor/.test(t)) {
       const ppl = P.people.slice(0, 3);
-      html = `<p>Three people whose work is the primary source for ${esc(f.name.toLowerCase())}. Pick one, read their last three posts, and ask one specific question.</p><div class="lw-grid2">${ppl.map((p) => `<div class="lw-card"><div class="kind">${tag('Talk')}${p.logo ? `<img class="face" src="${esc(p.logo)}" alt="">` : `<span class="face mono">${esc(initials(p.name))}</span>`}</div><div><div class="ti"><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.name)}</a></div><div class="why">${esc(p.note)}</div><div class="m"><span>${esc(p.role)}</span>${p.org ? `<span>·</span><span>${esc(p.org)}</span>` : ''}</div></div></div>`).join('')}</div>`;
+      html = `<p>Three people whose work is the primary source for ${esc(f.name.toLowerCase())}. Pick one, read their last three posts, and ask one specific question.</p><div class="lw-grid2">${ppl.map((p) => `<div class="lw-card"><a class="med" href="${esc(p.url)}" ${ext(p.url)}>${faceOf(p)}</a><div class="bd"><a class="ti" href="${esc(p.url)}" ${ext(p.url)}>${esc(p.name)}</a><div class="m"><span>${esc(p.role)}</span>${p.org ? `<span>${esc(p.org)}</span>` : ''}</div><div class="why">${esc(p.note)}</div></div></div>`).join('')}</div>`;
     } else if (/first|start|begin|where/.test(t)) {
-      const first = week[0] || plan.items.find((i) => i.week === cur);
-      html = first ? `<p>Start with <b>${esc(first.title)}</b> (${fmtH(first.hours)}). ${esc(first.why || '')} Then the rest of the week in the order posted.</p>` : '<p>This week is done. Next week is already posted.</p>';
+      const first = week[0] || weekItems(ch, cur)[0];
+      html = first ? `<p>Start with <b><a href="${itemHref(ch, first)}">${esc(first.title)}</a></b> (${fmtH(first.hours)}). ${esc(first.why || '')} Then the rest of the week in the order posted.</p>` : '<p>This week is done. Next week is already posted.</p>';
     } else if (/next|then|after/.test(t)) {
-      const nw = Math.min(plan.weeks, cur + 1); const its = plan.items.filter((i) => i.week === nw);
+      const nw = Math.min(plan.weeks, cur + 1); const its = weekItems(ch, nw);
       html = `<p>Week ${nw} is <b>${esc(phaseOfWeek(ch, nw))}</b>, ${fmtH(hoursOf(ch, nw))}: ${its.map((i) => `${KIND[i.kind].toLowerCase()} <b>${esc(i.title)}</b>`).join(', ')}.</p>`;
     } else if (/done|finished|complete/.test(t)) {
       const left = week.length; html = left ? `<p>${left} move${left === 1 ? '' : 's'} left this week, ${fmtH(week.reduce((a, i) => a + i.hours, 0))}. Mark them done on the cards and I will reshape next week around what landed.</p>` : '<p>Week complete. Next week is posted above; take the weekend.</p>';
@@ -285,117 +382,273 @@
       html = `<p>Noted. For now the plan stands: ${week.length} move${week.length === 1 ? '' : 's'} left this week. Ask me to go deeper, lighten the week, or for people to talk to, and I will change the path.</p>`;
     }
     ch.log.push({ week: cur, me: false, html, t: now });
-    save(); renderChannel(ch);
+    save(); renderPursuit(ch);
     const m = $('#main'); m.scrollTop = m.scrollHeight;
   }
 
+  // ----------------------------------------------------------------- item
+  // A move opened as its own session. The body changes with the format.
+  function renderItem(ch, it) {
+    const its = weekItems(ch, it.week), k = its.findIndex((x) => x.id === it.id);
+    const prev = its[k - 1], nxt = its[k + 1], ref = refOf(it), f = field(ch.field), date = dateOf(ch, it), done = isDone(ch, it);
+    const nav = `<span class="acts"><a class="ib ${prev ? '' : 'off'}" href="${prev ? itemHref(ch, prev) : '#'}" title="Previous">${ICO.back}</a><span>${k + 1} of ${its.length}</span><a class="ib ${nxt ? '' : 'off'}" href="${nxt ? itemHref(ch, nxt) : '#'}" title="Next">${ICO.chev}</a></span>`;
+    const header = `<header class="lw-head"><a class="back" href="#/p/${ch.id}" title="Back to the pursuit">${ICO.back}</a><h1>${esc(ch.name)}</h1><span class="meta"><span>week ${it.week}</span><span>${esc(phaseOfWeek(ch, it.week))}</span><span>${fmtDay(date)}</span></span>${nav}</header>`;
+    const checklist = (id, steps) => { const st = S.checks[id] || {}; return `<ul class="lw-check" data-check="${id}">${steps.map((s, i) => `<li class="${st[i] ? 'on' : ''}"><label><input type="checkbox" data-i="${i}" ${st[i] ? 'checked' : ''}><span>${esc(s)}</span></label></li>`).join('')}</ul>`; };
+    const open = (url, label) => url ? `<a class="pill-btn primary" href="${esc(url)}" ${ext(url)}>${esc(label)} ${ICO.ext}</a>` : '';
+    let body = '';
+    if (it.kind === 'watch' && ref) {
+      const desc = (ref.description || '').trim();
+      body = `<div class="player-wrap"><iframe src="https://www.youtube-nocookie.com/embed/${esc(ref.id)}?rel=0" title="${esc(ref.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        <div class="d-meta">${tag(ref.channel)}<span>${fmtH(ref.duration / 3600)}</span><span>${fmtN(ref.views || 0)} views</span><span>${esc(ref.published || '')}</span>${ref.hn ? tag('HN', 'hn') : ''}<a href="/videos/#/w/${esc(ref.id)}">Open in Videos</a><a href="https://www.youtube.com/watch?v=${esc(ref.id)}" ${ext('http')}>YouTube ${ICO.ext}</a></div>
+        <div class="d-cols"><section><h3>While you watch</h3><ol><li>Write the talk's one-sentence claim before the halfway mark.</li><li>Note every term you cannot define; they are next week's reading.</li><li>Write the question you would ask the speaker. Keep it for a Talk session.</li></ol></section>
+        ${desc ? `<section><h3>About</h3><p class="d-desc">${esc(desc.length > 700 ? desc.slice(0, 700) + '…' : desc)}</p></section>` : ''}</div>`;
+    } else if (it.kind === 'read') {
+      const r = ref || {}; const kind = (r.kind || it.meta[1] || 'Paper');
+      const how = kind === 'Textbook' ? ['Skim the chapter headings and the summary first.', 'Read once without stopping, then once with a pen.', 'Do the first three exercises before moving on.', 'Write a half-page summary in your own words; add it to your public log.']
+        : kind === 'Essay' || kind === 'Reading list' ? ['Find the claim in the first two paragraphs.', 'List the evidence the author offers, and what they leave out.', 'Write one paragraph: where you agree, where you do not, and why.']
+          : ['Abstract, figures, conclusion: ten minutes, then decide how deep to go.', 'Method section with a pen: what would you need to reproduce it?', 'Limitations and related work: what did it not solve, who solved it since?', 'One paragraph in your log: the result, the trick, the open question.'];
+      body = `<div class="d-grid"><div>${kv([['Authors', esc(r.authors || '')], ['Year', r.year], ['Kind', esc(kind)], ['Source', r.source === 'hn' ? 'Hacker News pick' : 'Editorial pick'], ['Link', r.domain ? `<a href="${esc(it.url)}" ${ext(it.url)}>${esc(r.domain)}</a>` : '']])}
+        ${r.hn_points ? `<p class="d-small">${r.hn_points} points · ${r.hn_comments || 0} comments on <a href="https://news.ycombinator.com/item?id=${esc(r.hn_id)}" ${ext('http')}>Hacker News</a></p>` : ''}</div>
+        <section><h3>How to read it</h3><ol>${how.map((s) => `<li>${s}</li>`).join('')}</ol></section></div>
+        ${r.note ? `<section><h3>Why it is on your path</h3><p>${esc(r.note)}</p></section>` : ''}
+        <div class="d-acts">${open(it.url, 'Open the ' + kind.toLowerCase())}</div>`;
+    } else if (it.kind === 'take') {
+      const c = ref || {}; const wks = planOf(ch).items.filter((x) => x.kind === 'take' && x.ref === it.ref && !isSkipped(ch, x));
+      body = `<div class="d-prov">${logoOf({ logo: c.logo || it.logo, name: it.title }, 'lg')}<div><b>${esc(c.provider || it.meta[0] || '')}</b><small>${esc(c.domain || '')}</small></div></div>
+        <div class="d-grid"><div>${kv([['Format', esc(c.format || it.meta[1] || '')], ['Cost', esc(c.cost || '')], ['Level', esc(c.level || '')], ['Access', esc(c.access || c.selectivity || '')], ['Signal', c.sources ? `${c.sources} sources · score ${c.score}` : '']])}</div>
+        <section><h3>On your path</h3><p>${wks.length} week${wks.length === 1 ? '' : 's'} in the ${esc(phaseOfWeek(ch, it.week))} phase, about ${fmtH(wks.reduce((a, x) => a + x.hours, 0))} in all: ${wks.map((x) => `week ${x.week}`).join(', ')}.</p><p>Half of each week is reserved for it. Pair each session with the paper or talk posted alongside.</p></section></div>
+        ${c.note ? `<section><h3>Why this course</h3><p>${esc(c.note)}</p></section>` : ''}
+        <div class="d-acts">${open(it.url, 'Open the course')}</div>`;
+    } else if (it.kind === 'attend') {
+      const p = ref || {};
+      body = `<div class="d-prov">${logoOf({ logo: p.logo || it.logo, name: it.title }, 'lg')}<div><b>${esc(p.provider || it.meta[0] || '')}</b><small>${esc(p.domain || '')}</small></div></div>
+        <div class="d-grid"><div>${kv([['Format', esc(p.format || it.meta[1] || '')], ['Access', esc(p.access || '')], ['Selectivity', esc(p.selectivity || '')], ['Cost', esc(p.cost || '')], ['Signal', p.sources ? `${p.sources} sources · score ${p.score}` : '']])}</div>
+        <section><h3>Application</h3>${checklist(it.id, ['Read the eligibility and the dates on the program page.', 'One-page statement: what you have built, what you want to build there.', 'The project that shows it: link, two paragraphs, one figure.', 'Two people who can vouch for the work; ask them this week.', 'Submit, then log the date and what you would change next time.'])}</section></div>
+        ${p.note ? `<section><h3>Why this program</h3><p>${esc(p.note)}</p></section>` : ''}
+        <div class="d-acts">${open(it.url, 'Open the program')}<a class="pill-btn" href="#/discover">More like this in Discover</a></div>`;
+    } else if (it.kind === 'talk') {
+      const p = ref || { name: it.title, role: it.meta[0], org: it.meta[1], logo: it.face, url: it.url };
+      const first = (p.name || '').split(' ')[0];
+      const qs = [`What in ${f.name.toLowerCase()} do you think is under-discussed right now, and why?`, `If you were starting a serious ${ch.topic ? esc(ch.topic) : f.name.toLowerCase()} project this month, what would you build first?`, `What is the paper or result that changed how you think about this field?`];
+      const draft = `Hi ${first},\n\nI am ${ch.months} months into ${f.name.toLowerCase()}${ch.topic ? ` (${ch.topic})` : ''} and your work on ${(p.note || '').split(';')[0].toLowerCase() || 'this'} is the primary source for the project I am doing: [one line on the project].\n\nOne specific question: [the question].\n\nHappy to share what I find. Thank you,\n[your name]`;
+      body = `<div class="d-person">${faceOf(p, 'face lg')}<div><b>${esc(p.name)}</b><span>${esc(p.role || '')}${p.org ? ` · ${esc(p.org)}` : ''}</span><div class="d-links">${p.site ? `<a class="chip small" href="${esc(p.site)}" ${ext('http')}>Site</a>` : ''}${p.x ? `<a class="chip small" href="https://x.com/${esc(p.x)}" ${ext('http')}>@${esc(p.x)}</a>` : ''}${p.youtube ? `<a class="chip small" href="${esc(p.youtube)}" ${ext('http')}>YouTube</a>` : ''}<a class="chip small" href="/people/">People</a></div></div></div>
+        ${p.note ? `<section><h3>Why ${esc(first)}</h3><p>${esc(p.note)}</p></section>` : ''}
+        <div class="d-grid"><section><h3>Three questions to ask</h3><ol>${qs.map((q) => `<li>${q}</li>`).join('')}</ol><p class="d-small">Read their last three posts first; ask the one question only they can answer.</p></section>
+        <section><h3>Draft a message</h3><textarea class="lw-draft" id="draft" rows="9">${esc((S.notes[it.id] || {}).draft || draft)}</textarea><div class="d-acts"><button class="pill-btn" id="copy">Copy</button><span class="d-small" id="copied"></span></div></section></div>`;
+    } else if (it.kind === 'build') {
+      const steps = /set up/i.test(it.title) ? ['Pick one place for notes and keep everything there.', 'Install or sign up for what the course needs; run the hello-world.', 'Make a public log: a page, a repo or a thread. First entry: what you want to be able to do.', 'Put the weekly sessions in your real calendar.']
+        : /exercises/i.test(it.title) ? ['Do the exercises before looking at any solution.', 'For each one you could not do, write what you were missing.', 'Half a page of notes on the chapter, in your words.', 'Post the notes to your log.']
+          : /capstone/i.test(it.title) ? ['Write the one-paragraph description that goes in the application.', 'Finish the part a reviewer sees first: the figure, the demo, the README.', 'Ask one person from your Talk sessions for a review.', 'Publish it; link it from the application.']
+            : ['Define the scope in one paragraph: what is in, what is out.', 'Do the work in two sessions; stop when the time is up.', 'Write it up: what you did, why, what broke.', 'Publish it and send it to one person in the field.'];
+      body = `<section><h3>Brief</h3><p>${esc(it.why || '')}</p><p>Block ${fmtH(it.hours)} this week; ${LOADS[ch.load].days.length > 3 ? 'two sessions' : 'one or two sessions'}. The deliverable is something a stranger can open.</p></section>
+        <div class="d-grid"><section><h3>Steps</h3>${checklist(it.id, steps)}</section>
+        <section><h3>Notes</h3><textarea class="lw-draft" id="note" rows="8" placeholder="What you did, what broke, what is next…">${esc((S.notes[it.id] || {}).text || '')}</textarea></section></div>`;
+    } else { // coach
+      const its2 = weekItems(ch, it.week), dn = its2.filter((x) => isDone(ch, x)).length, n = S.notes[it.id] || {};
+      const qs = it.week === 1 ? ['What do you already know about this, honestly?', 'What do you want to be able to do by the end of the pursuit?', 'What will get in the way, and what is the plan for that?'] : ['What landed this week?', 'What did not, and why?', 'What changes next week?'];
+      body = `<section><h3>This week</h3><p>${dn} of ${its2.length} moves done, ${fmtH(hoursOf(ch, it.week, (x) => isDone(ch, x)))} of ${fmtH(hoursOf(ch, it.week))}. Thirty minutes: answer the three questions, then tell the assistant what to change.</p></section>
+        <section class="lw-qs">${qs.map((q, i) => `<label><b>${esc(q)}</b><textarea class="lw-draft" data-q="q${i}" rows="3">${esc(n['q' + i] || '')}</textarea></label>`).join('')}</section>
+        <div class="d-acts"><a class="pill-btn" href="#/p/${ch.id}">Tell the assistant</a><span class="d-small">Answers save as you type.</span></div>`;
+    }
+    $('#main').innerHTML = `${header}<article class="lw-detail"><div class="dk">${tag(KIND[it.kind])}${tag(f.label)}${it.meta.filter(Boolean).slice(0, 2).map((m) => `<span class="dm">${esc(m)}</span>`).join('')}<span class="dm">${fmtH(it.hours)}</span></div><h1>${esc(it.title)}</h1>${it.kind !== 'build' && it.why ? `<p class="why">${esc(it.why)}</p>` : ''}${body}
+      <div class="d-foot"><button class="pill-btn ${done ? 'primary' : ''}" id="done">${done ? 'Done ✓' : 'Mark done'}</button>${prev ? `<a class="pill-btn ghost" href="${itemHref(ch, prev)}">‹ ${esc(KIND[prev.kind])}</a>` : ''}${nxt ? `<a class="pill-btn ghost" href="${itemHref(ch, nxt)}">${esc(KIND[nxt.kind])} ›</a>` : `<a class="pill-btn ghost" href="#/p/${ch.id}">Back to the week</a>`}</div></article>`;
+    $('#rail').innerHTML = railPursuit(ch, it);
+    $('#done').addEventListener('click', () => { ch.done[it.id] = !ch.done[it.id]; save(); renderItem(ch, it); });
+    $$('.lw-check').forEach((ul) => ul.addEventListener('change', (e) => { const c = e.target; S.checks[ul.dataset.check] = S.checks[ul.dataset.check] || {}; S.checks[ul.dataset.check][c.dataset.i] = c.checked; c.closest('li').classList.toggle('on', c.checked); save(); }));
+    const noteOf = () => { S.notes[it.id] = S.notes[it.id] || {}; return S.notes[it.id]; };
+    const d = $('#draft'); if (d) d.addEventListener('input', () => { noteOf().draft = d.value; save(); });
+    const nt = $('#note'); if (nt) nt.addEventListener('input', () => { noteOf().text = nt.value; save(); });
+    $$('textarea[data-q]').forEach((ta) => ta.addEventListener('input', () => { noteOf()[ta.dataset.q] = ta.value; save(); }));
+    const cp = $('#copy'); if (cp) cp.addEventListener('click', () => { if (navigator.clipboard) navigator.clipboard.writeText($('#draft').value).then(() => { $('#copied').textContent = 'Copied.'; }); });
+    $('#main').scrollTop = 0;
+  }
+
   // ----------------------------------------------------------------- rail
-  function renderRail(ch) {
-    const plan = planOf(ch), cur = weekOfToday(ch), L = LOADS[ch.load];
+  function appRows(filter) {
+    return Object.entries(S.applied).filter(([, a]) => !filter || filter(a)).map(([id, a]) => { const p = PR.programs.find((x) => x.id === id) || PR.courses.find((x) => x.id === id); return p ? `<li>${ICO.attend}<a href="${esc(p.url)}" ${ext(p.url)}>${esc(p.name)}</a><small>${fmtDate(new Date(a.t))}</small></li>` : ''; }).join('');
+  }
+  function railPursuit(ch, it) {
+    const plan = planOf(ch), cur = weekOfToday(ch), L = LOADS[ch.load], f = field(ch.field);
     const planned = hoursOf(ch, cur), done = hoursOf(ch, cur, (i) => isDone(ch, i));
-    const its = plan.items.filter((i) => i.week === cur && !isSkipped(ch, i));
-    const next = its.find((i) => !isDone(ch, i));
+    const its = weekItems(ch, cur), next = its.find((i) => !isDone(ch, i));
     const today = (new Date().getDay() + 6) % 7;
-    $('#rail').innerHTML = `<h3>This week</h3>
-      <div class="big">${fmtH(done)}<small>of ${fmtH(planned)}</small></div>
-      <div class="days">${DAY.map((d, i) => `<span class="${L.days.includes(i) ? (i < today ? 'done' : 'on') : ''}" title="${d}">${d[0]}</span>`).join('')}</div>
-      <dl class="kv"><div><dt>Phase</dt><dd>${esc(phaseOfWeek(ch, cur))}</dd></div><div><dt>Sessions</dt><dd>${L.days.length} × ${fmtH(L.hours / L.days.length)}</dd></div><div><dt>Up next</dt><dd>${next ? esc(KIND[next.kind]) + ' · ' + fmtH(next.hours) : 'all done'}</dd></div><div><dt>Overall</dt><dd>${Math.round(progress(ch) * 100)}% · wk ${cur}/${plan.weeks}</dd></div></dl>
-      <h3>Moves left</h3><ul>${its.filter((i) => !isDone(ch, i)).map((i) => `<li>${tag(KIND[i.kind])}<span>${esc(i.title.length > 48 ? i.title.slice(0, 46) + '…' : i.title)}</span></li>`).join('') || '<li>Nothing left. Rest.</li>'}</ul>`;
+    const P = pools(ch.field, ch.topic);
+    const ppl = plan.items.filter((i) => i.kind === 'talk' && !isSkipped(ch, i)).slice(0, 4);
+    const apps = appRows((a) => a.p === ch.id), nApps = Object.values(S.applied).filter((a) => a.p === ch.id).length;
+    return fold('Pursuit', kv([['Field', esc(f.name)], ['Topic', esc(ch.topic || '')], ['Duration', `${ch.months} months · ${plan.weeks} weeks`], ['Load', `${L.label} · ${L.hours} h/wk`], ['Days', L.days.map((d) => DAY[d]).join(' ')], ['Started', fmtDate(startDate(ch))], ['Overall', `${pct(ch)}% · wk ${cur}/${plan.weeks}`]]))
+      + fold('This week', `<div class="big">${fmtH(done)}<small>of ${fmtH(planned)}</small></div><div class="days">${DAY.map((d, i) => `<span class="${L.days.includes(i) ? (i < today ? 'done' : 'on') : ''}" title="${d}">${d[0]}</span>`).join('')}</div>${kv([['Phase', esc(phaseOfWeek(ch, cur))], ['Sessions', `${L.days.length} × ${fmtH(L.hours / L.days.length)}`], ['Up next', next ? `<a href="${itemHref(ch, next)}">${esc(KIND[next.kind])} · ${fmtH(next.hours)}</a>` : 'all done']])}`, true, `${its.filter((i) => isDone(ch, i)).length}/${its.length}`)
+      + fold('Moves left', `<ul class="fl">${its.filter((i) => !isDone(ch, i)).map((i) => `<li class="${it && it.id === i.id ? 'cur' : ''}">${ICO[i.kind]}<a href="${itemHref(ch, i)}">${esc(i.title.length > 44 ? i.title.slice(0, 42) + '…' : i.title)}</a></li>`).join('') || '<li><span>Nothing left. Rest.</span></li>'}</ul>`, !it)
+      + fold('People on the path', ppl.length ? `<ul class="fl faces">${ppl.map((i) => `<li>${faceOf(i, 'face xs')}<a href="${itemHref(ch, i)}">${esc(i.title)}</a><small>wk ${i.week}</small></li>`).join('')}</ul>` : '<p class="d-small">Conversations start in the Practice phase.</p>', false)
+      + fold('Applications', apps ? `<ul class="fl">${apps}</ul>` : `<p class="d-small">None yet. <a href="#/discover">Discover</a> lists programs you can apply to from here.</p>`, false, String(nApps))
+      + fold('Sources', kv([['Videos', P.videos.length], ['Courses', P.courses.length], ['Programs', P.programs.length], ['Papers', P.research.length], ['People', P.people.length]]), false);
+  }
+  function railPursuits() {
+    return fold('Pursuits', `<ul class="fl">${S.pursuits.map((ch) => `<li><i class="ring" style="--p:${pct(ch)}"></i><a href="#/p/${ch.id}">${esc(ch.name)}</a><small>${pct(ch)}% · wk ${weekOfToday(ch)}/${planOf(ch).weeks}</small></li>`).join('')}</ul>`, true, String(S.pursuits.length))
+      + fold('Hours a week', kv([...S.pursuits.map((ch) => [ch.name, `${LOADS[ch.load].hours} h`]), ['Total', `${S.pursuits.reduce((a, ch) => a + LOADS[ch.load].hours, 0)} h`]]), true);
+  }
+  function railApplications() {
+    const n = Object.keys(S.applied).length, rows = appRows();
+    return fold('Applications', rows ? `<ul class="fl">${rows}</ul>` : '<p class="d-small">None yet. <a href="#/discover">Discover</a> lists programs you can apply to from here.</p>', n > 0, String(n));
+  }
+  function railCatalogue() {
+    return fold('Catalogue', kv([['Videos', V.length], ['Courses', PR.courses.length], ['Programs', PR.programs.length], ['Papers', LIB.research.length], ['People', LIB.people.length], ['Fields', FIELDS.length]]), false);
   }
 
   // ------------------------------------------------------------- calendar
   function renderCalendar() {
-    const chans = S.channels;
-    if (!chans.length) return empty('Calendar');
-    let html = `<div class="lw-page"><h1>Calendar</h1><p class="sub">Every week of every rabbit hole, with sessions on your load's days. Hatched days are off.</p>`;
-    for (const ch of chans) {
+    if (!S.pursuits.length) return empty('Calendar');
+    let html = `<div class="lw-page"><h1>Calendar</h1><p class="sub">Every week of every pursuit, with sessions on your load's days. Hatched days are off. Click a session to open it.</p>`;
+    for (const ch of S.pursuits) {
       const plan = planOf(ch), L = LOADS[ch.load], cur = weekOfToday(ch);
-      html += `<div class="lw-group"><b># ${esc(ch.name)}</b><span>${plan.weeks} weeks · ${L.label}</span></div><div class="lw-cal"><div class="dh"></div>${DAY.map((d) => `<div class="dh">${d}</div>`).join('')}`;
+      html += `<div class="lw-group"><b>${esc(ch.name)}</b><span>${plan.weeks} weeks · ${L.label}</span></div><div class="lw-cal"><div class="dh"></div>${DAY.map((d) => `<div class="dh">${d}</div>`).join('')}`;
       for (let w = 1; w <= plan.weeks; w++) {
-        const its = plan.items.filter((i) => i.week === w && !isSkipped(ch, i));
-        // spread the week's moves over the load's days
+        const its = weekItems(ch, w);
         const perDay = L.days.map(() => []); its.forEach((it, k) => perDay[k % L.days.length].push(it));
         html += `<div class="wk ${w === cur ? 'cur' : ''}"><b>Week ${w}</b>${fmtDate(weekDate(ch, w))}<br><span class="ph">${esc(phaseOfWeek(ch, w))}</span></div>`;
         for (let d = 0; d < 7; d++) {
           const k = L.days.indexOf(d);
-          html += `<div class="${k < 0 ? 'off' : ''} ${w === cur ? 'cur' : ''}">${k < 0 ? '' : perDay[k].map((it) => `<span class="ses ${isDone(ch, it) ? 'done' : ''}" title="${esc(it.title)}">${tag(KIND[it.kind])}${esc(it.title)}</span>`).join('')}</div>`;
+          html += `<div class="${k < 0 ? 'off' : ''} ${w === cur ? 'cur' : ''}">${k < 0 ? '' : perDay[k].map((it) => `<a class="ses ${isDone(ch, it) ? 'done' : ''}" href="${itemHref(ch, it)}" title="${esc(it.title)}">${ICO[it.kind]}${esc(it.title)}</a>`).join('')}</div>`;
         }
       }
       html += '</div>';
     }
     $('#main').innerHTML = html + '</div>';
-    railSummary();
+    $('#rail').innerHTML = railPursuits();
   }
 
   // -------------------------------------------------------------- library
   function renderLibrary() {
-    const chans = S.channels;
-    if (!chans.length) return empty('Library');
-    let html = `<div class="lw-page"><h1>Library</h1><p class="sub">Everything the assistant has put on your path, by format. Check off what you have finished.</p>`;
-    const kinds = ['watch', 'read', 'take', 'attend', 'talk'];
-    for (const k of kinds) {
+    if (!S.pursuits.length) return empty('Library');
+    let html = `<div class="lw-page"><h1>Library</h1><p class="sub">Everything the assistant has put on your path, by format. Check off what you have finished; open a row to work on it.</p>`;
+    for (const k of ['watch', 'read', 'take', 'attend', 'talk']) {
       const rows = [];
-      for (const ch of chans) for (const it of planOf(ch).items.filter((i) => i.kind === k && !isSkipped(ch, i))) rows.push([ch, it]);
+      for (const ch of S.pursuits) for (const it of planOf(ch).items.filter((i) => i.kind === k && !isSkipped(ch, i))) rows.push([ch, it]);
       if (!rows.length) continue;
-      html += `<div class="lw-group"><b>${KIND[k]}</b><span>${rows.length}</span></div><div class="lw-list">${rows.map(([ch, it]) => `<div class="row ${isDone(ch, it) ? 'done' : ''}"><input type="checkbox" data-ch="${ch.id}" data-id="${it.id}" ${isDone(ch, it) ? 'checked' : ''}><span class="mono-cell k"># ${esc(ch.name)}</span><span class="ti">${it.url ? `<a href="${esc(it.url)}" ${/^https?:/.test(it.url) ? 'target="_blank" rel="noopener"' : ''}>${esc(it.title)}</a>` : esc(it.title)}<small>${it.meta.filter(Boolean).map(esc).join(' · ')}</small></span><span class="mono-cell wk">week ${it.week}</span><span class="mono-cell">${fmtH(it.hours)}</span></div>`).join('')}</div>`;
+      html += `<div class="lw-group"><b>${KIND[k]}</b><span>${rows.length}</span></div><div class="lw-list">${rows.map(([ch, it]) => `<div class="lrow ${isDone(ch, it) ? 'done' : ''}"><input type="checkbox" data-ch="${ch.id}" data-id="${it.id}" ${isDone(ch, it) ? 'checked' : ''}>${row(ch, it, `wk ${it.week} · ${fmtH(it.hours)}`)}</div>`).join('')}</div>`;
     }
     $('#main').innerHTML = html + '</div>';
-    bindChecks(); railSummary();
+    bindChecks(); $('#rail').innerHTML = railPursuits();
   }
 
   // ---------------------------------------------------------------- tasks
   function renderTasks() {
-    const chans = S.channels;
-    if (!chans.length) return empty('Tasks');
+    if (!S.pursuits.length) return empty('Tasks');
     let html = `<div class="lw-page"><h1>Tasks</h1><p class="sub">Projects, applications and check-ins, by week. The parts of the path you produce rather than consume.</p>`;
     const rows = [];
-    for (const ch of chans) for (const it of planOf(ch).items.filter((i) => ['build', 'attend', 'coach'].includes(i.kind) && !isSkipped(ch, i))) rows.push([ch, it]);
-    rows.sort((a, b) => a[1].week - b[1].week);
+    for (const ch of S.pursuits) for (const it of planOf(ch).items.filter((i) => ['build', 'attend', 'coach'].includes(i.kind) && !isSkipped(ch, i))) rows.push([ch, it, dateOf(ch, it)]);
+    rows.sort((a, b) => a[2] - b[2]);
     const open = rows.filter(([ch, it]) => !isDone(ch, it)), done = rows.filter(([ch, it]) => isDone(ch, it));
-    const list = (rs) => `<div class="lw-list">${rs.map(([ch, it]) => `<div class="row ${isDone(ch, it) ? 'done' : ''}"><input type="checkbox" data-ch="${ch.id}" data-id="${it.id}" ${isDone(ch, it) ? 'checked' : ''}><span class="mono-cell k">${tag(KIND[it.kind])}</span><span class="ti">${esc(it.title)}<small># ${esc(ch.name)} · ${esc(phaseOfWeek(ch, it.week))}</small></span><span class="mono-cell wk">${fmtDate(weekDate(ch, it.week))}</span><span class="mono-cell">${fmtH(it.hours)}</span></div>`).join('')}</div>`;
+    const list = (rs) => `<div class="lw-list">${rs.map(([ch, it, d]) => `<div class="lrow ${isDone(ch, it) ? 'done' : ''}"><input type="checkbox" data-ch="${ch.id}" data-id="${it.id}" ${isDone(ch, it) ? 'checked' : ''}>${row(ch, it, `${fmtDate(d)} · ${fmtH(it.hours)}`)}</div>`).join('')}</div>`;
     html += `<div class="lw-group"><b>Open</b><span>${open.length}</span></div>${list(open)}`;
     if (done.length) html += `<div class="lw-group"><b>Done</b><span>${done.length}</span></div>${list(done)}`;
     $('#main').innerHTML = html + '</div>';
-    bindChecks(); railSummary();
+    bindChecks(); $('#rail').innerHTML = railPursuits();
   }
   function bindChecks() {
-    $('#main').addEventListener('change', (e) => { const c = e.target; if (c.type !== 'checkbox') return; const ch = S.channels.find((x) => x.id === c.dataset.ch); if (!ch) return; ch.done[c.dataset.id] = c.checked; save(); route(); });
-  }
-  function railSummary() {
-    $('#rail').innerHTML = `<h3>Rabbit holes</h3><ul>${S.channels.map((ch) => `<li><span class="lw-ch-meta">${Math.round(progress(ch) * 100)}%</span><a href="#/c/${ch.id}"># ${esc(ch.name)}</a></li>`).join('')}</ul>
-      <h3>Hours a week</h3><dl class="kv">${S.channels.map((ch) => `<div><dt># ${esc(ch.name)}</dt><dd>${LOADS[ch.load].hours} h</dd></div>`).join('')}<div><dt>Total</dt><dd>${S.channels.reduce((a, ch) => a + LOADS[ch.load].hours, 0)} h</dd></div></dl>`;
+    $('#main').addEventListener('change', (e) => { const c = e.target; if (c.type !== 'checkbox') return; const ch = S.pursuits.find((x) => x.id === c.dataset.ch); if (!ch) return; ch.done[c.dataset.id] = c.checked; save(); const top = $('#main').scrollTop; route(); $('#main').scrollTop = top; });
   }
   function empty(title) {
-    $('#main').innerHTML = `<div class="lw-page"><h1>${title}</h1><p class="sub">Nothing here yet. <a href="#/new">Start a rabbit hole</a> and the assistant fills this in.</p></div>`;
-    $('#rail').innerHTML = '';
+    $('#main').innerHTML = `<div class="lw-page"><h1>${title}</h1><p class="sub">Nothing here yet. <a href="#/new">Start a pursuit</a> and the assistant fills this in.</p></div>`;
+    $('#rail').innerHTML = railCatalogue();
+  }
+
+  // ------------------------------------------------------------- discover
+  const OPP_FMTS = ['Fellowship', 'Internship', 'Residency', 'Accelerator', 'Competition', 'Lab', 'Research training', 'Apprenticeship', 'Mentorship'];
+  const COURSE_FMTS = ['Bootcamp', 'Live course', 'Certification', 'Workshop'];
+  const SAMPLES = [
+    { name: 'Compare two assistants on graduate-level questions', provider: 'Frontier lab · via Opportunities', fmt: 'Eval', pay: '$35–60/h', note: 'Judge which answer is better and why. Needs real expertise in the field; your pursuit log is the credential.' },
+    { name: 'Write and verify hard problems in your field', provider: 'Model evaluation partner', fmt: 'Gig', pay: 'per item', note: 'Author questions with worked answers that current models get wrong. Short, paid, remote.' },
+    { name: 'Research assistant, part time', provider: 'Lab in the catalogue', fmt: 'Job', pay: 'hourly', note: 'Literature reviews and reproductions for a group working on what you are learning.' },
+  ];
+  function renderDiscover() {
+    const myFields = S.pursuits.length ? [...new Set(S.pursuits.map((c) => c.field))] : [];
+    const pf = S.prefs; pf.dkind = pf.dkind || 'all'; pf.dfield = pf.dfield || 'all';
+    const fieldsOn = pf.dfield === 'all' ? (myFields.length ? myFields : FIELDS.map((f) => f.slug)) : [pf.dfield];
+    const inF = (x) => (x.fields || [x.field]).some((f) => fieldsOn.includes(f));
+    const byScore = (a, b) => (b.score || 0) - (a.score || 0) || a.rank - b.rank;
+    const all = [...PR.programs.filter((x) => OPP_FMTS.includes(x.fmt)), ...PR.courses.filter((x) => COURSE_FMTS.includes(x.fmt))].filter(inF).sort(byScore);
+    const kinds = ['all', ...OPP_FMTS, 'Course'];
+    const list = all.filter((x) => pf.dkind === 'all' || (pf.dkind === 'Course' ? x.section === 'courses' : x.fmt === pf.dkind));
+    const invited = all.filter((x) => ['Fellowship', 'Residency', 'Internship'].includes(x.fmt) && !S.applied[x.id]).slice(0, 3);
+    const applied = (x) => !!S.applied[x.id];
+    const cardOf = (x, cta = 'Apply') => `<div class="disc-card ${applied(x) ? 'applied' : ''}" data-id="${x.id}">
+      <div class="dc-head">${logoOf(x)}<div class="dc-t"><b>${esc(x.name)}</b><small>${esc(x.provider)}</small></div></div>
+      <div class="dc-meta">${tag(x.fmt)}${x.cost ? tag(x.cost) : ''}${x.selectivity ? tag(x.selectivity) : ''}${x.level ? tag(x.level) : ''}<span>${(x.fields || [x.field]).map((f) => field(f).label).join(' · ')}</span></div>
+      ${x.note ? `<p class="dc-note">${esc(x.note)}</p>` : ''}
+      <div class="dc-foot"><span class="mono">${x.sources || 1} source${x.sources === 1 ? '' : 's'} · score ${x.score || 0}</span><a class="chip small" href="${esc(x.url)}" ${ext(x.url)}>Open</a><button class="pill-btn ${applied(x) ? 'primary' : ''}" data-apply="${x.id}">${applied(x) ? 'Applied ✓' : cta}</button></div></div>`;
+    const fieldChips = [chip(myFields.length ? 'My fields' : 'All fields', pf.dfield === 'all', 'data-df="all"'), ...FIELDS.map((f) => chip(f.label, pf.dfield === f.slug, `data-df="${f.slug}"`))].join('');
+    $('#main').innerHTML = `<div class="lw-page disc"><h1>Discover</h1><p class="sub">Learning experiences from the labs, companies and universities in the catalogue, matched to your pursuits: fellowships, internships, residencies, accelerators, competitions and live courses. Apply from here; what you apply to lands on your path as an Attend session.</p>
+      ${invited.length ? `<div class="lw-group"><b>Invited</b><span>matched to ${fieldsOn.map((f) => field(f).label).join(', ')}</span></div><div class="disc-grid inv">${invited.map((x) => cardOf(x, 'View invite')).join('')}</div>` : ''}
+      <div class="lw-group"><b>Opportunities that might interest you</b><span>${list.length}</span></div>
+      <div class="filter-row"><span class="filter-label">Field</span>${fieldChips}</div>
+      <div class="filter-row"><span class="filter-label">Kind</span>${kinds.map((k) => chip(k === 'all' ? 'All' : k, pf.dkind === k, `data-dk="${k}"`)).join('')}</div>
+      <div class="disc-grid" id="opps">${list.slice(0, pf.dmore ? 96 : 24).map((x) => cardOf(x)).join('') || '<p class="d-small">Nothing in the catalogue for this filter yet.</p>'}</div>
+      ${list.length > 24 && !pf.dmore ? `<div class="more"><a class="pill-btn" id="more">Show ${Math.min(96, list.length) - 24} more</a></div>` : ''}
+      <div class="lw-group"><b>Paid evals, gigs and jobs</b><span class="soon">in the works · samples</span></div>
+      <div class="disc-grid">${SAMPLES.map((s) => `<div class="disc-card sample"><div class="dc-head"><span class="logo sm"><span class="mono">${esc(initials(s.provider))}</span></span><div class="dc-t"><b>${esc(s.name)}</b><small>${esc(s.provider)}</small></div></div><div class="dc-meta">${tag(s.fmt)}${tag(s.pay)}${tag('Remote')}${tag('sample', 'soon')}</div><p class="dc-note">${esc(s.note)}</p><div class="dc-foot"><span class="mono">from the labs and companies at the frontier</span><a class="pill-btn" href="https://x.com/andrewsor_" ${ext('http')}>Join the waitlist</a></div></div>`).join('')}</div>
+      <div class="lw-group"><b>Questions</b></div>
+      <div class="lw-faq">${[['What counts as a learning experience here?', 'Anything in the catalogue you take part in rather than consume: a fellowship, an internship or residency, an accelerator, a lab, a competition, or a live course with a cohort. Paid evals, gigs and jobs come next.'], ['What happens when I apply?', 'In this demo, the program lands on your pursuit as an Attend session with an application checklist, and shows under Applications in the rail. The real product sends the application and tracks it.'], ['Where do these come from?', 'The Programs and Courses sections of Frontier Concepts: 1,300 programs and 950 courses ranked by how many curated sources recommend them. Logos and notes come from the same data.']].map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
+    </div>`;
+    $('#rail').innerHTML = railDiscover();
+    const main = $('#main');
+    main.addEventListener('click', (e) => {
+      const df = e.target.closest('[data-df]'), dk = e.target.closest('[data-dk]'), ap = e.target.closest('[data-apply]'), more = e.target.closest('#more');
+      if (df) { e.preventDefault(); pf.dfield = df.dataset.df; save(); renderDiscover(); }
+      if (dk) { e.preventDefault(); pf.dkind = dk.dataset.dk; save(); renderDiscover(); }
+      if (more) { e.preventDefault(); pf.dmore = true; renderDiscover(); }
+      if (ap) { apply(ap.dataset.apply); const top = main.scrollTop; renderDiscover(); main.scrollTop = top; }
+    });
+  }
+  function apply(id) {
+    if (S.applied[id]) { const a = S.applied[id]; const ch = S.pursuits.find((c) => c.id === a.p); if (ch && a.item) { ch.extra = (ch.extra || []).filter((x) => x.id !== a.item); if (ch._plan) ch._plan.items = ch._plan.items.filter((x) => x.id !== a.item); } delete S.applied[id]; save(); return; }
+    const x = PR.programs.find((p) => p.id === id) || PR.courses.find((p) => p.id === id); if (!x) return;
+    const ch = S.pursuits.find((c) => (x.fields || [x.field]).includes(c.field)) || S.pursuits[0];
+    const a = { t: Date.now(), p: ch ? ch.id : '' };
+    if (ch) {
+      const plan = planOf(ch), cur = weekOfToday(ch);
+      const it = { id: `${ch.id}-${cur}-a${plan.items.length}`, week: cur, kind: 'attend', hours: 2, ref: x.id, title: x.name, url: x.url, meta: [x.provider, x.fmt].filter(Boolean), why: 'From Discover. This week: read the requirements and start the materials.', logo: x.logo || '' };
+      plan.items.push(it); ch.extra = ch.extra || []; ch.extra.push(it); a.item = it.id;
+      ch.log = ch.log || []; ch.log.push({ week: cur, me: false, html: `<p>Added from Discover: <b><a href="${itemHref(ch, it)}">${esc(x.name)}</a></b> (${esc(x.provider)}, ${esc(x.fmt)}). The application checklist is on the session; I put two hours on it this week.</p>`, t: new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) });
+    }
+    S.applied[id] = a; save();
+  }
+  function railDiscover() {
+    const ck = S.checks._setup || {};
+    const rows = [['Pick a pursuit', 'Matches what you see to a field', S.pursuits.length > 0, 'auto', '#/new'], ['Set your weekly load', 'So applications fit around the path', S.pursuits.length > 0, 'auto', '#/new'], ['Public learning log', 'The credential providers look at first', !!ck.log, 'log'], ['Verify identity', 'Needed before any paid work', !!ck.id, 'id'], ['Text or email updates', 'Deadlines and replies, nothing else', !!ck.msg, 'msg']];
+    const providers = new Set(PR.programs.filter((x) => OPP_FMTS.includes(x.fmt)).map((x) => x.provider)).size;
+    return fold('Before you start', `<ul class="lw-setup-list">${rows.map(([t, s, on, key, href]) => `<li class="${on ? 'on' : ''}">${key === 'auto' ? `<a class="ck" href="${href}">${on ? ICO.check : ''}</a>` : `<button class="ck" data-ck="${key}">${on ? ICO.check : ''}</button>`}<span><b>${t}</b><small>${s}</small></span>${key !== 'msg' ? tag('required', on ? '' : 'soon') : ''}</li>`).join('')}</ul>`, true, `${rows.filter((r) => r[2]).length}/${rows.length}`)
+      + railApplications()
+      + fold('Sources', kv([['Programs', PR.programs.filter((x) => OPP_FMTS.includes(x.fmt)).length], ['Live courses', PR.courses.filter((x) => COURSE_FMTS.includes(x.fmt)).length], ['Providers', providers]]) + `<p class="d-small">Ranked by how many curated sources recommend each one. <a href="/programs/">Programs</a> · <a href="/courses/">Courses</a></p>`, false);
   }
 
   // ---------------------------------------------------------------- route
   function parse() {
     const h = location.hash.replace(/^#\/?/, '');
-    if (h.startsWith('c/')) return { view: 'c', id: h.slice(2) };
-    if (['calendar', 'library', 'tasks', 'new'].includes(h)) return { view: h };
-    return S.channels.length ? { view: 'c', id: S.channels[S.channels.length - 1].id } : { view: 'new' };
+    let m;
+    if ((m = h.match(/^p\/([^/]+)\/i\/(.+)$/))) return { view: 'i', id: m[1], item: m[2] };
+    if ((m = h.match(/^(?:p|c)\/([^/]+)$/))) return { view: 'p', id: m[1] };
+    if (['home', 'discover', 'calendar', 'library', 'tasks', 'new'].includes(h)) return { view: h };
+    return S.pursuits.length ? { view: 'home' } : { view: 'new' };
   }
   function route() {
     const r = parse();
     renderSide(r);
-    if (r.view === 'new') renderSetup();
-    else if (r.view === 'calendar') renderCalendar();
-    else if (r.view === 'library') renderLibrary();
-    else if (r.view === 'tasks') renderTasks();
-    else { const ch = S.channels.find((c) => c.id === r.id); if (!ch) { location.hash = '#/new'; return; } restore(ch); renderChannel(ch); }
-    document.title = (r.view === 'c' ? `# ${(S.channels.find((c) => c.id === r.id) || {}).name || ''}` : r.view === 'new' ? 'New rabbit hole' : r.view[0].toUpperCase() + r.view.slice(1)) + ' · Learn with AI · Frontier Concepts';
-    if (!/^#\/c\//.test(location.hash)) { $('#main').scrollTop = 0; window.scrollTo(0, 0); }
+    let title = 'Learn with AI';
+    if (r.view === 'new') { renderSetup(); title = 'New pursuit'; }
+    else if (r.view === 'home') { renderHome(); title = 'Home'; }
+    else if (r.view === 'discover') { renderDiscover(); title = 'Discover'; }
+    else if (r.view === 'calendar') { renderCalendar(); title = 'Calendar'; }
+    else if (r.view === 'library') { renderLibrary(); title = 'Library'; }
+    else if (r.view === 'tasks') { renderTasks(); title = 'Tasks'; }
+    else {
+      const ch = S.pursuits.find((c) => c.id === r.id); if (!ch) { location.hash = '#/home'; return; }
+      if (r.view === 'i') { const it = planOf(ch).items.find((x) => x.id === r.item); if (!it) { location.hash = `#/p/${ch.id}`; return; } renderItem(ch, it); title = `${it.title} · ${ch.name}`; }
+      else { renderPursuit(ch); title = ch.name; }
+    }
+    document.title = `${title} · Learn with AI · Frontier Concepts`;
+    if (!['p', 'i'].includes(r.view)) { $('#main').scrollTop = 0; window.scrollTo(0, 0); }
   }
-  // Re-apply swaps and extras to a freshly built plan (plans are rebuilt from the seed on load).
-  function restore(ch) {
-    if (ch._plan) return;
-    const plan = planOf(ch);
-    for (const [id, patch] of Object.entries(ch.swaps || {})) { const it = plan.items.find((x) => x.id === id); if (it) Object.assign(it, patch); }
-    for (const it of ch.extra || []) plan.items.push(it);
-  }
-  $('#theme-btn').addEventListener('click', () => { const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', next); store.set('fa-theme', next); });
+  $('#rail').addEventListener('click', (e) => { const b = e.target.closest('[data-ck]'); if (!b) return; S.checks._setup = S.checks._setup || {}; S.checks._setup[b.dataset.ck] = !S.checks._setup[b.dataset.ck]; save(); $('#rail').innerHTML = railDiscover(); });
   window.addEventListener('hashchange', route);
   route();
 })();

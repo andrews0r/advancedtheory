@@ -31,6 +31,10 @@ Everything is chosen offline by `scripts/fetch_videos.py`, which writes `data/vi
 
 Two feeders: `scripts/mine_papers.py` pulls every Hacker News story that links to a paper host (arXiv, Nature, Science, DOI, bioRxiv, IEEE, ACM, APS and PDFs) above a points floor, assigns each to a field by title pattern, keeps the top 20 per field by points, fills authors and years from the arXiv API and Crossref, and writes `data/research_hn.csv`; the library build appends those after the editorial picks (an HN paper that is also an editorial pick just lends it its points), and the Research page gets a Source filter and an HN column linking to the discussion. `scripts/merge_x_accounts.py <export.csv>` folds an X accounts export (field, account_type, handle, name, why) into `data/people.csv`: it fills handles for people already listed and adds the rest using the hand-written profiles in the script. Both only touch the CSVs; re-run `build_library.py` after.
 
+## Learn with AI (demo)
+
+`/learnwithai/` is a demo of the learning assistant, built from the same catalogue and kept out of search (`noindex`). A **pursuit** is one subject you build expertise in: a field, a narrower topic, a duration (3, 6, 9 or 12 months) and a weekly load (minimal, part time, full time). `js/learnwithai.js` plans it week by week from `data/videos.js`, `data/programs.js` and `data/library.js` in four phases (Foundations, Core, Practice, Launch) and keeps each pursuit as a conversation with scripted replies. Every move opens as its own session whose layout follows the format: a player for a talk, a reading guide for a paper, a brief and checklist for a project, a profile and message draft for a conversation, an application checklist for a program. Home lists what is coming up and what was done; Discover lists fellowships, internships, residencies, accelerators, competitions and live courses from the programs data, with Apply adding the program to the path. Calendar, Library and Tasks are views over the same plan. State lives in `localStorage`; nothing is sent anywhere.
+
 ## Refreshing the catalogue
 
 1. Put a YouTube Data API key in `.env` as `YOUTUBE_API_KEY=...` (git-ignored).
@@ -40,7 +44,7 @@ Responses are cached in `cache/`, so re-runs are nearly free. The default run st
 
 ## Routes
 
-- `/` site home: a node map of the nine fields and six sections drawn from `data/home.js` (counts, written by the page builder) with an expandable index · `/courses/` and `/programs/` (`#f=<field>&fmt=<format>&cost=free|funded|paid&q=&sort=<column>&dir=asc|desc`; `#view=ranked` on Programs) · `/research/` and `/people/` (`#f=<field>&fmt=<kind>&q=&sort=<column>&dir=`) · `/videos/#/` videos home · `/videos/#/p/<slug>` playlist · `#/w/<id>` watch · `#/search?q=` · `#/builders` · `#/hn` · `#/history` · `#/about`
+- `/` site home: a node map of the nine fields and six sections drawn from `data/home.js` (counts, written by the page builder) with an expandable index · `/courses/` and `/programs/` (`#f=<field>&fmt=<format>&cost=free|funded|paid&q=&sort=<column>&dir=asc|desc`; `#view=ranked` on Programs) · `/research/` and `/people/` (`#f=<field>&fmt=<kind>&q=&sort=<column>&dir=`) · `/videos/#/` videos home · `/videos/#/p/<slug>` playlist · `#/w/<id>` watch · `#/search?q=` · `#/builders` · `#/hn` · `#/history` · `#/about` · `/learnwithai/` demo (`#/home` · `#/discover` · `#/new` · `#/p/<id>` · `#/p/<id>/i/<item>` · `#/calendar` · `#/library` · `#/tasks`)
 - `/videos/#/tv?p=<slug>` TV mode: arrows next/previous, Space pause, S shuffle, F full screen, M mute, 0–9 switch playlist, Esc exit.
 
 ## Deploying

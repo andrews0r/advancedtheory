@@ -295,7 +295,7 @@
   const now = () => new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
   const post = (ch, w, e) => { ch.log = ch.log || []; ch.log.push({ week: w, t: now(), ...e }); return ch.log[ch.log.length - 1]; };
   const say = (ch, w, html) => post(ch, w, { html });
-  const ask = (ch, w, ui) => post(ch, w, { ui, html: ui.type === 'choice' ? '' : `<p>${ui.q}</p>` });
+  const ask = (ch, w, ui) => post(ch, w, { ui, html: ['choice', 'range', 'pick'].includes(ui.type) ? '' : `<p>${ui.q}</p>` });
   const first = (p) => (p.name || '').split(' ')[0];
   const CHECKIN = (f) => [
     { key: 'q0', q: `What do you already know about ${f.name.toLowerCase()}, honestly?`, options: ['Nothing yet', 'The basics', 'I have built things', 'I work in it'] },
@@ -468,14 +468,16 @@
   }
   const movesList = (ch, w, ids, cap) => { const its = ids ? ids.map((id) => planOf(ch).items.find((i) => i.id === id)).filter((i) => i && !isSkipped(ch, i)) : weekItems(ch, w); return `<div class="cc-moves">${cap ? `<div class="cap">${esc(cap)}</div>` : ''}${its.map((i) => moveRow(ch, i)).join('')}</div>`; };
   const postMoves = (ch, w, ids, cap) => post(ch, w, { ui: { type: 'moves', week: w, ids, cap }, html: '' });
-  const letters = 'ABCDEFG';
+  const strip = (h) => String(h).replace(/<[^>]+>/g, '');
+  const answered = (u, a) => `<div class="cc-answered">${ICO.check}<span>${esc(strip(u.q))}</span><b>${esc(u.type === 'range' ? `${a} h` : u.type === 'pick' ? (a === 'Kept it.' ? 'kept it' : 'swapped') : a)}</b></div>`;
+  const question = (u, idx) => `<div class="gu gu-q" data-idx="${idx}"><div class="hd">${u.key && u.key.startsWith('q') ? 'Check-in' : u.key && u.key.startsWith('rate') ? 'Rating' : 'Question'}</div><p>${u.q}</p><div class="opts">${u.options.map((o) => `<button type="button" data-opt="${esc(o)}">${esc(o)}</button>`).join('')}<button type="button" class="else" data-focus>Other…<small>type below</small></button></div></div>`;
   function genUI(ch, e, idx) {
     const u = e.ui;
     if (u.type === 'moves') return movesList(ch, u.week, u.ids, u.cap);
-    if (e.answer != null) return (u.type === 'choice' ? msg(`<p>${u.q}</p>`) : '') + (u.type === 'pick' ? '' : msg(`<p>${esc(e.answer)}</p>`, true));
-    if (u.type === 'choice') return `<div class="gu gu-choice" data-idx="${idx}"><b>${u.q}</b>${u.options.map((o, i) => `<a data-opt="${esc(o)}"><i>${letters[i]}</i>${esc(o)}</a>`).join('')}<a class="else" data-focus><i>${letters[u.options.length]}</i>Something else</a></div>`;
-    if (u.type === 'range') return `<div class="gu gu-range" data-idx="${idx}"><input type="range" min="${u.min}" max="${u.max}" step="1" value="${u.value}"><output>${u.value} h</output><button class="pill-btn primary" data-set>Set</button></div>`;
-    if (u.type === 'pick') return `<div class="gu gu-pick" data-idx="${idx}">${u.options.map((o) => `<div class="gu-opt"><div class="med">${o.thumb ? `<img class="thumb" src="${esc(o.thumb)}" alt="">` : o.face ? `<img class="face" src="${esc(o.face)}" alt="">` : `<span class="ico">${ICO.read}</span>`}</div><div class="bd"><b>${esc(o.title)}</b><small>${esc(o.sub)}</small>${o.note ? `<span>${esc(o.note)}</span>` : ''}</div><button class="chip small" data-opt="${esc(o.id)}">Pick</button></div>`).join('')}<a class="chip small" data-opt="">Keep it</a></div>`;
+    if (e.answer != null) return answered(u, e.answer);
+    if (u.type === 'choice') return question(u, idx);
+    if (u.type === 'range') return `<div class="gu gu-q" data-idx="${idx}"><div class="hd">Hours</div><p>${u.q}</p><div class="gu-range"><input type="range" min="${u.min}" max="${u.max}" step="1" value="${u.value}"><output>${u.value} h</output><button class="pill-btn primary" data-set>Set</button></div></div>`;
+    if (u.type === 'pick') return `<div class="gu gu-q" data-idx="${idx}"><div class="hd">Swap</div><p>${u.q}</p><div class="gu-pick">${u.options.map((o) => `<div class="gu-opt"><div class="med">${o.thumb ? `<img class="thumb" src="${esc(o.thumb)}" alt="">` : o.face ? `<img class="face" src="${esc(o.face)}" alt="">` : `<span class="ico">${ICO.read}</span>`}</div><div class="bd"><b>${esc(o.title)}</b><small>${esc(o.sub)}</small>${o.note ? `<span>${esc(o.note)}</span>` : ''}</div><button class="chip small" data-opt="${esc(o.id)}">Pick</button></div>`).join('')}<a class="chip small" data-opt="">Keep it</a></div></div>`;
     if (u.type === 'experts') return `<div class="gu gu-experts" data-idx="${idx}">${u.options.map((id) => LIB.people.find((p) => p.id === id)).filter(Boolean).map((p) => `<div class="gu-opt"><div class="med">${faceOf(p)}</div><div class="bd"><b>${esc(p.name)}</b><small>${esc(p.role || '')}${p.org ? ` · ${esc(p.org)}` : ''}</small><span>${esc(p.note || '')}</span></div><button class="chip small" data-connect="${esc(p.id)}">Connect</button></div>`).join('')}</div>`;
     return '';
   }
@@ -556,8 +558,8 @@
         if (u.type === 'today') html += `<div class="cc-moves"><div class="cap">Today</div>${u.items.map(([cid, iid]) => { const ch = S.pursuits.find((c) => c.id === cid); const it = ch && planOf(ch).items.find((i) => i.id === iid); return ch && it ? moveRow(ch, it) : ''; }).join('')}</div>`;
         else if (u.type === 'videos') html += msg(e.html) + `<div class="gu gu-pick">${u.options.map((id) => V.find((v) => v.id === id)).filter(Boolean).map((v) => `<a class="gu-opt" href="/videos/#/w/${esc(v.id)}"><div class="med"><img class="thumb" src="https://i.ytimg.com/vi/${esc(v.id)}/mqdefault.jpg" alt=""></div><div class="bd"><b>${esc(v.title)}</b><small>${esc(v.channel)} · ${fmtH(v.duration / 3600)}</small></div></a>`).join('')}</div>`;
         else if (u.type === 'experts') html += msg(e.html) + `<div class="gu gu-experts">${u.options.map((id) => LIB.people.find((p) => p.id === id)).filter(Boolean).map((p) => `<a class="gu-opt" href="${esc(p.url)}" ${ext(p.url)}><div class="med">${faceOf(p)}</div><div class="bd"><b>${esc(p.name)}</b><small>${esc(p.role || '')}</small><span>${esc(p.note || '')}</span></div></a>`).join('')}</div>`;
-        else if (e.answer != null) html += msg(`<p>${u.q}</p>`) + msg(`<p>${esc(e.answer)}</p>`, true);
-        else if (idx === S.chat.length - 1) html += `<div class="gu gu-choice" data-idx="${idx}"><b>${u.q}</b>${u.options.map((o, i) => `<a data-opt="${esc(o)}"><i>${letters[i]}</i>${esc(o)}</a>`).join('')}<a class="else" data-focus><i>${letters[u.options.length]}</i>Something else</a></div>`;
+        else if (e.answer != null) html += answered(u, e.answer);
+        else if (idx === S.chat.length - 1) html += question(u, idx);
       } else html += msg(e.html);
     });
     html += `</div><div class="cc-compose"><form id="say" class="cc-box"><button type="button" class="plus" title="Attach (demo)">${ICO.plus}</button><textarea id="say-in" rows="1" placeholder="Type your answer, or ask about something else…"></textarea><button class="go" type="submit" title="Send">${ICO.enter}</button></form><div class="cc-status"><span>Scripted assistant · local only</span><span>Across every pursuit</span></div></div>`;

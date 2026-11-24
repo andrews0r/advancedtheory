@@ -19,7 +19,8 @@
   const KEY = 'fc-learnwithai';
   const S = store.get(KEY, {});
   S.pursuits = S.pursuits || S.channels || []; delete S.channels;
-  S.pursuits.forEach((c) => { delete c._plan; });
+  S.pursuits.forEach((c) => { delete c._plan; if (!c.flow) c.log = []; });
+  S.chat = S.chat || [];
   S.setup = S.setup || {}; S.applied = S.applied || {}; S.checks = S.checks || {}; S.notes = S.notes || {}; S.prefs = S.prefs || {};
   const save = () => store.set(KEY, JSON.parse(JSON.stringify(S, (k, v) => (k === '_plan' ? undefined : v))));
 
@@ -167,6 +168,7 @@
     talk: svg('<path d="M4 5h16v10H9l-5 4z"/>'),
     attend: svg('<path d="M3 21h18M5 21V8l7-4 7 4v13M10 21v-5h4v5"/>'),
     coach: svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>'),
+    bot: svg('<rect x="4" y="7" width="16" height="12" rx="4"/><circle cx="9.5" cy="13" r="1.3" fill="currentColor" stroke="none"/><circle cx="14.5" cy="13" r="1.3" fill="currentColor" stroke="none"/><path d="M12 7V4M9 4h6"/>'),
   };
   const tag = (t, cls = '') => `<span class="tag ${cls}">${esc(t)}</span>`;
   const chip = (label, active, attrs = '', sub = '') => `<a class="chip small ${active ? 'active' : ''}" ${attrs}>${esc(label)}${sub ? `<span>${esc(sub)}</span>` : ''}</a>`;
@@ -207,7 +209,7 @@
     $('#side').innerHTML = `
       <a class="lw-brand" href="/" aria-label="Frontier Concepts home"><span class="brand-mark"><svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="6" fill="#141414" stroke="#2a2a2a"/><g stroke="#ffffff" stroke-opacity=".22" stroke-width=".8" fill="none"><path d="M6 2v28"/><path d="M10 2v28"/><path d="M14 2v28"/><path d="M18 2v28"/><path d="M22 2v28"/><path d="M26 2v28"/><path d="M2 6h28"/><path d="M2 10h28"/><path d="M2 14h28"/><path d="M2 18h28"/><path d="M2 22h28"/><path d="M2 26h28"/></g><circle cx="16" cy="16" r="11" stroke="#ffffff" stroke-width="1.1" fill="none"/></svg></span><span class="brand-text">frontier <span class="brand-tv">concepts.</span></span></a>
       <span class="lw-demo-tag">Learn with AI · demo</span>
-      <nav class="lw-nav top"><a href="#/home" class="${on('home')}">${ICO.home}<span class="nm">Home</span></a><a href="#/discover" class="${on('discover')}">${ICO.discover}<span class="nm">Discover</span></a></nav>
+      <nav class="lw-nav top"><a href="#/home" class="${on('home')}">${ICO.home}<span class="nm">Home</span></a><a href="#/discover" class="${on('discover')}">${ICO.discover}<span class="nm">Discover</span></a><a href="#/chat" class="${on('chat')}">${ICO.bot}<span class="nm">Assistant</span></a></nav>
       <h3>Pursuits</h3>
       <nav class="lw-nav">${purs}<a href="#/new" class="new ${on('new')}">${ICO.plus}<span class="nm">New pursuit</span></a></nav>
       <div class="lw-side-bottom">
@@ -215,7 +217,7 @@
         <div class="lw-user"><span class="av">Y</span><span class="nm"><b>You</b><small>Local demo · nothing leaves the browser</small></span></div>
       </div>`;
     $('#theme-btn').addEventListener('click', () => { const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', next); store.set('fa-theme', next); });
-    $('#reset').addEventListener('click', () => { if (confirm('Clear every pursuit, application and note in this demo?')) { for (const k of Object.keys(S)) delete S[k]; S.pursuits = []; S.setup = {}; S.applied = {}; S.checks = {}; S.notes = {}; S.prefs = {}; save(); location.hash = '#/new'; } });
+    $('#reset').addEventListener('click', () => { if (confirm('Clear every pursuit, application and note in this demo?')) { for (const k of Object.keys(S)) delete S[k]; S.pursuits = []; S.setup = {}; S.applied = {}; S.checks = {}; S.notes = {}; S.prefs = {}; S.chat = []; save(); location.hash = '#/new'; } });
   }
 
   // ----------------------------------------------------------------- home
@@ -293,7 +295,7 @@
   const now = () => new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
   const post = (ch, w, e) => { ch.log = ch.log || []; ch.log.push({ week: w, t: now(), ...e }); return ch.log[ch.log.length - 1]; };
   const say = (ch, w, html) => post(ch, w, { html });
-  const ask = (ch, w, ui) => post(ch, w, { ui, html: `<p>${ui.q}</p>` });
+  const ask = (ch, w, ui) => post(ch, w, { ui, html: ui.type === 'choice' ? '' : `<p>${ui.q}</p>` });
   const first = (p) => (p.name || '').split(' ')[0];
   const CHECKIN = (f) => [
     { key: 'q0', q: `What do you already know about ${f.name.toLowerCase()}, honestly?`, options: ['Nothing yet', 'The basics', 'I have built things', 'I work in it'] },
@@ -313,8 +315,8 @@
     ch.flow[w] = { ck: {} };
     const plan = planOf(ch), f = field(ch.field), L = LOADS[ch.load], phase = phaseOfWeek(ch, w);
     if (w === 1) {
-      say(ch, w, `<p>Welcome. ${plan.weeks} weeks of <b>${esc(f.name)}</b>${ch.topic ? ` around <b>${esc(ch.topic)}</b>` : ''}, ${L.hours} hours a week, starting with <b>Foundations</b>: the textbook and the talks that give you the map of the field.</p><p>Before I lay out the week, a short check-in. Three questions; pick an answer or type your own.</p>`);
-      ask(ch, w, { type: 'choice', ...CHECKIN(f)[0] });
+      say(ch, w, `<p>Hi. Week 1 of <b>${esc(f.name)}</b>${ch.topic ? `, ${esc(ch.topic)}` : ''}: ${L.hours} hours, ${weekItems(ch, w).length} moves, Foundations.</p>`);
+      ask(ch, w, { type: 'choice', key: 'start', q: 'Where do you want to start?', options: ['Just give me the first move', 'Lay out the whole week', 'A quick check-in first'] });
     } else {
       const prev = weekItems(ch, w - 1), dn = prev.filter((i) => isDone(ch, i));
       say(ch, w, `<p>Week ${w}, <b>${esc(phase)}</b>. Last week you finished ${dn.length} of ${prev.length} moves, ${fmtH(dn.reduce((a, i) => a + i.hours, 0))}.</p>`);
@@ -326,6 +328,26 @@
     const w = e.week, f = field(ch.field), P = pools(ch.field, ch.topic), plan = planOf(ch), fl = ch.flow[w];
     e.answer = value;
     const key = e.ui.key;
+    const moves = () => post(ch, w, { ui: { type: 'moves', week: w }, html: '' });
+    const firstMove = () => { const n = weekItems(ch, w).find((i) => !isDone(ch, i) && i.kind !== 'coach'); return n ? `<p>Start with <a href="${itemHref(ch, n)}">${esc(n.title)}</a>, ${fmtH(n.hours)}. ${esc(n.why || '')}</p>` : '<p>Nothing left this week.</p>'; };
+    if (key === 'start') {
+      if (/first move/i.test(value)) { say(ch, w, firstMove()); ask(ch, w, { type: 'choice', key: 'more', q: 'When you are done with it:', options: ['Show me the rest of the week', 'Who should I talk to about it?', 'A quick check-in'] }); }
+      else if (/whole week/i.test(value)) { moves(); ask(ch, w, { type: 'choice', key: 'after', q: 'Does the week fit?', options: ['Yes, start me off', 'Lighten it', 'Put it on my calendar'] }); }
+      else ask(ch, w, { type: 'choice', ...CHECKIN(f)[0] });
+      return;
+    }
+    if (key === 'more') {
+      if (/rest of the week/i.test(value)) { moves(); ask(ch, w, { type: 'choice', key: 'after', q: 'Does the week fit?', options: ['Yes, start me off', 'Lighten it', 'Put it on my calendar'] }); }
+      else if (/talk/i.test(value)) ask(ch, w, { type: 'experts', key: 'experts', q: `Three people whose work is the primary source here. Connect and I draft the message.`, options: P.people.slice(0, 3).map((p) => p.id) });
+      else ask(ch, w, { type: 'choice', ...CHECKIN(f)[0] });
+      return;
+    }
+    if (key === 'after') {
+      if (/lighten/i.test(value)) ask(ch, w, { type: 'range', key: 'hours', q: 'How many hours do you have this week?', min: 2, max: LOADS[ch.load].hours, value: Math.max(2, Math.round(hoursOf(ch, w) * 0.6)) });
+      else if (/calendar/i.test(value)) { const L = LOADS[ch.load]; post(ch, w, { sys: true, text: `Scheduled on ${L.days.map((d) => DAY[d]).join(', ')} · <a href="#/calendar">open the calendar</a>` }); say(ch, w, firstMove()); }
+      else say(ch, w, firstMove());
+      return;
+    }
     if (key === 'q0' || key === 'q1') { fl.ck[key] = value; const q = CHECKIN(f)[key === 'q0' ? 1 : 2]; ask(ch, w, { type: 'choice', ...q }); return; }
     if (key === 'q2') {
       fl.ck.q2 = value; const its = weekItems(ch, w), notes = [];
@@ -339,10 +361,9 @@
       if (/Hardware/.test(value)) notes.push(`everything in Foundations runs in a browser or a notebook; hardware comes in Practice`);
       if (/Staying/.test(value)) notes.push(`I will check in twice a week instead of once`);
       const coach = its.find((i) => i.kind === 'coach'); if (coach) ch.done[coach.id] = true;
-      say(ch, w, `<p>Got it${notes.length ? `: ${notes.join('; ')}.` : '.'} Here is the week.</p>`);
-      post(ch, w, { ui: { type: 'moves', week: w }, html: '' });
-      const start = weekItems(ch, w).find((i) => !isDone(ch, i) && i.kind !== 'coach');
-      if (start) say(ch, w, `<p>Start with <a href="${itemHref(ch, start)}">${esc(start.title)}</a> (${fmtH(start.hours)}): ${esc(start.why || '')} Mark each move done here and I will keep the week in shape.</p>`);
+      say(ch, w, `<p>Got it${notes.length ? `: ${notes.join('; ')}.` : '.'}</p>`);
+      moves();
+      say(ch, w, firstMove());
       return;
     }
     if (key === 'went') {
@@ -417,7 +438,8 @@
     const t = text.toLowerCase();
     if (pending) { onAnswer(ch, pending, text); return finish(ch); }
     const week = weekItems(ch, cur).filter((i) => !isDone(ch, i));
-    if (/less time|busy|travel|no time|lighter|hours/.test(t)) ask(ch, cur, { type: 'range', key: 'hours', q: 'How many hours do you have this week?', min: 2, max: LOADS[ch.load].hours, value: Math.max(2, Math.round(hoursOf(ch, cur, (i) => !isDone(ch, i)) * 0.6)) });
+    if (/show the week|the week|plan/.test(t)) { post(ch, cur, { ui: { type: 'moves', week: cur }, html: '' }); }
+    else if (/less time|busy|travel|no time|lighter|hours/.test(t)) ask(ch, cur, { type: 'range', key: 'hours', q: 'How many hours do you have this week?', min: 2, max: LOADS[ch.load].hours, value: Math.max(2, Math.round(hoursOf(ch, cur, (i) => !isDone(ch, i)) * 0.6)) });
     else if (/deeper|more|harder|advanced|theory/.test(t)) { const p = P.research.find((x) => !plan.items.some((i) => i.ref === x.id)); if (p) { const it = addItem(ch, cur, 'read', p, 3, p.note); say(ch, cur, `<p>Added a primary source to this week: <a href="${itemHref(ch, it)}">${esc(p.name)}</a>. ${esc(p.note)}</p>`); } else say(ch, cur, '<p>You have read everything in the catalogue for this field. Time to write something.</p>'); }
     else if (/who|people|talk|expert|mentor|connect/.test(t)) ask(ch, cur, { type: 'experts', key: 'experts', q: `Three people whose work is the primary source for ${esc(f.name.toLowerCase())}. Connect with one and I will draft the message; the full list is under Connect on the right.`, options: P.people.slice(0, 3).map((p) => p.id) });
     else if (/first|start|begin|where/.test(t)) { const n = week[0]; say(ch, cur, n ? `<p>Start with <a href="${itemHref(ch, n)}">${esc(n.title)}</a> (${fmtH(n.hours)}). ${esc(n.why || '')}</p>` : '<p>This week is done. Next week opens on Monday.</p>'); }
@@ -437,11 +459,17 @@
   const finish = (ch) => { save(); renderPursuit(ch); const m = $('#main'); m.scrollTop = m.scrollHeight; };
 
   // ---- rendering
+  function moveRow(ch, it) {
+    const done = isDone(ch, it);
+    return `<div class="cc-move ${done ? 'done' : ''}" data-id="${it.id}"><button data-act="done" class="ck ${done ? 'on' : ''}" title="Mark done">${ICO.check}</button><span class="ic">${ICO[it.kind]}</span><a class="ti" href="${itemHref(ch, it)}">${esc(it.title)}</a><span class="m">${esc(KIND[it.kind])}${it.meta[0] ? ` · ${esc(it.meta[0])}` : ''}</span><span class="h">${fmtH(it.hours)}</span><span class="ops">${it.kind !== 'coach' ? '<button data-act="skip">skip</button>' : ''}${['watch', 'read', 'talk'].includes(it.kind) ? '<button data-act="swap">swap</button>' : ''}</span></div>`;
+  }
+  const movesList = (ch, w) => `<div class="cc-moves">${weekItems(ch, w).map((i) => moveRow(ch, i)).join('')}</div>`;
+  const letters = 'ABCDEFG';
   function genUI(ch, e, idx) {
     const u = e.ui;
-    if (u.type === 'moves') return `<div class="cc-cards">${weekItems(ch, u.week).map((i) => card(ch, i, true)).join('')}</div>`;
-    if (e.answer != null) return u.type === 'pick' ? '' : msg(`<p>${esc(e.answer)}</p>`, true);
-    if (u.type === 'choice') return `<div class="gu gu-choice" data-idx="${idx}">${u.options.map((o) => chip(o, false, `data-opt="${esc(o)}"`)).join('')}<span class="gu-hint">or type below</span></div>`;
+    if (u.type === 'moves') return movesList(ch, u.week);
+    if (e.answer != null) return (u.type === 'choice' ? msg(`<p>${u.q}</p>`) : '') + (u.type === 'pick' ? '' : msg(`<p>${esc(e.answer)}</p>`, true));
+    if (u.type === 'choice') return `<div class="gu gu-choice" data-idx="${idx}"><b>${u.q}</b>${u.options.map((o, i) => `<a data-opt="${esc(o)}"><i>${letters[i]}</i>${esc(o)}</a>`).join('')}<a class="else" data-focus><i>${letters[u.options.length]}</i>Something else</a></div>`;
     if (u.type === 'range') return `<div class="gu gu-range" data-idx="${idx}"><input type="range" min="${u.min}" max="${u.max}" step="1" value="${u.value}"><output>${u.value} h</output><button class="pill-btn primary" data-set>Set</button></div>`;
     if (u.type === 'pick') return `<div class="gu gu-pick" data-idx="${idx}">${u.options.map((o) => `<div class="gu-opt"><div class="med">${o.thumb ? `<img class="thumb" src="${esc(o.thumb)}" alt="">` : o.face ? `<img class="face" src="${esc(o.face)}" alt="">` : `<span class="ico">${ICO.read}</span>`}</div><div class="bd"><b>${esc(o.title)}</b><small>${esc(o.sub)}</small>${o.note ? `<span>${esc(o.note)}</span>` : ''}</div><button class="chip small" data-opt="${esc(o.id)}">Pick</button></div>`).join('')}<a class="chip small" data-opt="">Keep it</a></div>`;
     if (u.type === 'experts') return `<div class="gu gu-experts" data-idx="${idx}">${u.options.map((id) => LIB.people.find((p) => p.id === id)).filter(Boolean).map((p) => `<div class="gu-opt"><div class="med">${faceOf(p)}</div><div class="bd"><b>${esc(p.name)}</b><small>${esc(p.role || '')}${p.org ? ` · ${esc(p.org)}` : ''}</small><span>${esc(p.note || '')}</span></div><button class="chip small" data-connect="${esc(p.id)}">Connect</button></div>`).join('')}</div>`;
@@ -454,7 +482,7 @@
     const picked = (w) => { const n = {}; weekItems(ch, w).forEach((i) => { n[i.kind] = (n[i.kind] || 0) + 1; }); return Object.entries(n).map(([k, c]) => `${c} ${KIND[k].toLowerCase()}`).join(', '); };
     for (let w = 1; w < cur; w++) {
       const its = weekItems(ch, w), done = its.filter((i) => isDone(ch, i)).length;
-      html += act(`Week ${w} · ${phaseOfWeek(ch, w)} · ${fmtH(hoursOf(ch, w))} · ${picked(w)} · ${done}/${its.length} done`, its.map((i) => card(ch, i, false)).join(''));
+      html += act(`Week ${w} · ${phaseOfWeek(ch, w)} · ${fmtH(hoursOf(ch, w))} · ${picked(w)} · ${done}/${its.length} done`, movesList(ch, w));
     }
     html += `<div class="cc-week cur"><b>Week ${cur}</b><span>${fmtDate(weekDate(ch, cur))} – ${fmtDate(weekDate(ch, cur, 6))}</span><span class="ph">${phaseOfWeek(ch, cur)}</span><span>${fmtH(hoursOf(ch, cur))}</span></div>`;
     (ch.log || []).forEach((e, idx) => {
@@ -466,7 +494,7 @@
     });
     html += '</div>';
     const pending = (ch.log || []).some((e) => e.week === cur && e.ui && e.ui.type === 'choice' && e.answer == null);
-    html += `<div class="cc-compose"><div class="cc-quick">${(pending ? [] : ['Who should I talk to?', 'I have less time this week', 'Go deeper', 'What is next?']).map((q) => chip(q, false, `data-q="${esc(q)}"`)).join('')}</div>
+    html += `<div class="cc-compose"><div class="cc-quick">${(pending ? [] : ['Show the week', 'Who should I talk to?', 'Less time this week', 'Go deeper']).map((q) => chip(q, false, `data-q="${esc(q)}"`)).join('')}</div>
       <form id="say" class="cc-box"><button type="button" class="plus" title="Attach (demo)">${ICO.plus}</button><textarea id="say-in" rows="1" placeholder="${pending ? 'Type your answer…' : 'Tell the assistant how your week looks, or ask for something…'}"></textarea><button class="go" type="submit" title="Send">${ICO.enter}</button></form>
       <div class="cc-status"><span>Scripted assistant · local only</span><span>${esc(ch.name)} · week ${cur} of ${plan.weeks}</span></div></div>`;
     $('#main').innerHTML = html;
@@ -475,10 +503,11 @@
     const m = $('#main'); m.scrollTop = m.scrollHeight;
     $('.cc-stream').addEventListener('click', (e) => {
       const b = e.target.closest('button[data-act]'), opt = e.target.closest('[data-opt]'), set = e.target.closest('[data-set]'), con = e.target.closest('[data-connect]');
-      if (b) { const it = plan.items.find((x) => x.id === b.closest('.lw-card').dataset.id); if (it) { onCard(ch, it, b.dataset.act); save(); const top = m.scrollTop; renderPursuit(ch); if (b.dataset.act !== 'done' || !ch.done[it.id]) m.scrollTop = top; } return; }
+      if (b) { const it = plan.items.find((x) => x.id === b.closest('[data-id]').dataset.id); if (it) { onCard(ch, it, b.dataset.act); save(); const top = m.scrollTop; renderPursuit(ch); if (b.dataset.act !== 'done' || !ch.done[it.id]) m.scrollTop = top; } return; }
       if (con) { connect(ch, con.dataset.connect); return; }
       const gu = e.target.closest('.gu'); if (!gu) return;
       const entry = ch.log[Number(gu.dataset.idx)]; if (!entry || entry.answer != null) return;
+      if (e.target.closest('[data-focus]')) { e.preventDefault(); $('#say-in').focus(); return; }
       if (opt) { e.preventDefault(); if (entry.ui.type === 'pick' && !opt.dataset.opt) { entry.answer = 'Kept it.'; finish(ch); return; } onAnswer(ch, entry, opt.dataset.opt); finish(ch); }
       if (set) { onAnswer(ch, entry, gu.querySelector('input').value); finish(ch); }
     });
@@ -487,6 +516,52 @@
     $('#say').addEventListener('submit', (e) => { e.preventDefault(); const v = $('#say-in').value.trim(); if (v) reply(ch, v); });
     $('#say-in').addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#say').requestSubmit(); } });
     $('#say-in').addEventListener('input', (e) => { e.target.style.height = 'auto'; e.target.style.height = Math.min(120, e.target.scrollHeight) + 'px'; });
+  }
+
+  // ------------------------------------------------------------ assistant
+  // A general chat, not tied to a pursuit: start one, find a program, pick something to watch.
+  const cpost = (e) => { S.chat.push({ t: now(), ...e }); return S.chat[S.chat.length - 1]; };
+  function chatOptions() { return S.pursuits.length ? ['What should I do today?', 'Find a program to apply to', 'Something to watch tonight', 'Start another pursuit'] : ['Start a pursuit', 'Find a program to apply to', 'Something to watch tonight', 'Who should I follow?']; }
+  function ensureChat() {
+    if (S.chat.length) return;
+    cpost({ html: `<p>Hi. I am the assistant behind every pursuit. I can start one, find a program or a person, or pick something worth an evening.</p>` });
+    cpost({ ui: { type: 'choice', key: 'c', q: 'What do you want to do?', options: chatOptions() } });
+  }
+  function chatAnswer(text) {
+    const t = text.toLowerCase();
+    const pending = S.chat.filter((e) => e.ui && e.ui.type === 'choice' && e.answer == null).slice(-1)[0];
+    if (pending) pending.answer = text; else cpost({ me: true, html: `<p>${esc(text)}</p>` });
+    const fieldsOn = S.pursuits.length ? [...new Set(S.pursuits.map((c) => c.field))] : FIELDS.map((f) => f.slug);
+    if (/start/.test(t)) { cpost({ html: '<p>Three choices and I build the path: field, duration, load.</p>' }); cpost({ sys: true, text: '<a href="#/new">Open New pursuit</a>' }); }
+    else if (/program|apply|fellowship/.test(t)) { const top = PR.programs.filter((x) => OPP_FMTS.includes(x.fmt) && (x.fields || [x.field]).some((f) => fieldsOn.includes(f))).sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 3); cpost({ html: `<p>The three strongest in ${fieldsOn.map((f) => field(f).label).join(', ')}: ${top.map((x) => `<b>${esc(x.name)}</b> (${esc(x.provider)}, ${esc(x.fmt)})`).join(', ')}. <a href="#/discover">Discover</a> has the rest; Apply there puts it on your path.</p>` }); }
+    else if (/watch|tonight|video/.test(t)) { const vids = V.filter((v) => (v.directions || []).some((d) => fieldsOn.includes(d)) && v.duration >= 1200 && v.duration <= 5400).sort((a, b) => (b.hn ? 1 : 0) - (a.hn ? 1 : 0) || (b.views || 0) - (a.views || 0)).slice(0, 3); cpost({ ui: { type: 'videos', q: 'Three for an evening, 20 to 90 minutes.', options: vids.map((v) => v.id) }, html: '<p>Three for an evening, 20 to 90 minutes.</p>' }); }
+    else if (/today|do now|next/.test(t)) { const todays = S.pursuits.flatMap(dated).filter((x) => sameDay(x.date, midnight(new Date())) && !isDone(x.ch, x.it)); cpost({ html: todays.length ? `<p>Today: ${todays.map((x) => `<a href="${itemHref(x.ch, x.it)}">${esc(x.it.title)}</a> (${fmtH(x.it.hours)})`).join(', ')}.</p>` : `<p>Nothing is scheduled today. ${S.pursuits.length ? `<a href="#/p/${S.pursuits[0].id}">${esc(S.pursuits[0].name)}</a> has this week's moves` : '<a href="#/new">Start a pursuit</a> and I fill the week'}.</p>` }); }
+    else if (/follow|who|people|expert/.test(t)) { const ppl = LIB.people.filter((p) => (p.fields || [p.field]).some((f) => fieldsOn.includes(f))).slice(0, 3); cpost({ ui: { type: 'experts', q: 'Three people whose work is the primary source.', options: ppl.map((p) => p.id) }, html: '<p>Three people whose work is the primary source.</p>' }); }
+    else cpost({ html: '<p>I can start a pursuit, find a program or a person, or pick something to watch. Which one?</p>' });
+    cpost({ ui: { type: 'choice', key: 'c', q: 'Anything else?', options: chatOptions() } });
+    save(); renderChat(); const m = $('#main'); m.scrollTop = m.scrollHeight;
+  }
+  function renderChat() {
+    ensureChat();
+    let html = `<header class="lw-head"><a class="back" href="#/home" title="Home">${ICO.back}</a><h1>Assistant</h1><span class="meta"><span>${S.pursuits.length} pursuit${S.pursuits.length === 1 ? '' : 's'}</span><span>${Object.keys(S.applied).length} applications</span></span></header><div class="cc-stream">`;
+    S.chat.forEach((e, idx) => {
+      if (e.sys) html += act(e.text);
+      else if (e.me) html += msg(e.html, true, e.t);
+      else if (e.ui) {
+        const u = e.ui;
+        if (u.type === 'videos') html += msg(e.html) + `<div class="gu gu-pick">${u.options.map((id) => V.find((v) => v.id === id)).filter(Boolean).map((v) => `<a class="gu-opt" href="/videos/#/w/${esc(v.id)}"><div class="med"><img class="thumb" src="https://i.ytimg.com/vi/${esc(v.id)}/mqdefault.jpg" alt=""></div><div class="bd"><b>${esc(v.title)}</b><small>${esc(v.channel)} · ${fmtH(v.duration / 3600)}</small></div></a>`).join('')}</div>`;
+        else if (u.type === 'experts') html += msg(e.html) + `<div class="gu gu-experts">${u.options.map((id) => LIB.people.find((p) => p.id === id)).filter(Boolean).map((p) => `<a class="gu-opt" href="${esc(p.url)}" ${ext(p.url)}><div class="med">${faceOf(p)}</div><div class="bd"><b>${esc(p.name)}</b><small>${esc(p.role || '')}</small><span>${esc(p.note || '')}</span></div></a>`).join('')}</div>`;
+        else if (e.answer != null) html += msg(`<p>${u.q}</p>`) + msg(`<p>${esc(e.answer)}</p>`, true);
+        else if (idx === S.chat.length - 1) html += `<div class="gu gu-choice" data-idx="${idx}"><b>${u.q}</b>${u.options.map((o, i) => `<a data-opt="${esc(o)}"><i>${letters[i]}</i>${esc(o)}</a>`).join('')}<a class="else" data-focus><i>${letters[u.options.length]}</i>Something else</a></div>`;
+      } else html += msg(e.html);
+    });
+    html += `</div><div class="cc-compose"><form id="say" class="cc-box"><button type="button" class="plus" title="Attach (demo)">${ICO.plus}</button><textarea id="say-in" rows="1" placeholder="Type your answer, or ask about something else…"></textarea><button class="go" type="submit" title="Send">${ICO.enter}</button></form><div class="cc-status"><span>Scripted assistant · local only</span><span>Across every pursuit</span></div></div>`;
+    $('#main').innerHTML = html;
+    $('#rail').innerHTML = S.pursuits.length ? railPursuits() : railApplications();
+    const m = $('#main'); m.scrollTop = m.scrollHeight;
+    $('.cc-stream').addEventListener('click', (e) => { const opt = e.target.closest('[data-opt]'); if (e.target.closest('[data-focus]')) { e.preventDefault(); $('#say-in').focus(); return; } if (opt) { e.preventDefault(); chatAnswer(opt.dataset.opt); } });
+    $('#say').addEventListener('submit', (e) => { e.preventDefault(); const v = $('#say-in').value.trim(); if (v) chatAnswer(v); });
+    $('#say-in').addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#say').requestSubmit(); } });
   }
 
   // ----------------------------------------------------------------- item
@@ -593,7 +668,6 @@
     const seed = ch.id.charCodeAt(ch.id.length - 1);
     const learners = LEARNERS.slice(seed % 3, seed % 3 + 5).map((n, i) => { const wk = ((seed + i * 7) % plan.weeks) + 1; return `<li><span class="face xs mono">${n[0]}</span><span class="nm"><a href="#" data-hi="${esc(n)}">${esc(n)}</a><small>${esc(field(ch.field).label)} · wk ${wk} · ${Object.values(LOADS)[(seed + i) % 3].label.toLowerCase()}</small></span><button class="chip small" data-hi="${esc(n)}">Say hi</button></li>`; }).join('');
     return fold('This week', `<div class="phases">${phases}</div><div class="big">${fmtH(done)}<small>of ${fmtH(planned)}</small></div><div class="days">${DAY.map((d, i) => `<span class="${L.days.includes(i) ? (i < today ? 'done' : 'on') : ''}" title="${d}">${d[0]}</span>`).join('')}</div>${kv([['Sessions', `${L.days.length} × ${fmtH(L.hours / L.days.length)}`], ['Up next', next ? `<a href="${itemHref(ch, next)}">${esc(KIND[next.kind])} · ${fmtH(next.hours)}</a>` : 'all done'], ['Overall', `${pct(ch)}% · wk ${cur}/${plan.weeks}`]])}`, true, `${its.filter((i) => isDone(ch, i)).length}/${its.length}`)
-      + fold('Moves left', `<ul class="fl">${its.filter((i) => !isDone(ch, i)).map((i) => `<li class="${it && it.id === i.id ? 'cur' : ''}">${ICO[i.kind]}<a href="${itemHref(ch, i)}">${esc(i.title.length > 44 ? i.title.slice(0, 42) + '…' : i.title)}</a></li>`).join('') || '<li><span>Nothing left. Rest.</span></li>'}</ul>`, !it)
       + fold('Connect', `<div class="subtabs"><a class="chip small ${tab === 'experts' ? 'active' : ''}" data-ctab="experts">Experts</a><a class="chip small ${tab === 'learners' ? 'active' : ''}" data-ctab="learners">Learners</a></div><ul class="fl inv">${tab === 'experts' ? experts : learners}</ul>${tab === 'experts' ? `<p class="d-small">From the <a href="/people/">People</a> section. Connect drafts the message and adds a Talk session this week.</p>` : `<p class="d-small">Sample learners on the same field, to show the shape of it. The real product matches people a few weeks ahead of you.</p>`}`, true, tab === 'learners' ? 'sample' : String(P.people.length))
       + fold('Applications', apps ? `<ul class="fl">${apps}</ul>` : `<p class="d-small">None yet. <a href="#/discover">Discover</a> lists programs you can apply to from here.</p>`, false, String(nApps));
   }
@@ -739,7 +813,7 @@
     let m;
     if ((m = h.match(/^p\/([^/]+)\/i\/(.+)$/))) return { view: 'i', id: m[1], item: m[2] };
     if ((m = h.match(/^(?:p|c)\/([^/]+)$/))) return { view: 'p', id: m[1] };
-    if (['home', 'discover', 'calendar', 'library', 'tasks', 'new'].includes(h)) return { view: h };
+    if (['home', 'discover', 'chat', 'calendar', 'library', 'tasks', 'new'].includes(h)) return { view: h };
     return S.pursuits.length ? { view: 'home' } : { view: 'new' };
   }
   function route() {
@@ -749,6 +823,7 @@
     if (r.view === 'new') { renderSetup(); title = 'New pursuit'; }
     else if (r.view === 'home') { renderHome(); title = 'Home'; }
     else if (r.view === 'discover') { renderDiscover(); title = 'Discover'; }
+    else if (r.view === 'chat') { renderChat(); title = 'Assistant'; }
     else if (r.view === 'calendar') { renderCalendar(); title = 'Calendar'; }
     else if (r.view === 'library') { renderLibrary(); title = 'Library'; }
     else if (r.view === 'tasks') { renderTasks(); title = 'Tasks'; }

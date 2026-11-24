@@ -363,6 +363,8 @@
   .lw-up .up-body { border-left: 0; padding-left: 0; }
   .lw-card { grid-template-columns: auto minmax(0, 1fr); }
   .lw-card .ops { grid-column: 1 / -1; flex-direction: row; justify-content: flex-end; }
+  .cc-move { grid-template-columns: 22px 16px minmax(0, 1fr) auto; }
+  .cc-move .m { display: none; }
   .d-cols, .d-grid, .lw-brief { grid-template-columns: 1fr; }
   .lw-stepper { grid-template-columns: repeat(2, 1fr); }
   .lw-cal { grid-template-columns: 64px repeat(7, minmax(0, 1fr)); }
@@ -374,10 +376,35 @@
 
 /* ------------------------------------------------------ inline controls (gen UI) */
 .gu { margin: 2px 0 10px; max-width: 760px; }
-.gu-choice { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; }
-.gu-choice .chip { cursor: pointer; height: 28px; font-size: 11.5px; border-color: var(--line); }
-.gu-choice .chip:hover { border-color: var(--ink); }
-.gu-hint { font-family: var(--mono); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); margin-left: 6px; }
+.gu-choice { border: 1px solid var(--line); border-radius: 12px; background: var(--bg-elev); padding: 12px 14px 8px; max-width: 560px; }
+.gu-choice b { display: block; font-size: 13.5px; font-weight: 600; margin-bottom: 8px; }
+.gu-choice a { display: flex; align-items: center; gap: 10px; padding: 6px 4px; border-radius: 8px; font-size: 13px; color: var(--ink); cursor: pointer; }
+.gu-choice a:hover { background: var(--bg-hover); }
+.gu-choice a i { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-style: normal; font-family: var(--mono); font-size: 10px; color: var(--ink-3); flex: 0 0 auto; }
+.gu-choice a:hover i { border-color: var(--ink); color: var(--ink); }
+.gu-choice a.else { color: var(--ink-3); }
+/* compact move list in the stream */
+.cc-moves { border: 1px solid var(--line); border-radius: 10px; background: var(--bg-elev); max-width: 760px; overflow: hidden; }
+.cc-move { display: grid; grid-template-columns: 22px 16px minmax(0, 1fr) auto auto; gap: 10px; align-items: center; padding: 7px 12px; border-top: 1px dashed var(--line); font-size: 13px; }
+.cc-move:first-child { border-top: 0; }
+.cc-move .ck { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; color: transparent; padding: 0; }
+.cc-move .ck svg { width: 11px; height: 11px; }
+.cc-move .ck:hover { border-color: var(--ink); color: var(--ink-3); }
+.cc-move .ck.on { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.cc-move .ic { color: var(--ink-3); display: grid; }
+.cc-move .ic svg { width: 14px; height: 14px; }
+.cc-move .ti { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); }
+.cc-move .ti:hover { text-decoration: underline; }
+.cc-move .m { font-family: var(--mono); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis; }
+.cc-move .h { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); white-space: nowrap; min-width: 36px; text-align: right; }
+.cc-move .ops { display: none; gap: 2px; }
+.cc-move:hover .ops { display: flex; }
+.cc-move:hover .h { display: none; }
+.cc-move .ops button { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); padding: 2px 5px; border-radius: 5px; }
+.cc-move .ops button:hover { background: var(--bg-hover); color: var(--ink); }
+.cc-move.done .ti { color: var(--ink-3); text-decoration: line-through; }
+.gu-pick a.gu-opt { color: inherit; }
+.gu-pick a.gu-opt:hover { border-color: var(--ink-2); }
 .gu-range { display: grid; grid-template-columns: minmax(0, 1fr) 48px auto; gap: 12px; align-items: center; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-elev); padding: 12px 14px; max-width: 460px; }
 .gu-range input { width: 100%; accent-color: var(--ink); }
 .gu-range output { font-family: var(--mono); font-size: 12px; text-align: right; }

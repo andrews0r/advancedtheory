@@ -287,94 +287,206 @@
   }
 
   // -------------------------------------------------------------- pursuit
+  // The stream is a conversation the assistant leads. Each week it opens with a check-in (questions
+  // with inline choices), adapts the plan to the answers, posts the moves, and answers every Done,
+  // Skip and Swap. Entries: {week, t, me, html} · {sys, text} · {ui:{type,key,q,options…}, answer}.
+  const now = () => new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+  const post = (ch, w, e) => { ch.log = ch.log || []; ch.log.push({ week: w, t: now(), ...e }); return ch.log[ch.log.length - 1]; };
+  const say = (ch, w, html) => post(ch, w, { html });
+  const ask = (ch, w, ui) => post(ch, w, { ui, html: `<p>${ui.q}</p>` });
+  const first = (p) => (p.name || '').split(' ')[0];
+  const CHECKIN = (f) => [
+    { key: 'q0', q: `What do you already know about ${f.name.toLowerCase()}, honestly?`, options: ['Nothing yet', 'The basics', 'I have built things', 'I work in it'] },
+    { key: 'q1', q: 'What do you want to be able to do by the end?', options: ['Build something real', 'Read research fluently', 'Get into a program', 'Change what I work on'] },
+    { key: 'q2', q: 'What will get in the way?', options: ['Time', 'The math', 'Hardware or tools', 'Staying with it'] },
+  ];
   function pursuitHead(ch, extra = '') {
     const plan = planOf(ch), f = field(ch.field), L = LOADS[ch.load], cur = weekOfToday(ch);
     return `<header class="lw-head"><a class="back" href="#/home" title="Home">${ICO.back}</a><h1>${esc(ch.name)}</h1>
       <span class="meta"><span>${esc(f.label)}</span><span>${ch.months} mo</span><span>${L.label} · ${L.hours} h/wk</span><span>wk ${cur}/${plan.weeks}</span></span>
       <span class="bar" title="${pct(ch)}% of planned hours done"><i style="width:${pct(ch)}%"></i></span>${extra}</header>`;
   }
-  function renderPursuit(ch) {
-    const plan = planOf(ch), cur = weekOfToday(ch);
-    let html = pursuitHead(ch);
-    html += '<div class="cc-stream">';
-    const shown = Math.min(plan.weeks, cur + 1);
-    const picked = (w) => { const n = {}; weekItems(ch, w).forEach((i) => { n[i.kind] = (n[i.kind] || 0) + 1; }); return Object.entries(n).map(([k, c]) => `${c} ${KIND[k].toLowerCase()}`).join(', '); };
-    for (let w = 1; w <= shown; w++) {
-      const phase = phaseOfWeek(ch, w), its = weekItems(ch, w), done = its.filter((i) => isDone(ch, i)).length;
-      const line = `Week ${w} · ${phase} · ${fmtH(hoursOf(ch, w))} · ${picked(w)}${done ? ` · ${done} done` : ''}`;
-      if (w < cur) html += act(line, its.map((i) => card(ch, i, false)).join(''));
-      else {
-        html += `<div class="cc-week ${w === cur ? 'cur' : ''}"><b>Week ${w}</b><span>${fmtDate(weekDate(ch, w))} – ${fmtDate(weekDate(ch, w, 6))}</span><span class="ph">${phase}</span><span>${fmtH(hoursOf(ch, w))}</span></div>`;
-        html += `<div class="cc-cards">${its.map((i) => card(ch, i, w === cur)).join('')}</div>`;
-      }
-      if (w < cur) for (const m of (ch.log || []).filter((x) => x.week === w)) html += m.sys ? act(m.text) : msg(m.html, m.me, m.t);
+  // The assistant opens a week the first time it is shown.
+  function ensureWeek(ch, w) {
+    ch.flow = ch.flow || {};
+    if (ch.flow[w]) return;
+    ch.flow[w] = { ck: {} };
+    const plan = planOf(ch), f = field(ch.field), L = LOADS[ch.load], phase = phaseOfWeek(ch, w);
+    if (w === 1) {
+      say(ch, w, `<p>Welcome. ${plan.weeks} weeks of <b>${esc(f.name)}</b>${ch.topic ? ` around <b>${esc(ch.topic)}</b>` : ''}, ${L.hours} hours a week, starting with <b>Foundations</b>: the textbook and the talks that give you the map of the field.</p><p>Before I lay out the week, a short check-in. Three questions; pick an answer or type your own.</p>`);
+      ask(ch, w, { type: 'choice', ...CHECKIN(f)[0] });
+    } else {
+      const prev = weekItems(ch, w - 1), dn = prev.filter((i) => isDone(ch, i));
+      say(ch, w, `<p>Week ${w}, <b>${esc(phase)}</b>. Last week you finished ${dn.length} of ${prev.length} moves, ${fmtH(dn.reduce((a, i) => a + i.hours, 0))}.</p>`);
+      ask(ch, w, { type: 'choice', key: 'went', q: 'How did it go?', options: ['Most of it landed', 'About half', 'Not much, honestly'] });
     }
-    // The conversation of the current week comes after the posts, like a chat.
-    for (const m of (ch.log || []).filter((x) => x.week >= cur)) html += m.sys ? act(m.text) : msg(m.html, m.me, m.t);
-    html += '</div>';
-    html += `<div class="cc-compose"><div class="cc-quick">${['What should I do first?', 'I have less time this week', 'Go deeper', 'Who should I talk to?', 'What is next?'].map((q) => chip(q, false, `data-q="${esc(q)}"`)).join('')}</div>
-      <form id="say" class="cc-box"><button type="button" class="plus" title="Attach (demo)">${ICO.plus}</button><textarea id="say-in" rows="1" placeholder="Tell the assistant how your week looks, or ask for something…"></textarea><button class="go" type="submit" title="Send">${ICO.enter}</button></form>
-      <div class="cc-status"><span>Scripted assistant · local only</span><span>${esc(ch.name)} · week ${cur} of ${plan.weeks}</span></div></div>`;
-    $('#main').innerHTML = html;
-    $('#rail').innerHTML = railPursuit(ch);
-    const curEl = $('.cc-week.cur'); if (curEl) { $('#main').scrollTop = Math.max(0, curEl.offsetTop - 12); }
-    $('.cc-stream').addEventListener('click', (e) => {
-      const b = e.target.closest('button[data-act]'); if (!b) return;
-      const id = b.closest('.lw-card').dataset.id; const it = plan.items.find((x) => x.id === id); if (!it) return;
-      if (b.dataset.act === 'done') { ch.done[id] = !ch.done[id]; }
-      if (b.dataset.act === 'skip') { ch.skipped[id] = true; }
-      if (b.dataset.act === 'swap') swap(ch, it);
-      save(); const top = $('#main').scrollTop; renderPursuit(ch); $('#main').scrollTop = top;
-    });
-    $('.cc-quick').addEventListener('click', (e) => { const a = e.target.closest('[data-q]'); if (!a) return; e.preventDefault(); reply(ch, a.dataset.q); });
-    $('#say').addEventListener('submit', (e) => { e.preventDefault(); const v = $('#say-in').value.trim(); if (v) reply(ch, v); });
-    $('#say-in').addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#say').requestSubmit(); } });
-    $('#say-in').addEventListener('input', (e) => { e.target.style.height = 'auto'; e.target.style.height = Math.min(120, e.target.scrollHeight) + 'px'; });
   }
-  function swap(ch, it) {
-    const P = pools(ch.field, ch.topic);
-    const used = new Set(planOf(ch).items.map((x) => x.title));
-    const pool = it.kind === 'watch' ? P.videos : it.kind === 'read' ? P.research : P.people;
-    const nxt = pool.find((x) => !used.has(x.title || x.name)); if (!nxt) return;
+  // What the assistant does with an answer.
+  function onAnswer(ch, e, value) {
+    const w = e.week, f = field(ch.field), P = pools(ch.field, ch.topic), plan = planOf(ch), fl = ch.flow[w];
+    e.answer = value;
+    const key = e.ui.key;
+    if (key === 'q0' || key === 'q1') { fl.ck[key] = value; const q = CHECKIN(f)[key === 'q0' ? 1 : 2]; ask(ch, w, { type: 'choice', ...q }); return; }
+    if (key === 'q2') {
+      fl.ck.q2 = value; const its = weekItems(ch, w), notes = [];
+      const a0 = fl.ck.q0 || '', a1 = fl.ck.q1 || '';
+      if (/work in it|built/.test(a0)) { const tb = its.find((i) => i.kind === 'read'); if (tb) { ch.skipped[tb.id] = true; notes.push(`you know the basics, so I dropped the first textbook chapter`); } const p = P.research.find((x) => x.kind === 'Paper' && !plan.items.some((i) => i.ref === x.id)); if (p) { addItem(ch, w, 'read', p, 3, p.note); notes.push(`put a primary source in its place`); } }
+      if (/research/i.test(a1)) { notes.push(`papers come in from week 2 rather than week 4`); }
+      if (/program/i.test(a1)) { notes.push(`I will bring the program application forward and keep a project running for it`); }
+      if (/Build/.test(a1)) { notes.push(`every phase gets a build block; the capstone starts in Practice`); }
+      if (/Time/.test(value)) { const drop = its.filter((i) => i.kind === 'watch' && !isSkipped(ch, i)).slice(-1)[0]; if (drop) { ch.skipped[drop.id] = true; notes.push(`time is the risk, so this week is ${fmtH(hoursOf(ch, w))} instead of ${LOADS[ch.load].hours} h`); } }
+      if (/math/i.test(value)) { const ln = P.research.find((x) => /Lecture notes|Textbook/.test(x.kind) && !plan.items.some((i) => i.ref === x.id)); if (ln) { addItem(ch, w + 1, 'read', ln, 3, 'Lecture notes to shore up the math; read the first two sections.'); notes.push(`I added lecture notes next week to shore up the math`); } }
+      if (/Hardware/.test(value)) notes.push(`everything in Foundations runs in a browser or a notebook; hardware comes in Practice`);
+      if (/Staying/.test(value)) notes.push(`I will check in twice a week instead of once`);
+      const coach = its.find((i) => i.kind === 'coach'); if (coach) ch.done[coach.id] = true;
+      say(ch, w, `<p>Got it${notes.length ? `: ${notes.join('; ')}.` : '.'} Here is the week.</p>`);
+      post(ch, w, { ui: { type: 'moves', week: w }, html: '' });
+      const start = weekItems(ch, w).find((i) => !isDone(ch, i) && i.kind !== 'coach');
+      if (start) say(ch, w, `<p>Start with <a href="${itemHref(ch, start)}">${esc(start.title)}</a> (${fmtH(start.hours)}): ${esc(start.why || '')} Mark each move done here and I will keep the week in shape.</p>`);
+      return;
+    }
+    if (key === 'went') {
+      const its = weekItems(ch, w);
+      if (/Not much/.test(value)) { const carry = weekItems(ch, w - 1).find((i) => i.kind === 'read' && !isDone(ch, i)); const drop = its.filter((i) => i.kind === 'watch').slice(-1)[0]; if (drop) ch.skipped[drop.id] = true; if (carry) addItem(ch, w, 'read', refOf(carry) || { id: carry.ref, name: carry.title, url: carry.url, kind: carry.meta[1], note: carry.why }, carry.hours, 'Carried over from last week; this is the one that matters.'); say(ch, w, `<p>Then we repair rather than pile on: I carried the reading over, dropped one talk, and kept the main block. ${fmtH(hoursOf(ch, w))} this week.</p>`); }
+      else if (/half/.test(value)) { const drop = its.filter((i) => i.kind === 'watch').slice(-1)[0]; if (drop) ch.skipped[drop.id] = true; say(ch, w, `<p>Half is fine. I trimmed one talk so the week fits: ${fmtH(hoursOf(ch, w))}.</p>`); }
+      else say(ch, w, `<p>Good. Same pace, one step denser.</p>`);
+      const coach = its.find((i) => i.kind === 'coach'); if (coach) ch.done[coach.id] = true;
+      post(ch, w, { ui: { type: 'moves', week: w }, html: '' });
+      return;
+    }
+    if (key.startsWith('rate:')) {
+      const id = key.slice(5), it = plan.items.find((i) => i.id === id);
+      ch.prefs = ch.prefs || {};
+      if (/easy/i.test(value)) { ch.prefs.level = 'up'; say(ch, w, `<p>Too easy: denser picks from here. ${nextLine(ch, w)}</p>`); }
+      else if (/hard/i.test(value)) { ch.prefs.level = 'down'; const p = P.people[0]; say(ch, w, `<p>Too hard is useful: that is where the gap is. Write down the two terms that lost you; ${p ? `${esc(first(p))}'s work is where to look them up, and you can message ${esc(first(p))} from Connect on the right` : 'they are next week\'s reading'}. ${nextLine(ch, w)}</p>`); }
+      else say(ch, w, `<p>${it && it.kind === 'read' ? 'Add one paragraph to your log before you move on.' : 'Good.'} ${nextLine(ch, w)}</p>`);
+      return;
+    }
+    if (key === 'hours') {
+      const h = Number(value); let left = h; const its = weekItems(ch, w).filter((i) => !isDone(ch, i));
+      const keep = its.filter((i) => ['coach', 'take', 'build'].includes(i.kind)); keep.forEach((i) => { left -= i.hours; });
+      const dropped = [];
+      for (const i of its.filter((i) => !keep.includes(i))) { if (i.hours <= left) left -= i.hours; else { ch.skipped[i.id] = true; dropped.push(i.title); } }
+      say(ch, w, `<p>${h} hours it is. ${dropped.length ? `I dropped ${dropped.map((t) => `<b>${esc(t)}</b>`).join(' and ')} and kept the block that compounds.` : 'Everything still fits.'} The week is now ${fmtH(hoursOf(ch, w, (i) => !isDone(ch, i)))}.</p>`);
+      return;
+    }
+    if (key.startsWith('pick:')) {
+      const id = key.slice(5), it = plan.items.find((i) => i.id === id); if (!it) return;
+      const pool = it.kind === 'watch' ? P.videos : it.kind === 'read' ? P.research : P.people; const nxt = pool.find((x) => x.id === value); if (!nxt) return;
+      swapTo(ch, it, nxt);
+      say(ch, w, `<p>Swapped in <a href="${itemHref(ch, it)}">${esc(it.title)}</a>.</p>`);
+    }
+  }
+  function nextLine(ch, w) { const n = weekItems(ch, w).find((i) => !isDone(ch, i)); return n ? `Next: <a href="${itemHref(ch, n)}">${esc(n.title)}</a> (${fmtH(n.hours)}).` : 'That was the last move of the week.'; }
+  function addItem(ch, w, kind, src, hours, why) {
+    const plan = planOf(ch);
+    const it = kind === 'read' ? { id: `${ch.id}-${w}-x${plan.items.length}`, week: w, kind, hours, ref: src.id, title: src.name, url: src.url, meta: [src.authors ? `${src.authors} · ${src.year}` : String(src.year || ''), src.kind], why }
+      : { id: `${ch.id}-${w}-x${plan.items.length}`, week: w, kind: 'talk', hours: 1, ref: src.id, title: src.name, url: src.url, meta: [src.role, src.org].filter(Boolean), why, face: src.logo || '' };
+    plan.items.push(it); ch.extra = ch.extra || []; ch.extra.push(it); return it;
+  }
+  function swapTo(ch, it, nxt) {
     if (it.kind === 'watch') Object.assign(it, { ref: nxt.id, title: nxt.title, url: `/videos/#/w/${nxt.id}`, meta: [nxt.channel, fmtH(nxt.duration / 3600), fmtN(nxt.views || 0) + ' views'], thumb: `https://i.ytimg.com/vi/${nxt.id}/mqdefault.jpg`, hours: Math.round((nxt.duration / 3600 + 0.25) * 2) / 2, why: 'Swapped in.' });
     else if (it.kind === 'read') Object.assign(it, { ref: nxt.id, title: nxt.name, url: nxt.url, meta: [nxt.authors ? `${nxt.authors} · ${nxt.year}` : String(nxt.year), nxt.kind], why: nxt.note });
     else Object.assign(it, { ref: nxt.id, title: nxt.name, url: nxt.url, meta: [nxt.role, nxt.org].filter(Boolean), face: nxt.logo || '', why: 'Swapped in.' });
     ch.swaps = ch.swaps || {}; ch.swaps[it.id] = { ref: it.ref, title: it.title, url: it.url, meta: it.meta, thumb: it.thumb, face: it.face, hours: it.hours, why: it.why };
   }
-  // Scripted replies: the demo's "assistant". Keyword intents, deterministic.
+  // Card actions go through the conversation.
+  function onCard(ch, it, action) {
+    const w = weekOfToday(ch), P = pools(ch.field, ch.topic), plan = planOf(ch);
+    if (action === 'done') {
+      ch.done[it.id] = !ch.done[it.id];
+      if (!ch.done[it.id]) return;
+      const its = weekItems(ch, w), dn = its.filter((i) => isDone(ch, i)).length;
+      if (dn === its.length) { say(ch, w, `<p>Week ${w} complete: ${fmtH(hoursOf(ch, w))}. ${w < plan.weeks ? `Week ${w + 1} is <b>${esc(phaseOfWeek(ch, w + 1))}</b>; it opens on ${fmtDate(weekDate(ch, w + 1))}. Take the weekend.` : 'That was the last week. Publish the capstone.'}</p>`); return; }
+      if (['watch', 'read'].includes(it.kind)) ask(ch, w, { type: 'choice', key: `rate:${it.id}`, q: `Done: <b>${esc(it.title)}</b>. ${dn} of ${its.length} this week. How was it?`, options: ['Too easy', 'About right', 'Too hard'] });
+      else say(ch, w, `<p>Done: <b>${esc(it.title)}</b>. ${dn} of ${its.length} this week, ${fmtH(hoursOf(ch, w, (i) => isDone(ch, i)))} of ${fmtH(hoursOf(ch, w))}. ${nextLine(ch, w)}</p>`);
+    } else if (action === 'skip') {
+      ch.skipped[it.id] = true; post(ch, w, { sys: true, text: `Skipped ${esc(it.title)} · ${fmtH(hoursOf(ch, w))} left in the week` });
+    } else if (action === 'swap') {
+      const used = new Set(plan.items.map((x) => x.ref));
+      const pool = (it.kind === 'watch' ? P.videos : it.kind === 'read' ? P.research : P.people).filter((x) => !used.has(x.id)).slice(0, 3);
+      if (!pool.length) { say(ch, w, '<p>Nothing left in the catalogue to swap in for this one.</p>'); return; }
+      ask(ch, w, { type: 'pick', key: `pick:${it.id}`, q: `Three alternatives to <b>${esc(it.title)}</b>. Pick one, or keep it.`, options: pool.map((x) => ({ id: x.id, title: x.title || x.name, sub: it.kind === 'watch' ? `${x.channel} · ${fmtH(x.duration / 3600)}` : it.kind === 'read' ? `${x.authors || ''} · ${x.year} · ${x.kind}` : `${x.role || ''}`, thumb: it.kind === 'watch' ? `https://i.ytimg.com/vi/${x.id}/mqdefault.jpg` : '', face: x.logo || '', note: x.note || '' })) });
+    }
+  }
+  // Free text from the composer: answers a pending question, or an intent.
   function reply(ch, text) {
     const plan = planOf(ch), cur = weekOfToday(ch), f = field(ch.field), P = pools(ch.field, ch.topic);
+    const pending = (ch.log || []).filter((e) => e.week === cur && e.ui && e.ui.type === 'choice' && e.answer == null).slice(-1)[0];
+    post(ch, cur, { me: true, html: `<p>${esc(text)}</p>` });
     const t = text.toLowerCase();
-    const now = new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
-    ch.log = ch.log || [];
-    ch.log.push({ week: cur, me: true, html: `<p>${esc(text)}</p>`, t: now });
+    if (pending) { onAnswer(ch, pending, text); return finish(ch); }
     const week = weekItems(ch, cur).filter((i) => !isDone(ch, i));
-    let html;
-    if (/less time|busy|travel|no time|skip this week|lighter/.test(t)) {
-      const drop = week.filter((i) => i.kind === 'watch').slice(-1)[0] || week.filter((i) => i.kind === 'read').slice(-1)[0];
-      if (drop) { ch.skipped[drop.id] = true; html = `<p>Lighter week, then. I dropped <b>${esc(drop.title)}</b> (${fmtH(drop.hours)}) and kept the ${week.find((i) => i.kind === 'take') ? 'course' : week.find((i) => i.kind === 'build') ? 'project' : 'reading'}: the thing that compounds. The week is now ${fmtH(hoursOf(ch, cur, (i) => !isDone(ch, i)))}.</p>`; }
-      else html = '<p>Nothing left to trim this week without losing the main block. Do the check-in and call it a week.</p>';
-    } else if (/deeper|more|harder|advanced|theory/.test(t)) {
-      const p = P.research.find((x) => !plan.items.some((i) => i.title === x.name));
-      if (p) { const it = { id: `${ch.id}-${cur}-x${plan.items.length}`, week: cur, kind: 'read', hours: 3, ref: p.id, title: p.name, url: p.url, meta: [p.authors ? `${p.authors} · ${p.year}` : String(p.year), p.kind], why: p.note }; plan.items.push(it); ch.extra = ch.extra || []; ch.extra.push(it); html = `<p>Added a primary source to this week: <b><a href="${itemHref(ch, it)}">${esc(p.name)}</a></b>. ${esc(p.note)}</p>`; }
-      else html = '<p>You have read everything in the catalogue for this field. Time to write something.</p>';
-    } else if (/who|people|talk|expert|mentor/.test(t)) {
-      const ppl = P.people.slice(0, 3);
-      html = `<p>Three people whose work is the primary source for ${esc(f.name.toLowerCase())}. Pick one, read their last three posts, and ask one specific question.</p><div class="lw-grid2">${ppl.map((p) => `<div class="lw-card"><a class="med" href="${esc(p.url)}" ${ext(p.url)}>${faceOf(p)}</a><div class="bd"><a class="ti" href="${esc(p.url)}" ${ext(p.url)}>${esc(p.name)}</a><div class="m"><span>${esc(p.role)}</span>${p.org ? `<span>${esc(p.org)}</span>` : ''}</div><div class="why">${esc(p.note)}</div></div></div>`).join('')}</div>`;
-    } else if (/first|start|begin|where/.test(t)) {
-      const first = week[0] || weekItems(ch, cur)[0];
-      html = first ? `<p>Start with <b><a href="${itemHref(ch, first)}">${esc(first.title)}</a></b> (${fmtH(first.hours)}). ${esc(first.why || '')} Then the rest of the week in the order posted.</p>` : '<p>This week is done. Next week is already posted.</p>';
-    } else if (/next|then|after/.test(t)) {
-      const nw = Math.min(plan.weeks, cur + 1); const its = weekItems(ch, nw);
-      html = `<p>Week ${nw} is <b>${esc(phaseOfWeek(ch, nw))}</b>, ${fmtH(hoursOf(ch, nw))}: ${its.map((i) => `${KIND[i.kind].toLowerCase()} <b>${esc(i.title)}</b>`).join(', ')}.</p>`;
-    } else if (/done|finished|complete/.test(t)) {
-      const left = week.length; html = left ? `<p>${left} move${left === 1 ? '' : 's'} left this week, ${fmtH(week.reduce((a, i) => a + i.hours, 0))}. Mark them done on the cards and I will reshape next week around what landed.</p>` : '<p>Week complete. Next week is posted above; take the weekend.</p>';
-    } else {
-      html = `<p>Noted. For now the plan stands: ${week.length} move${week.length === 1 ? '' : 's'} left this week. Ask me to go deeper, lighten the week, or for people to talk to, and I will change the path.</p>`;
+    if (/less time|busy|travel|no time|lighter|hours/.test(t)) ask(ch, cur, { type: 'range', key: 'hours', q: 'How many hours do you have this week?', min: 2, max: LOADS[ch.load].hours, value: Math.max(2, Math.round(hoursOf(ch, cur, (i) => !isDone(ch, i)) * 0.6)) });
+    else if (/deeper|more|harder|advanced|theory/.test(t)) { const p = P.research.find((x) => !plan.items.some((i) => i.ref === x.id)); if (p) { const it = addItem(ch, cur, 'read', p, 3, p.note); say(ch, cur, `<p>Added a primary source to this week: <a href="${itemHref(ch, it)}">${esc(p.name)}</a>. ${esc(p.note)}</p>`); } else say(ch, cur, '<p>You have read everything in the catalogue for this field. Time to write something.</p>'); }
+    else if (/who|people|talk|expert|mentor|connect/.test(t)) ask(ch, cur, { type: 'experts', key: 'experts', q: `Three people whose work is the primary source for ${esc(f.name.toLowerCase())}. Connect with one and I will draft the message; the full list is under Connect on the right.`, options: P.people.slice(0, 3).map((p) => p.id) });
+    else if (/first|start|begin|where/.test(t)) { const n = week[0]; say(ch, cur, n ? `<p>Start with <a href="${itemHref(ch, n)}">${esc(n.title)}</a> (${fmtH(n.hours)}). ${esc(n.why || '')}</p>` : '<p>This week is done. Next week opens on Monday.</p>'); }
+    else if (/next|then|after/.test(t)) { const nw = Math.min(plan.weeks, cur + 1); say(ch, cur, `<p>Week ${nw} is <b>${esc(phaseOfWeek(ch, nw))}</b>, ${fmtH(hoursOf(ch, nw))}: ${weekItems(ch, nw).map((i) => `${KIND[i.kind].toLowerCase()} <b>${esc(i.title)}</b>`).join(', ')}. It opens on ${fmtDate(weekDate(ch, nw))}; the <a href="#/calendar">calendar</a> has every week.</p>`); }
+    else if (/done|finished|complete/.test(t)) say(ch, cur, week.length ? `<p>${week.length} move${week.length === 1 ? '' : 's'} left this week, ${fmtH(week.reduce((a, i) => a + i.hours, 0))}. Mark them done on the cards and I will reshape next week around what landed.</p>` : '<p>Week complete. Next week opens on Monday; take the weekend.</p>');
+    else say(ch, cur, `<p>Noted. ${week.length} move${week.length === 1 ? '' : 's'} left this week. Ask me to go deeper, to lighten the week, or for people to talk to, and I will change the path.</p>`);
+    finish(ch);
+  }
+  function connect(ch, personId) {
+    const p = LIB.people.find((x) => x.id === personId); if (!p) return;
+    const w = weekOfToday(ch), plan = planOf(ch);
+    let it = plan.items.find((i) => i.kind === 'talk' && i.ref === p.id && i.week === w && !isSkipped(ch, i));
+    if (!it) it = addItem(ch, w, 'talk', p, 1, `You asked to connect; ${first(p)}'s work is the primary source for what you are doing this week.`);
+    post(ch, w, { sys: true, text: `Connecting with ${esc(p.name)}: <a href="${itemHref(ch, it)}">the draft is ready</a>` });
+    save(); location.hash = itemHref(ch, it);
+  }
+  const finish = (ch) => { save(); renderPursuit(ch); const m = $('#main'); m.scrollTop = m.scrollHeight; };
+
+  // ---- rendering
+  function genUI(ch, e, idx) {
+    const u = e.ui;
+    if (u.type === 'moves') return `<div class="cc-cards">${weekItems(ch, u.week).map((i) => card(ch, i, true)).join('')}</div>`;
+    if (e.answer != null) return u.type === 'pick' ? '' : msg(`<p>${esc(e.answer)}</p>`, true);
+    if (u.type === 'choice') return `<div class="gu gu-choice" data-idx="${idx}">${u.options.map((o) => chip(o, false, `data-opt="${esc(o)}"`)).join('')}<span class="gu-hint">or type below</span></div>`;
+    if (u.type === 'range') return `<div class="gu gu-range" data-idx="${idx}"><input type="range" min="${u.min}" max="${u.max}" step="1" value="${u.value}"><output>${u.value} h</output><button class="pill-btn primary" data-set>Set</button></div>`;
+    if (u.type === 'pick') return `<div class="gu gu-pick" data-idx="${idx}">${u.options.map((o) => `<div class="gu-opt"><div class="med">${o.thumb ? `<img class="thumb" src="${esc(o.thumb)}" alt="">` : o.face ? `<img class="face" src="${esc(o.face)}" alt="">` : `<span class="ico">${ICO.read}</span>`}</div><div class="bd"><b>${esc(o.title)}</b><small>${esc(o.sub)}</small>${o.note ? `<span>${esc(o.note)}</span>` : ''}</div><button class="chip small" data-opt="${esc(o.id)}">Pick</button></div>`).join('')}<a class="chip small" data-opt="">Keep it</a></div>`;
+    if (u.type === 'experts') return `<div class="gu gu-experts" data-idx="${idx}">${u.options.map((id) => LIB.people.find((p) => p.id === id)).filter(Boolean).map((p) => `<div class="gu-opt"><div class="med">${faceOf(p)}</div><div class="bd"><b>${esc(p.name)}</b><small>${esc(p.role || '')}${p.org ? ` · ${esc(p.org)}` : ''}</small><span>${esc(p.note || '')}</span></div><button class="chip small" data-connect="${esc(p.id)}">Connect</button></div>`).join('')}</div>`;
+    return '';
+  }
+  function renderPursuit(ch) {
+    const plan = planOf(ch), cur = weekOfToday(ch);
+    for (let w = 1; w <= cur; w++) ensureWeek(ch, w);
+    let html = pursuitHead(ch) + '<div class="cc-stream">';
+    const picked = (w) => { const n = {}; weekItems(ch, w).forEach((i) => { n[i.kind] = (n[i.kind] || 0) + 1; }); return Object.entries(n).map(([k, c]) => `${c} ${KIND[k].toLowerCase()}`).join(', '); };
+    for (let w = 1; w < cur; w++) {
+      const its = weekItems(ch, w), done = its.filter((i) => isDone(ch, i)).length;
+      html += act(`Week ${w} · ${phaseOfWeek(ch, w)} · ${fmtH(hoursOf(ch, w))} · ${picked(w)} · ${done}/${its.length} done`, its.map((i) => card(ch, i, false)).join(''));
     }
-    ch.log.push({ week: cur, me: false, html, t: now });
-    save(); renderPursuit(ch);
+    html += `<div class="cc-week cur"><b>Week ${cur}</b><span>${fmtDate(weekDate(ch, cur))} – ${fmtDate(weekDate(ch, cur, 6))}</span><span class="ph">${phaseOfWeek(ch, cur)}</span><span>${fmtH(hoursOf(ch, cur))}</span></div>`;
+    (ch.log || []).forEach((e, idx) => {
+      if (e.week !== cur) return;
+      if (e.sys) html += act(e.text);
+      else if (e.me) html += msg(e.html, true, e.t);
+      else if (e.ui) html += (e.html ? msg(e.html) : '') + genUI(ch, e, idx);
+      else html += msg(e.html);
+    });
+    html += '</div>';
+    const pending = (ch.log || []).some((e) => e.week === cur && e.ui && e.ui.type === 'choice' && e.answer == null);
+    html += `<div class="cc-compose"><div class="cc-quick">${(pending ? [] : ['Who should I talk to?', 'I have less time this week', 'Go deeper', 'What is next?']).map((q) => chip(q, false, `data-q="${esc(q)}"`)).join('')}</div>
+      <form id="say" class="cc-box"><button type="button" class="plus" title="Attach (demo)">${ICO.plus}</button><textarea id="say-in" rows="1" placeholder="${pending ? 'Type your answer…' : 'Tell the assistant how your week looks, or ask for something…'}"></textarea><button class="go" type="submit" title="Send">${ICO.enter}</button></form>
+      <div class="cc-status"><span>Scripted assistant · local only</span><span>${esc(ch.name)} · week ${cur} of ${plan.weeks}</span></div></div>`;
+    $('#main').innerHTML = html;
+    $('#rail').innerHTML = railPursuit(ch);
+    save();
     const m = $('#main'); m.scrollTop = m.scrollHeight;
+    $('.cc-stream').addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-act]'), opt = e.target.closest('[data-opt]'), set = e.target.closest('[data-set]'), con = e.target.closest('[data-connect]');
+      if (b) { const it = plan.items.find((x) => x.id === b.closest('.lw-card').dataset.id); if (it) { onCard(ch, it, b.dataset.act); save(); const top = m.scrollTop; renderPursuit(ch); if (b.dataset.act !== 'done' || !ch.done[it.id]) m.scrollTop = top; } return; }
+      if (con) { connect(ch, con.dataset.connect); return; }
+      const gu = e.target.closest('.gu'); if (!gu) return;
+      const entry = ch.log[Number(gu.dataset.idx)]; if (!entry || entry.answer != null) return;
+      if (opt) { e.preventDefault(); if (entry.ui.type === 'pick' && !opt.dataset.opt) { entry.answer = 'Kept it.'; finish(ch); return; } onAnswer(ch, entry, opt.dataset.opt); finish(ch); }
+      if (set) { onAnswer(ch, entry, gu.querySelector('input').value); finish(ch); }
+    });
+    $('.cc-stream').addEventListener('input', (e) => { const r = e.target.closest('.gu-range'); if (r && e.target.type === 'range') r.querySelector('output').textContent = `${e.target.value} h`; });
+    $('.cc-quick').addEventListener('click', (e) => { const a = e.target.closest('[data-q]'); if (!a) return; e.preventDefault(); reply(ch, a.dataset.q); });
+    $('#say').addEventListener('submit', (e) => { e.preventDefault(); const v = $('#say-in').value.trim(); if (v) reply(ch, v); });
+    $('#say-in').addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#say').requestSubmit(); } });
+    $('#say-in').addEventListener('input', (e) => { e.target.style.height = 'auto'; e.target.style.height = Math.min(120, e.target.scrollHeight) + 'px'; });
   }
 
   // ----------------------------------------------------------------- item
@@ -467,18 +579,22 @@
   function appRows(filter) {
     return Object.entries(S.applied).filter(([, a]) => !filter || filter(a)).map(([id, a]) => { const p = PR.programs.find((x) => x.id === id) || PR.courses.find((x) => x.id === id); return p ? `<li>${ICO.attend}<a href="${esc(p.url)}" ${ext(p.url)}>${esc(p.name)}</a><small>${fmtDate(new Date(a.t))}</small></li>` : ''; }).join('');
   }
+  const LEARNERS = ['Maya', 'Tomas', 'Priya', 'Jonas', 'Aiko', 'Leo', 'Sana', 'Mateo'];
   function railPursuit(ch, it) {
-    const plan = planOf(ch), cur = weekOfToday(ch), L = LOADS[ch.load], f = field(ch.field);
+    const plan = planOf(ch), cur = weekOfToday(ch), L = LOADS[ch.load];
     const planned = hoursOf(ch, cur), done = hoursOf(ch, cur, (i) => isDone(ch, i));
     const its = weekItems(ch, cur), next = its.find((i) => !isDone(ch, i));
     const today = (new Date().getDay() + 6) % 7;
-    const ppl = plan.items.filter((i) => i.kind === 'talk' && !isSkipped(ch, i)).slice(0, 4);
+    const P = pools(ch.field, ch.topic);
     const apps = appRows((a) => a.p === ch.id), nApps = Object.values(S.applied).filter((a) => a.p === ch.id).length;
     const phases = PHASES.map(([n]) => `<span class="${n === phaseOfWeek(ch, cur) ? 'on' : ''}">${n}</span>`).join('');
-    return fold('Pursuit', kv([['Field', esc(f.name)], ['Topic', esc(ch.topic || '')], ['Duration', `${ch.months} months · ${plan.weeks} weeks`], ['Load', `${L.label} · ${L.hours} h/wk`], ['Days', L.days.map((d) => DAY[d]).join(' ')], ['Started', fmtDate(startDate(ch))], ['Overall', `${pct(ch)}% · wk ${cur}/${plan.weeks}`]]) + `<div class="phases">${phases}</div>`)
-      + fold('This week', `<div class="big">${fmtH(done)}<small>of ${fmtH(planned)}</small></div><div class="days">${DAY.map((d, i) => `<span class="${L.days.includes(i) ? (i < today ? 'done' : 'on') : ''}" title="${d}">${d[0]}</span>`).join('')}</div>${kv([['Phase', esc(phaseOfWeek(ch, cur))], ['Sessions', `${L.days.length} × ${fmtH(L.hours / L.days.length)}`], ['Up next', next ? `<a href="${itemHref(ch, next)}">${esc(KIND[next.kind])} · ${fmtH(next.hours)}</a>` : 'all done']])}`, true, `${its.filter((i) => isDone(ch, i)).length}/${its.length}`)
+    const tab = S.prefs.ctab || 'experts';
+    const experts = P.people.slice(0, 6).map((p) => `<li>${faceOf(p, 'face xs')}<span class="nm"><a href="${esc(p.url)}" ${ext(p.url)}>${esc(p.name)}</a><small>${esc((p.role || '').split(';')[0])}</small></span><button class="chip small" data-connect="${esc(p.id)}">Connect</button></li>`).join('');
+    const seed = ch.id.charCodeAt(ch.id.length - 1);
+    const learners = LEARNERS.slice(seed % 3, seed % 3 + 5).map((n, i) => { const wk = ((seed + i * 7) % plan.weeks) + 1; return `<li><span class="face xs mono">${n[0]}</span><span class="nm"><a href="#" data-hi="${esc(n)}">${esc(n)}</a><small>${esc(field(ch.field).label)} · wk ${wk} · ${Object.values(LOADS)[(seed + i) % 3].label.toLowerCase()}</small></span><button class="chip small" data-hi="${esc(n)}">Say hi</button></li>`; }).join('');
+    return fold('This week', `<div class="phases">${phases}</div><div class="big">${fmtH(done)}<small>of ${fmtH(planned)}</small></div><div class="days">${DAY.map((d, i) => `<span class="${L.days.includes(i) ? (i < today ? 'done' : 'on') : ''}" title="${d}">${d[0]}</span>`).join('')}</div>${kv([['Sessions', `${L.days.length} × ${fmtH(L.hours / L.days.length)}`], ['Up next', next ? `<a href="${itemHref(ch, next)}">${esc(KIND[next.kind])} · ${fmtH(next.hours)}</a>` : 'all done'], ['Overall', `${pct(ch)}% · wk ${cur}/${plan.weeks}`]])}`, true, `${its.filter((i) => isDone(ch, i)).length}/${its.length}`)
       + fold('Moves left', `<ul class="fl">${its.filter((i) => !isDone(ch, i)).map((i) => `<li class="${it && it.id === i.id ? 'cur' : ''}">${ICO[i.kind]}<a href="${itemHref(ch, i)}">${esc(i.title.length > 44 ? i.title.slice(0, 42) + '…' : i.title)}</a></li>`).join('') || '<li><span>Nothing left. Rest.</span></li>'}</ul>`, !it)
-      + fold('People on the path', ppl.length ? `<ul class="fl faces">${ppl.map((i) => `<li>${faceOf(i, 'face xs')}<a href="${itemHref(ch, i)}">${esc(i.title)}</a><small>wk ${i.week}</small></li>`).join('')}</ul>` : '<p class="d-small">Conversations start in the Practice phase.</p>', false)
+      + fold('Connect', `<div class="subtabs"><a class="chip small ${tab === 'experts' ? 'active' : ''}" data-ctab="experts">Experts</a><a class="chip small ${tab === 'learners' ? 'active' : ''}" data-ctab="learners">Learners</a></div><ul class="fl inv">${tab === 'experts' ? experts : learners}</ul>${tab === 'experts' ? `<p class="d-small">From the <a href="/people/">People</a> section. Connect drafts the message and adds a Talk session this week.</p>` : `<p class="d-small">Sample learners on the same field, to show the shape of it. The real product matches people a few weeks ahead of you.</p>`}`, true, tab === 'learners' ? 'sample' : String(P.people.length))
       + fold('Applications', apps ? `<ul class="fl">${apps}</ul>` : `<p class="d-small">None yet. <a href="#/discover">Discover</a> lists programs you can apply to from here.</p>`, false, String(nApps));
   }
   function railPursuits() {
@@ -645,6 +761,11 @@
     if (!['p', 'i'].includes(r.view)) { $('#main').scrollTop = 0; window.scrollTo(0, 0); }
   }
   $('#rail').addEventListener('click', (e) => {
+    const ct = e.target.closest('[data-ctab]'), con = e.target.closest('[data-connect]'), hi = e.target.closest('[data-hi]');
+    const r = parse(), ch = (r.view === 'p' || r.view === 'i') ? S.pursuits.find((c) => c.id === r.id) : null;
+    if (ct) { e.preventDefault(); S.prefs.ctab = ct.dataset.ctab; save(); if (ch) $('#rail').innerHTML = railPursuit(ch, r.view === 'i' ? planOf(ch).items.find((x) => x.id === r.item) : null); return; }
+    if (con && ch) { connect(ch, con.dataset.connect); return; }
+    if (hi && ch) { e.preventDefault(); post(ch, weekOfToday(ch), { sys: true, text: `Said hi to ${esc(hi.dataset.hi)} (sample learner)` }); save(); if (r.view === 'p') renderPursuit(ch); return; }
     const b = e.target.closest('[data-ck]'), ap = e.target.closest('[data-apply]');
     if (b) { S.checks._setup = S.checks._setup || {}; S.checks._setup[b.dataset.ck] = !S.checks._setup[b.dataset.ck]; save(); }
     if (ap) apply(ap.dataset.apply);

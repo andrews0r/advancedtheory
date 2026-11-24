@@ -371,3 +371,28 @@
   .cc-quick .chip { flex: 0 0 auto; }
   .cc-stream { padding-bottom: 150px; }
 }
+
+/* ------------------------------------------------------ inline controls (gen UI) */
+.gu { margin: 2px 0 10px; max-width: 760px; }
+.gu-choice { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; }
+.gu-choice .chip { cursor: pointer; height: 28px; font-size: 11.5px; border-color: var(--line); }
+.gu-choice .chip:hover { border-color: var(--ink); }
+.gu-hint { font-family: var(--mono); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); margin-left: 6px; }
+.gu-range { display: grid; grid-template-columns: minmax(0, 1fr) 48px auto; gap: 12px; align-items: center; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-elev); padding: 12px 14px; max-width: 460px; }
+.gu-range input { width: 100%; accent-color: var(--ink); }
+.gu-range output { font-family: var(--mono); font-size: 12px; text-align: right; }
+.gu-range .pill-btn { height: 28px; font-size: 11px; }
+.gu-pick, .gu-experts { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.gu-pick > .chip { align-self: center; justify-self: start; cursor: pointer; }
+.gu-opt { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: start; border: 1px solid var(--line); border-radius: 9px; background: var(--bg-elev); padding: 10px; }
+.gu-opt .thumb { width: 64px; height: 36px; border-radius: 4px; object-fit: cover; border: 1px solid var(--line); }
+.gu-opt .ico { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--line); display: grid; place-items: center; color: var(--ink-2); }
+.gu-opt .bd { min-width: 0; }
+.gu-opt .bd b { display: block; font-size: 12.5px; font-weight: 500; line-height: 1.3; }
+.gu-opt .bd small { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .03em; text-transform: uppercase; color: var(--ink-3); margin-top: 2px; }
+.gu-opt .bd span { display: block; font-size: 11.5px; color: var(--ink-2); margin-top: 4px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.gu-opt .chip { grid-column: 1 / -1; justify-self: start; cursor: pointer; border-color: var(--line); }
+.gu-opt .chip:hover { border-color: var(--ink); }
+.fold .subtabs { margin: 0 0 6px; }
+.fold .subtabs .chip { cursor: pointer; }
+.fl.inv .face.xs.mono { background: var(--bg-hover); color: var(--ink-2); }

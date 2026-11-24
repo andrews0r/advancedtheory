@@ -221,6 +221,35 @@
 .lw-setup-list .tag { font-size: 9.5px; }
 
 /* --------------------------------------------------------------- detail */
+.cc-cards { display: flex; flex-direction: column; gap: 0; max-width: 760px; }
+.lw-group.first { margin-top: 4px; }
+.fold .phases { display: flex; gap: 4px; margin-top: 10px; }
+.fold .phases span { flex: 1; text-align: center; font-family: var(--mono); font-size: 9px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); border-top: 2px solid var(--line); padding-top: 4px; }
+.fold .phases span.on { color: var(--cardinal); border-top-color: var(--cardinal); }
+.fl.inv li { align-items: center; }
+.fl.inv .logo.sm { margin: 0; flex: 0 0 auto; }
+.fl.inv .nm { flex: 1; min-width: 0; line-height: 1.25; }
+.fl.inv .nm small { display: block; margin: 0; font-size: 10px; overflow: hidden; text-overflow: ellipsis; }
+.fl.inv .chip { flex: 0 0 auto; cursor: pointer; }
+.lw-stepper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 16px 0 4px; }
+.lw-stepper button { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-elev); font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); text-align: left; }
+.lw-stepper button i { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-style: normal; font-size: 9px; }
+.lw-stepper button i svg { width: 10px; height: 10px; }
+.lw-stepper button.on { border-color: var(--ink); color: var(--ink); }
+.lw-stepper button.on i { background: var(--cardinal); border-color: var(--cardinal); color: #fff; }
+.lw-stepper button.past { color: var(--ink-2); }
+.lw-stepper button.past i { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.lw-stepper button:hover { border-color: var(--ink-2); }
+.lw-brief { display: grid; grid-template-columns: minmax(0, 1fr) 120px; gap: 24px; align-items: start; margin-top: 18px; }
+.lw-brief h3 { margin-bottom: 8px; }
+.lw-brief p { font-size: 13px; line-height: 1.55; margin: 0 0 6px; }
+.lw-meter { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--bg-elev); }
+.lw-meter b { display: block; font-size: 24px; font-weight: 600; letter-spacing: -.5px; line-height: 1; }
+.lw-meter span { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.lw-meter i { display: block; height: 3px; background: var(--line); border-radius: 2px; margin-top: 10px; position: relative; overflow: hidden; }
+.lw-meter i::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--p) * 1%); background: var(--cardinal); }
+.lw-check li.cur label span { color: var(--cardinal); }
+.lw-check li.on.cur label span { color: var(--ink-3); }
 .lw-detail { padding: 22px 28px 48px; max-width: 860px; width: 100%; box-sizing: border-box; }
 .lw-detail .dk { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
 .lw-detail .dk .tag { margin: 0; color: var(--ink); }
@@ -334,7 +363,8 @@
   .lw-up .up-body { border-left: 0; padding-left: 0; }
   .lw-card { grid-template-columns: auto minmax(0, 1fr); }
   .lw-card .ops { grid-column: 1 / -1; flex-direction: row; justify-content: flex-end; }
-  .d-cols, .d-grid { grid-template-columns: 1fr; }
+  .d-cols, .d-grid, .lw-brief { grid-template-columns: 1fr; }
+  .lw-stepper { grid-template-columns: repeat(2, 1fr); }
   .lw-cal { grid-template-columns: 64px repeat(7, minmax(0, 1fr)); }
   .cc-compose { position: fixed; left: 0; right: 0; bottom: 0; max-width: none; padding-top: 6px; }
   .cc-quick { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-bottom: 6px; }

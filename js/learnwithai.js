@@ -19,8 +19,9 @@
   const KEY = 'fc-learnwithai';
   const S = store.get(KEY, {});
   S.pursuits = S.pursuits || S.channels || []; delete S.channels;
+  S.pursuits.forEach((c) => { delete c._plan; });
   S.setup = S.setup || {}; S.applied = S.applied || {}; S.checks = S.checks || {}; S.notes = S.notes || {}; S.prefs = S.prefs || {};
-  const save = () => store.set(KEY, S);
+  const save = () => store.set(KEY, JSON.parse(JSON.stringify(S, (k, v) => (k === '_plan' ? undefined : v))));
 
   const LOADS = { minimal: { label: 'Minimal', hours: 8, sub: 'up to 10 h a week', days: [1, 3, 5] }, part: { label: 'Part time', hours: 20, sub: 'about 20 h a week', days: [0, 1, 2, 3, 4] }, full: { label: 'Full time', hours: 40, sub: 'about 40 h a week', days: [0, 1, 2, 3, 4] } };
   const DURATIONS = [3, 6, 9, 12];
@@ -181,7 +182,7 @@
     return `<a class="lw-row ${done ? 'done' : ''}" href="${itemHref(ch, it)}"><span class="ic">${done ? ICO.check : ICO[it.kind]}</span><span class="ti">${esc(it.title)}<small>${ptag(ch)}<span>${KIND[it.kind]}</span>${it.meta[0] ? `<span>${esc(it.meta[0])}</span>` : ''}</small></span><span class="rt">${right || fmtH(it.hours)}</span></a>`;
   }
   // A move as a card in the conversation.
-  function card(ch, it) {
+  function card(ch, it, why = true) {
     const done = isDone(ch, it);
     if (isSkipped(ch, it)) return '';
     let media = `<span class="ico">${ICO[it.kind]}</span>`;
@@ -191,7 +192,7 @@
     const href = itemHref(ch, it);
     return `<div class="lw-card ${done ? 'done' : ''}" data-id="${it.id}">
       <a class="med" href="${href}">${media}</a>
-      <div class="bd"><a class="ti" href="${href}">${esc(it.title)}</a><div class="m">${tag(KIND[it.kind])}${it.meta.filter(Boolean).map((m) => `<span>${esc(m)}</span>`).join('')}<span>${fmtH(it.hours)}</span></div>${it.why ? `<div class="why">${esc(it.why)}</div>` : ''}</div>
+      <div class="bd"><a class="ti" href="${href}">${esc(it.title)}</a><div class="m">${tag(KIND[it.kind])}${it.meta.filter(Boolean).map((m) => `<span>${esc(m)}</span>`).join('')}<span>${fmtH(it.hours)}</span></div>${why && it.why ? `<div class="why">${esc(it.why)}</div>` : ''}</div>
       <div class="ops"><button data-act="done" class="${done ? 'on' : ''}" title="Mark done">${ICO.check}</button>${it.kind !== 'coach' ? '<button data-act="skip">skip</button>' : ''}${['watch', 'read', 'talk'].includes(it.kind) ? '<button data-act="swap">swap</button>' : ''}</div>
     </div>`;
   }
@@ -222,7 +223,7 @@
     if (!S.pursuits.length) {
       $('#main').innerHTML = `<div class="lw-page lw-hero"><h1>Hi. What do you want to get good at?</h1><p class="sub">A pursuit is one subject you build expertise in: pick the field, how long you have and how much of each week you can give it. The assistant lays out the path from the catalogue, week by week, and adjusts as you go.</p><div class="acts"><a class="pill-btn primary" href="#/new">Start a pursuit →</a><a class="pill-btn" href="#/discover">Browse Discover</a></div>
         <div class="lw-hero-kinds">${Object.entries(KIND).map(([k, v]) => `<span>${ICO[k]}${v}</span>`).join('')}</div></div>`;
-      $('#rail').innerHTML = railCatalogue();
+      $('#rail').innerHTML = '';
       return;
     }
     const today = midnight(new Date());
@@ -245,7 +246,7 @@
       for (const x of earlier) { const k = fmtDay(x.date); if (k !== lastKey) { html += `<div class="lw-day">${k}</div>`; lastKey = k; } html += row(x.ch, x.it, isDone(x.ch, x.it) ? 'done' : 'missed'); }
     }
     $('#main').innerHTML = html + '</div>';
-    $('#rail').innerHTML = railPursuits() + railApplications() + railCatalogue();
+    $('#rail').innerHTML = railPursuits();
   }
 
   // ---------------------------------------------------------------- setup
@@ -271,7 +272,7 @@
     </div>`;
     const HOW = { watch: 'talks and lectures from Videos', read: 'papers and textbooks from Research', take: 'one course per phase from Courses', build: 'projects sized to your load', talk: 'people from the People section', attend: 'a program from Programs, or one you apply to in Discover', coach: 'a 30-minute check-in every week' };
     $('#rail').innerHTML = fold('How it works', `<ul class="fl">${Object.entries(KIND).map(([k, v]) => `<li>${ICO[k]}<b>${v}</b><span>${HOW[k]}</span></li>`).join('')}</ul>`)
-      + fold('Phases', `<ul class="fl">${PHASES.map(([n, fr]) => `<li><b>${n}</b><span>${Math.round(fr * 100)}% of the weeks</span></li>`).join('')}</ul>`) + railCatalogue();
+      + fold('Phases', `<ul class="fl">${PHASES.map(([n, fr]) => `<li><b>${n}</b><span>${Math.round(fr * 100)}% of the weeks</span></li>`).join('')}</ul>`);
     const on = (sel, key, attr, cast) => $(sel).addEventListener('click', (e) => { const a = e.target.closest('.chip'); if (!a) return; e.preventDefault(); st[key] = cast(a.dataset[attr]); save(); renderSetup(); });
     on('#fields', 'field', 'field', String); on('#months', 'months', 'months', Number); on('#loads', 'load', 'load', String);
     $('#topic').addEventListener('change', (e) => { st.topic = e.target.value.trim(); save(); renderSetup(); });
@@ -286,12 +287,6 @@
   }
 
   // -------------------------------------------------------------- pursuit
-  function introText(ch) {
-    const f = field(ch.field), plan = planOf(ch), L = LOADS[ch.load];
-    return `<p>New pursuit: <b>${esc(f.name)}</b>${ch.topic ? `, narrowed to <b>${esc(ch.topic)}</b>` : ''}. ${plan.weeks} weeks at ${L.hours} hours a week, about ${plan.weeks * L.hours} hours.</p>
-      <p>Four phases: <b>Foundations</b> (the textbook, and the talks that give you the map), <b>Core</b> (one course, plus the papers it points at), <b>Practice</b> (projects, and conversations with people doing the work) and <b>Launch</b> (apply to a program, finish a capstone).</p>
-      <p>Each week I post the moves. Open one to work on it, mark it done, skip what you know, swap what does not fit, or tell me when your week changes.</p>`;
-  }
   function pursuitHead(ch, extra = '') {
     const plan = planOf(ch), f = field(ch.field), L = LOADS[ch.load], cur = weekOfToday(ch);
     return `<header class="lw-head"><a class="back" href="#/home" title="Home">${ICO.back}</a><h1>${esc(ch.name)}</h1>
@@ -299,27 +294,23 @@
       <span class="bar" title="${pct(ch)}% of planned hours done"><i style="width:${pct(ch)}%"></i></span>${extra}</header>`;
   }
   function renderPursuit(ch) {
-    const plan = planOf(ch), cur = weekOfToday(ch), P = pools(ch.field, ch.topic);
+    const plan = planOf(ch), cur = weekOfToday(ch);
     let html = pursuitHead(ch);
     html += '<div class="cc-stream">';
-    html += msg(introText(ch), false, new Date(ch.created).toLocaleDateString());
     const shown = Math.min(plan.weeks, cur + 1);
     const picked = (w) => { const n = {}; weekItems(ch, w).forEach((i) => { n[i.kind] = (n[i.kind] || 0) + 1; }); return Object.entries(n).map(([k, c]) => `${c} ${KIND[k].toLowerCase()}`).join(', '); };
-    const counts = kv([['Videos', P.videos.length], ['Courses', P.courses.length], ['Programs', P.programs.length], ['Papers', P.research.length], ['People', P.people.length]]);
     for (let w = 1; w <= shown; w++) {
       const phase = phaseOfWeek(ch, w), its = weekItems(ch, w), done = its.filter((i) => isDone(ch, i)).length;
       const line = `Week ${w} · ${phase} · ${fmtH(hoursOf(ch, w))} · ${picked(w)}${done ? ` · ${done} done` : ''}`;
-      if (w < cur) html += act(line, its.map((i) => card(ch, i)).join(''));
+      if (w < cur) html += act(line, its.map((i) => card(ch, i, false)).join(''));
       else {
         html += `<div class="cc-week ${w === cur ? 'cur' : ''}"><b>Week ${w}</b><span>${fmtDate(weekDate(ch, w))} – ${fmtDate(weekDate(ch, w, 6))}</span><span class="ph">${phase}</span><span>${fmtH(hoursOf(ch, w))}</span></div>`;
-        html += act(`Searched ${P.videos.length} videos, ${P.research.length} papers, ${P.courses.length} courses, ${P.people.length} people · picked ${its.length}`, counts);
-        html += msg(`<p>${w === cur ? 'This week.' : 'Next week, so you can plan around it.'}</p>${its.map((i) => card(ch, i)).join('')}`);
+        html += `<div class="cc-cards">${its.map((i) => card(ch, i, w === cur)).join('')}</div>`;
       }
-      if (w < cur) for (const m of (ch.log || []).filter((x) => x.week === w)) html += msg(m.html, m.me, m.t);
+      if (w < cur) for (const m of (ch.log || []).filter((x) => x.week === w)) html += m.sys ? act(m.text) : msg(m.html, m.me, m.t);
     }
-    if (shown < plan.weeks) html += msg(`<p>${plan.weeks - shown} more weeks are planned; they show up as you get there. The <a href="#/calendar">calendar</a> has all of them.</p>`);
     // The conversation of the current week comes after the posts, like a chat.
-    for (const m of (ch.log || []).filter((x) => x.week >= cur)) html += msg(m.html, m.me, m.t);
+    for (const m of (ch.log || []).filter((x) => x.week >= cur)) html += m.sys ? act(m.text) : msg(m.html, m.me, m.t);
     html += '</div>';
     html += `<div class="cc-compose"><div class="cc-quick">${['What should I do first?', 'I have less time this week', 'Go deeper', 'Who should I talk to?', 'What is next?'].map((q) => chip(q, false, `data-q="${esc(q)}"`)).join('')}</div>
       <form id="say" class="cc-box"><button type="button" class="plus" title="Attach (demo)">${ICO.plus}</button><textarea id="say-in" rows="1" placeholder="Tell the assistant how your week looks, or ask for something…"></textarea><button class="go" type="submit" title="Send">${ICO.enter}</button></form>
@@ -395,13 +386,15 @@
     const header = `<header class="lw-head"><a class="back" href="#/p/${ch.id}" title="Back to the pursuit">${ICO.back}</a><h1>${esc(ch.name)}</h1><span class="meta"><span>week ${it.week}</span><span>${esc(phaseOfWeek(ch, it.week))}</span><span>${fmtDay(date)}</span></span>${nav}</header>`;
     const checklist = (id, steps) => { const st = S.checks[id] || {}; return `<ul class="lw-check" data-check="${id}">${steps.map((s, i) => `<li class="${st[i] ? 'on' : ''}"><label><input type="checkbox" data-i="${i}" ${st[i] ? 'checked' : ''}><span>${esc(s)}</span></label></li>`).join('')}</ul>`; };
     const open = (url, label) => url ? `<a class="pill-btn primary" href="${esc(url)}" ${ext(url)}>${esc(label)} ${ICO.ext}</a>` : '';
+    const note = (key, rows, ph) => `<textarea class="lw-draft" data-note="${key}" rows="${rows}" placeholder="${esc(ph)}">${esc((S.notes[it.id] || {})[key] || '')}</textarea>`;
     let body = '';
     if (it.kind === 'watch' && ref) {
       const desc = (ref.description || '').trim();
       body = `<div class="player-wrap"><iframe src="https://www.youtube-nocookie.com/embed/${esc(ref.id)}?rel=0" title="${esc(ref.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
         <div class="d-meta">${tag(ref.channel)}<span>${fmtH(ref.duration / 3600)}</span><span>${fmtN(ref.views || 0)} views</span><span>${esc(ref.published || '')}</span>${ref.hn ? tag('HN', 'hn') : ''}<a href="/videos/#/w/${esc(ref.id)}">Open in Videos</a><a href="https://www.youtube.com/watch?v=${esc(ref.id)}" ${ext('http')}>YouTube ${ICO.ext}</a></div>
         <div class="d-cols"><section><h3>While you watch</h3><ol><li>Write the talk's one-sentence claim before the halfway mark.</li><li>Note every term you cannot define; they are next week's reading.</li><li>Write the question you would ask the speaker. Keep it for a Talk session.</li></ol></section>
-        ${desc ? `<section><h3>About</h3><p class="d-desc">${esc(desc.length > 700 ? desc.slice(0, 700) + '…' : desc)}</p></section>` : ''}</div>`;
+        <section><h3>Notes</h3>${note('text', 6, 'The claim, the terms, the question…')}</section></div>
+        ${desc ? `<section><h3>About</h3><p class="d-desc">${esc(desc.length > 600 ? desc.slice(0, 600) + '…' : desc)}</p></section>` : ''}`;
     } else if (it.kind === 'read') {
       const r = ref || {}; const kind = (r.kind || it.meta[1] || 'Paper');
       const how = kind === 'Textbook' ? ['Skim the chapter headings and the summary first.', 'Read once without stopping, then once with a pen.', 'Do the first three exercises before moving on.', 'Write a half-page summary in your own words; add it to your public log.']
@@ -411,18 +404,21 @@
         ${r.hn_points ? `<p class="d-small">${r.hn_points} points · ${r.hn_comments || 0} comments on <a href="https://news.ycombinator.com/item?id=${esc(r.hn_id)}" ${ext('http')}>Hacker News</a></p>` : ''}</div>
         <section><h3>How to read it</h3><ol>${how.map((s) => `<li>${s}</li>`).join('')}</ol></section></div>
         ${r.note ? `<section><h3>Why it is on your path</h3><p>${esc(r.note)}</p></section>` : ''}
+        <section><h3>Highlights</h3>${note('text', 5, 'The result, the trick, the open question. One paragraph for your log.')}</section>
         <div class="d-acts">${open(it.url, 'Open the ' + kind.toLowerCase())}</div>`;
     } else if (it.kind === 'take') {
       const c = ref || {}; const wks = planOf(ch).items.filter((x) => x.kind === 'take' && x.ref === it.ref && !isSkipped(ch, x));
       body = `<div class="d-prov">${logoOf({ logo: c.logo || it.logo, name: it.title }, 'lg')}<div><b>${esc(c.provider || it.meta[0] || '')}</b><small>${esc(c.domain || '')}</small></div></div>
         <div class="d-grid"><div>${kv([['Format', esc(c.format || it.meta[1] || '')], ['Cost', esc(c.cost || '')], ['Level', esc(c.level || '')], ['Access', esc(c.access || c.selectivity || '')], ['Signal', c.sources ? `${c.sources} sources · score ${c.score}` : '']])}</div>
-        <section><h3>On your path</h3><p>${wks.length} week${wks.length === 1 ? '' : 's'} in the ${esc(phaseOfWeek(ch, it.week))} phase, about ${fmtH(wks.reduce((a, x) => a + x.hours, 0))} in all: ${wks.map((x) => `week ${x.week}`).join(', ')}.</p><p>Half of each week is reserved for it. Pair each session with the paper or talk posted alongside.</p></section></div>
+        <section><h3>Syllabus on your path</h3><p class="d-small" style="margin:0 0 6px">${wks.length} week${wks.length === 1 ? '' : 's'} in the ${esc(phaseOfWeek(ch, it.week))} phase, ${fmtH(wks.reduce((a, x) => a + x.hours, 0))} in all; half of each week is reserved for it.</p><ul class="lw-check" data-check="${esc(it.ref || it.id)}-syl">${wks.map((x, i) => `<li class="${(S.checks[(it.ref || it.id) + '-syl'] || {})[i] ? 'on' : ''} ${x.id === it.id ? 'cur' : ''}"><label><input type="checkbox" data-i="${i}" ${(S.checks[(it.ref || it.id) + '-syl'] || {})[i] ? 'checked' : ''}><span><b>Week ${x.week}</b> · ${fmtDate(weekDate(ch, x.week))} · ${fmtH(x.hours)}${x.id === it.id ? ' · this session' : ''}</span></label></li>`).join('')}</ul></section></div>
         ${c.note ? `<section><h3>Why this course</h3><p>${esc(c.note)}</p></section>` : ''}
         <div class="d-acts">${open(it.url, 'Open the course')}</div>`;
     } else if (it.kind === 'attend') {
       const p = ref || {};
+      const STAGES = ['Not started', 'Materials', 'Submitted', 'Reply'], stage = (S.notes[it.id] || {}).stage || 0;
       body = `<div class="d-prov">${logoOf({ logo: p.logo || it.logo, name: it.title }, 'lg')}<div><b>${esc(p.provider || it.meta[0] || '')}</b><small>${esc(p.domain || '')}</small></div></div>
-        <div class="d-grid"><div>${kv([['Format', esc(p.format || it.meta[1] || '')], ['Access', esc(p.access || '')], ['Selectivity', esc(p.selectivity || '')], ['Cost', esc(p.cost || '')], ['Signal', p.sources ? `${p.sources} sources · score ${p.score}` : '']])}</div>
+        <div class="lw-stepper">${STAGES.map((st, i) => `<button data-stage="${i}" class="${i < stage ? 'past' : i === stage ? 'on' : ''}"><i>${i < stage ? ICO.check : i + 1}</i>${st}</button>`).join('')}</div>
+        <div class="d-grid"><div>${kv([['Format', esc(p.format || it.meta[1] || '')], ['Access', esc(p.access || '')], ['Selectivity', esc(p.selectivity || '')], ['Cost', esc(p.cost || '')]])}</div>
         <section><h3>Application</h3>${checklist(it.id, ['Read the eligibility and the dates on the program page.', 'One-page statement: what you have built, what you want to build there.', 'The project that shows it: link, two paragraphs, one figure.', 'Two people who can vouch for the work; ask them this week.', 'Submit, then log the date and what you would change next time.'])}</section></div>
         ${p.note ? `<section><h3>Why this program</h3><p>${esc(p.note)}</p></section>` : ''}
         <div class="d-acts">${open(it.url, 'Open the program')}<a class="pill-btn" href="#/discover">More like this in Discover</a></div>`;
@@ -440,24 +436,28 @@
         : /exercises/i.test(it.title) ? ['Do the exercises before looking at any solution.', 'For each one you could not do, write what you were missing.', 'Half a page of notes on the chapter, in your words.', 'Post the notes to your log.']
           : /capstone/i.test(it.title) ? ['Write the one-paragraph description that goes in the application.', 'Finish the part a reviewer sees first: the figure, the demo, the README.', 'Ask one person from your Talk sessions for a review.', 'Publish it; link it from the application.']
             : ['Define the scope in one paragraph: what is in, what is out.', 'Do the work in two sessions; stop when the time is up.', 'Write it up: what you did, why, what broke.', 'Publish it and send it to one person in the field.'];
-      body = `<section><h3>Brief</h3><p>${esc(it.why || '')}</p><p>Block ${fmtH(it.hours)} this week; ${LOADS[ch.load].days.length > 3 ? 'two sessions' : 'one or two sessions'}. The deliverable is something a stranger can open.</p></section>
+      const stDone = Object.values(S.checks[it.id] || {}).filter(Boolean).length;
+      body = `<div class="lw-brief"><div><h3>Brief</h3><p>${esc(it.why || '')}</p><p>Block ${fmtH(it.hours)} this week; ${LOADS[ch.load].days.length > 3 ? 'two sessions' : 'one or two sessions'}. The deliverable is something a stranger can open.</p></div><div class="lw-meter"><b>${stDone}/${steps.length}</b><span>steps</span><i style="--p:${Math.round(stDone / steps.length * 100)}"></i></div></div>
         <div class="d-grid"><section><h3>Steps</h3>${checklist(it.id, steps)}</section>
-        <section><h3>Notes</h3><textarea class="lw-draft" id="note" rows="8" placeholder="What you did, what broke, what is next…">${esc((S.notes[it.id] || {}).text || '')}</textarea></section></div>`;
-    } else { // coach
+        <section><h3>Deliverable</h3>${note('deliverable', 2, 'Link to the repo, page or thread…')}<h3 style="margin-top:14px">Notes</h3>${note('text', 5, 'What you did, what broke, what is next…')}</section></div>`;
+    } else if (it.kind === 'coach') {
       const its2 = weekItems(ch, it.week), dn = its2.filter((x) => isDone(ch, x)).length, n = S.notes[it.id] || {};
       const qs = it.week === 1 ? ['What do you already know about this, honestly?', 'What do you want to be able to do by the end of the pursuit?', 'What will get in the way, and what is the plan for that?'] : ['What landed this week?', 'What did not, and why?', 'What changes next week?'];
       body = `<section><h3>This week</h3><p>${dn} of ${its2.length} moves done, ${fmtH(hoursOf(ch, it.week, (x) => isDone(ch, x)))} of ${fmtH(hoursOf(ch, it.week))}. Thirty minutes: answer the three questions, then tell the assistant what to change.</p></section>
         <section class="lw-qs">${qs.map((q, i) => `<label><b>${esc(q)}</b><textarea class="lw-draft" data-q="q${i}" rows="3">${esc(n['q' + i] || '')}</textarea></label>`).join('')}</section>
         <div class="d-acts"><a class="pill-btn" href="#/p/${ch.id}">Tell the assistant</a><span class="d-small">Answers save as you type.</span></div>`;
+    } else {
+      body = `<section><h3>Notes</h3>${note('text', 6, 'Notes for this session…')}</section><div class="d-acts">${open(it.url, 'Open')}</div>`;
     }
-    $('#main').innerHTML = `${header}<article class="lw-detail"><div class="dk">${tag(KIND[it.kind])}${tag(f.label)}${it.meta.filter(Boolean).slice(0, 2).map((m) => `<span class="dm">${esc(m)}</span>`).join('')}<span class="dm">${fmtH(it.hours)}</span></div><h1>${esc(it.title)}</h1>${it.kind !== 'build' && it.why ? `<p class="why">${esc(it.why)}</p>` : ''}${body}
+    $('#main').innerHTML = `${header}<article class="lw-detail"><div class="dk">${tag(KIND[it.kind])}${tag(f.label)}${it.meta[0] ? `<span class="dm">${esc(it.meta[0])}</span>` : ''}<span class="dm">${fmtH(it.hours)}</span></div><h1>${esc(it.title)}</h1>${it.kind !== 'build' && it.why ? `<p class="why">${esc(it.why)}</p>` : ''}${body}
       <div class="d-foot"><button class="pill-btn ${done ? 'primary' : ''}" id="done">${done ? 'Done ✓' : 'Mark done'}</button>${prev ? `<a class="pill-btn ghost" href="${itemHref(ch, prev)}">‹ ${esc(KIND[prev.kind])}</a>` : ''}${nxt ? `<a class="pill-btn ghost" href="${itemHref(ch, nxt)}">${esc(KIND[nxt.kind])} ›</a>` : `<a class="pill-btn ghost" href="#/p/${ch.id}">Back to the week</a>`}</div></article>`;
     $('#rail').innerHTML = railPursuit(ch, it);
     $('#done').addEventListener('click', () => { ch.done[it.id] = !ch.done[it.id]; save(); renderItem(ch, it); });
     $$('.lw-check').forEach((ul) => ul.addEventListener('change', (e) => { const c = e.target; S.checks[ul.dataset.check] = S.checks[ul.dataset.check] || {}; S.checks[ul.dataset.check][c.dataset.i] = c.checked; c.closest('li').classList.toggle('on', c.checked); save(); }));
     const noteOf = () => { S.notes[it.id] = S.notes[it.id] || {}; return S.notes[it.id]; };
     const d = $('#draft'); if (d) d.addEventListener('input', () => { noteOf().draft = d.value; save(); });
-    const nt = $('#note'); if (nt) nt.addEventListener('input', () => { noteOf().text = nt.value; save(); });
+    $$('textarea[data-note]').forEach((ta) => ta.addEventListener('input', () => { noteOf()[ta.dataset.note] = ta.value; save(); }));
+    $$('[data-stage]').forEach((b) => b.addEventListener('click', () => { noteOf().stage = Number(b.dataset.stage); save(); renderItem(ch, it); }));
     $$('textarea[data-q]').forEach((ta) => ta.addEventListener('input', () => { noteOf()[ta.dataset.q] = ta.value; save(); }));
     const cp = $('#copy'); if (cp) cp.addEventListener('click', () => { if (navigator.clipboard) navigator.clipboard.writeText($('#draft').value).then(() => { $('#copied').textContent = 'Copied.'; }); });
     $('#main').scrollTop = 0;
@@ -472,26 +472,24 @@
     const planned = hoursOf(ch, cur), done = hoursOf(ch, cur, (i) => isDone(ch, i));
     const its = weekItems(ch, cur), next = its.find((i) => !isDone(ch, i));
     const today = (new Date().getDay() + 6) % 7;
-    const P = pools(ch.field, ch.topic);
     const ppl = plan.items.filter((i) => i.kind === 'talk' && !isSkipped(ch, i)).slice(0, 4);
     const apps = appRows((a) => a.p === ch.id), nApps = Object.values(S.applied).filter((a) => a.p === ch.id).length;
-    return fold('Pursuit', kv([['Field', esc(f.name)], ['Topic', esc(ch.topic || '')], ['Duration', `${ch.months} months · ${plan.weeks} weeks`], ['Load', `${L.label} · ${L.hours} h/wk`], ['Days', L.days.map((d) => DAY[d]).join(' ')], ['Started', fmtDate(startDate(ch))], ['Overall', `${pct(ch)}% · wk ${cur}/${plan.weeks}`]]))
+    const phases = PHASES.map(([n]) => `<span class="${n === phaseOfWeek(ch, cur) ? 'on' : ''}">${n}</span>`).join('');
+    return fold('Pursuit', kv([['Field', esc(f.name)], ['Topic', esc(ch.topic || '')], ['Duration', `${ch.months} months · ${plan.weeks} weeks`], ['Load', `${L.label} · ${L.hours} h/wk`], ['Days', L.days.map((d) => DAY[d]).join(' ')], ['Started', fmtDate(startDate(ch))], ['Overall', `${pct(ch)}% · wk ${cur}/${plan.weeks}`]]) + `<div class="phases">${phases}</div>`)
       + fold('This week', `<div class="big">${fmtH(done)}<small>of ${fmtH(planned)}</small></div><div class="days">${DAY.map((d, i) => `<span class="${L.days.includes(i) ? (i < today ? 'done' : 'on') : ''}" title="${d}">${d[0]}</span>`).join('')}</div>${kv([['Phase', esc(phaseOfWeek(ch, cur))], ['Sessions', `${L.days.length} × ${fmtH(L.hours / L.days.length)}`], ['Up next', next ? `<a href="${itemHref(ch, next)}">${esc(KIND[next.kind])} · ${fmtH(next.hours)}</a>` : 'all done']])}`, true, `${its.filter((i) => isDone(ch, i)).length}/${its.length}`)
       + fold('Moves left', `<ul class="fl">${its.filter((i) => !isDone(ch, i)).map((i) => `<li class="${it && it.id === i.id ? 'cur' : ''}">${ICO[i.kind]}<a href="${itemHref(ch, i)}">${esc(i.title.length > 44 ? i.title.slice(0, 42) + '…' : i.title)}</a></li>`).join('') || '<li><span>Nothing left. Rest.</span></li>'}</ul>`, !it)
       + fold('People on the path', ppl.length ? `<ul class="fl faces">${ppl.map((i) => `<li>${faceOf(i, 'face xs')}<a href="${itemHref(ch, i)}">${esc(i.title)}</a><small>wk ${i.week}</small></li>`).join('')}</ul>` : '<p class="d-small">Conversations start in the Practice phase.</p>', false)
-      + fold('Applications', apps ? `<ul class="fl">${apps}</ul>` : `<p class="d-small">None yet. <a href="#/discover">Discover</a> lists programs you can apply to from here.</p>`, false, String(nApps))
-      + fold('Sources', kv([['Videos', P.videos.length], ['Courses', P.courses.length], ['Programs', P.programs.length], ['Papers', P.research.length], ['People', P.people.length]]), false);
+      + fold('Applications', apps ? `<ul class="fl">${apps}</ul>` : `<p class="d-small">None yet. <a href="#/discover">Discover</a> lists programs you can apply to from here.</p>`, false, String(nApps));
   }
   function railPursuits() {
-    return fold('Pursuits', `<ul class="fl">${S.pursuits.map((ch) => `<li><i class="ring" style="--p:${pct(ch)}"></i><a href="#/p/${ch.id}">${esc(ch.name)}</a><small>${pct(ch)}% · wk ${weekOfToday(ch)}/${planOf(ch).weeks}</small></li>`).join('')}</ul>`, true, String(S.pursuits.length))
-      + fold('Hours a week', kv([...S.pursuits.map((ch) => [ch.name, `${LOADS[ch.load].hours} h`]), ['Total', `${S.pursuits.reduce((a, ch) => a + LOADS[ch.load].hours, 0)} h`]]), true);
+    const planned = S.pursuits.reduce((a, ch) => a + hoursOf(ch, weekOfToday(ch)), 0), done = S.pursuits.reduce((a, ch) => a + hoursOf(ch, weekOfToday(ch), (i) => isDone(ch, i)), 0);
+    const today = (new Date().getDay() + 6) % 7, days = new Set(S.pursuits.flatMap((ch) => LOADS[ch.load].days));
+    return fold('This week', `<div class="big">${fmtH(done)}<small>of ${fmtH(planned)}</small></div><div class="days">${DAY.map((d, i) => `<span class="${days.has(i) ? (i < today ? 'done' : 'on') : ''}" title="${d}">${d[0]}</span>`).join('')}</div>${kv(S.pursuits.map((ch) => [ch.name, `<a href="#/p/${ch.id}">${esc(phaseOfWeek(ch, weekOfToday(ch)))} · wk ${weekOfToday(ch)}/${planOf(ch).weeks}</a>`]))}`)
+      + railApplications();
   }
   function railApplications() {
     const n = Object.keys(S.applied).length, rows = appRows();
     return fold('Applications', rows ? `<ul class="fl">${rows}</ul>` : '<p class="d-small">None yet. <a href="#/discover">Discover</a> lists programs you can apply to from here.</p>', n > 0, String(n));
-  }
-  function railCatalogue() {
-    return fold('Catalogue', kv([['Videos', V.length], ['Courses', PR.courses.length], ['Programs', PR.programs.length], ['Papers', LIB.research.length], ['People', LIB.people.length], ['Fields', FIELDS.length]]), false);
   }
 
   // ------------------------------------------------------------- calendar
@@ -549,7 +547,7 @@
   }
   function empty(title) {
     $('#main').innerHTML = `<div class="lw-page"><h1>${title}</h1><p class="sub">Nothing here yet. <a href="#/new">Start a pursuit</a> and the assistant fills this in.</p></div>`;
-    $('#rail').innerHTML = railCatalogue();
+    $('#rail').innerHTML = '';
   }
 
   // ------------------------------------------------------------- discover
@@ -573,13 +571,12 @@
     const applied = (x) => !!S.applied[x.id];
     const cardOf = (x, cta = 'Apply') => `<div class="disc-card ${applied(x) ? 'applied' : ''}" data-id="${x.id}">
       <div class="dc-head">${logoOf(x)}<div class="dc-t"><b>${esc(x.name)}</b><small>${esc(x.provider)}</small></div></div>
-      <div class="dc-meta">${tag(x.fmt)}${x.cost ? tag(x.cost) : ''}${x.selectivity ? tag(x.selectivity) : ''}${x.level ? tag(x.level) : ''}<span>${(x.fields || [x.field]).map((f) => field(f).label).join(' · ')}</span></div>
+      <div class="dc-meta">${tag(x.fmt)}${x.cost ? tag(x.cost) : ''}${x.selectivity && x.selectivity !== 'application' ? tag(x.selectivity) : ''}${fieldsOn.length > 1 ? `<span>${(x.fields || [x.field]).map((f) => field(f).label).join(' · ')}</span>` : ''}</div>
       ${x.note ? `<p class="dc-note">${esc(x.note)}</p>` : ''}
-      <div class="dc-foot"><span class="mono">${x.sources || 1} source${x.sources === 1 ? '' : 's'} · score ${x.score || 0}</span><a class="chip small" href="${esc(x.url)}" ${ext(x.url)}>Open</a><button class="pill-btn ${applied(x) ? 'primary' : ''}" data-apply="${x.id}">${applied(x) ? 'Applied ✓' : cta}</button></div></div>`;
+      <div class="dc-foot"><a class="chip small" href="${esc(x.url)}" ${ext(x.url)}>Open</a><button class="pill-btn ${applied(x) ? 'primary' : ''}" data-apply="${x.id}">${applied(x) ? 'Applied ✓' : cta}</button></div></div>`;
     const fieldChips = [chip(myFields.length ? 'My fields' : 'All fields', pf.dfield === 'all', 'data-df="all"'), ...FIELDS.map((f) => chip(f.label, pf.dfield === f.slug, `data-df="${f.slug}"`))].join('');
     $('#main').innerHTML = `<div class="lw-page disc"><h1>Discover</h1><p class="sub">Learning experiences from the labs, companies and universities in the catalogue, matched to your pursuits: fellowships, internships, residencies, accelerators, competitions and live courses. Apply from here; what you apply to lands on your path as an Attend session.</p>
-      ${invited.length ? `<div class="lw-group"><b>Invited</b><span>matched to ${fieldsOn.map((f) => field(f).label).join(', ')}</span></div><div class="disc-grid inv">${invited.map((x) => cardOf(x, 'View invite')).join('')}</div>` : ''}
-      <div class="lw-group"><b>Opportunities that might interest you</b><span>${list.length}</span></div>
+      <div class="lw-group first"><b>Opportunities</b><span>${list.length} · matched to ${fieldsOn.map((f) => field(f).label).join(', ')}</span></div>
       <div class="filter-row"><span class="filter-label">Field</span>${fieldChips}</div>
       <div class="filter-row"><span class="filter-label">Kind</span>${kinds.map((k) => chip(k === 'all' ? 'All' : k, pf.dkind === k, `data-dk="${k}"`)).join('')}</div>
       <div class="disc-grid" id="opps">${list.slice(0, pf.dmore ? 96 : 24).map((x) => cardOf(x)).join('') || '<p class="d-small">Nothing in the catalogue for this filter yet.</p>'}</div>
@@ -589,7 +586,7 @@
       <div class="lw-group"><b>Questions</b></div>
       <div class="lw-faq">${[['What counts as a learning experience here?', 'Anything in the catalogue you take part in rather than consume: a fellowship, an internship or residency, an accelerator, a lab, a competition, or a live course with a cohort. Paid evals, gigs and jobs come next.'], ['What happens when I apply?', 'In this demo, the program lands on your pursuit as an Attend session with an application checklist, and shows under Applications in the rail. The real product sends the application and tracks it.'], ['Where do these come from?', 'The Programs and Courses sections of Frontier Concepts: 1,300 programs and 950 courses ranked by how many curated sources recommend them. Logos and notes come from the same data.']].map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
     </div>`;
-    $('#rail').innerHTML = railDiscover();
+    $('#rail').innerHTML = railDiscover(invited);
     const main = $('#main');
     main.addEventListener('click', (e) => {
       const df = e.target.closest('[data-df]'), dk = e.target.closest('[data-dk]'), ap = e.target.closest('[data-apply]'), more = e.target.closest('#more');
@@ -608,17 +605,16 @@
       const plan = planOf(ch), cur = weekOfToday(ch);
       const it = { id: `${ch.id}-${cur}-a${plan.items.length}`, week: cur, kind: 'attend', hours: 2, ref: x.id, title: x.name, url: x.url, meta: [x.provider, x.fmt].filter(Boolean), why: 'From Discover. This week: read the requirements and start the materials.', logo: x.logo || '' };
       plan.items.push(it); ch.extra = ch.extra || []; ch.extra.push(it); a.item = it.id;
-      ch.log = ch.log || []; ch.log.push({ week: cur, me: false, html: `<p>Added from Discover: <b><a href="${itemHref(ch, it)}">${esc(x.name)}</a></b> (${esc(x.provider)}, ${esc(x.fmt)}). The application checklist is on the session; I put two hours on it this week.</p>`, t: new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) });
+      ch.log = ch.log || []; ch.log.push({ week: cur, sys: true, text: `Added from Discover: <a href="${itemHref(ch, it)}">${esc(x.name)}</a> · 2 h this week` });
     }
     S.applied[id] = a; save();
   }
-  function railDiscover() {
+  function railDiscover(invited = []) {
     const ck = S.checks._setup || {};
     const rows = [['Pick a pursuit', 'Matches what you see to a field', S.pursuits.length > 0, 'auto', '#/new'], ['Set your weekly load', 'So applications fit around the path', S.pursuits.length > 0, 'auto', '#/new'], ['Public learning log', 'The credential providers look at first', !!ck.log, 'log'], ['Verify identity', 'Needed before any paid work', !!ck.id, 'id'], ['Text or email updates', 'Deadlines and replies, nothing else', !!ck.msg, 'msg']];
-    const providers = new Set(PR.programs.filter((x) => OPP_FMTS.includes(x.fmt)).map((x) => x.provider)).size;
-    return fold('Before you start', `<ul class="lw-setup-list">${rows.map(([t, s, on, key, href]) => `<li class="${on ? 'on' : ''}">${key === 'auto' ? `<a class="ck" href="${href}">${on ? ICO.check : ''}</a>` : `<button class="ck" data-ck="${key}">${on ? ICO.check : ''}</button>`}<span><b>${t}</b><small>${s}</small></span>${key !== 'msg' ? tag('required', on ? '' : 'soon') : ''}</li>`).join('')}</ul>`, true, `${rows.filter((r) => r[2]).length}/${rows.length}`)
-      + railApplications()
-      + fold('Sources', kv([['Programs', PR.programs.filter((x) => OPP_FMTS.includes(x.fmt)).length], ['Live courses', PR.courses.filter((x) => COURSE_FMTS.includes(x.fmt)).length], ['Providers', providers]]) + `<p class="d-small">Ranked by how many curated sources recommend each one. <a href="/programs/">Programs</a> · <a href="/courses/">Courses</a></p>`, false);
+    return (invited.length ? fold('Invited', `<ul class="fl inv">${invited.map((x) => `<li>${logoOf(x)}<span class="nm"><a href="${esc(x.url)}" ${ext(x.url)}>${esc(x.name)}</a><small>${esc(x.provider)} · ${esc(x.fmt)}</small></span><button class="chip small" data-apply="${x.id}">Apply</button></li>`).join('')}</ul>`, true, String(invited.length)) : '')
+      + fold('Before you start', `<ul class="lw-setup-list">${rows.map(([t, s, on, key, href]) => `<li class="${on ? 'on' : ''}">${key === 'auto' ? `<a class="ck" href="${href}">${on ? ICO.check : ''}</a>` : `<button class="ck" data-ck="${key}">${on ? ICO.check : ''}</button>`}<span><b>${t}</b><small>${s}</small></span>${key !== 'msg' ? tag('required', on ? '' : 'soon') : ''}</li>`).join('')}</ul>`, true, `${rows.filter((r) => r[2]).length}/${rows.length}`)
+      + railApplications();
   }
 
   // ---------------------------------------------------------------- route
@@ -648,7 +644,12 @@
     document.title = `${title} · Learn with AI · Frontier Concepts`;
     if (!['p', 'i'].includes(r.view)) { $('#main').scrollTop = 0; window.scrollTo(0, 0); }
   }
-  $('#rail').addEventListener('click', (e) => { const b = e.target.closest('[data-ck]'); if (!b) return; S.checks._setup = S.checks._setup || {}; S.checks._setup[b.dataset.ck] = !S.checks._setup[b.dataset.ck]; save(); $('#rail').innerHTML = railDiscover(); });
+  $('#rail').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-ck]'), ap = e.target.closest('[data-apply]');
+    if (b) { S.checks._setup = S.checks._setup || {}; S.checks._setup[b.dataset.ck] = !S.checks._setup[b.dataset.ck]; save(); }
+    if (ap) apply(ap.dataset.apply);
+    if (b || ap) { const top = $('#main').scrollTop; renderDiscover(); $('#main').scrollTop = top; }
+  });
   window.addEventListener('hashchange', route);
   route();
 })();

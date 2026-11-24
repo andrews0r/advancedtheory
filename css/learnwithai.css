@@ -385,6 +385,8 @@
 .gu-choice a.else { color: var(--ink-3); }
 /* compact move list in the stream */
 .cc-moves { border: 1px solid var(--line); border-radius: 10px; background: var(--bg-elev); max-width: 760px; overflow: hidden; }
+.cc-moves .cap { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--cardinal); padding: 7px 12px 0; }
+.cc-moves .cap + .cc-move { border-top: 0; }
 .cc-move { display: grid; grid-template-columns: 22px 16px minmax(0, 1fr) auto auto; gap: 10px; align-items: center; padding: 7px 12px; border-top: 1px dashed var(--line); font-size: 13px; }
 .cc-move:first-child { border-top: 0; }
 .cc-move .ck { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; color: transparent; padding: 0; }

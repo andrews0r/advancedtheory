@@ -329,9 +329,9 @@
     e.answer = value;
     const key = e.ui.key;
     const moves = () => post(ch, w, { ui: { type: 'moves', week: w }, html: '' });
-    const firstMove = () => { const n = weekItems(ch, w).find((i) => !isDone(ch, i) && i.kind !== 'coach'); return n ? `<p>Start with <a href="${itemHref(ch, n)}">${esc(n.title)}</a>, ${fmtH(n.hours)}. ${esc(n.why || '')}</p>` : '<p>Nothing left this week.</p>'; };
+    const firstMove = () => firstRow(ch, w);
     if (key === 'start') {
-      if (/first move/i.test(value)) { say(ch, w, firstMove()); ask(ch, w, { type: 'choice', key: 'more', q: 'When you are done with it:', options: ['Show me the rest of the week', 'Who should I talk to about it?', 'A quick check-in'] }); }
+      if (/first move/i.test(value)) { firstMove(); ask(ch, w, { type: 'choice', key: 'more', q: 'When you are done with it:', options: ['Show me the rest of the week', 'Who should I talk to about it?', 'A quick check-in'] }); }
       else if (/whole week/i.test(value)) { moves(); ask(ch, w, { type: 'choice', key: 'after', q: 'Does the week fit?', options: ['Yes, start me off', 'Lighten it', 'Put it on my calendar'] }); }
       else ask(ch, w, { type: 'choice', ...CHECKIN(f)[0] });
       return;
@@ -344,8 +344,8 @@
     }
     if (key === 'after') {
       if (/lighten/i.test(value)) ask(ch, w, { type: 'range', key: 'hours', q: 'How many hours do you have this week?', min: 2, max: LOADS[ch.load].hours, value: Math.max(2, Math.round(hoursOf(ch, w) * 0.6)) });
-      else if (/calendar/i.test(value)) { const L = LOADS[ch.load]; post(ch, w, { sys: true, text: `Scheduled on ${L.days.map((d) => DAY[d]).join(', ')} · <a href="#/calendar">open the calendar</a>` }); say(ch, w, firstMove()); }
-      else say(ch, w, firstMove());
+      else if (/calendar/i.test(value)) { const L = LOADS[ch.load]; post(ch, w, { sys: true, text: `Scheduled on ${L.days.map((d) => DAY[d]).join(', ')} · <a href="#/calendar">open the calendar</a>` }); firstMove(); }
+      else firstMove();
       return;
     }
     if (key === 'q0' || key === 'q1') { fl.ck[key] = value; const q = CHECKIN(f)[key === 'q0' ? 1 : 2]; ask(ch, w, { type: 'choice', ...q }); return; }
@@ -363,7 +363,7 @@
       const coach = its.find((i) => i.kind === 'coach'); if (coach) ch.done[coach.id] = true;
       say(ch, w, `<p>Got it${notes.length ? `: ${notes.join('; ')}.` : '.'}</p>`);
       moves();
-      say(ch, w, firstMove());
+      firstMove();
       return;
     }
     if (key === 'went') {
@@ -378,9 +378,10 @@
     if (key.startsWith('rate:')) {
       const id = key.slice(5), it = plan.items.find((i) => i.id === id);
       ch.prefs = ch.prefs || {};
-      if (/easy/i.test(value)) { ch.prefs.level = 'up'; say(ch, w, `<p>Too easy: denser picks from here. ${nextLine(ch, w)}</p>`); }
-      else if (/hard/i.test(value)) { ch.prefs.level = 'down'; const p = P.people[0]; say(ch, w, `<p>Too hard is useful: that is where the gap is. Write down the two terms that lost you; ${p ? `${esc(first(p))}'s work is where to look them up, and you can message ${esc(first(p))} from Connect on the right` : 'they are next week\'s reading'}. ${nextLine(ch, w)}</p>`); }
-      else say(ch, w, `<p>${it && it.kind === 'read' ? 'Add one paragraph to your log before you move on.' : 'Good.'} ${nextLine(ch, w)}</p>`);
+      if (/easy/i.test(value)) { ch.prefs.level = 'up'; say(ch, w, `<p>Too easy: denser picks from here.</p>`); }
+      else if (/hard/i.test(value)) { ch.prefs.level = 'down'; const p = P.people[0]; say(ch, w, `<p>Too hard is useful: that is where the gap is. Write down the two terms that lost you; ${p ? `${esc(first(p))}'s work is where to look them up, and you can message ${esc(first(p))} from Connect on the right` : 'they are next week\'s reading'}.</p>`); }
+      else if (it && it.kind === 'read') say(ch, w, `<p>Add one paragraph to your log before you move on.</p>`);
+      nextRow(ch, w);
       return;
     }
     if (key === 'hours') {
@@ -395,10 +396,11 @@
       const id = key.slice(5), it = plan.items.find((i) => i.id === id); if (!it) return;
       const pool = it.kind === 'watch' ? P.videos : it.kind === 'read' ? P.research : P.people; const nxt = pool.find((x) => x.id === value); if (!nxt) return;
       swapTo(ch, it, nxt);
-      say(ch, w, `<p>Swapped in <a href="${itemHref(ch, it)}">${esc(it.title)}</a>.</p>`);
+      postMoves(ch, w, [it.id], 'Swapped in');
     }
   }
-  function nextLine(ch, w) { const n = weekItems(ch, w).find((i) => !isDone(ch, i)); return n ? `Next: <a href="${itemHref(ch, n)}">${esc(n.title)}</a> (${fmtH(n.hours)}).` : 'That was the last move of the week.'; }
+  function nextRow(ch, w, cap = 'Next') { const n = weekItems(ch, w).find((i) => !isDone(ch, i)); if (n) postMoves(ch, w, [n.id], cap); else say(ch, w, '<p>That was the last move of the week.</p>'); }
+  function firstRow(ch, w) { const n = weekItems(ch, w).find((i) => !isDone(ch, i) && i.kind !== 'coach'); if (!n) { say(ch, w, '<p>Nothing left this week.</p>'); return; } if (n.why) say(ch, w, `<p>${esc(n.why)}</p>`); postMoves(ch, w, [n.id], `Start with this · ${fmtH(n.hours)}`); }
   function addItem(ch, w, kind, src, hours, why) {
     const plan = planOf(ch);
     const it = kind === 'read' ? { id: `${ch.id}-${w}-x${plan.items.length}`, week: w, kind, hours, ref: src.id, title: src.name, url: src.url, meta: [src.authors ? `${src.authors} · ${src.year}` : String(src.year || ''), src.kind], why }
@@ -420,7 +422,7 @@
       const its = weekItems(ch, w), dn = its.filter((i) => isDone(ch, i)).length;
       if (dn === its.length) { say(ch, w, `<p>Week ${w} complete: ${fmtH(hoursOf(ch, w))}. ${w < plan.weeks ? `Week ${w + 1} is <b>${esc(phaseOfWeek(ch, w + 1))}</b>; it opens on ${fmtDate(weekDate(ch, w + 1))}. Take the weekend.` : 'That was the last week. Publish the capstone.'}</p>`); return; }
       if (['watch', 'read'].includes(it.kind)) ask(ch, w, { type: 'choice', key: `rate:${it.id}`, q: `Done: <b>${esc(it.title)}</b>. ${dn} of ${its.length} this week. How was it?`, options: ['Too easy', 'About right', 'Too hard'] });
-      else say(ch, w, `<p>Done: <b>${esc(it.title)}</b>. ${dn} of ${its.length} this week, ${fmtH(hoursOf(ch, w, (i) => isDone(ch, i)))} of ${fmtH(hoursOf(ch, w))}. ${nextLine(ch, w)}</p>`);
+      else { say(ch, w, `<p>Done: <b>${esc(it.title)}</b>. ${dn} of ${its.length} this week, ${fmtH(hoursOf(ch, w, (i) => isDone(ch, i)))} of ${fmtH(hoursOf(ch, w))}.</p>`); nextRow(ch, w); }
     } else if (action === 'skip') {
       ch.skipped[it.id] = true; post(ch, w, { sys: true, text: `Skipped ${esc(it.title)} · ${fmtH(hoursOf(ch, w))} left in the week` });
     } else if (action === 'swap') {
@@ -440,10 +442,11 @@
     const week = weekItems(ch, cur).filter((i) => !isDone(ch, i));
     if (/show the week|the week|plan/.test(t)) { post(ch, cur, { ui: { type: 'moves', week: cur }, html: '' }); }
     else if (/less time|busy|travel|no time|lighter|hours/.test(t)) ask(ch, cur, { type: 'range', key: 'hours', q: 'How many hours do you have this week?', min: 2, max: LOADS[ch.load].hours, value: Math.max(2, Math.round(hoursOf(ch, cur, (i) => !isDone(ch, i)) * 0.6)) });
-    else if (/deeper|more|harder|advanced|theory/.test(t)) { const p = P.research.find((x) => !plan.items.some((i) => i.ref === x.id)); if (p) { const it = addItem(ch, cur, 'read', p, 3, p.note); say(ch, cur, `<p>Added a primary source to this week: <a href="${itemHref(ch, it)}">${esc(p.name)}</a>. ${esc(p.note)}</p>`); } else say(ch, cur, '<p>You have read everything in the catalogue for this field. Time to write something.</p>'); }
+    else if (/deeper|more|harder|advanced|theory/.test(t)) { const p = P.research.find((x) => !plan.items.some((i) => i.ref === x.id)); if (p) { const it = addItem(ch, cur, 'read', p, 3, p.note); say(ch, cur, `<p>${esc(p.note)}</p>`); postMoves(ch, cur, [it.id], 'Added to this week · 3 h'); } else say(ch, cur, '<p>You have read everything in the catalogue for this field. Time to write something.</p>'); }
     else if (/who|people|talk|expert|mentor|connect/.test(t)) ask(ch, cur, { type: 'experts', key: 'experts', q: `Three people whose work is the primary source for ${esc(f.name.toLowerCase())}. Connect with one and I will draft the message; the full list is under Connect on the right.`, options: P.people.slice(0, 3).map((p) => p.id) });
-    else if (/first|start|begin|where/.test(t)) { const n = week[0]; say(ch, cur, n ? `<p>Start with <a href="${itemHref(ch, n)}">${esc(n.title)}</a> (${fmtH(n.hours)}). ${esc(n.why || '')}</p>` : '<p>This week is done. Next week opens on Monday.</p>'); }
-    else if (/next|then|after/.test(t)) { const nw = Math.min(plan.weeks, cur + 1); say(ch, cur, `<p>Week ${nw} is <b>${esc(phaseOfWeek(ch, nw))}</b>, ${fmtH(hoursOf(ch, nw))}: ${weekItems(ch, nw).map((i) => `${KIND[i.kind].toLowerCase()} <b>${esc(i.title)}</b>`).join(', ')}. It opens on ${fmtDate(weekDate(ch, nw))}; the <a href="#/calendar">calendar</a> has every week.</p>`); }
+    else if (/first|start|begin|where/.test(t)) firstRow(ch, cur);
+    else if (/next week/.test(t)) { const nw = Math.min(plan.weeks, cur + 1); say(ch, cur, `<p>Week ${nw} is <b>${esc(phaseOfWeek(ch, nw))}</b>, ${fmtH(hoursOf(ch, nw))}. It opens on ${fmtDate(weekDate(ch, nw))}; the <a href="#/calendar">calendar</a> has every week.</p>`); postMoves(ch, cur, weekItems(ch, nw).map((i) => i.id), `Week ${nw} · ${phaseOfWeek(ch, nw)}`); }
+    else if (/next|then|after/.test(t)) nextRow(ch, cur);
     else if (/done|finished|complete/.test(t)) say(ch, cur, week.length ? `<p>${week.length} move${week.length === 1 ? '' : 's'} left this week, ${fmtH(week.reduce((a, i) => a + i.hours, 0))}. Mark them done on the cards and I will reshape next week around what landed.</p>` : '<p>Week complete. Next week opens on Monday; take the weekend.</p>');
     else say(ch, cur, `<p>Noted. ${week.length} move${week.length === 1 ? '' : 's'} left this week. Ask me to go deeper, to lighten the week, or for people to talk to, and I will change the path.</p>`);
     finish(ch);
@@ -453,7 +456,7 @@
     const w = weekOfToday(ch), plan = planOf(ch);
     let it = plan.items.find((i) => i.kind === 'talk' && i.ref === p.id && i.week === w && !isSkipped(ch, i));
     if (!it) it = addItem(ch, w, 'talk', p, 1, `You asked to connect; ${first(p)}'s work is the primary source for what you are doing this week.`);
-    post(ch, w, { sys: true, text: `Connecting with ${esc(p.name)}: <a href="${itemHref(ch, it)}">the draft is ready</a>` });
+    postMoves(ch, w, [it.id], `Connecting with ${first(p)} · draft ready`);
     save(); location.hash = itemHref(ch, it);
   }
   const finish = (ch) => { save(); renderPursuit(ch); const m = $('#main'); m.scrollTop = m.scrollHeight; };
@@ -463,11 +466,12 @@
     const done = isDone(ch, it);
     return `<div class="cc-move ${done ? 'done' : ''}" data-id="${it.id}"><button data-act="done" class="ck ${done ? 'on' : ''}" title="Mark done">${ICO.check}</button><span class="ic">${ICO[it.kind]}</span><a class="ti" href="${itemHref(ch, it)}">${esc(it.title)}</a><span class="m">${esc(KIND[it.kind])}${it.meta[0] ? ` · ${esc(it.meta[0])}` : ''}</span><span class="h">${fmtH(it.hours)}</span><span class="ops">${it.kind !== 'coach' ? '<button data-act="skip">skip</button>' : ''}${['watch', 'read', 'talk'].includes(it.kind) ? '<button data-act="swap">swap</button>' : ''}</span></div>`;
   }
-  const movesList = (ch, w) => `<div class="cc-moves">${weekItems(ch, w).map((i) => moveRow(ch, i)).join('')}</div>`;
+  const movesList = (ch, w, ids, cap) => { const its = ids ? ids.map((id) => planOf(ch).items.find((i) => i.id === id)).filter((i) => i && !isSkipped(ch, i)) : weekItems(ch, w); return `<div class="cc-moves">${cap ? `<div class="cap">${esc(cap)}</div>` : ''}${its.map((i) => moveRow(ch, i)).join('')}</div>`; };
+  const postMoves = (ch, w, ids, cap) => post(ch, w, { ui: { type: 'moves', week: w, ids, cap }, html: '' });
   const letters = 'ABCDEFG';
   function genUI(ch, e, idx) {
     const u = e.ui;
-    if (u.type === 'moves') return movesList(ch, u.week);
+    if (u.type === 'moves') return movesList(ch, u.week, u.ids, u.cap);
     if (e.answer != null) return (u.type === 'choice' ? msg(`<p>${u.q}</p>`) : '') + (u.type === 'pick' ? '' : msg(`<p>${esc(e.answer)}</p>`, true));
     if (u.type === 'choice') return `<div class="gu gu-choice" data-idx="${idx}"><b>${u.q}</b>${u.options.map((o, i) => `<a data-opt="${esc(o)}"><i>${letters[i]}</i>${esc(o)}</a>`).join('')}<a class="else" data-focus><i>${letters[u.options.length]}</i>Something else</a></div>`;
     if (u.type === 'range') return `<div class="gu gu-range" data-idx="${idx}"><input type="range" min="${u.min}" max="${u.max}" step="1" value="${u.value}"><output>${u.value} h</output><button class="pill-btn primary" data-set>Set</button></div>`;
@@ -535,7 +539,7 @@
     if (/start/.test(t)) { cpost({ html: '<p>Three choices and I build the path: field, duration, load.</p>' }); cpost({ sys: true, text: '<a href="#/new">Open New pursuit</a>' }); }
     else if (/program|apply|fellowship/.test(t)) { const top = PR.programs.filter((x) => OPP_FMTS.includes(x.fmt) && (x.fields || [x.field]).some((f) => fieldsOn.includes(f))).sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 3); cpost({ html: `<p>The three strongest in ${fieldsOn.map((f) => field(f).label).join(', ')}: ${top.map((x) => `<b>${esc(x.name)}</b> (${esc(x.provider)}, ${esc(x.fmt)})`).join(', ')}. <a href="#/discover">Discover</a> has the rest; Apply there puts it on your path.</p>` }); }
     else if (/watch|tonight|video/.test(t)) { const vids = V.filter((v) => (v.directions || []).some((d) => fieldsOn.includes(d)) && v.duration >= 1200 && v.duration <= 5400).sort((a, b) => (b.hn ? 1 : 0) - (a.hn ? 1 : 0) || (b.views || 0) - (a.views || 0)).slice(0, 3); cpost({ ui: { type: 'videos', q: 'Three for an evening, 20 to 90 minutes.', options: vids.map((v) => v.id) }, html: '<p>Three for an evening, 20 to 90 minutes.</p>' }); }
-    else if (/today|do now|next/.test(t)) { const todays = S.pursuits.flatMap(dated).filter((x) => sameDay(x.date, midnight(new Date())) && !isDone(x.ch, x.it)); cpost({ html: todays.length ? `<p>Today: ${todays.map((x) => `<a href="${itemHref(x.ch, x.it)}">${esc(x.it.title)}</a> (${fmtH(x.it.hours)})`).join(', ')}.</p>` : `<p>Nothing is scheduled today. ${S.pursuits.length ? `<a href="#/p/${S.pursuits[0].id}">${esc(S.pursuits[0].name)}</a> has this week's moves` : '<a href="#/new">Start a pursuit</a> and I fill the week'}.</p>` }); }
+    else if (/today|do now|next/.test(t)) { const todays = S.pursuits.flatMap(dated).filter((x) => sameDay(x.date, midnight(new Date())) && !isDone(x.ch, x.it)); if (todays.length) cpost({ ui: { type: 'today', items: todays.map((x) => [x.ch.id, x.it.id]) }, html: '' }); else cpost({ html: `<p>Nothing is scheduled today. ${S.pursuits.length ? `<a href="#/p/${S.pursuits[0].id}">${esc(S.pursuits[0].name)}</a> has this week's moves` : '<a href="#/new">Start a pursuit</a> and I fill the week'}.</p>` }); }
     else if (/follow|who|people|expert/.test(t)) { const ppl = LIB.people.filter((p) => (p.fields || [p.field]).some((f) => fieldsOn.includes(f))).slice(0, 3); cpost({ ui: { type: 'experts', q: 'Three people whose work is the primary source.', options: ppl.map((p) => p.id) }, html: '<p>Three people whose work is the primary source.</p>' }); }
     else cpost({ html: '<p>I can start a pursuit, find a program or a person, or pick something to watch. Which one?</p>' });
     cpost({ ui: { type: 'choice', key: 'c', q: 'Anything else?', options: chatOptions() } });
@@ -549,7 +553,8 @@
       else if (e.me) html += msg(e.html, true, e.t);
       else if (e.ui) {
         const u = e.ui;
-        if (u.type === 'videos') html += msg(e.html) + `<div class="gu gu-pick">${u.options.map((id) => V.find((v) => v.id === id)).filter(Boolean).map((v) => `<a class="gu-opt" href="/videos/#/w/${esc(v.id)}"><div class="med"><img class="thumb" src="https://i.ytimg.com/vi/${esc(v.id)}/mqdefault.jpg" alt=""></div><div class="bd"><b>${esc(v.title)}</b><small>${esc(v.channel)} · ${fmtH(v.duration / 3600)}</small></div></a>`).join('')}</div>`;
+        if (u.type === 'today') html += `<div class="cc-moves"><div class="cap">Today</div>${u.items.map(([cid, iid]) => { const ch = S.pursuits.find((c) => c.id === cid); const it = ch && planOf(ch).items.find((i) => i.id === iid); return ch && it ? moveRow(ch, it) : ''; }).join('')}</div>`;
+        else if (u.type === 'videos') html += msg(e.html) + `<div class="gu gu-pick">${u.options.map((id) => V.find((v) => v.id === id)).filter(Boolean).map((v) => `<a class="gu-opt" href="/videos/#/w/${esc(v.id)}"><div class="med"><img class="thumb" src="https://i.ytimg.com/vi/${esc(v.id)}/mqdefault.jpg" alt=""></div><div class="bd"><b>${esc(v.title)}</b><small>${esc(v.channel)} · ${fmtH(v.duration / 3600)}</small></div></a>`).join('')}</div>`;
         else if (u.type === 'experts') html += msg(e.html) + `<div class="gu gu-experts">${u.options.map((id) => LIB.people.find((p) => p.id === id)).filter(Boolean).map((p) => `<a class="gu-opt" href="${esc(p.url)}" ${ext(p.url)}><div class="med">${faceOf(p)}</div><div class="bd"><b>${esc(p.name)}</b><small>${esc(p.role || '')}</small><span>${esc(p.note || '')}</span></div></a>`).join('')}</div>`;
         else if (e.answer != null) html += msg(`<p>${u.q}</p>`) + msg(`<p>${esc(e.answer)}</p>`, true);
         else if (idx === S.chat.length - 1) html += `<div class="gu gu-choice" data-idx="${idx}"><b>${u.q}</b>${u.options.map((o, i) => `<a data-opt="${esc(o)}"><i>${letters[i]}</i>${esc(o)}</a>`).join('')}<a class="else" data-focus><i>${letters[u.options.length]}</i>Something else</a></div>`;
